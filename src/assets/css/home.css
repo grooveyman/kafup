@@ -1,0 +1,113 @@
+
+:root {
+    --curve-edge: 5px;
+}
+.skeleton-back{
+    background-color: rgb(202, 204, 206);
+}
+
+.hero{
+    border-radius: var(--curve-edge);
+    height: 65vh;
+    width: 100%;
+    position: relative;
+    margin-top: 10px;
+}
+.herobtns{
+    padding: 10px;
+    border-radius: var(--curve-edge);
+    color: white;
+    position: absolute;
+    top: 70%;
+    left:5%;
+    
+}
+.herobtns > button{
+    margin-right: 10px;
+}
+
+.placebtn{
+    background-color: #000;
+    padding: 10px;
+    border-radius: var(--curve-edge);
+    color: #fff;
+    border: none;
+    font-size: small;
+}
+
+.sewbtn{
+    background-color: #fff;
+    padding: 10px;
+    border-radius: var(--curve-edge);
+    color: #000;
+    border: none;
+    font-size: small !important;
+}
+
+.cat-active
+{
+    color: black !important;
+}
+.home-categories > span{
+    padding: 20px;
+    color: grey;
+    text-transform: uppercase;
+}
+
+.product{
+    background-color: rgb(202, 204, 206);
+    height: 45vh;
+    width: 100%;
+    margin: 0 !important;
+    padding: 0 !important;
+    border-radius: var(--curve-edge);
+}
+
+.image{
+   
+    background-color: rgb(202, 204, 206);
+    height: 50vh;
+    width: 100%;
+    border-radius: 10px;
+}
+.image-kaftan{
+     background-image: url('../images/kaftan.jpg');
+    background-size: cover;
+}
+
+.image-wedding{
+    background-image: url('../images/weddings.jpg');
+    background-size: cover;
+}
+.desc > p{
+    color: rgb(151, 153, 155);;
+}
+
+.parallax-banner{
+    height: 40vh;
+    width: 100%;
+    background-color: rgb(202, 204, 206);
+    border-radius: 10px;
+    
+
+}
+
+.parallax-container{
+    background-image: url('../images/carousel 6.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-color: burlywood !important;
+    height: 60vh;
+    width: 100%;
+}
+.section{
+    margin-top: 100px !important;
+}
+
+.carousel{
+    background-color: rgb(154, 155, 157);
+    height: 70vh;
+    width: 100%;
+    border-radius: 10px;
+}

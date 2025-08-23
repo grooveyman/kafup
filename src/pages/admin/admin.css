@@ -1,0 +1,143 @@
+input[type="file"]{
+    display: none;
+}
+
+.fileName{
+    margin-top: 20px;
+    color: rgb(255, 255, 255);
+    display: inline-block;
+    padding:15px;
+    border-radius: 25px;
+    cursor: pointer;
+    background-color: #737275;
+    border: none;
+    width: 220px;
+  }
+
+  .file-search-button{
+    margin-top: 30px;
+  }
+
+  .custom-file-upload {
+    color: rgb(255, 255, 255);
+    display: inline-block;
+    padding:15px;
+    border-radius: 25px;
+    cursor: pointer;
+    background-color: #7a166d;
+    border: none;
+  }
+
+  .image-preview {
+  margin-top: 20px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-preview img {
+  max-width: 100%;
+  max-height: 100%;
+  height:100%; 
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.addcube {
+  border-radius: 10px;
+  background-color: #e7e6ea;
+  height: 40vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+.image-preview img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+input, select{
+    height: 50px;
+    border-radius: 10px !important;
+    background-color: #f7f6fa !important;
+}
+
+label{
+    color: #737275;
+}
+
+.size-btn > button{
+    margin: 2px;
+    /* background-color: #ddd !important; */
+    border: none;
+    color: black;
+}
+.o-img{
+    height: 50px !important;
+    width: 50px !important;
+}
+
+.extra-image-box {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border: 2px dashed #ccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 5px;
+  background-color: #f8f9fa;
+}
+
+.extra-image-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.extra-image-placeholder {
+  text-align: center;
+  color: #999;
+}
+
+.breadcrumb-item{
+    background-color: #eceaee;
+    padding: 5px 10px;
+    border-radius: 10px;
+    font-size: xx-small;
+}
+
+.card{
+    border-radius: 10px;
+    background-color: #eceaee !important;
+    border: none !important;
+    padding: 10px;
+}
+
+.stats-card > h5{
+    font-size: x-small;
+    margin: 0;
+}
+.stats-card > h6{
+    font-size: x-large;
+    margin: 0 !important;   
+}
+.stats-card > p{
+    font-size: xx-small;
+    margin: 10px 0px 0px 0px;
+}
+.graph-card > p{
+    font-size: small;
+}

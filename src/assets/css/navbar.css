@@ -1,0 +1,25 @@
+.navcontent{
+    margin-left: var(--mpad) !important;
+    margin-right: var(--mpad) !important;
+}
+
+.info{
+    margin-top: var(--mpad);
+    background-color: rgb(34, 109, 248);
+    padding: 30px 0px 30px 0px;
+    color: white;
+}
+
+.info > h4{
+    margin-left: var(--mpad);
+}
+
+.navbar{
+    background-color: rgba(255, 255, 255, 0);
+    backdrop-filter: blur(0px);
+  }
+  
+  .scrolled{
+    background-color: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(5px) !important;
+  }
