@@ -1,4 +1,5 @@
 import { createContext, ReactNode, useCallback, useContext, useEffect, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -21,7 +22,7 @@ interface LoginModalProviderProps{
 export function LoginModalProvider({ children }: LoginModalProviderProps){
     const [isLoginOpen, setIsLoginOpen] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-     const [authUser, setAuthUser] = useState("");
+    const [authUser, setAuthUser] = useState("");
      
 
     const loginUser = useCallback((user:string) => {

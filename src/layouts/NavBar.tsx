@@ -65,13 +65,12 @@ const NavBar: React.FC = () => {
                                 <a className="nav-link" href="/addproducts"> Products</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#"> Ordes</a>
+                                <a className="nav-link" href="#"> Orders</a>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link" href="#"> Customers</a>
                             </li>
                            
-                            
                         </ul>
                         <span className="">
                             <ul className="navbar-nav mb-lg-0">

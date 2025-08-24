@@ -4,7 +4,7 @@ import { useLoginModal } from "../context/LoginModalContext";
 
 const LoginModal: React.FC = () => {
     const { loginUser, closeLogin, isLoginOpen} = useLoginModal();
-
+    
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
@@ -19,8 +19,6 @@ const LoginModal: React.FC = () => {
     };
 
     
-
-
     return (
         <>
 

@@ -141,3 +141,6 @@ label{
 .graph-card > p{
     font-size: small;
 }
+.bottom-card > h5{
+  font-size: small;
+}

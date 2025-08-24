@@ -6,7 +6,7 @@ import carousel3 from "../assets/images/carousel 10.png";
 const Home: React.FC = () => {
   return (
     <>
-      <div className="container">
+      <div className="container-fluid">
         <div className="row">
           <div className="col-md-12">
             <div className="skeleton-back hero">
@@ -14,7 +14,7 @@ const Home: React.FC = () => {
                 id="carouselExampleSlidesOnly"
                 className="carousel slide"
                 data-bs-ride="carousel"
-                style={{height:"65vh"}}
+                style={{height:"100vh"}}
               >
                 <div className="carousel-inner h-100">
                   <div className="carousel-item active h-100">
@@ -39,29 +39,33 @@ const Home: React.FC = () => {
         <div className="row mt-3">
           <div className="col-md-2"></div>
           <div className="col-md-8 home-categories d-flex justify-content-center">
-            {/* <span className='cat-active'>New Arrivals</span>
-                    <span>Best Selling</span>
-                    <span>Most Popular</span> */}
           </div>
           <div className="col-md-2"></div>
         </div>
 
         <div className="row">
-          <div className="col-md-4">
+          <div className="col-md-3">
             <div className="product"></div>
             <div className="desc mt-2">
               <h6>Product Name</h6>
               <p>Price.</p>
             </div>
           </div>
-          <div className="col-md-4">
+          <div className="col-md-3">
             <div className="product"></div>
             <div className="desc mt-2">
               <h6>Product Name</h6>
               <p>Price.</p>
             </div>
           </div>
-          <div className="col-md-4">
+          <div className="col-md-3">
+            <div className="product"></div>
+            <div className="desc mt-2">
+              <h6>Product Name</h6>
+              <p>Price.</p>
+            </div>
+          </div>
+          <div className="col-md-3">
             <div className="product"></div>
             <div className="desc mt-2">
               <h6>Product Name</h6>
@@ -69,6 +73,13 @@ const Home: React.FC = () => {
             </div>
           </div>
         </div>
+
+        <div className="row mt-3">
+          <div className="col-md-6 left-ad"></div>
+          <div className="col-md-6 right-ad"></div>
+        </div>
+        
+        
       </div>
       {/* Parallax advert */}
       <div

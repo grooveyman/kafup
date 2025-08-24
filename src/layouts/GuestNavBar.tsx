@@ -44,7 +44,7 @@ const GuestNavBar = () =>{
         <>
         
         <nav className={` ${scrolled ? 'scrolled':''} navbar fixed-top navbar-expand-lg `}>
-            <div className="container">
+            <div className="container-fluid">
                 <a className="navbar-brand" href="#"><img src={logo} width={"80px"} height={"40px"} /></a>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
@@ -56,16 +56,16 @@ const GuestNavBar = () =>{
                                 <Link to="/" className='nav-link active' aria-current="page">Home</Link>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#"> Men</a>
+                                <a className="nav-link" href="#"> Shop</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#"> Women</a>
+                                <a className="nav-link" href="#"> About</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#"> Weddings</a>
+                                <a className="nav-link" href="#"> Contact</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#"> Customize</a>
+                                <a className="nav-link" href="#"> Cart</a>
                             </li>
                             
                         </ul>
