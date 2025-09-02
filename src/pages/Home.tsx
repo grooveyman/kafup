@@ -6,9 +6,9 @@ import carousel3 from "../assets/images/carousel 10.png";
 const Home: React.FC = () => {
   return (
     <>
-      <div className="container-fluid">
+      <div className="container">
         <div className="row">
-          <div className="col-md-12">
+          {/* <div className="col-md-12">
             <div className="skeleton-back hero">
               <div
                 id="carouselExampleSlidesOnly"
@@ -33,7 +33,7 @@ const Home: React.FC = () => {
                 <button className="sewbtn">SEW YOUR KAFTAN</button>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
 
         <div className="row mt-3">
@@ -44,53 +44,59 @@ const Home: React.FC = () => {
         </div>
 
         <div className="row">
-          <div className="col-md-3">
+          <div className="col-md-4">
             <div className="product"></div>
             <div className="desc mt-2">
               <h6>Product Name</h6>
               <p>Price.</p>
             </div>
           </div>
-          <div className="col-md-3">
+          <div className="col-md-4">
             <div className="product"></div>
             <div className="desc mt-2">
               <h6>Product Name</h6>
               <p>Price.</p>
             </div>
           </div>
-          <div className="col-md-3">
+          <div className="col-md-4">
             <div className="product"></div>
             <div className="desc mt-2">
               <h6>Product Name</h6>
               <p>Price.</p>
             </div>
           </div>
-          <div className="col-md-3">
-            <div className="product"></div>
-            <div className="desc mt-2">
-              <h6>Product Name</h6>
-              <p>Price.</p>
-            </div>
-          </div>
+          
         </div>
 
-        <div className="row mt-3">
-          <div className="col-md-6 left-ad"></div>
-          <div className="col-md-6 right-ad"></div>
-        </div>
-        
-        
-      </div>
-      {/* Parallax advert */}
-      <div
-        className="container-fluid parallax-container"
-        style={{ backgroundColor: "rgba(67, 75, 86, 1);" }}
-      >
-        <div className="row section">
-          <div className="col-md-12">
-            <div className=""></div>
+        <div className="row">
+          <div className="col-md-4">
+            <div className="product"></div>
+            <div className="desc mt-2">
+              <h6>Product Name</h6>
+              <p>Price.</p>
+            </div>
           </div>
+          <div className="col-md-4">
+            <div className="product"></div>
+            <div className="desc mt-2">
+              <h6>Product Name</h6>
+              <p>Price.</p>
+            </div>
+          </div>
+          <div className="col-md-4">
+            <div className="product"></div>
+            <div className="desc mt-2">
+              <h6>Product Name</h6>
+              <p>Price.</p>
+            </div>
+          </div>
+          
         </div>
+
+        <div className="mb-5 mt-3 d-flex justify-content-center">
+          <button className="btn loadmorebtn">LOAD MORE</button>
+        </div>
+        
       </div>
     </>
   );

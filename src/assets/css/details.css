@@ -1,0 +1,51 @@
+.navigation > span{
+    background-color: aqua;
+    border-radius: 5px;
+    padding: 2px 5px;
+    font-size: small;
+}
+
+.prodimage-container{
+    /* object-fit: cover; */
+    width: 100%;
+    height: 100%;
+    padding: 50px;
+}
+
+.stock-status{
+    border-radius: 5px;
+    background-color: aqua;
+    padding: 5px 10px;
+}
+.select{
+    width: 100px;
+    height: 40px;
+    background-color: aqua;
+    border: none;
+    border-radius: 5px;
+}
+.selectform{
+    width: 100%;
+    background-color: aqua;
+    padding-top: 10px;
+}
+
+
+[role="presentation"] > button{
+    background: none !important;
+    color: black;
+}
+
+[role="presentation"] > .active{
+    font-weight: bold;
+    color: black !important;
+}
+[role="presentation"] > .active:hover{
+    text-decoration: none !important;
+    font-weight: bold !important;
+    color: black !important;
+}
+
+label{
+    font-weight: bold;
+}

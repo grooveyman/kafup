@@ -1,6 +1,7 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 import NavBar from './NavBar';
+import Footer from './Footer';
 // import NavBar from './NavBar';
 // import Footer from './Footer';
 
@@ -14,7 +15,7 @@ const MainLayout: React.FC = () => {
             </section>
 
             <div className='conatiner'> 
-                {/* <Footer /> */}
+               <Footer/>
             </div>
 
         </>

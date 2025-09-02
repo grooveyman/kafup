@@ -1,6 +1,7 @@
 
 :root {
     --curve-edge: 5px;
+    --lightgrey: rgb(202, 204, 206);
 }
 .skeleton-back{
     background-color: rgb(202, 204, 206);
@@ -8,8 +9,8 @@
 
 .hero{
     border-radius: var(--curve-edge);
-    height: 100vh;
-    width: 100%;
+    height: 50vh !important;
+    width: fit-content !important;
     position: relative;
     margin-top: 0px;
 }
@@ -56,7 +57,7 @@
 
 .product{
     background-color: rgb(202, 204, 206);
-    height: 40vh;
+    height: 45vh;
     width: 100%;
     margin: 0 !important;
     padding: 0 !important;
@@ -122,4 +123,23 @@
     height: 60vh;
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+.loadmorebtn{
+    background-color: black !important;
+    color: #fff !important;
+    border-radius: 30px !important;
+    font-size: small !important;
+}
+
+.navsearch{
+    height: auto !important;
+}
+.footer{
+    background-color: var(--lightgrey);
+    padding: 50px 0px;
+}
+.copyright{
+    font-size: small;
+    color: black;
 }
