@@ -28,7 +28,7 @@ const Details: React.FC = () => {
                   </div>
 
                   <button
-                    className="carousel-control-prev"
+                    className="carousel-control-prev custom-control"
                     type="button"
                     data-bs-target="#carouselExampleSlidesOnly"
                     data-bs-slide="prev"
@@ -40,7 +40,7 @@ const Details: React.FC = () => {
                     <span className="visually-hidden">Previous</span>
                   </button>
                   <button
-                    className="carousel-control-next"
+                    className="carousel-control-next custom-control"
                     type="button"
                     data-bs-target="#carouselExampleSlidesOnly"
                     data-bs-slide="next"
@@ -48,7 +48,9 @@ const Details: React.FC = () => {
                     <span
                       className="carousel-control-next-icon"
                       aria-hidden="true"
-                    ></span>
+                    >
+
+                    </span>
                     <span className="visually-hidden">Next</span>
                   </button>
                 </div>
@@ -56,8 +58,8 @@ const Details: React.FC = () => {
             </div>
           </div>
           <div className="col-md-6">
-            <div>
-              <div className="header d-flex justify-content-start">
+            <div style={{"margin":"0px 30px"}}>
+              <div className="header d-flex">
                 <div className="brand">
                   <p>
                     <span style={{ color: "grey" }}>Brand:</span>{" "}

@@ -1,0 +1,22 @@
+  .prodcart-img > img{
+    height: 70px !important;
+    width: 70px !important;
+    border-radius: 10px;
+  }
+
+  .prodcart-details{
+    margin: 0px 10px !important;
+    padding: none !important;
+    font-size: small !important;
+  }
+
+  .prodcart-price{
+    font-size: small;
+  }
+  .prodcart-price > span{
+    color: gray;
+  }
+
+  .offcanvas{
+    width: 350px !important;
+  }

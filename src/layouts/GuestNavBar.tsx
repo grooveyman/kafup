@@ -4,10 +4,12 @@ import "../assets/css/navbar.css";
 import logo from "../assets/images/logo.png";
 import { useLoginModal } from "../context/LoginModalContext";
 import { CarFrontIcon, Search, ShoppingBagIcon, User } from "lucide-react";
+import CartSidebar from "../components/CartSidebar";
 
 const GuestNavBar = () => {
   const [scrolled, setScrolled] = useState<boolean>(false);
   const { isLoggedIn, openLogin, isLoginOpen } = useLoginModal();
+  const [showCart, setShowCart] = useState(false);
 
   const handleScroll = () => {
     if (window.scrollY > 50) {
@@ -115,7 +117,7 @@ const GuestNavBar = () => {
                     </a>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link" href="#">
+                    <a className="nav-link" href="#" onClick={() => setShowCart(true)}>
                       <ShoppingBagIcon />
                     </a>
                   </li>
@@ -125,6 +127,7 @@ const GuestNavBar = () => {
           </div>
         </div>
       </nav>
+      <CartSidebar show={showCart} onClose={() => setShowCart(false)} />
     </>
   );
 };

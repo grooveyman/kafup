@@ -49,3 +49,33 @@
 label{
     font-weight: bold;
 }
+
+.carousel-control-prev,
+.carousel-control-next {
+  width: auto !important;
+  height: auto;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5); /* background box */
+  padding: 10px;
+  z-index: 2;
+  border-radius: 4px;
+}
+
+.carousel-control-prev {
+  left: 0;
+  margin-left: 0; /* remove Bootstrap margin */
+}
+
+.carousel-control-next {
+  right: 0;
+  margin-right: 0; /* remove Bootstrap margin */
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-size: 100% 100%;
+  width: 20px;
+  height: 20px;
+  filter: invert(1); /* make icon white on dark bg */
+}
