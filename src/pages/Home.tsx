@@ -8,32 +8,7 @@ const Home: React.FC = () => {
     <>
       <div className="container">
         <div className="row">
-          {/* <div className="col-md-12">
-            <div className="skeleton-back hero">
-              <div
-                id="carouselExampleSlidesOnly"
-                className="carousel slide"
-                data-bs-ride="carousel"
-                style={{height:"100vh"}}
-              >
-                <div className="carousel-inner h-100">
-                  <div className="carousel-item active h-100">
-                    <img src={kaftan_img} className="d-block w-100 h-100 object-fit-cover" alt="..."/>
-                  </div>
-                  <div className="carousel-item">
-                    <img src={carousel2} className="d-block w-100" alt="..." />
-                  </div>
-                  <div className="carousel-item">
-                    <img src={carousel3} className="d-block w-100" alt="..." />
-                  </div>
-                </div>
-              </div>
-              <div className="herobtns">
-                <button className="placebtn">PLACE YOUR ORDER</button>
-                <button className="sewbtn">SEW YOUR KAFTAN</button>
-              </div>
-            </div>
-          </div> */}
+          
         </div>
 
         <div className="row mt-3">

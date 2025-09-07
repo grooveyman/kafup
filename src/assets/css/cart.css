@@ -8,3 +8,18 @@ th{
     font-weight: normal;
     font-size: small;
 }
+.prod-det > p{
+    padding: 0;
+    margin: 0;
+}
+.prod-var{
+    color: grey;
+    font-size: small;
+}
+.qty > button{
+    height: max-content;
+    width: max-content;
+}
+input[type="number"]{
+    padding: 10px !important;
+}
