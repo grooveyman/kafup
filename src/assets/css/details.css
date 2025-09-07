@@ -11,7 +11,24 @@
     height: 100%;
     padding: 50px;
 }
-
+.preview-img > img{
+    width: 100% !important;
+    height: 70vh !important;
+}
+.other-img > img{
+    height: 100px;
+    width: 150px !important;
+    padding: 0px 5px 5px 0px;
+    display: block;
+}
+.prod-details > h3{
+    font-weight: bold;
+}
+.prod-details > div > p{
+    font-weight: lighter;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: small;
+}
 .stock-status{
     border-radius: 5px;
     background-color: aqua;
@@ -50,32 +67,29 @@ label{
     font-weight: bold;
 }
 
-.carousel-control-prev,
-.carousel-control-next {
-  width: auto !important;
-  height: auto;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: rgba(0, 0, 0, 0.5); /* background box */
-  padding: 10px;
-  z-index: 2;
-  border-radius: 4px;
+input[type="number"]{
+    height: 40px !important;
+    width: 20% !important;
+    border-radius: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+.addcart-btn{
+    border-radius:  0 !important;
+    height: 50px !important;
+    margin: 0 !important;
+    /* border: none !important; */
+    padding: 0px 20px;
 }
 
-.carousel-control-prev {
-  left: 0;
-  margin-left: 0; /* remove Bootstrap margin */
+.varsize{
+    font-size: small;
 }
-
-.carousel-control-next {
-  right: 0;
-  margin-right: 0; /* remove Bootstrap margin */
+.btn-check {
+font-size: 0.2rem !important;   /* smaller text */
+  padding: 0.15rem 0.1rem !important; /* reduce height */
+  height: auto;  
 }
-
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-  background-size: 100% 100%;
-  width: 20px;
-  height: 20px;
-  filter: invert(1); /* make icon white on dark bg */
+.varcolor{
+    font-size: small;
 }

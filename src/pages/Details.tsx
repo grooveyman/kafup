@@ -1,241 +1,265 @@
-import { Star } from "lucide-react";
-import Product from "../components/Product";
-import dummyimg from "../assets/images/kaftan.jpg";
-import dummyimg2 from "../assets/images/hero3.jpg";
+import React, { useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import dummyprod from "../assets/images/kaftan.jpg";
+import "../assets/css/details.css";
+import { CartItemType, useCartContext } from "../context/CartContext";
 
-const Details: React.FC = () => {
+interface Product {
+  id: number;
+  name: string;
+  price: number;
+  description: string;
+  previmage: string;
+  images: string[];
+  colors: string[];
+  quantity: number;
+}
+
+const dummyProducts: Product[] = [
+  {
+    id: 1,
+    name: "Longsleeved Shirt",
+    price: 20,
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi culpa mollitia porro sapiente obcaecati. Quo deleniti libero odit officiis, assumenda rerum minima excepturi alias fugit, mollitia velit veritatis maxime suscipit.",
+    previmage: "/assets/images/hero3.jpg",
+    images: ["/assets/images/hero3.jpg", "/assets/images/hero1.jpg"],
+    colors: ["yellow", "black"],
+    quantity:3
+  },
+  {
+    id: 2,
+    name: "Product 2",
+    price: 15,
+    description: "This is a detailed description of Product 2.",
+    previmage: "/assets/images/hero2.jpg",
+    images: ["/assets/images/hero3.jpg", "/assets/images/hero1.jpg"],
+    colors: ["yellow", "black"],
+    quantity: 5
+  },
+  {
+    id: 3,
+    name: "Product 3",
+    price: 30,
+    description: "This is a detailed description of Product 3.",
+    previmage: "/assets/images/carousel 10.png",
+    images: ["/assets/images/hero3.jpg", "/assets/images/hero3.jpg"],
+    colors: ["yellow", "black"],
+    quantity:6
+  },
+];
+
+const ProductDetails: React.FC = () => {
+  const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
+
+  const {addToCart, removeCart, cartItems} = useCartContext();
+
+  const product = dummyProducts.find((p) => p.id === Number(id));
+
+  //
+  const [selectedColor, setSelectedColor] = useState(product?.colors[0] || "");
+  const [selectedImage, setSelectedImage] = useState(0);
+  const [fullscreen, setFullscreen] = useState(false);
+
+  const [selected, setSelected] = useState<string[]>([]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const values = Array.from(e.target.selectedOptions, (option) => option.value);
+    setSelected(values);
+  };
+
+
+  if (!product) {
+    return (
+      <div className="container mt-5">
+        <h3>Product not found.</h3>
+        <button className="btn btn-secondary mt-3" onClick={() => navigate(-1)}>
+          Go Back
+        </button>
+      </div>
+    );
+  }
+
+  const images = product.images;
+
+  const handleNext = () => {
+    setSelectedImage((prev) => (prev + 1) % images.length);
+  };
+
+  const handlePrev = () => {
+    setSelectedImage((prev) => (prev - 1 + images.length) % images.length);
+  };
+
+  const handleAddToCart = () => {
+    const productProd:CartItemType = {
+      id:product.id,
+      name: product.name,
+      quantity: product.quantity,
+      price: product.price,
+      previmg: product.previmage
+    };
+
+    addToCart(productProd);
+  }
+  
+
   return (
-    <>
-      <div className="container">
-        <div className="row section">
-          <div className="col-md-6">
-            <div className="prodimage-container">
-              <div
-                id="carouselExampleSlidesOnly"
-                className="carousel slide"
-                data-bs-ride="carousel"
-                style={{ height: "50vh" }}
-              >
-                <div className="carousel-inner">
-                  <div className="carousel-item active">
-                    <img src={dummyimg2} className="d-block w-100" alt="..." />
-                  </div>
-                  <div className="carousel-item">
-                    <img src={dummyimg2} className="d-block w-100" alt="..." />
-                  </div>
-                  <div className="carousel-item">
-                    <img src={dummyimg2} className="d-block w-100" alt="..." />
-                  </div>
-
-                  <button
-                    className="carousel-control-prev custom-control"
-                    type="button"
-                    data-bs-target="#carouselExampleSlidesOnly"
-                    data-bs-slide="prev"
-                  >
-                    <span
-                      className="carousel-control-prev-icon"
-                      aria-hidden="true"
-                    ></span>
-                    <span className="visually-hidden">Previous</span>
-                  </button>
-                  <button
-                    className="carousel-control-next custom-control"
-                    type="button"
-                    data-bs-target="#carouselExampleSlidesOnly"
-                    data-bs-slide="next"
-                  >
-                    <span
-                      className="carousel-control-next-icon"
-                      aria-hidden="true"
-                    >
-
-                    </span>
-                    <span className="visually-hidden">Next</span>
-                  </button>
-                </div>
-              </div>
+    <div className="container mb-5">
+      <div className="row mt-6">
+        {/* LEFT SIDE */}
+        <div className="col-md-6">
+          <div className="d-flex">
+            {/* Thumbnails */}
+            <div className="other-img d-flex flex-column me-2">
+              {images.map((img, index) => (
+                <img
+                  key={index}
+                  src={img}
+                  className={`img-thumbnail mb-2 ${
+                    selectedImage === index ? "border border-primary" : ""
+                  }`}
+                  onClick={() => setSelectedImage(index)}
+                  style={{
+                    cursor: "pointer",
+                    width: "80px",
+                    height: "80px",
+                    objectFit: "cover",
+                  }}
+                  alt={`Thumbnail ${index + 1}`}
+                />
+              ))}
             </div>
-          </div>
-          <div className="col-md-6">
-            <div style={{"margin":"0px 30px"}}>
-              <div className="header d-flex">
-                <div className="brand">
-                  <p>
-                    <span style={{ color: "grey" }}>Brand:</span>{" "}
-                    <span>Apple</span>
-                  </p>
-                </div>
-                <div style={{ paddingLeft: "50px" }}>
-                  <Star fill="sea" strokeWidth={0} size={20} />
-                  <Star fill="sea" strokeWidth={0} size={20} />
-                  <Star strokeWidth={1} size={20} />
-                  <Star strokeWidth={1} size={20} />
-                  <Star strokeWidth={1} size={20} />
-                </div>
-                <p style={{ paddingLeft: "10px", fontWeight: "bold" }}>
-                  (1 review)
-                </p>
-              </div>
-              <div className="prodname fs-3">Apple MacBook Pro 2019 | 16"</div>
-              <p style={{ maxWidth: "50%", paddingTop: "20px" }}>
-                RAM 16.0 GB | Memory 512 GB | Silver Keyboard layout (Eng)
-              </p>
-              <div className="price">
-                <h1 className="fw-bold">$699.99</h1>
-              </div>
 
-              <span className="stock-status">In Stock</span>
-              <hr style={{ color: "grey" }} />
-              <div className="pt-2">
-                <select className="select">
-                  {Array.from({ length: 10 }, (_, i) => (
-                    <option key={i + 1} value={i + 1}>
-                      {i + 1}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="pt-3">
-                <button className="form-control btn btn-primary">
-                  Add to Cart
-                </button>
-              </div>
+            {/* Preview */}
+            <div className="preview-img flex-grow-1">
+              <img
+                src={images[selectedImage]}
+                className="img-fluid rounded"
+                style={{ cursor: "zoom-in" }}
+                onClick={() => setFullscreen(true)}
+                alt="Preview"
+              />
             </div>
           </div>
         </div>
 
-        {/* <div className="section">
-          <div className="row">
-            <div className="col-md-3 col-sm-6 col-12"></div>
-            <div className="col-md-6 col-sm-6 col-12">
-              <div className="row d-flex justify-content-between">
-                <ul
-                  className="nav nav-pills mb-3"
-                  id="pills-tab"
-                  role="tablist"
-                >
-                  <li className="nav-item" role="presentation">
-                    <button
-                      className="nav-link active"
-                      id="pills-home-tab"
-                      data-bs-toggle="pill"
-                      data-bs-target="#pills-home"
-                      type="button"
-                      role="tab"
-                      aria-controls="pills-home"
-                      aria-selected="true"
-                    >
-                      Related Products
-                    </button>
-                  </li>
-                  <li className="nav-item" role="presentation">
-                    <button
-                      className="nav-link"
-                      id="pills-profile-tab"
-                      data-bs-toggle="pill"
-                      data-bs-target="#pills-profile"
-                      type="button"
-                      role="tab"
-                      aria-controls="pills-profile"
-                      aria-selected="false"
-                    >
-                      Write Your Review
-                    </button>
-                  </li>
-                  <li className="nav-item" role="presentation">
-                    <button
-                      className="nav-link"
-                      id="pills-contact-tab"
-                      data-bs-toggle="pill"
-                      data-bs-target="#pills-contact"
-                      type="button"
-                      role="tab"
-                      aria-controls="pills-contact"
-                      aria-selected="false"
-                    >
-                      All Reviews
-                    </button>
-                  </li>
-                </ul>
+        {/* RIGHT SIDE */}
+        <div className="col-md-6">
+          <div className="row prod-details">
+            <h3>{product.name}</h3>
+            <h4>${product.price.toFixed(2)}</h4>
+            <div>
+              <p>{product.description}</p>
+            </div>
+
+            {/* COLOR OPTIONS */}
+            <div className="row">
+              <div className="col-md-4 varcolor">
+                <p className="mt-3 mb-1">Select Color</p>
+                <div className="d-flex mt-2">
+                  {product.colors.map((color) => (
+                    <div
+                      key={color}
+                      className={`color-swatch me-2 ${
+                        color === selectedColor ? "border border-dark" : ""
+                      }`}
+                      style={{
+                        width: "20px",
+                        height: "20px",
+                        borderRadius: "50%",
+                        backgroundColor: color,
+                        cursor: "pointer",
+                      }}
+                      onClick={() => {
+                        setSelectedColor(color);
+                        setSelectedImage(0);
+                      }}
+                    ></div>
+                  ))}
+                </div>
+                
+              </div>
+              
+            </div>
+            <div className="row">
+              <div className="col-md-8 varsize">
+                <p className="mt-3 mb-1">Select Szie</p>
+                <input type="checkbox" className="btn-check btn-sm" id="btn-check-4" autoComplete="off" />
+                <label className="btn" htmlFor="btn-check-4">XL</label>
+
+              <input type="checkbox" className="btn-check" id="btn-check-5" checked autoComplete="off" />
+              <label className="btn" htmlFor="btn-check-5">L</label>
+
+              <input type="checkbox" className="btn-check" id="btn-check-6" autoComplete="off" />
+              <label className="btn" htmlFor="btn-check-6">M</label>
               </div>
             </div>
-            <div className="col-md-3 col-sm-6 col-12"></div>
-          </div>
 
-          <div className="row">
-            <div className="tab-content container" id="pills-tabContent">
-              <div
-                className="tab-pane fade show active"
-                id="pills-home"
-                role="tabpanel"
-                aria-labelledby="pills-home-tab"
-              >
-               
-                <div className="row">
-                  <div className="col-md-3 col-sm-6 col-12">
-                    <Product />
-                  </div>
-                  <div className="col-md-3 col-sm-6 col-12">
-                    <Product />
-                  </div>
-                  <div className="col-md-3 col-sm-6 col-12">
-                    <Product />
-                  </div>
-                </div>
+            <div className="row">
+              <p className="mt-3 mb-1">Quantity</p>
+              <div>
+                <input type="number" className="form-control"/>
+              </div>
+            </div>
 
-               
-              </div>
-              <div
-                className="tab-pane fade "
-                id="pills-profile"
-                role="tabpanel"
-                aria-labelledby="pills-profile-tab"
-              >
-                <div className="row">
-                  <div className="col-md-3"></div>
-                  <div className="col-md-6">
-                    <div className="">
-                      <div>
-                        <label>Ratings</label>
-                        <div>
-                          <Star />
-                          <Star />
-                          <Star />
-                          <Star />
-                          <Star />
-                        </div>
-                      </div>
-                      <div className="mt-3">
-                        <label>Comments</label>
-                        <textarea
-                          className="form-control selectform mt-2"
-                          style={{ resize: "none" }}
-                          rows={5}
-                        ></textarea>
-                      </div>
-                      <button className="form-control btn btn-primary mt-3">
-                        Submit
-                      </button>
-                    </div>
-                  </div>
-                  <div className="col-md-3"></div>
+            <div className="row mt-3">
+           
+                <div className="col-md-6">
+                  <button className="btn btn-outline-success form-control addcart-btn" onClick={handleAddToCart}>Add to Cart</button>
                 </div>
-              </div>
-              <div
-                className="tab-pane fade"
-                id="pills-contact"
-                role="tabpanel"
-                aria-labelledby="pills-contact-tab"
-              >
-                All Reviews
+                <div className="col-md-6">
+                  <button className="btn btn-success form-control addcart-btn">Buy Now</button>
+                
               </div>
             </div>
           </div>
-        </div> */}
+        </div>
       </div>
-    </>
+
+      {/* FULLSCREEN MODAL */}
+      {fullscreen && (
+        <div
+          className="fullscreen-modal d-flex align-items-center justify-content-center"
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100vw",
+            height: "100vh",
+            backgroundColor: "rgba(0,0,0,0.9)",
+            zIndex: 1050,
+          }}
+        >
+          <button
+            className="btn-close btn-close-white position-absolute top-0 end-0 m-3"
+            onClick={() => setFullscreen(false)}
+          ></button>
+
+          <button
+            className="btn btn-light position-absolute start-0 ms-3"
+            onClick={handlePrev}
+          >
+            ‹
+          </button>
+
+          <img
+            src={images[selectedImage]}
+            className="img-fluid"
+            style={{ maxHeight: "90%", maxWidth: "90%" }}
+            alt="Fullscreen preview"
+          />
+
+          <button
+            className="btn btn-light position-absolute end-0 me-3"
+            onClick={handleNext}
+          >
+            ›
+          </button>
+        </div>
+      )}
+    </div>
   );
 };
 
-export default Details;
+export default ProductDetails;

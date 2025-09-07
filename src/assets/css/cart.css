@@ -1,0 +1,10 @@
+
+table, thead, tr, th, td{
+    background: transparent !important;
+}
+
+th{
+    color: gray !important;
+    font-weight: normal;
+    font-size: small;
+}

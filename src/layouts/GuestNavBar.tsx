@@ -1,56 +1,50 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import "../assets/css/navbar.css";
 import logo from "../assets/images/logo.png";
 import { useLoginModal } from "../context/LoginModalContext";
-import { CarFrontIcon, Search, ShoppingBagIcon, User } from "lucide-react";
+import { Search, ShoppingBagIcon, User } from "lucide-react";
 import CartSidebar from "../components/CartSidebar";
+import { useCartContext } from "../context/CartContext";
 
 const GuestNavBar = () => {
   const [scrolled, setScrolled] = useState<boolean>(false);
-  const { isLoggedIn, openLogin, isLoginOpen } = useLoginModal();
+  const { openLogin, isLoginOpen } = useLoginModal();
   const [showCart, setShowCart] = useState(false);
+  const {cartItems, removeCart} = useCartContext();
 
-  const handleScroll = () => {
-    if (window.scrollY > 50) {
-      setScrolled(true);
-    } else {
-      setScrolled(false);
-    }
-  };
+  // const [cartItems, setCartItems] = useState([
+  //   { id: 1, name: "Longsleeved Shirt", quantity: 2, price: 20 },
+  //   { id: 2, name: "Full Beautiful Kaftan", quantity: 5, price: 15 },
+  // ]);
+
+
+
+  // const handleDelete = (id: number) => {
+  //   setCartItems((prev) => prev.filter((item) => item.id !== id));
+  // };
+
+  const handleScroll = () => setScrolled(window.scrollY > 50);
 
   useEffect(() => {
-    if (isLoginOpen) {
-      document.body.classList.add("modal-open");
-    } else {
-      document.body.classList.remove("modal-open");
-    }
-
-    return () => {
-      document.body.classList.remove("modal-open");
-    };
+    document.body.classList.toggle("modal-open", isLoginOpen);
+    return () => document.body.classList.remove("modal-open");
   }, [isLoginOpen]);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
     <>
-      <nav
-        className={` ${
-          scrolled ? "scrolled" : ""
-        } navbar fixed-top navbar-expand-lg `}
-      >
+      <nav className={`${scrolled ? "scrolled" : ""} navbar fixed-top navbar-expand-lg`}>
         <div className="container">
           <a className="navbar-brand" href="#">
             Kafup
-            {/* <img src={logo} width={"80px"} height={"40px"} /> */}
+            {/* <img src={logo} width="80" height="40" /> */}
           </a>
+
           <button
             className="navbar-toggler"
             type="button"
@@ -62,72 +56,90 @@ const GuestNavBar = () => {
           >
             <span className="navbar-toggler-icon"></span>
           </button>
-          <div className="collapse navbar-collapse" id="navbarText">
-            <div className="d-flex w-100 justify-content-between">
-              <ul className="navbar-nav mb-2 mb-lg-0 d-flex justify-content-start">
-                <li className="nav-item">
-                  {/* <Link to="/" className='nav-link active' aria-current="page">Home</Link> */}
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="#">
-                    {" "}
-                    Shop
-                  </a>
-                </li>
 
+          <div className="collapse navbar-collapse" id="navbarText">
+            <div className="d-flex w-100 justify-content-between align-items-center">
+              <ul className="navbar-nav mb-2 mb-lg-0">
                 <li className="nav-item">
-                  <a className="nav-link" href="#">
-                    Kaftan
-                  </a>
+                  {/* <Link to="/" className="nav-link active">Home</Link> */}
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#">
-                    Agbada
-                  </a>
+                  <a className="nav-link" href="#">Shop</a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#">
-                    {" "}
-                    Weddings
-                  </a>
+                  <a className="nav-link" href="#">Kaftan</a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="#">Agbada</a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="#">Weddings</a>
                 </li>
               </ul>
-              <span className="">
-                <ul className="navbar-nav mb-lg-0">
-                  <form className="form-inline">
+
+              <ul className="navbar-nav mb-lg-0 align-items-center">
+                <li className="nav-item me-3">
+                  <form className="d-flex">
                     <div className="input-group">
-                      
                       <input
                         type="text"
                         className="form-control navsearch"
                         placeholder="Search for products"
-                        aria-label="Username"
-                        aria-describedby="basic-addon1"
+                        aria-label="Search products"
                       />
-                      <div className="input-group-prepend">
-                        <span className="input-group-text" style={{"background":"none", "border":"none"}} id="basic-addon1">
-                          <Search />
-                        </span>
-                      </div>
+                      <span
+                        className="input-group-text"
+                        style={{ background: "none", border: "none" }}
+                        id="basic-addon1"
+                      >
+                        <Search />
+                      </span>
                     </div>
                   </form>
-                  <li className="nav-item">
-                    <a className="nav-link" href="#" onClick={openLogin}>
-                      <User />
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a className="nav-link" href="#" onClick={() => setShowCart(true)}>
-                      <ShoppingBagIcon />
-                    </a>
-                  </li>
-                </ul>
-              </span>
+                </li>
+
+                <li className="nav-item me-2">
+                  <button
+                    type="button"
+                    className="nav-link btn btn-link p-0"
+                    onClick={openLogin}
+                    aria-label="Open account"
+                  >
+                    <User />
+                  </button>
+                </li>
+
+                {/* Cart with badge */}
+                <li className="nav-item">
+                  <button
+                    type="button"
+                    className="nav-link btn btn-link p-0 position-relative"
+                    onClick={() => setShowCart(true)}
+                    aria-label="Open cart"
+                  >
+                    <ShoppingBagIcon />
+                    {cartItems.length > 0 && (
+                      <span
+                        className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                        style={{ fontSize: "0.7rem" }}
+                      >
+                        {cartItems.length}
+                      </span>
+                    )}
+                  </button>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
       </nav>
-      <CartSidebar show={showCart} onClose={() => setShowCart(false)} />
+
+      <CartSidebar
+        show={showCart}
+        cartItems={cartItems}
+        onDelete={removeCart}
+        onClose={() => setShowCart(false)}
+      />
     </>
   );
 };
