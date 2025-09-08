@@ -103,4 +103,4 @@ const CartSidebar: React.FC<CartSidebarProps> = ({
   );
 };
 
-export default CartSidebar;
+export default React.memo(CartSidebar);

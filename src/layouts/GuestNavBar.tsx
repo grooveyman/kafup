@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../assets/css/navbar.css";
 import logo from "../assets/images/logo.png";
 import { useLoginModal } from "../context/LoginModalContext";
@@ -11,14 +11,13 @@ const GuestNavBar = () => {
   const [scrolled, setScrolled] = useState<boolean>(false);
   const { openLogin, isLoginOpen } = useLoginModal();
   const [showCart, setShowCart] = useState(false);
-  const {cartItems, removeCart} = useCartContext();
+  const { cartItems, removeCart } = useCartContext();
+  const navigate = useNavigate();
 
   // const [cartItems, setCartItems] = useState([
   //   { id: 1, name: "Longsleeved Shirt", quantity: 2, price: 20 },
   //   { id: 2, name: "Full Beautiful Kaftan", quantity: 5, price: 15 },
   // ]);
-
-
 
   // const handleDelete = (id: number) => {
   //   setCartItems((prev) => prev.filter((item) => item.id !== id));
@@ -38,9 +37,13 @@ const GuestNavBar = () => {
 
   return (
     <>
-      <nav className={`${scrolled ? "scrolled" : ""} navbar fixed-top navbar-expand-lg`}>
+      <nav
+        className={`${
+          scrolled ? "scrolled" : ""
+        } navbar fixed-top navbar-expand-lg`}
+      >
         <div className="container">
-          <a className="navbar-brand" href="#">
+          <a className="navbar-brand" href="" onClick={() => navigate("/")}>
             Kafup
             {/* <img src={logo} width="80" height="40" /> */}
           </a>
@@ -64,16 +67,24 @@ const GuestNavBar = () => {
                   {/* <Link to="/" className="nav-link active">Home</Link> */}
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#">Shop</a>
+                  <a className="nav-link" href="#">
+                    Shop
+                  </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#">Kaftan</a>
+                  <a className="nav-link" href="#">
+                    Kaftan
+                  </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#">Agbada</a>
+                  <a className="nav-link" href="#">
+                    Agbada
+                  </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#">Weddings</a>
+                  <a className="nav-link" href="#">
+                    Weddings
+                  </a>
                 </li>
               </ul>
 
@@ -134,12 +145,14 @@ const GuestNavBar = () => {
         </div>
       </nav>
 
-      <CartSidebar
-        show={showCart}
-        cartItems={cartItems}
-        onDelete={removeCart}
-        onClose={() => setShowCart(false)}
-      />
+      {showCart && (
+        <CartSidebar
+          show={showCart}
+          cartItems={cartItems}
+          onDelete={removeCart}
+          onClose={() => setShowCart(false)}
+        />
+      )}
     </>
   );
 };
