@@ -144,3 +144,29 @@ label{
 .bottom-card > h5{
   font-size: small;
 }
+
+.table-card{
+  background-color: rgb(200, 197, 197);
+  padding: 7px;
+  border-radius: 10px;
+  font-size: small;
+}
+.prod-category > span{
+  margin: 0px 2px;
+}
+.prod-action-edit{
+  margin: 0px 5px;
+  transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+.prod-action-edit:hover{
+  transform: scale(1.5); 
+  color: #dc3545;
+}
+.prod-action-del{
+  margin: 0px 5px;
+  transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+.prod-action-del:hover{
+  transform: scale(1.9); 
+  color: #dc3545;
+}

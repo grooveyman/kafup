@@ -1,6 +1,8 @@
 import React, { useState, useRef } from 'react';
 import './admin.css';
 import { CopyPlus } from 'lucide-react';
+import Breadcrumb from '../../../components/BreadCrumb';
+import { href } from 'react-router-dom';
 
 interface SizeEntry {
   size: string;
@@ -100,6 +102,12 @@ const handleExtraImageChange = (index: number, e: React.ChangeEvent<HTMLInputEle
 
   return (
     <div className="container">
+      <div className='row'>
+        <h5>Add New Product</h5>
+        <div>
+                <Breadcrumb crumbs={[{label: "Dashboard", href:"/dashboard"}, {label:"Product List", href:"/products"}, {label:"Add Product", href:"/addproducts"}]} />
+              </div>
+      </div>
       <div className="row">
         <div className='col-md-6'>
 {/* Image Upload */}

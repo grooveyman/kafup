@@ -3,6 +3,7 @@ import kaftan_img from "../assets/images/hero3.jpg";
 import carousel2 from "../assets/images/hero2.jpg";
 import carousel3 from "../assets/images/carousel 10.png";
 import { useApiQuery } from "../hooks/useApi";
+import SkeletonLoader from "../components/SkeletonLoader";
 
 interface Product {
   id: number;
@@ -34,17 +35,25 @@ const Home: React.FC = () => {
         </div>
 
         <div className="row">
-          {data?.map((product) => (
-            <div className="col-md-4">
-              <div className="product">
-                <img src={product.previewimg} width={"100%"} height={"100%"} />
+          {isLoading ? (
+            <SkeletonLoader count={3} />
+          ) : (
+            data?.map((product) => (
+              <div className="col-md-4">
+                <div className="product">
+                  <img
+                    src={product.previewimg}
+                    width={"100%"}
+                    height={"100%"}
+                  />
+                </div>
+                <div className="desc mt-2">
+                  <h6>{product.name}</h6>
+                  <p>{product.price ?? "$40"}</p>
+                </div>
               </div>
-              <div className="desc mt-2">
-                <h6>{product.name}</h6>
-                <p>{product.price ?? '$40'}</p>
-              </div>
-            </div>
-          ))}
+            ))
+          )}
         </div>
         <div className="row">
           <div className="col-md-4">

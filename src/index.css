@@ -18,6 +18,12 @@ body, * {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+.breadcrumb-item{
+  background-color: transparent !important;
+  font-size:smaller !important;
+
+}
+
 /*
 a {
   font-weight: 500;
