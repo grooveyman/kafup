@@ -6,7 +6,7 @@ import { useCartContext } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
 
 interface CartItem {
-  id: number;
+  id: string;
   name: string;
   price: number;
   quantity: number;
@@ -16,7 +16,7 @@ interface CartSidebarProps {
   show: boolean;
   onClose: () => void;
   cartItems: CartItem[];
-  onDelete: (id: number) => void;
+  onDelete: (id: string) => void;
 }
 
 const CartSidebar: React.FC<CartSidebarProps> = ({
@@ -26,7 +26,7 @@ const CartSidebar: React.FC<CartSidebarProps> = ({
   onDelete,
 }) => {
   const {cartItems:cartItems2} = useCartContext();
-  const total = cartItems.reduce((sum, item) => sum + item.price, 0);
+  const total = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
   const navigate = useNavigate();
 
@@ -93,7 +93,7 @@ const CartSidebar: React.FC<CartSidebarProps> = ({
 
           <div className="d-flex justify-content-between">
             <strong>Total</strong>
-            <strong>${total}</strong>
+            <strong>${Number(total)}</strong>
           </div>
           <button className="btn btn-info w-100 mt-3" onClick={() => navigate("/cart")}>View Cart</button>
           <button className="btn btn-primary w-100 mt-3">Checkout</button>

@@ -18,7 +18,6 @@ const NavBar: React.FC = () => {
         }else{
             setScrolled(false);
         }
-
         
     }
 
@@ -50,7 +49,7 @@ const NavBar: React.FC = () => {
         <>
         {isLoggedIn ? (
             <nav className={` ${scrolled ? 'scrolled':''} navbar fixed-top navbar-expand-lg `}>
-            <div className="container-fluid">
+            <div className="container">
                 <a className="navbar-brand" href="#">
                     KafUp
                     {/* <img src={logo} width={"80px"} height={"40px"} /> */}

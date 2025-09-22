@@ -13,7 +13,7 @@
 }
 .preview-img > img{
     width: 100% !important;
-    height: 70vh !important;
+    height: 50vh !important;
 }
 .other-img > img{
     height: 100px;
@@ -69,7 +69,7 @@ label{
 
 input[type="number"]{
     height: 40px !important;
-    width: 20% !important;
+    /* width: 20% !important; */
     border-radius: 0 !important;
     margin: 0 !important;
     padding: 0 !important;

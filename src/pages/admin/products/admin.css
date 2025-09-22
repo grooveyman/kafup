@@ -71,6 +71,7 @@ input, select{
     height: 50px;
     border-radius: 10px !important;
     background-color: #f7f6fa !important;
+    width: 100% !important;
 }
 
 label{

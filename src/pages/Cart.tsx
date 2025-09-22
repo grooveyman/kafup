@@ -1,97 +1,97 @@
-
 import { Trash2Icon } from "lucide-react";
 import "../assets/css/cart.css";
+import { CartItemType, useCartContext } from "../context/CartContext";
+import { useState } from "react";
+import CartSummary from "../components/CartSummary";
 
-const Cart:React.FC = () => {
-    return (
-        <>
-        <div className="container">
-            <div className="row">
-                <div className="col-md-8">
-                    <h6>Shopping Cart</h6>
-                    <div className="card cart-list">
-                        <div className="table-responsive">
-                            <table className="table table-borderless table-hover" style={{"background":"none"}}>
-                                <thead className="">
-                                    <tr>
-                                        <th>Product Details</th>
-                                        <th>Quantity</th>
-                                        <th>Price</th>
-                                        <th>Total</th>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div className="d-flex gap-3">
-                                                <img src="/assets/images/kaftan.jpg" height={50} width={50}/>
-                                                <div className="prod-det">
-                                                    <p className="prodname">Kaftan dress</p>
-                                                    <p className="prod-var">Variations</p>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div className="d-flex qty">
-                                                <button className="btn">-</button>
-                                                <input type="number" className="form-control" />
-                                                <button className="btn">+</button>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div className="d-flex">
-                                                <p>300</p>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div className="d-flex">
-                                                <p>6500</p>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div className="d-flex">
-                                                <p><Trash2Icon size={15}/></p>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </thead>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                 <div className="col-md-4">
-                    <h6>Order Summary</h6>
-                    <div className="card order-summary p-4">
-                        <div className="table-responsive">
-                            <table className="table table-striped table-hover"> 
-                               
-                                <tr>
-                                    <td>
-                                        Cart Subtotal
-                                    </td>
-                                    <td>$90</td>
-                                </tr>
-                                <tr>
-                                    <hr/>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span style={{backgroundColor:"transparent", fontWeight:"bold"}}>Estimated Total</span>
-                                    </td>
-                                    <td>
-                                        <span style={{backgroundColor:"transparent", fontWeight:"bold"}}>$40</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <hr/>
-                                </tr>
-                            </table>
-                        </div>
-                        <button className="btn btn-success">Checkout</button>
-                    </div>
-                 </div>
-            </div>
-        </div>
-        </>
-    );
+const Cart: React.FC = () => {
+  const { cartItems, reduceQuantity, increaseQuantity } = useCartContext();
+  console.log(cartItems);
+  const defaultTotal = cartItems.reduce((acc, item) => acc + item.total, 0);
+  const [total, setTotal] = useState(defaultTotal);
+  const handleTotal = ({type, item}:{type:string, item:CartItemType}) => {
+    if(type === "plus"){
+      increaseQuantity(item);
+  }else if (type === "minus"){
+      reduceQuantity(item);   
+  }
+
+  setTotal(total + item.total);
 }
+  return (
+    <>
+      <div className="container">
+        <div className="row">
+          <div className="col-md-8">
+            <h6>Shopping Cart</h6>
+            <div className="card cart-list">
+              <div className="table-responsive">
+                <table
+                  className="table table-borderless table-hover"
+                  style={{ background: "none" }}
+                >
+                  <thead className="">
+                    <tr>
+                      <th>Product Details</th>
+                      <th>Quantity</th>
+                      <th>Price</th>
+                      <th>Total</th>
+                    </tr>
+                    {cartItems.length === 0 ? (
+                      <p>Your cart is empty</p>
+                    ) : (
+                      cartItems.map((item, index) => (
+                        <tr key={index}>
+                          <td>
+                            <div className="d-flex gap-3">
+                              <img
+                                src="/assets/images/kaftan.jpg"
+                                height={50}
+                                width={50}
+                              />
+                              <div className="prod-det">
+                                <p className="prodname">{item.name}</p>
+                                <p className="prod-var">{item.variations?.map(v=>v.size).join(",")}</p>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <div className="d-flex qty">
+                              <button className="btn" onClick={()=>handleTotal({type:"minus",item:item})}>-</button>
+                              <input type="number" className="form-control" value={item.quantity} />
+                              <button className="btn" onClick={()=>handleTotal({type:"plus", item:item})}>+</button>
+                            </div>
+                          </td>
+                          <td>
+                            <div className="d-flex">
+                              <p>{item.price}</p>
+                            </div>
+                          </td>
+                          <td>
+                            <div className="d-flex">
+                              <p>{item.total.toFixed(2)}</p>
+                            </div>
+                          </td>
+                          <td>
+                            <div className="d-flex">
+                              <p>
+                                <Trash2Icon size={15} />
+                              </p>
+                            </div>
+                          </td>
+                        </tr>
+                      ))
+                    )}
+                  </thead>
+                </table>
+              </div>
+            </div>
+          </div>
+          <CartSummary subtotal={total} estotal={total} />
+        </div>
+      </div>
+    </>
+  );
+};
 
 export default Cart;

@@ -1,10 +1,13 @@
 import { EditIcon, EyeIcon, Trash2Icon, View } from "lucide-react";
-import Breadcrumb from "../../../components/BreadCrumb";
+import Breadcrumb from "../../../components/Breadcrumb";
 import { useApiQuery } from "../../../hooks/useApi";
 import { useNavigate } from "react-router-dom";
+import SkeletonLoader from "../../../components/SkeletonLoader";
+import { Product } from "../../Home";
+import ListSkeletonLoader from "../../../components/ListSkeletonLoader";
 
 const ProductList: React.FC = () => {
-  // const {data, isLoading, isError} = useApiQuery(["products"], "/products");
+  const { data, isLoading, isError } = useApiQuery<Product[]>(["products"], "/products");
   const navigate = useNavigate();
   return (
     <>
@@ -48,108 +51,74 @@ const ProductList: React.FC = () => {
                     <th>Price</th>
                     <th>Total</th>
                   </tr>
-                  <tr className="">
-                    <td className="">
-                      <div className="d-flex gap-3">
-                        <img
-                          src="/assets/images/kaftan.jpg"
-                          height={50}
-                          width={50}
-                        />
-                        <div className="prod-det">
-                          <p className="prodname">Kaftan dress</p>
-                          <p className="prod-var">Variations</p>
+                  {isLoading ? (
+                    <tr>
+                      <td><ListSkeletonLoader count={3} /></td>
+                      <td><ListSkeletonLoader count={3} /></td>
+                      <td><ListSkeletonLoader count={3} /></td>
+                      <td><ListSkeletonLoader count={3} /></td>
+                      <td><ListSkeletonLoader count={3} /></td>
+                    </tr>
+                    
+                  ) : (
+                    data?.map((product:any) => {
+                      return(
+                        <tr className="" key={product.id}>
+                      <td className="">
+                        <div className="d-flex gap-3">
+                          <img
+                            src="/assets/images/kaftan.jpg"
+                            height={50}
+                            width={50}
+                          />
+                          <div className="prod-det">
+                            <p className="prodname">{product.name}</p>
+                            <p className="prod-var">Variations</p>
+                          </div>
                         </div>
-                      </div>
-                    </td>
-                    <td>
-                      <p className="prod-category">
-                        <span className="table-card">Kaftan</span>
-                        <span className="table-card">Men</span>
-                      </p>
-                    </td>
-                    <td className="">
-                      <p>233</p>
-                    </td>
-
-                    <td>
-                      <div className="d-flex">
-                        <p>300</p>
-                      </div>
-                    </td>
-                    <td>
-                      <div className="d-flex">
-                        <p>6500</p>
-                      </div>
-                    </td>
-                    <td>
-                      <div className="d-flex">
-                        <p className="prod-action-btn">
-                          <EditIcon
-                            className="prod-action-edit"
-                            style={{ cursor: "pointer" }}
-                            size={18}
-                          />
-                          <Trash2Icon
-                            className="prod-action-del"
-                            size={18}
-                            style={{ cursor: "pointer" }}
-                          />
+                      </td>
+                      <td>
+                        <p className="prod-category">
+                          {product.category && <span className="table-card">{product.category}</span>}
+                          <span className="table-card">Men</span>
                         </p>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr className="">
-                    <td className="">
-                      <div className="d-flex gap-3">
-                        <img
-                          src="/assets/images/kaftan.jpg"
-                          height={50}
-                          width={50}
-                        />
-                        <div className="prod-det">
-                          <p className="prodname">Kaftan dress</p>
-                          <p className="prod-var">Variations</p>
+                      </td>
+                      <td className="">
+                        <p>{product.quantity}</p>
+                      </td>
+
+                      <td>
+                        <div className="d-flex">
+                          <p>300</p>
                         </div>
-                      </div>
-                    </td>
-                    <td>
-                      <p className="prod-category">
-                        <span className="table-card">Kaftan</span>
-                        <span className="table-card">Men</span>
-                      </p>
-                    </td>
-                    <td className="">
-                      <p>233</p>
-                    </td>
+                      </td>
+                      <td>
+                        <div className="d-flex">
+                          <p>6500</p>
+                        </div>
+                      </td>
+                      <td>
+                        <div className="d-flex">
+                          <p className="prod-action-btn">
+                            <EditIcon
+                              className="prod-action-edit"
+                              style={{ cursor: "pointer" }}
+                              size={18}
+                            />
+                            <Trash2Icon
+                              className="prod-action-del"
+                              size={18}
+                              style={{ cursor: "pointer" }}
+                            />
+                          </p>
+                        </div>
+                      </td>
+                    </tr>
+                      );
+                    })
+                    
+                  )}
 
-                    <td>
-                      <div className="d-flex">
-                        <p>300</p>
-                      </div>
-                    </td>
-                    <td>
-                      <div className="d-flex">
-                        <p>6500</p>
-                      </div>
-                    </td>
-                    <td>
-                      <div className="d-flex">
-                        <p className="prod-action-btn">
-                          <EditIcon
-                            className="prod-action-edit"
-                            style={{ cursor: "pointer" }}
-                            size={18}
-                          />
-                          <Trash2Icon
-                            className="prod-action-del"
-                            size={18}
-                            style={{ cursor: "pointer" }}
-                          />
-                        </p>
-                      </div>
-                    </td>
-                  </tr>
                 </thead>
               </table>
             </div>

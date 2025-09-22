@@ -2,75 +2,108 @@ import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import dummyprod from "../assets/images/kaftan.jpg";
 import "../assets/css/details.css";
-import { CartItemType, useCartContext } from "../context/CartContext";
+import { CartItemType, CartVariation, useCartContext } from "../context/CartContext";
+import { useApiQuery } from "../hooks/useApi";
+import DetailsSkeletonLoader from "../components/DetailsSkeletonLoader";
+import { Variation } from "./admin/products/AddProduct";
 
 interface Product {
-  id: number;
+  id: string;
   name: string;
   price: number;
   description: string;
-  previmage: string;
-  images: string[];
+  previewimg: string;
+  prodimages: Image[];
   colors: string[];
   quantity: number;
+  variations: Variation[]; 
 }
 
-const dummyProducts: Product[] = [
-  {
-    id: 1,
-    name: "Longsleeved Shirt",
-    price: 20,
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi culpa mollitia porro sapiente obcaecati. Quo deleniti libero odit officiis, assumenda rerum minima excepturi alias fugit, mollitia velit veritatis maxime suscipit.",
-    previmage: "/assets/images/hero3.jpg",
-    images: ["/assets/images/hero3.jpg", "/assets/images/hero1.jpg"],
-    colors: ["yellow", "black"],
-    quantity:3
-  },
-  {
-    id: 2,
-    name: "Product 2",
-    price: 15,
-    description: "This is a detailed description of Product 2.",
-    previmage: "/assets/images/hero2.jpg",
-    images: ["/assets/images/hero3.jpg", "/assets/images/hero1.jpg"],
-    colors: ["yellow", "black"],
-    quantity: 5
-  },
-  {
-    id: 3,
-    name: "Product 3",
-    price: 30,
-    description: "This is a detailed description of Product 3.",
-    previmage: "/assets/images/carousel 10.png",
-    images: ["/assets/images/hero3.jpg", "/assets/images/hero3.jpg"],
-    colors: ["yellow", "black"],
-    quantity:6
-  },
-];
+interface ProductResponse {
+  product: Product;
+}
+
+interface Image{
+  imgurl: string;
+}
 
 const ProductDetails: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
+  const { id: prodId } = useParams<{ id: string }>();
+  const productId = prodId!;
   const navigate = useNavigate();
+  const [selectedQuantity, setSelectedQuantity] = useState(0);
+  const [selectedSize, setSelectedSize] = useState<string>("");
 
-  const {addToCart, removeCart, cartItems} = useCartContext();
+  const { addToCart } = useCartContext();
 
-  const product = dummyProducts.find((p) => p.id === Number(id));
+  // fetch product
+  const { data, isLoading, isError } = useApiQuery<ProductResponse>(
+    ["products", productId],
+    "/products/product/" + productId
+  );
 
-  //
-  const [selectedColor, setSelectedColor] = useState(product?.colors[0] || "");
+  const product = data?.product;
+  console.log("Fetched product:", product);
+
+
+  const [selectedColor, setSelectedColor] = useState(
+    product?.variations?.[0]?.color || ""
+  );
   const [selectedImage, setSelectedImage] = useState(0);
   const [fullscreen, setFullscreen] = useState(false);
 
-  const [selected, setSelected] = useState<string[]>([]);
+  
+  const images: Image[] = product?.prodimages || [];
+  console.log("Product images:", images);
 
-  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const values = Array.from(e.target.selectedOptions, (option) => option.value);
-    setSelected(values);
+  const handleNext = () => {
+    if (images.length > 0) {
+      setSelectedImage((prev) => (prev + 1) % images.length);
+    }
   };
 
+  const handlePrev = () => {
+    if (images.length > 0) {
+      setSelectedImage((prev) => (prev - 1 + images.length) % images.length);
+    }
+  };
 
-  if (!product) {
+  const handleAddToCart = () => {
+    if (!product) return; 
+
+    const cartVariations: CartVariation[] = [{
+      size: selectedSize,
+      color: selectedColor,
+      price: product.price,
+      quantity: selectedQuantity,
+    }];
+
+    const productProd: CartItemType = {
+      id: product.id,
+      name: product.name,
+      quantity: selectedQuantity,
+      price: product.price,
+      previmg: product.previewimg,
+      variations: cartVariations,
+      total: product.price * selectedQuantity,
+    };
+
+    addToCart(productProd);
+  };
+  const handleSizeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const size = e.target.value;
+    setSelectedSize(size);
+  };
+
+  if (isLoading) {
+    return (
+      <div className="container mb-5">
+        <DetailsSkeletonLoader count={1} />
+      </div>
+    );
+  }
+
+  if (isError || !product) {
     return (
       <div className="container mt-5">
         <h3>Product not found.</h3>
@@ -80,29 +113,6 @@ const ProductDetails: React.FC = () => {
       </div>
     );
   }
-
-  const images = product.images;
-
-  const handleNext = () => {
-    setSelectedImage((prev) => (prev + 1) % images.length);
-  };
-
-  const handlePrev = () => {
-    setSelectedImage((prev) => (prev - 1 + images.length) % images.length);
-  };
-
-  const handleAddToCart = () => {
-    const productProd:CartItemType = {
-      id:product.id,
-      name: product.name,
-      quantity: product.quantity,
-      price: product.price,
-      previmg: product.previmage
-    };
-
-    addToCart(productProd);
-  }
-  
 
   return (
     <div className="container mb-5">
@@ -115,7 +125,7 @@ const ProductDetails: React.FC = () => {
               {images.map((img, index) => (
                 <img
                   key={index}
-                  src={img}
+                  src={img.imgurl}
                   className={`img-thumbnail mb-2 ${
                     selectedImage === index ? "border border-primary" : ""
                   }`}
@@ -134,7 +144,7 @@ const ProductDetails: React.FC = () => {
             {/* Preview */}
             <div className="preview-img flex-grow-1">
               <img
-                src={images[selectedImage]}
+                src={images[selectedImage]?.imgurl || product.previewimg}
                 className="img-fluid rounded"
                 style={{ cursor: "zoom-in" }}
                 onClick={() => setFullscreen(true)}
@@ -148,7 +158,7 @@ const ProductDetails: React.FC = () => {
         <div className="col-md-6">
           <div className="row prod-details">
             <h3>{product.name}</h3>
-            <h4>${product.price.toFixed(2)}</h4>
+            <h4>${product.price}</h4>
             <div>
               <p>{product.description}</p>
             </div>
@@ -158,59 +168,77 @@ const ProductDetails: React.FC = () => {
               <div className="col-md-4 varcolor">
                 <p className="mt-3 mb-1">Select Color</p>
                 <div className="d-flex mt-2">
-                  {product.colors.map((color) => (
+                  {product.variations.map((color) => (
                     <div
-                      key={color}
+                      key={color.color}
                       className={`color-swatch me-2 ${
-                        color === selectedColor ? "border border-dark" : ""
+                        color.color === selectedColor ? "border border-dark" : ""
                       }`}
                       style={{
                         width: "20px",
                         height: "20px",
                         borderRadius: "50%",
-                        backgroundColor: color,
+                        backgroundColor: color.color,
                         cursor: "pointer",
                       }}
                       onClick={() => {
-                        setSelectedColor(color);
+                        setSelectedColor(color.color);
                         setSelectedImage(0);
                       }}
                     ></div>
                   ))}
                 </div>
-                
               </div>
-              
             </div>
+
+            {/* SIZE OPTIONS */}
             <div className="row">
               <div className="col-md-8 varsize">
-                <p className="mt-3 mb-1">Select Szie</p>
-                <input type="checkbox" className="btn-check btn-sm" id="btn-check-4" autoComplete="off" />
-                <label className="btn" htmlFor="btn-check-4">XL</label>
-
-              <input type="checkbox" className="btn-check" id="btn-check-5" checked autoComplete="off" />
-              <label className="btn" htmlFor="btn-check-5">L</label>
-
-              <input type="checkbox" className="btn-check" id="btn-check-6" autoComplete="off" />
-              <label className="btn" htmlFor="btn-check-6">M</label>
+                <p className="mt-3 mb-1">Select Size</p>
+                {product.variations.length === 0 && <p>No size variations available.</p>}
+                {product.variations.map((variation, index) => (
+                  <>
+                  <input
+                  key={index}
+                  type="radio"
+                  className="btn-check btn-sm"
+                  id={`btn-check-xl-${index}`}
+                  autoComplete="off"
+                  name="size"
+                  value={variation.size}
+                  onChange={handleSizeChange}
+                />
+                <label className="btn" htmlFor={`btn-check-xl-${index}`}>
+                  {variation.size}
+                </label>
+                </>
+                ))}
+                
               </div>
             </div>
 
+            {/* QUANTITY */}
             <div className="row">
               <p className="mt-3 mb-1">Quantity</p>
-              <div>
-                <input type="number" className="form-control"/>
+              <div className="col-md-4">
+                <input type="number" value={selectedQuantity} onChange={(e)=>setSelectedQuantity(Number(e.target.value))} className="form-control input-quantity"/>
               </div>
             </div>
 
+            {/* ACTION BUTTONS */}
             <div className="row mt-3">
-           
-                <div className="col-md-6">
-                  <button className="btn btn-outline-success form-control addcart-btn" onClick={handleAddToCart}>Add to Cart</button>
-                </div>
-                <div className="col-md-6">
-                  <button className="btn btn-success form-control addcart-btn">Buy Now</button>
-                
+              <div className="col-md-6">
+                <button
+                  className="btn btn-outline-success form-control addcart-btn"
+                  onClick={handleAddToCart}
+                >
+                  Add to Cart
+                </button>
+              </div>
+              <div className="col-md-6">
+                <button className="btn btn-success form-control addcart-btn">
+                  Buy Now
+                </button>
               </div>
             </div>
           </div>
@@ -243,9 +271,7 @@ const ProductDetails: React.FC = () => {
             ‹
           </button>
 
-          <img
-            src={images[selectedImage]}
-            className="img-fluid"
+          <img src={images[selectedImage].imgurl}
             style={{ maxHeight: "90%", maxWidth: "90%" }}
             alt="Fullscreen preview"
           />

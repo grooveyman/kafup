@@ -11,7 +11,7 @@ const GuestNavBar = () => {
   const [scrolled, setScrolled] = useState<boolean>(false);
   const { openLogin, isLoginOpen } = useLoginModal();
   const [showCart, setShowCart] = useState(false);
-  const { cartItems, removeCart } = useCartContext();
+  const { cartItems, addToCart, removeCart } = useCartContext();
   const navigate = useNavigate();
 
   // const [cartItems, setCartItems] = useState([
@@ -19,9 +19,11 @@ const GuestNavBar = () => {
   //   { id: 2, name: "Full Beautiful Kaftan", quantity: 5, price: 15 },
   // ]);
 
-  // const handleDelete = (id: number) => {
-  //   setCartItems((prev) => prev.filter((item) => item.id !== id));
-  // };
+  
+
+  const handleDelete = (id: string) => {
+    removeCart(id);
+  };
 
   const handleScroll = () => setScrolled(window.scrollY > 50);
 
@@ -98,14 +100,15 @@ const GuestNavBar = () => {
                         placeholder="Search for products"
                         aria-label="Search products"
                       />
-                      <span
+                      
+                    </div>
+                    <span
                         className="input-group-text"
                         style={{ background: "none", border: "none" }}
                         id="basic-addon1"
                       >
                         <Search />
                       </span>
-                    </div>
                   </form>
                 </li>
 

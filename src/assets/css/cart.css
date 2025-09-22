@@ -20,6 +20,9 @@ th{
     height: max-content;
     width: max-content;
 }
+.qty > input{
+    width: 100px !important;
+}
 input[type="number"]{
     padding: 10px !important;
 }
