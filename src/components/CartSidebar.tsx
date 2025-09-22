@@ -93,7 +93,7 @@ const CartSidebar: React.FC<CartSidebarProps> = ({
 
           <div className="d-flex justify-content-between">
             <strong>Total</strong>
-            <strong>${Number(total)}</strong>
+            <strong>${Number(total.toFixed(2))}</strong>
           </div>
           <button className="btn btn-info w-100 mt-3" onClick={() => navigate("/cart")}>View Cart</button>
           <button className="btn btn-primary w-100 mt-3">Checkout</button>

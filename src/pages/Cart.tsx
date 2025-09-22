@@ -1,7 +1,7 @@
 import { Trash2Icon } from "lucide-react";
 import "../assets/css/cart.css";
 import { CartItemType, useCartContext } from "../context/CartContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CartSummary from "../components/CartSummary";
 
 const Cart: React.FC = () => {
@@ -15,9 +15,10 @@ const Cart: React.FC = () => {
   }else if (type === "minus"){
       reduceQuantity(item);   
   }
-
-  setTotal(total + item.total);
 }
+useEffect(() => {
+  setTotal(cartItems.reduce((acc, item) => acc + item.total, 0));
+}, [cartItems]);
   return (
     <>
       <div className="container">
