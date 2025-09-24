@@ -1,7 +1,5 @@
 import "../assets/css/home.css";
-import kaftan_img from "../assets/images/hero3.jpg";
-import carousel2 from "../assets/images/hero2.jpg";
-import carousel3 from "../assets/images/carousel 10.png";
+
 import { useApiQuery } from "../hooks/useApi";
 import SkeletonLoader from "../components/SkeletonLoader";
 import { useNavigate } from "react-router-dom";
@@ -36,12 +34,29 @@ const Home: React.FC = () => {
           <div className="col-md-2"></div>
         </div>
 
+        <div className="row mt-4 mb-4">
+          <div className="col-md-12">
+            <div className="d-flex" style={{height: "340px"}}>
+              <div className="hero-left" style={{ flex: 2 }}>
+                
+              </div>
+              <div className="hero-right" style={{ flex: 1 }}>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div className="row">
           {isLoading ? (
             <SkeletonLoader count={3} />
           ) : (
             data?.map((product) => (
-              <div className="col-md-4" onClick={() => navigate("/details/"+product.id)} key={product.id}>
+              <div
+                className="col-md-3"
+                onClick={() => navigate("/details/" + product.id)}
+                key={product.id}
+              >
                 <div className="product">
                   <img
                     src={product.previewimg}

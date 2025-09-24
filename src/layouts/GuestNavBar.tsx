@@ -5,7 +5,7 @@ import logo from "../assets/images/logo.png";
 import { useLoginModal } from "../context/LoginModalContext";
 import { Search, ShoppingBagIcon, User } from "lucide-react";
 import CartSidebar from "../components/CartSidebar";
-import { useCartContext } from "../context/CartContext";
+import { CartItemType, useCartContext } from "../context/CartContext";
 
 const GuestNavBar = () => {
   const [scrolled, setScrolled] = useState<boolean>(false);
@@ -21,8 +21,8 @@ const GuestNavBar = () => {
 
   
 
-  const handleDelete = (id: string) => {
-    removeCart(id);
+  const handleDelete = (item: CartItemType) => {
+    removeCart(item);
   };
 
   const handleScroll = () => setScrolled(window.scrollY > 50);

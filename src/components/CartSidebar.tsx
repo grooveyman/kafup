@@ -2,7 +2,7 @@ import React from "react";
 import dummycart from "../assets/images/kaftan.jpg";
 import "../assets/css/sidebar.css";
 import { Trash } from "lucide-react";
-import { useCartContext } from "../context/CartContext";
+import { CartItemType, useCartContext } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
 
 interface CartItem {
@@ -16,7 +16,7 @@ interface CartSidebarProps {
   show: boolean;
   onClose: () => void;
   cartItems: CartItem[];
-  onDelete: (id: string) => void;
+  onDelete: (item: CartItemType) => void;
 }
 
 const CartSidebar: React.FC<CartSidebarProps> = ({
@@ -78,7 +78,7 @@ const CartSidebar: React.FC<CartSidebarProps> = ({
                       <Trash
                         strokeWidth={1}
                         size={15}
-                        onClick={() => onDelete(item.id)}
+                        onClick={() => onDelete(item)}
                       />
                     </div>
                   </div>

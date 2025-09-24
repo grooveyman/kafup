@@ -26,7 +26,7 @@ export interface CartItemType {
 
 interface CartContextTypes {
   addToCart: (cartItem: CartItemType) => void;
-  removeCart: (cartItemId: string) => void;
+  removeCart: (cartItem: CartItemType) => void;
   cartItems: CartItemType[];
   reduceQuantity: (cartItem: CartItemType) => void;
   increaseQuantity: (cartItem: CartItemType) => void;
@@ -99,10 +99,10 @@ export function CartProvider({ children }: CartProviderProps) {
     });
   }, []);
 
-  const removeCart = useCallback((cartItemId: string) => {
+  const removeCart = useCallback((cartItem: CartItemType) => {
     console.log("..removing from cart");
     setCartItems((prevCart) =>
-      prevCart.filter((item) => item.id !== cartItemId)
+      prevCart.filter((item) => !(item.id === cartItem.id && item.variations![0].color === cartItem.variations![0].color && item.variations![0].size === cartItem.variations![0].size) )
     );
   }, []);
 

@@ -57,11 +57,18 @@
 
 .product{
     background-color: rgb(202, 204, 206);
-    height: 45vh;
+    height: 35vh;
     width: 100%;
     margin: 0 !important;
     padding: 0 !important;
     border-radius: var(--curve-edge);
+}
+.product img{
+    border-top-left-radius: var(--curve-edge);
+    border-top-right-radius: var(--curve-edge);
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
 }
 
 .image{
@@ -142,4 +149,15 @@
 .copyright{
     font-size: small;
     color: black;
+}
+
+.hero-left{
+    background-color: beige;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+.hero-right{
+    background-color: lightgrey;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
