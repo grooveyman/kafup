@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import dummyprod from "../assets/images/kaftan.jpg";
 import "../assets/css/details.css";
 import { CartItemType, CartVariation, useCartContext } from "../context/CartContext";
-import { useApiQuery } from "../hooks/useApi";
+import { useApiMutation, useApiQuery } from "../hooks/useApi";
 import DetailsSkeletonLoader from "../components/DetailsSkeletonLoader";
 import { Variation } from "./admin/products/AddProduct";
 
@@ -33,6 +33,7 @@ const ProductDetails: React.FC = () => {
   const navigate = useNavigate();
   const [selectedQuantity, setSelectedQuantity] = useState(0);
   const [selectedSize, setSelectedSize] = useState<string>("");
+  const calledRef = useRef(false);
 
   const { addToCart } = useCartContext();
 
@@ -42,6 +43,22 @@ const ProductDetails: React.FC = () => {
     "/products/product/" + productId
   );
 
+  // send click update request
+  const mutate = useApiMutation<{message:string}>(`/products/productClick/${prodId}`, "PUT", {
+    onSuccess : (data) => {
+  console.log(data.message);
+},
+onError: (error) => {
+  console.log(error.message);
+}
+  });
+  useEffect(() => {
+    if(!calledRef.current){
+      calledRef.current = true;
+      mutate.mutate({});
+    }
+    
+  }, []);
   const product = data?.product;
   console.log("Fetched product:", product);
 
@@ -115,7 +132,7 @@ const ProductDetails: React.FC = () => {
   }
 
   return (
-    <div className="container mb-5">
+    <div className="container mt-4 mb-5">
       <div className="row mt-6">
         {/* LEFT SIDE */}
         <div className="col-md-6">

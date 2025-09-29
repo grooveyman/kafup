@@ -6,6 +6,8 @@ import Dashboard from "../pages/admin/Dashboard";
 import Details from "../pages/Details";
 import Cart from "../pages/Cart";
 import ProductList from "../pages/admin/products/ProductList";
+import AdminLayout from "../layouts/AdminLayout";
+import EditProduct from "../pages/admin/products/EditProduct";
 
 export const router = createBrowserRouter([
   {
@@ -13,11 +15,21 @@ export const router = createBrowserRouter([
     element: <MainLayout />,
     children: [
       {index: true, element: <Home/>},
-      {path: "/addproducts", element: <AddProducts/>},
+      // {path: "/addproducts", element: <AddProducts/>},
       {path: "/dashboard", element: <Dashboard/>},
       {path: "/details/:id", element:<Details/>},
       {path: "/cart", element: <Cart/>},
-      {path: "/products", element: <ProductList/>}
+      // {path: "/products", element: <ProductList/>},
+      {
+        path: "admin",
+        element: <AdminLayout />,
+        children: [
+          {path: "dashboard", element: <Dashboard/>},
+          {path: "products", element: <ProductList />},
+          {path: "addproducts", element: <AddProducts />},
+          {path: "editproducts/:prodid", element: <EditProduct />}
+        ],
+      }
     ]
   },
 ]);

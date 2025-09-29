@@ -160,14 +160,17 @@ label{
   transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 .prod-action-edit:hover{
-  transform: scale(1.5); 
-  color: #dc3545;
+  /* transform: scale(1.5);  */
+  background-color: #bab4b5;
+  padding: 3px;
+  color: white !important;
 }
 .prod-action-del{
   margin: 0px 5px;
   transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
 }
 .prod-action-del:hover{
-  transform: scale(1.9); 
-  color: #dc3545;
+background-color: #bab4b5;
+  padding: 3px;
+  color: white !important;
 }

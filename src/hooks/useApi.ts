@@ -29,12 +29,17 @@ export function useApiQuery<T>(
 }
 
 export function useApiMutation<T>(
-    url: string,
+    baseUrl: string,
     method: "POST"|"PUT"|"DELETE",
     options?: UseMutationOptions<T, Error, any>
 ){
   return useMutation<T, Error, any>({
     mutationFn: async(body: any) => {
+      let url = baseUrl;
+
+      if(body?.id){
+        url = `${baseUrl}/${body.id}`;
+      }
       let fetchOptions: RequestInit;
       if(body instanceof FormData){
         fetchOptions = { method, body};
@@ -49,11 +54,5 @@ export function useApiMutation<T>(
       return fetcher<T>(url, fetchOptions);
     }, ...options
   });
-    // return useMutation<T, Error, any>({
-    //     mutationFn: async(body: any) => fetcher<T>(url, {
-    //         method,
-    //         body: JSON.stringify(body),
-    //     }),
-    //     ...options,
-    // });
+    
 }

@@ -10,7 +10,7 @@ const MainLayout: React.FC = () => {
     return (
         <>
             <NavBar />
-            <section className='' style={{ marginTop: '70px' }}>
+            <section className='' style={{ marginTop: '60px' }}>
                 <Outlet />
             </section>
 

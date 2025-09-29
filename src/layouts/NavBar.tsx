@@ -64,7 +64,7 @@ const NavBar: React.FC = () => {
                                 <Link to="/dashboard" className='nav-link active' aria-current="page">Dashboard</Link>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="/addproducts"> Products</a>
+                                <a className="nav-link" onClick={()=>navigate("/admin/products")} href="#"> Products</a>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link" href="#"> Orders</a>
