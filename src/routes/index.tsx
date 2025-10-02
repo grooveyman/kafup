@@ -32,4 +32,4 @@ export const router = createBrowserRouter([
       }
     ]
   },
-], {basename:"/kafup"});
+], {basename:"/kafup/"});

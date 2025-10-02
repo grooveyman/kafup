@@ -18,10 +18,6 @@ interface Product {
   variations: Variation[]; 
 }
 
-interface ProductResponse {
-  product: Product;
-}
-
 interface Image{
   imgurl: string;
 }
@@ -37,7 +33,7 @@ const ProductDetails: React.FC = () => {
   const { addToCart } = useCartContext();
 
   // fetch product
-  const { data, isLoading, isError } = useApiQuery<ProductResponse>(
+  const { data, isLoading, isError } = useApiQuery<Product>(
     ["products"],
     `/products/product/${productId}`
   );
@@ -186,7 +182,8 @@ onError: (error) => {
               <div className="col-md-4 varcolor">
                 <p className="mt-3 mb-1">Select Color</p>
                 <div className="d-flex mt-2">
-                  {product.variations.map((color) => (
+                  {product.variations && ""}
+                  {product.variations?.map((color) => (
                     <div
                       key={color.color}
                       className={`color-swatch me-2 ${
@@ -213,8 +210,8 @@ onError: (error) => {
             <div className="row">
               <div className="col-md-8 varsize">
                 <p className="mt-3 mb-1">Select Size</p>
-                {product.variations.length === 0 && <p>No size variations available.</p>}
-                {product.variations.map((variation, index) => (
+                {product.variations?.length === 0 && <p>No size variations available.</p>}
+                {product.variations?.map((variation, index) => (
                   <>
                   <input
                   key={index}
