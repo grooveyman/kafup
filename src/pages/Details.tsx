@@ -38,9 +38,11 @@ const ProductDetails: React.FC = () => {
 
   // fetch product
   const { data, isLoading, isError } = useApiQuery<ProductResponse>(
-    ["products", productId],
-    "/products/product/" + productId
+    ["products"],
+    `/products/product/${productId}`
   );
+  console.log("Fetched data");
+  console.log(data);
 
   // send click update request
   const mutate = useApiMutation<{message:string}>(`/products/productClick/${prodId}`, "PUT", {
@@ -58,7 +60,7 @@ onError: (error) => {
     }
     
   }, []);
-  const product = data?.product;
+  const product = data;
   console.log("Fetched product:", product);
 
 
