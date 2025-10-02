@@ -27,6 +27,7 @@ export interface Product {
 interface ProdImage{
   id: string;
   imgurl: string;
+  public_id:string;
 }
 
 const Home: React.FC = () => {

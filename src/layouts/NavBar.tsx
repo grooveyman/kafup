@@ -48,7 +48,7 @@ const NavBar: React.FC = () => {
     return (
         <>
         {isLoggedIn ? (
-            <nav className={` ${scrolled ? 'scrolled':''} navbar fixed-top navbar-expand-lg `}>
+            <nav className={` ${scrolled ? 'scrolled':'not-scrolled'} navbar fixed-top navbar-expand-lg `}>
             <div className="container">
                 <a className="navbar-brand" href="#">
                     KafUp

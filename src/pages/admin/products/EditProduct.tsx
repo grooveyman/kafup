@@ -21,12 +21,13 @@ export interface Variation {
 }
 interface OtherImage {
   url: string | File;
+  pid: string;
 }
 interface FormData {
   name: string;
   description?: string;
   variation: Variation[];
-  previmage: string | File;
+  previewimg: string | File;
   otherimages: OtherImage[];
   category: string;
   previewimg_format?:string;
@@ -57,18 +58,21 @@ const EditProduct: React.FC = () => {
     name: "",
     description: "",
     variation: [],
-    previmage: "",
+    previewimg: "",
     otherimages: [],
     category: "",
   });
   useEffect(() => {
-    if (retrievedData?.previewimg && retrievedData.prodimages) {
+    if (retrievedData?.previewimg && retrievedData.prodimages && retrievedData.variations) {
       setImagePreview(retrievedData?.previewimg);
-      setExtraImages([
-        retrievedData?.prodimages![0].imgurl,
-        retrievedData?.prodimages![1].imgurl,
-        retrievedData?.prodimages![2].imgurl,
+      if(retrievedData.prodimages.length != 0){
+setExtraImages([
+        {url:retrievedData?.prodimages![0].imgurl, pid:retrievedData?.prodimages[0].public_id},
+        {url: retrievedData?.prodimages![1].imgurl, pid:retrievedData?.prodimages[1].public_id},
+        {url: retrievedData?.prodimages![2].imgurl, pid:retrievedData?.prodimages[2].public_id}
       ]);
+      }
+      
       setData({
         name: retrievedData.name,
         description: retrievedData?.description,
@@ -77,20 +81,22 @@ const EditProduct: React.FC = () => {
         previewimg_width: retrievedData?.previewimg_width,
         previewimg_public_id: retrievedData?.previewimg_public_id,
         variation: [],
-        previmage: "",
-        otherimages: [],
+        previewimg: retrievedData?.previewimg,
+        otherimages: extraImages,
         category: "",
       });
-    }
-    //variations
+      //variations
     setVariations(retrievedData?.variations!);
+    console.log("retrived variations");
     console.log(retrievedData);
+    }
+    
   }, [retrievedData]);
 
   //mutation to send post request
   const mutation = useApiMutation<{ message: string }>(
-    "/products/product",
-    "POST",
+    `/products/product/${prodid}`,
+    "PUT",
     {
       onSuccess: (data) => {
         toast.success(data.message);
@@ -114,15 +120,16 @@ const EditProduct: React.FC = () => {
   };
 
   //extra images
-  const [extraImages, setExtraImages] = useState<(string | null)[]>([
-    null,
-    null,
-    null,
+  const [extraImages, setExtraImages] = useState<OtherImage[]>([
+    {url:'', pid:''},
+    {url:'', pid:''},
+    {url:'', pid:''},
   ]);
 
   const handleExtraImageChange = (
     index: number,
-    e: React.ChangeEvent<HTMLInputElement>
+    e: React.ChangeEvent<HTMLInputElement>,
+    pid: string | undefined
   ) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -130,7 +137,7 @@ const EditProduct: React.FC = () => {
     //set extra image to data
     setData((prev) => {
       const updated = [...prev.otherimages];
-      updated[index] = { ...updated[index], url: file };
+      updated[index] = { ...updated[index], url: file, pid:pid! };
       const newState = { ...prev, otherimages: updated };
       console.log("extra images", newState);
 
@@ -140,7 +147,7 @@ const EditProduct: React.FC = () => {
     const reader = new FileReader();
     reader.onloadend = () => {
       const updatedImages = [...extraImages];
-      updatedImages[index] = reader.result as string;
+      updatedImages[index] = {url: reader.result as string, pid:updatedImages[index]?.pid ?? ''};
       setExtraImages(updatedImages);
     };
     reader.readAsDataURL(file);
@@ -149,7 +156,7 @@ const EditProduct: React.FC = () => {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      setData({ ...data, previmage: file }); //set file to data
+      setData({ ...data, previewimg: file }); //set file to data
       const reader = new FileReader();
       reader.onloadend = () => {
         setImagePreview(reader.result as string);
@@ -201,6 +208,8 @@ const EditProduct: React.FC = () => {
     setPrice(e.target.name === "price" ? Number(value) : price);
     setData((prev) => ({ ...prev, [name]: value }));
   };
+
+
   //handle sending products to backend
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -213,18 +222,30 @@ const EditProduct: React.FC = () => {
     formData.append("variations", JSON.stringify(variations));
 
     //preview image
-    if (data.previmage instanceof File) {
-      formData.append("previewimg", data.previmage);
+    if (data.previewimg instanceof File) {
+      formData.append("previewimg", data.previewimg);
+    }else{
+      ["previewimg", "previewimg_height","previewimg_width","previewimg_format"].forEach((key) => {
+        formData.append(key, (data as any)[key]);
+      });
+      
     }
 
     //extra images
     // formData.append("otherimages", JSON.stringify(data.otherimages));
+    
+    
+    let delImgs:string[] = [];
     data.otherimages.forEach((img) => {
       if (img.url instanceof File) {
+        delImgs.push(img.pid);
         formData.append("images", img.url);
       }
     });
 
+    console.log("updated image pid");
+      console.log(delImgs);
+      formData.append("delImgs", JSON.stringify(delImgs));
     //send data to backend
     console.log(formData);
     mutation.mutate(formData);
@@ -283,7 +304,7 @@ const EditProduct: React.FC = () => {
                   >
                     {img ? (
                       <img
-                        src={img}
+                        src={typeof img.url === "string" ? img.url : URL.createObjectURL(img.url)}
                         alt={`Extra ${index + 1}`}
                         className="img-fluid"
                       />
@@ -299,7 +320,7 @@ const EditProduct: React.FC = () => {
                     type="file"
                     accept="image/*"
                     style={{ display: "none" }}
-                    onChange={(e) => handleExtraImageChange(index, e)}
+                    onChange={(e) => handleExtraImageChange(index, e, img?.pid)}
                   />
                 </div>
               ))}
