@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import dummyprod from "../assets/images/kaftan.jpg";
 import "../assets/css/details.css";
 import { CartItemType, CartVariation, useCartContext } from "../context/CartContext";
 import { useApiMutation, useApiQuery } from "../hooks/useApi";

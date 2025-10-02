@@ -1,5 +1,3 @@
-import { totalmem } from "os";
-
 interface CartSummaryProps{
     subtotal: number;
     estotal: number;

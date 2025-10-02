@@ -48,9 +48,7 @@ const EditProduct: React.FC = () => {
 
   //get product details
   const {
-    data: retrievedData,
-    isLoading,
-    isError,
+    data: retrievedData
   } = useApiQuery<Product>(["product_by_id"], `/products/product/${prodid}`);
   console.log(retrievedData);
   const [imagePreview, setImagePreview] = useState<string | null>(null);

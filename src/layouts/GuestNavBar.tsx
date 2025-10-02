@@ -1,17 +1,16 @@
-import { useEffect, useMemo, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../assets/css/navbar.css";
-import logo from "../assets/images/logo.png";
 import { useLoginModal } from "../context/LoginModalContext";
 import { Search, ShoppingBagIcon, User } from "lucide-react";
 import CartSidebar from "../components/CartSidebar";
-import { CartItemType, useCartContext } from "../context/CartContext";
+import { useCartContext } from "../context/CartContext";
 
 const GuestNavBar = () => {
   const [scrolled, setScrolled] = useState<boolean>(false);
   const { openLogin, isLoginOpen } = useLoginModal();
   const [showCart, setShowCart] = useState(false);
-  const { cartItems, addToCart, removeCart } = useCartContext();
+  const { cartItems, removeCart } = useCartContext();
   const navigate = useNavigate();
 
   // const [cartItems, setCartItems] = useState([
@@ -21,9 +20,9 @@ const GuestNavBar = () => {
 
   
 
-  const handleDelete = (item: CartItemType) => {
-    removeCart(item);
-  };
+  // const handleDelete = (item: CartItemType) => {
+  //   removeCart(item);
+  // };
 
   const handleScroll = () => setScrolled(window.scrollY > 50);
 

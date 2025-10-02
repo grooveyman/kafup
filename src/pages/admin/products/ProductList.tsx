@@ -1,4 +1,4 @@
-import { EditIcon, EyeIcon, Trash2Icon, View } from "lucide-react";
+import { EditIcon, Trash2Icon } from "lucide-react";
 import Breadcrumb from "../../../components/Breadcrumb";
 import { useApiMutation, useApiQuery } from "../../../hooks/useApi";
 import { useNavigate } from "react-router-dom";
@@ -10,8 +10,8 @@ import { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 
 const ProductList: React.FC = () => {
-  const [isDelete, setIsDelete] = useState(false);
-  const { data, isLoading, isError } = useApiQuery<Product[]>(["products"], "/products");
+  const [_isDelete, setIsDelete] = useState(false);
+  const { data, isLoading } = useApiQuery<Product[]>(["products"], "/products");
   const navigate = useNavigate();
 
   const queryClient = useQueryClient();

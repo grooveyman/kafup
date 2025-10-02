@@ -1,4 +1,4 @@
-import { Archive, ArchiveXIcon, Package, ShoppingBag, ShoppingCart } from "lucide-react";
+import { ArchiveXIcon } from "lucide-react";
 import React from "react";
 
 

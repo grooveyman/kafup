@@ -48,7 +48,7 @@ const Home: React.FC = () => {
   }
   const [value, setValue] = useState("1");
 
-  const handleChange = (e: React.SyntheticEvent, newValue: string) => {
+  const handleChange = (_e: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
   }
   const navigate = useNavigate();
@@ -136,7 +136,7 @@ const Home: React.FC = () => {
           <div className="col-md-4">
             <div className="" style={{ height: "470px" }}>
               <div className="hero-right" style={{ height: "370px" }}>
-                <img src="/assets/images/carousel 8.png"/>
+                <img src="assets/images/carousel 8.png"/>
                 <span className="ex-discount">Exclusive Discount</span>
               </div>
               <div className="mt-2">

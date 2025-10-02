@@ -2,7 +2,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../assets/css/navbar.css';
-import logo from '../assets/images/logo.png';
 import { useLoginModal } from '../context/LoginModalContext';
 import GuestNavBar from './GuestNavBar';
 
