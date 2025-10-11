@@ -33,7 +33,7 @@ interface ProdImage{
 const Home: React.FC = () => {
   const { data, isLoading, isError } = useApiQuery<Product[]>(
     ["products"],
-    "/products"
+    "/products/?limit=8"
   );
 
   const { data:popularData, isLoading:isLoadingPopular, isError:isErrorPopular } = useApiQuery<Product[]>(

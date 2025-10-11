@@ -40,7 +40,7 @@ const GuestNavBar = () => {
     <>
       <nav
         className={`${
-          scrolled ? "scrolled" : ""
+          scrolled ? "scrolled" : "not-scrolled"
         } navbar fixed-top navbar-expand-lg`}
       >
         <div className="container">
@@ -68,22 +68,22 @@ const GuestNavBar = () => {
                   {/* <Link to="/" className="nav-link active">Home</Link> */}
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#">
+                  <a className="nav-link" href="#" onClick={() => navigate("/categories/shop")}>
                     Shop
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#">
+                  <a className="nav-link" href="#" onClick={() => navigate("/categories/kaftan")}>
                     Kaftan
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#">
+                  <a className="nav-link" href="#" onClick={() => navigate("/categories/agbada")}>
                     Agbada
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#">
+                  <a className="nav-link" href="#" onClick={() => navigate("/categories/weddings")}>
                     Weddings
                   </a>
                 </li>

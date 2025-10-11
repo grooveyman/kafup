@@ -4,13 +4,20 @@
 body, * {
   font-family: 'Josefin Sans', sans-serif;
 }
+
+/* html, body{
+  background-color: rgb(42, 41, 41) !important;
+  color: wheat !important;
+} */
 :root {
   font-family: 'Josefin Sans', sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
+  /* background-color: rgb(42, 41, 41); */
+
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
+  color: rgba(255, 255, 255, 0.87) !important;
   /* background-color: #242424; */
 
   font-synthesis: none;
