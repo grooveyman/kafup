@@ -9,6 +9,7 @@ import ProductList from "../pages/admin/products/ProductList";
 import AdminLayout from "../layouts/AdminLayout";
 import EditProduct from "../pages/admin/products/EditProduct";
 import Categories from "../pages/Categories";
+import Checkout from "../pages/Checkout";
 
 export const router = createBrowserRouter([
   {
@@ -21,6 +22,7 @@ export const router = createBrowserRouter([
       {path: "/details/:id", element:<Details/>},
       {path: "/cart", element: <Cart/>},
       {path: "/categories/:catalias", element: <Categories/>},
+      {path: "/checkout", element: <Checkout/>},
       {
         path: "admin",
         element: <AdminLayout />,

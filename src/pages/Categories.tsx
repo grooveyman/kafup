@@ -14,7 +14,7 @@ const Categories: React.FC = () => {
   // fetch product
 
   const enpoint = catalias === "shop" ? "/products/": `/products/catproduct/${catalias}`;
-  const { data, isLoading, isError } = useApiQuery<Product[]>(
+  const { data, isLoading } = useApiQuery<Product[]>(
     ["productscat"+catalias],
     enpoint
   );

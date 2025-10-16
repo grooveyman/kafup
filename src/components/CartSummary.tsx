@@ -1,9 +1,12 @@
+import { useNavigate } from "react-router-dom";
+import Checkout from "../pages/Checkout";
+
 interface CartSummaryProps{
     subtotal: number;
     estotal: number;
 }
 const CartSummary:React.FC <CartSummaryProps> = ({subtotal, estotal}) => {
-    
+    const navigate = useNavigate();
     return (
        <div className="col-md-4">
             <h6>Order Summary</h6>
@@ -44,7 +47,7 @@ const CartSummary:React.FC <CartSummaryProps> = ({subtotal, estotal}) => {
                   </tr>
                 </table>
               </div>
-              <button className="btn btn-success">Checkout</button>
+              <button className="btn btn-success" onClick={()=>navigate("/checkout")}>Checkout</button>
             </div>
           </div>
     );
