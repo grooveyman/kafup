@@ -4,11 +4,19 @@ import { CartItemType, useCartContext } from "../context/CartContext";
 import { useEffect, useState } from "react";
 import CartSummary from "../components/CartSummary";
 
+export interface CartType{
+  quantity: number;
+  cartItems: CartItemType[];
+}
 const Cart: React.FC = () => {
   const { cartItems, reduceQuantity, increaseQuantity } = useCartContext();
   console.log(cartItems);
   const defaultTotal = cartItems.reduce((acc, item) => acc + item.total, 0);
   const [total, setTotal] = useState(defaultTotal);
+  const cart: CartType = {
+    quantity: cartItems.length,
+    cartItems: cartItems,
+  };
   const handleTotal = ({type, item}:{type:string, item:CartItemType}) => {
     if(type === "plus"){
       increaseQuantity(item);
@@ -90,7 +98,7 @@ useEffect(() => {
               </div>
             </div>
           </div>
-          <CartSummary subtotal={total} estotal={total} />
+          <CartSummary subtotal={total} estotal={total} status={'0'} cart={cart} />
         </div>
       </div>
     </>
