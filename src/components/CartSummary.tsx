@@ -1,7 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import Checkout from "../pages/Checkout";
 import { ClipboardEditIcon } from "lucide-react";
-import { CartItemType } from "../context/CartContext";
 import { CartType } from "../pages/Cart";
 
 interface CartSummaryProps {

@@ -4,9 +4,19 @@ import { useCartContext } from "../context/CartContext";
 import { CartType } from "./Cart";
 
 
+export interface OrderType{
+  customer: CustomerType;
+  cart: CartType;
+}
+
+export interface CustomerType{
+  fullname: string;
+  email: string;
+  phoneNumber: string;
+  deliveryAddress: string;
+}
 const Checkout: React.FC = () => {
-   const { cartItems, reduceQuantity, increaseQuantity } = useCartContext();
-     console.log(cartItems);
+   const { cartItems } = useCartContext();
      const defaultTotal = cartItems.reduce((acc, item) => acc + item.total, 0);
      const [total, setTotal] = useState(defaultTotal);
      const cart: CartType = {
@@ -14,9 +24,29 @@ const Checkout: React.FC = () => {
        cartItems: cartItems,
      };
 
+     const [customerInfo, setCustomerInfo] = useState({
+      fullname:"",
+      email:"",
+      phoneNumber:"",
+      deliveryAddress:""
+     });
+
+     const handleChange = (e:React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>{
+      e.preventDefault();
+      const {name, value} = e.target;
+        setCustomerInfo((prev) => ({
+          ...prev, [name]: value,
+        }));
+
+     }
+
      useEffect(() => {
        setTotal(cartItems.reduce((acc, item) => acc + item.total, 0));
-     }, [cartItems]);
+        // const order: OrderType = {
+        //   customer: customerInfo,
+        //   cart: cart
+        // }
+     }, [cartItems, customerInfo]);
   return (
     <>
       <div className="container">
@@ -32,6 +62,9 @@ const Checkout: React.FC = () => {
                       type="text"
                       className="form-control"
                       placeholder="Enter your full name"
+                      value={customerInfo.fullname}
+                      onChange={handleChange}
+                      name="fullname"
                     />
                   </div>
                   <div className="mb-3 col-md-6">
@@ -40,6 +73,9 @@ const Checkout: React.FC = () => {
                       type="email"
                       className="form-control"
                       placeholder="Enter your email address"
+                      name="email"
+                      value={customerInfo.email}
+                      onChange={handleChange}
                     />
                   </div>
                 </div>
@@ -50,14 +86,20 @@ const Checkout: React.FC = () => {
                     type="tel"
                     className="form-control"
                     placeholder="Enter your phone number"
+                    value={customerInfo.phoneNumber}
+                    onChange={handleChange}
+                    name="phoneNumber"
                   />
                 </div>
                 <div className="mb-3">
-                  <label className="form-label">Shipping Address <span className="mandatory">*</span></label>
+                  <label className="form-label">Delivery Address <span className="mandatory">*</span></label>
                    <input
                     type="tel"
                     className="form-control"
                     placeholder="Enter your shipping address"
+                    value={customerInfo.deliveryAddress}
+                    onChange={handleChange}
+                    name="deliveryAddress"
                   />
                  
                 </div>
