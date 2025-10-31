@@ -15,6 +15,12 @@ const CartSummary: React.FC<CartSummaryProps> = ({
   cart,
 }) => {
   const navigate = useNavigate();
+
+  const handlePay = () => {
+    const order = {
+
+    }
+  }
   return (
     <div className="col-md-4">
       <h6>Order Summary</h6>
@@ -65,13 +71,13 @@ const CartSummary: React.FC<CartSummaryProps> = ({
         ) : (
           status == "2" ? (
             <>
-            <button
+            {/* <button
               className="btn btn-success"
               onClick={() => {}}
             >
               
               Pay Now
-            </button>
+            </button> */}
           </>
           ):(
             cart?.quantity != 0 && 
@@ -81,7 +87,7 @@ const CartSummary: React.FC<CartSummaryProps> = ({
               onClick={() => navigate("/checkout")}
             >
               <ClipboardEditIcon size={18} className="mb-1" />
-              Complete Purchase
+              Proceed
             </button>
           </>
         )
