@@ -64,7 +64,7 @@ const CartSidebar: React.FC<CartSidebarProps> = ({
                   <div className="col-md-12 d-flex justify-content-between">
                     <div className="d-flex">
                       <div className="prodcart-img">
-                        <img src={dummycart} />
+                        <img src={item.previmg} />
                       </div>
                       <div className="prodcart-details">
                         <div>{item.name}</div>

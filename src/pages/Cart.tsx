@@ -56,7 +56,7 @@ useEffect(() => {
                           <td>
                             <div className="d-flex gap-3">
                               <img
-                                src="/assets/images/kaftan.jpg"
+                                src={item.previmg}
                                 height={50}
                                 width={50}
                               />
