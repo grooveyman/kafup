@@ -10,6 +10,7 @@ import AdminLayout from "../layouts/AdminLayout";
 import EditProduct from "../pages/admin/products/EditProduct";
 import Categories from "../pages/Categories";
 import Checkout from "../pages/Checkout";
+import Success from "../pages/Success";
 
 export const router = createBrowserRouter([
   {
@@ -23,6 +24,7 @@ export const router = createBrowserRouter([
       {path: "/cart", element: <Cart/>},
       {path: "/categories/:catalias", element: <Categories/>},
       {path: "/checkout", element: <Checkout/>},
+      {path: "/success/:ref", element: <Success/>},
       {
         path: "admin",
         element: <AdminLayout />,

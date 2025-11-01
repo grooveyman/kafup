@@ -6,6 +6,7 @@ import { useApiMutation } from "../hooks/useApi";
 import { toast } from "react-toastify";
 // import { useNavigate } from "react-router-dom";
 import PaystackPop from "@paystack/inline-js";
+import { Navigate, useNavigate } from "react-router-dom";
 
 export interface OrderType {
   total: number;
@@ -25,7 +26,6 @@ const Checkout: React.FC = () => {
   const defaultTotal = cartItems.reduce((acc, item) => acc + item.total, 0);
   const cartQuantity = cartItems.reduce((acc, item) => acc + item.quantity, 0);
   const [total, setTotal] = useState(defaultTotal);
-  const [loadingPay, setLoadingPay] = useState(false);
   const cart: CartType = {
     quantity: cartItems.length,
     cartItems: cartItems,
@@ -39,6 +39,7 @@ const Checkout: React.FC = () => {
     deliveryAddress: "",
   });
 
+  const navigate = useNavigate();
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -56,15 +57,25 @@ const Checkout: React.FC = () => {
     access_code: string;
     status: boolean;
     error?:string;
+    reference: string;
   }>("/orders/processOrder", "POST", {
     onSuccess: (data) => {
       //create payment popup
       console.log("response from order");
       console.log(data);
       if (data.status) {
-        console.log(data.access_code);
+        
         const popup = new PaystackPop();
-        popup.resumeTransaction(data.access_code);
+        popup.resumeTransaction(data.access_code, {
+          onSuccess: (transaction) => {
+            console.log(`payment successful: reference:${data.reference}`);
+            navigate(`/success/${data.reference}`);
+          },
+          onCancel: () => {
+            toast.error("Payment cancelled");
+          }
+        });
+        
       }else{
         toast.error(data.error);
       }

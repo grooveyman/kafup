@@ -13,16 +13,6 @@ const GuestNavBar = () => {
   const { cartItems, removeCart } = useCartContext();
   const navigate = useNavigate();
 
-  // const [cartItems, setCartItems] = useState([
-  //   { id: 1, name: "Longsleeved Shirt", quantity: 2, price: 20 },
-  //   { id: 2, name: "Full Beautiful Kaftan", quantity: 5, price: 15 },
-  // ]);
-
-  
-
-  // const handleDelete = (item: CartItemType) => {
-  //   removeCart(item);
-  // };
 
   const handleScroll = () => setScrolled(window.scrollY > 50);
 

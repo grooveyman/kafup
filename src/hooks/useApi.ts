@@ -19,7 +19,7 @@ async function fetcher<T>(url: string, options?: RequestInit): Promise<T> {
 export function useApiQuery<T>(
   key: string[],
   url: string,
-  options?: UseQueryOptions<T>
+  options?: Omit<UseQueryOptions<T>, "queryKey"|"queryFn">
 ) {
   return useQuery<T>({
     queryKey: key,

@@ -16,11 +16,6 @@ const CartSummary: React.FC<CartSummaryProps> = ({
 }) => {
   const navigate = useNavigate();
 
-  const handlePay = () => {
-    const order = {
-
-    }
-  }
   return (
     <div className="col-md-4">
       <h6>Order Summary</h6>
