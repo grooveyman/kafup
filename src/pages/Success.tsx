@@ -42,14 +42,20 @@ const Success: React.FC = () => {
 return (
     <div className="d-flex align-items-center justify-content-center vh-100">
       <div className="card p-4 text-center">
-        <CheckCircle size={50} />
+        <div className="d-flex justify-content-center">
+            <CheckCircle size={50} color="green"/>
+        </div>
+        
         <h2 className="mt-4">Payment Successful</h2>
         <p className="text-center">Thank you for buying from us.</p>
         <hr style={{ width: "50%", margin: "0 auto" }} />
         <p className="text-center p-3">
           Your order was processed successfully. Check your email to track your order.
         </p>
-        <button className="btn btn-primary">Track Order</button>
+        <div className="d-flex justify-content-center">
+            <button className="btn btn-primary">Track Order</button>
+        </div>
+        
       </div>
     </div>
   );

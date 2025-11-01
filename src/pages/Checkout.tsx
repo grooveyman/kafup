@@ -6,7 +6,7 @@ import { useApiMutation } from "../hooks/useApi";
 import { toast } from "react-toastify";
 // import { useNavigate } from "react-router-dom";
 import PaystackPop from "@paystack/inline-js";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export interface OrderType {
   total: number;
@@ -67,7 +67,7 @@ const Checkout: React.FC = () => {
         
         const popup = new PaystackPop();
         popup.resumeTransaction(data.access_code, {
-          onSuccess: (transaction) => {
+          onSuccess: () => {
             console.log(`payment successful: reference:${data.reference}`);
             navigate(`/success/${data.reference}`);
           },
