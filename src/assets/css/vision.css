@@ -1,0 +1,26 @@
+.ad-card{
+    box-shadow: 0px 2px 2px rgba(0,0,0,0.24);
+    background-color: gainsboro;
+    /* background: none; */
+    border-radius: 20px;
+}
+.ad-card > img{
+    width: 100%;
+    border-radius: 20px;
+}
+.ad-content{
+    padding: 30px 50px;
+    line-height: normal;
+    color: rgb(107, 102, 102);
+    font-size: small;
+}
+.ad-text-head{
+    color: grey;
+
+}
+.ad-text-vision{
+    font-size: 70px;
+    font-weight: bold;
+    line-height: normal;
+    color: black;
+}

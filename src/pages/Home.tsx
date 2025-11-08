@@ -10,6 +10,8 @@ import { Box, Fade, Tab } from "@mui/material";
 import { useState } from "react";
 import EmptyPage from "../components/EmptyPage";
 import { Variation } from "./admin/products/AddProduct";
+import Vision from "../components/homecomponents/Vision";
+import Designers from "../components/homecomponents/Designers";
 export interface Product {
   id: number;
   name: string;
@@ -24,10 +26,10 @@ export interface Product {
   previewimg_public_id?: string;
 }
 
-interface ProdImage{
+interface ProdImage {
   id: string;
   imgurl: string;
-  public_id:string;
+  public_id: string;
 }
 
 const Home: React.FC = () => {
@@ -36,13 +38,14 @@ const Home: React.FC = () => {
     "/products/?limit=8"
   );
 
-  const { data:popularData, isLoading:isLoadingPopular, isError:isErrorPopular } = useApiQuery<Product[]>(
-    ["popularproducts"],
-    "/products/popularProducts"
-  );
+  const {
+    data: popularData,
+    isLoading: isLoadingPopular,
+    isError: isErrorPopular,
+  } = useApiQuery<Product[]>(["popularproducts"], "/products/popularProducts");
   console.log("Popular products");
   console.log(popularData);
-  if(isErrorPopular){
+  if (isErrorPopular) {
     console.log(`Error getting popular products`);
     console.log(popularData);
   }
@@ -50,7 +53,7 @@ const Home: React.FC = () => {
 
   const handleChange = (_e: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
-  }
+  };
   const navigate = useNavigate();
   if (isLoading) console.log("Loading products");
   if (isError) console.log("Error loading products");
@@ -136,16 +139,20 @@ const Home: React.FC = () => {
           <div className="col-md-4">
             <div className="" style={{ height: "470px" }}>
               <div className="hero-right" style={{ height: "370px" }}>
-                <img src="assets/images/carousel 8.png"/>
+                <img src="assets/images/carousel 8.png" />
                 <span className="ex-discount">Exclusive Discount</span>
               </div>
               <div className="mt-2">
-              <h5>Big Lomo Unique Designed Kaftan</h5>
-              <span><i><s>GHS 500.00</s></i> GHS 400.69 </span>
-              <button className="btn btn-primary">Buy Now</button>
+                <h5>Big Lomo Unique Designed Kaftan</h5>
+                <span>
+                  <i>
+                    <s>GHS 500.00</s>
+                  </i>{" "}
+                  GHS 400.69{" "}
+                </span>
+                <button className="btn btn-primary">Buy Now</button>
+              </div>
             </div>
-            </div>
-            
           </div>
         </div>
 
@@ -161,80 +168,86 @@ const Home: React.FC = () => {
           <Fade in={value === "1"} timeout={600} mountOnEnter unmountOnExit>
             <div>
               <TabPanel value="1">
-            <div className="row">
-              {isLoading ? (
-            <SkeletonLoader count={3} />
-          ) : (
-            data?.map((product) => (
-              <div
-                className="col-md-3"
-                onClick={() => navigate("/details/" + product.id)}
-                key={product.id}
-              >
-                <div className="product">
-                  <img
-                    src={product.previewimg}
-                    width={"100%"}
-                    height={"100%"}
-                  />
+                <div className="row">
+                  {isLoading ? (
+                    <SkeletonLoader count={3} />
+                  ) : (
+                    data?.map((product) => (
+                      <div
+                        className="col-md-3"
+                        onClick={() => navigate("/details/" + product.id)}
+                        key={product.id}
+                      >
+                        <div className="product">
+                          <img
+                            src={product.previewimg}
+                            width={"100%"}
+                            height={"100%"}
+                          />
+                        </div>
+                        <div className="desc mt-2">
+                          <h6>{product.name}</h6>
+                          <p>{product.price ?? "$40"}</p>
+                        </div>
+                      </div>
+                    ))
+                  )}
                 </div>
-                <div className="desc mt-2">
-                  <h6>{product.name}</h6>
-                  <p>{product.price ?? "$40"}</p>
-                </div>
-              </div>
-            ))
-          )}
-            </div>
-          </TabPanel>
+              </TabPanel>
             </div>
           </Fade>
-          
+
           {/* popular products */}
           <Fade in={value === "2"} timeout={600} mountOnEnter unmountOnExit>
             <div>
               <TabPanel value="2">
-            <div className="row">
-              {(isLoadingPopular && isErrorPopular) ? (
-            <SkeletonLoader count={3} />
-          ) : (
-            popularData?.map((product) => (
-              <div
-                className="col-md-3"
-                onClick={() => navigate("/details/" + product.id)}
-                key={product.id}
-              >
-                <div className="product">
-                  <img
-                    src={product.previewimg}
-                    width={"100%"}
-                    height={"100%"}
-                  />
+                <div className="row">
+                  {isLoadingPopular && isErrorPopular ? (
+                    <SkeletonLoader count={3} />
+                  ) : (
+                    popularData?.map((product) => (
+                      <div
+                        className="col-md-3"
+                        onClick={() => navigate("/details/" + product.id)}
+                        key={product.id}
+                      >
+                        <div className="product">
+                          <img
+                            src={product.previewimg}
+                            width={"100%"}
+                            height={"100%"}
+                          />
+                        </div>
+                        <div className="desc mt-2">
+                          <h6>{product.name}</h6>
+                          <p>{product.price ?? "$40"}</p>
+                        </div>
+                      </div>
+                    ))
+                  )}
                 </div>
-                <div className="desc mt-2">
-                  <h6>{product.name}</h6>
-                  <p>{product.price ?? "$40"}</p>
-                </div>
-              </div>
-            ))
-          )}
-            </div>
-          </TabPanel>
+              </TabPanel>
             </div>
           </Fade>
-          
+
           <Fade in={value === "3"} timeout={600} mountOnEnter unmountOnExit>
             <div>
               <TabPanel value="3">
-            <div className="row">
-              <EmptyPage />
-            </div>
-          </TabPanel>
+                <div className="row">
+                  <EmptyPage />
+                </div>
+              </TabPanel>
             </div>
           </Fade>
-          
         </TabContext>
       </div>
+
+      <div className="mt-5 mb-5">
+        <Designers />
+      </div>
+      
+      {/* Vision section */}
+      <Vision />
     </>
   );
 };

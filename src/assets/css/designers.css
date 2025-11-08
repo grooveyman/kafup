@@ -1,0 +1,35 @@
+.designers{
+    /* margin: 50px 50px; */
+    background-color: rgb(243, 240, 240);
+    margin: 0 !important;
+}
+.designers-content{
+    padding: 100px 40px;
+}
+.designers-content h3{
+    font-size: 50px;
+}
+.designers-content p{
+    color: rgb(98, 94, 94);
+    padding: 0px 0px 40px 0px;
+}
+.designers-profile{
+    padding: 0px 0px;
+    
+}
+.designers-img > img{
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+.designers-text{
+    padding: 10px 0px;
+}
+.designers-text p{
+    padding: 0px 0px;
+    margin: 0px 0px 5px 0px !important;
+    line-height: normal;
+    font-weight: light;
+    color: rgb(136, 134, 134);
+    font-size: small;
+}

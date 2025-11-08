@@ -8,17 +8,13 @@ import Footer from './Footer';
 
 const MainLayout: React.FC = () => {
     return (
-        <>
+        <div className="d-flex flex-column min-vh-100">
             <NavBar />
             <section className='' style={{ marginTop: '60px' }}>
                 <Outlet />
             </section>
-
-            <div className='conatiner'> 
                <Footer/>
-            </div>
-
-        </>
+        </div>
     );
 };
 
