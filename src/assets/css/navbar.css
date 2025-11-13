@@ -25,6 +25,6 @@
   }
    .not-scrolled{
     /* background-color: rgba(248, 246, 246, 0.4); */
-    backdrop-filter: blur(5px) !important;
+    /* backdrop-filter: blur(5px) !important; */
   }
 

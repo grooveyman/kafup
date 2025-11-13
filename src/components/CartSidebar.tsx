@@ -1,5 +1,4 @@
 import React from "react";
-import dummycart from "../assets/images/kaftan.jpg";
 import "../assets/css/sidebar.css";
 import { Trash } from "lucide-react";
 import { CartItemType, useCartContext } from "../context/CartContext";

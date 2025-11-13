@@ -63,6 +63,63 @@ const Home: React.FC = () => {
 
   return (
     <>
+     <div>
+      <div
+                id="carouselExample"
+                className="carousel carousel-slide"
+                data-bs-ride="carousel"
+                style={{ height: "100%", padding:"10px", backgroundColor:"white" }}
+              >
+                <div className="carousel-inner">
+                  <div className="carousel-item active">
+                    <img
+                      src="assets/images/closet.webp"
+                      className="hero-img"
+                      alt="..."
+                    />
+                  </div>
+                  <div className="carousel-item">
+                    <img
+                      src="assets/images/sew.webp"
+                      className="hero-img"
+                      alt="..."
+                    />
+                  </div>
+                  <div className="carousel-item">
+                    <img
+                      src="assets/images/herosec.webp"
+                      className="hero-img"
+                      alt="..."
+                    />
+                  </div>
+                </div>
+                <button
+                  className="carousel-control-prev"
+                  type="button"
+                  data-bs-target="#carouselExample"
+                  data-bs-slide="prev"
+                >
+                  <span
+                    className="carousel-control-prev-icon"
+                    aria-hidden="true"
+                  ></span>
+                  <span className="visually-hidden">Previous</span>
+                </button>
+                <button
+                  className="carousel-control-next"
+                  type="button"
+                  data-bs-target="#carouselExample"
+                  data-bs-slide="next"
+                >
+                  <span
+                    className="carousel-control-next-icon"
+                    aria-hidden="true"
+                  ></span>
+                  <span className="visually-hidden">Next</span>
+                </button>
+              </div>
+    </div>
+
       <div className="container">
         <div className="row"></div>
 
@@ -72,7 +129,7 @@ const Home: React.FC = () => {
           <div className="col-md-2"></div>
         </div>
 
-        <div className="row mb-4">
+        {/* <div className="row mb-4">
           <div className="col-md-8">
             <div className="hero-left" style={{ height: "470px" }}>
               <div
@@ -135,7 +192,7 @@ const Home: React.FC = () => {
               </div>
             </div>
           </div>
-          {/* Exclusive Discount Section */}
+          
           <div className="col-md-4">
             <div className="" style={{ height: "470px" }}>
               <div className="hero-right" style={{ height: "370px" }}>
@@ -154,7 +211,7 @@ const Home: React.FC = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
 
         <TabContext value={value}>
           <Box sx={{ borderBottom: 1, borderColor: "divider" }}>

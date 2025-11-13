@@ -10,6 +10,7 @@ export interface Category{
 
 const Categories: React.FC = () => {
   const { catalias } = useParams<{ catalias: string }>();
+  console.log("Category alias:", catalias);
   const navigate = useNavigate();
   // fetch product
 

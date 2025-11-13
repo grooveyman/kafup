@@ -115,7 +115,7 @@
 
 .carousel{
     background-color: rgb(154, 155, 157);
-    height: 70vh;
+    height: 100vh;
     width: 100%;
     border-radius: 10px;
 }
@@ -193,7 +193,7 @@
 }
 
 .hero-img{
-    height: 470px !important;
+    height: 90vh !important;
     width: 100%;
     /* border-radius: 10px; */
     object-fit: cover !important;

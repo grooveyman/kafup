@@ -1,0 +1,15 @@
+
+.round-nav{
+    background-color: rgb(255, 255, 255);
+    border-radius: 20px !important;
+    padding: 2px 20px;
+}
+.round-nav-brand{
+    background-color: rgb(255, 255, 255);
+    border-radius: 20px !important;
+    padding: 2px 20px;
+}
+.scrolled{
+    background-color: rgba(226, 222, 222, 0.4);
+    backdrop-filter: blur(5px) !important;
+}
