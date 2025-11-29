@@ -27,9 +27,9 @@ const NavFilter: React.FC<NavFilterProps> = ({ filters, selectedFilter, onChange
     return (
         <>
             {/* category navigation */}
-            <div className="navfilter sticky-filter mb-3">
+            <div className="navfilter mb-3">
                 <nav
-                    className={`${scrolled ? "scrolled-filter" : "not-scrolled"} navbar navbar-expand-lg`}
+                    className={`${scrolled ? "scrolled" : "not-scrolled"} navbar navbar-expand-lg`}
                 >
                     <div className="container">
                         <div className="row w-100">

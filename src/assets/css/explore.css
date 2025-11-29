@@ -30,14 +30,16 @@
 
 }
 
-.navfilter{
-    position: sticky;
-    top: 70px;
-    z-index: 1020;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    /* box-shadow: 0px 10px 18px 1px rgba(0,0,0,0.14); */
-    /* border-radius: 20px; */
+.navfilter {
+  position: sticky;
+  top: 80px; /* height of your main navbar */
+  z-index: 50;
+  background: #fff;
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+  /* Prevent layout jumps */
+  margin-bottom: 10px;
 }
 
 .sticky-filter {

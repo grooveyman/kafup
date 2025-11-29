@@ -12,7 +12,27 @@ const Explore: React.FC = () => {
     ];
     const [selectedFilter, setSelectedFilter] = useState<string | number>("all");
     const [items, setItems] = useState<any[]>([]);
-    const [loading, setLoading] = useState(false);
+    const [lastScroll, setLastScroll] = useState(0);
+
+    useEffect(() => {
+        const navWrapper = document.getElementById("global-nav-wrapper");
+
+        const handleScroll = () => {
+            const current = window.scrollY;
+
+            if(current > lastScroll && current > 50){
+                navWrapper?.classList.add("nav-hidden");
+            }
+            else{
+                navWrapper?.classList.remove("nav-hidden");
+            }
+
+            setLastScroll(current);
+        };
+
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, [lastScroll]);
 
     const exploreData = [
         { image: "assets/images/hero2.jpg", name: "Something exquisite" },
