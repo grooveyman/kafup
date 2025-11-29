@@ -20,7 +20,7 @@ const Explore: React.FC = () => {
         const handleScroll = () => {
             const current = window.scrollY;
 
-            if(current > lastScroll && current > 50){
+            if(current > lastScroll && current > 0){
                 navWrapper?.classList.add("nav-hidden");
             }
             else{
@@ -81,9 +81,9 @@ const Explore: React.FC = () => {
 
     return (
         <div className="container ps-5">
-            {/* <div className="row"> */}
+            <div className="row">
                 <NavFilter filters={filters} selectedFilter={selectedFilter} onChange={(id) => setSelectedFilter(id)} />
-            {/* </div> */}
+            </div>
 
             <div className="row">
                 {items.map((item, i) => (
