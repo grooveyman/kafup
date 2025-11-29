@@ -63,62 +63,62 @@ const Home: React.FC = () => {
 
   return (
     <>
-     <div>
-      <div
-                id="carouselExample"
-                className="carousel carousel-slide"
-                data-bs-ride="carousel"
-                style={{ height: "100%", padding:"10px", backgroundColor:"white" }}
-              >
-                <div className="carousel-inner">
-                  <div className="carousel-item active">
-                    <img
-                      src="assets/images/closet.webp"
-                      className="hero-img"
-                      alt="..."
-                    />
-                  </div>
-                  <div className="carousel-item">
-                    <img
-                      src="assets/images/sew.webp"
-                      className="hero-img"
-                      alt="..."
-                    />
-                  </div>
-                  <div className="carousel-item">
-                    <img
-                      src="assets/images/herosec.webp"
-                      className="hero-img"
-                      alt="..."
-                    />
-                  </div>
-                </div>
-                <button
-                  className="carousel-control-prev"
-                  type="button"
-                  data-bs-target="#carouselExample"
-                  data-bs-slide="prev"
-                >
-                  <span
-                    className="carousel-control-prev-icon"
-                    aria-hidden="true"
-                  ></span>
-                  <span className="visually-hidden">Previous</span>
-                </button>
-                <button
-                  className="carousel-control-next"
-                  type="button"
-                  data-bs-target="#carouselExample"
-                  data-bs-slide="next"
-                >
-                  <span
-                    className="carousel-control-next-icon"
-                    aria-hidden="true"
-                  ></span>
-                  <span className="visually-hidden">Next</span>
-                </button>
-              </div>
-    </div>
+      <div>
+        <div
+          id="carouselExample"
+          className="carousel carousel-slide"
+          data-bs-ride="carousel"
+          style={{ height: "100%", padding: "10px", backgroundColor: "white" }}
+        >
+          <div className="carousel-inner">
+            <div className="carousel-item active">
+              <img
+                src="assets/images/closet.webp"
+                className="hero-img"
+                alt="..."
+              />
+            </div>
+            <div className="carousel-item">
+              <img
+                src="assets/images/sew.webp"
+                className="hero-img"
+                alt="..."
+              />
+            </div>
+            <div className="carousel-item">
+              <img
+                src="assets/images/herosec.webp"
+                className="hero-img"
+                alt="..."
+              />
+            </div>
+          </div>
+          <button
+            className="carousel-control-prev"
+            type="button"
+            data-bs-target="#carouselExample"
+            data-bs-slide="prev"
+          >
+            <span
+              className="carousel-control-prev-icon"
+              aria-hidden="true"
+            ></span>
+            <span className="visually-hidden">Previous</span>
+          </button>
+          <button
+            className="carousel-control-next"
+            type="button"
+            data-bs-target="#carouselExample"
+            data-bs-slide="next"
+          >
+            <span
+              className="carousel-control-next-icon"
+              aria-hidden="true"
+            ></span>
+            <span className="visually-hidden">Next</span>
+          </button>
+        </div>
+      </div>
 
       <div className="container">
         <div className="row"></div>
@@ -128,90 +128,6 @@ const Home: React.FC = () => {
           <div className="col-md-8 home-categories d-flex justify-content-center"></div>
           <div className="col-md-2"></div>
         </div>
-
-        {/* <div className="row mb-4">
-          <div className="col-md-8">
-            <div className="hero-left" style={{ height: "470px" }}>
-              <div
-                id="carouselExample"
-                className="carousel carousel-slide"
-                data-bs-ride="carousel"
-                style={{ height: "100%" }}
-              >
-                <div className="carousel-inner">
-                  <div className="carousel-item active">
-                    <img
-                      src="assets/images/hero2.jpg"
-                      className="hero-img"
-                      alt="..."
-                    />
-                  </div>
-                  <div className="carousel-item">
-                    <img
-                      src="assets/images/hero1.jpg"
-                      className="hero-img"
-                      alt="..."
-                    />
-                  </div>
-                  <div className="carousel-item">
-                    <img
-                      src="assets/images/herosec.webp"
-                      className="hero-img"
-                      alt="..."
-                    />
-                  </div>
-                </div>
-                <button
-                  className="carousel-control-prev"
-                  type="button"
-                  data-bs-target="#carouselExample"
-                  data-bs-slide="prev"
-                >
-                  <span
-                    className="carousel-control-prev-icon"
-                    aria-hidden="true"
-                  ></span>
-                  <span className="visually-hidden">Previous</span>
-                </button>
-                <button
-                  className="carousel-control-next"
-                  type="button"
-                  data-bs-target="#carouselExample"
-                  data-bs-slide="next"
-                >
-                  <span
-                    className="carousel-control-next-icon"
-                    aria-hidden="true"
-                  ></span>
-                  <span className="visually-hidden">Next</span>
-                </button>
-              </div>
-              <div className="hero-btns d-block">
-                <button className="btn btn-primary">Shop Now</button>
-                <button className="btn btn-secondary">Sew Now</button>
-              </div>
-            </div>
-          </div>
-          
-          <div className="col-md-4">
-            <div className="" style={{ height: "470px" }}>
-              <div className="hero-right" style={{ height: "370px" }}>
-                <img src="assets/images/carousel 8.png" />
-                <span className="ex-discount">Exclusive Discount</span>
-              </div>
-              <div className="mt-2">
-                <h5>Big Lomo Unique Designed Kaftan</h5>
-                <span>
-                  <i>
-                    <s>GHS 500.00</s>
-                  </i>{" "}
-                  GHS 400.69{" "}
-                </span>
-                <button className="btn btn-primary">Buy Now</button>
-              </div>
-            </div>
-          </div>
-        </div> */}
 
         <TabContext value={value}>
           <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
@@ -302,7 +218,7 @@ const Home: React.FC = () => {
       <div className="mt-5 mb-5">
         <Designers />
       </div>
-      
+
       {/* Vision section */}
       <Vision />
     </>

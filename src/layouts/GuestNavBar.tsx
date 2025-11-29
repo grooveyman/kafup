@@ -64,7 +64,7 @@ const GuestNavBar = () => {
                 </li>
                 <li className="nav-item">
                   <a className="nav-link" href="#" onClick={() => navigate("/categories/kaftan")}>
-                    Kaftan
+                    Explore
                   </a>
                 </li>
                 <li className="nav-item">

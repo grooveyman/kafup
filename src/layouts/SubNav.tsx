@@ -6,7 +6,7 @@ import CartSidebar from "../components/CartSidebar";
 import { useCartContext } from "../context/CartContext";
 import { useLoginModal } from "../context/LoginModalContext";
 
-const NewNavBar: React.FC = () => {
+const SubNav: React.FC = () => {
   const [scrolled, setScrolled] = useState<boolean>(false);
   const { openLogin, isLoginOpen } = useLoginModal();
   const [showCart, setShowCart] = useState(false);
@@ -84,7 +84,7 @@ const NewNavBar: React.FC = () => {
                     href="#"
                     onClick={() => navigate("/categories/women")}
                   >
-                    Collections
+                    Sew
                   </a>
                 </li>
               </ul>
@@ -152,4 +152,4 @@ const NewNavBar: React.FC = () => {
   );
 };
 
-export default NewNavBar;
+export default SubNav;
