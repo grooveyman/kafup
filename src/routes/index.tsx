@@ -12,6 +12,7 @@ import Categories from "../pages/Categories";
 import Checkout from "../pages/Checkout";
 import Success from "../pages/Success";
 import Explore from "../pages/Explore";
+import Designers from "../pages/Designers";
 
 export const router = createBrowserRouter([
   {
@@ -27,6 +28,7 @@ export const router = createBrowserRouter([
       {path: "/checkout", element: <Checkout/>},
       {path: "/success/:ref", element: <Success/>},
       {path: "/explore", element: <Explore/>},
+      {path: "/designers", element: <Designers/>},
       {
         path: "admin",
         element: <AdminLayout />,

@@ -8,7 +8,7 @@ import { useLoginModal } from "../context/LoginModalContext";
 
 const NewNavBar: React.FC = () => {
   const [scrolled, setScrolled] = useState<boolean>(false);
-  const { openLogin, isLoginOpen } = useLoginModal();
+  const { openLogin } = useLoginModal();
   const [showCart, setShowCart] = useState(false);
   const { cartItems, removeCart } = useCartContext();
   const navigate = useNavigate();
@@ -73,7 +73,7 @@ const NewNavBar: React.FC = () => {
                   <a
                     className="nav-link"
                     href="#"
-                    onClick={() => navigate("/categories/men")}
+                    onClick={() => navigate("/designers")}
                   >
                     Designers
                   </a>

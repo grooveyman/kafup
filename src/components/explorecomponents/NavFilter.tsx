@@ -1,6 +1,6 @@
 import { SearchIcon } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 interface FilterItem {
     id: string | number;
@@ -16,7 +16,7 @@ interface NavFilterProps {
 const NavFilter: React.FC<NavFilterProps> = ({ filters, selectedFilter, onChange }) => {
     const [scrolled, setScrolled] = useState<boolean>(false);
     const handleScroll = () => setScrolled(window.scrollY > 50);
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     useEffect(() => {
         window.addEventListener("scroll", handleScroll);

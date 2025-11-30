@@ -34,14 +34,7 @@ const Explore: React.FC = () => {
         return () => window.removeEventListener("scroll", handleScroll);
     }, [lastScroll]);
 
-    const exploreData = [
-        { image: "assets/images/hero2.jpg", name: "Something exquisite" },
-        { image: "assets/images/hero3.jpg", name: "New Sturling" },
-        { image: "assets/images/hero1.jpg", name: "New Sturling" },
-        { image: "assets/images/sew.webp", name: "New Sturling" },
-        { image: "assets/images/hero3.jpg", name: "New Sturling" }
-    ];
-
+    
     const fetchData = (filterKey: string | number) => {
         const dummyData: any = {
             all: [
