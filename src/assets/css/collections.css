@@ -1,0 +1,39 @@
+
+
+.collection-img{
+    border-radius: 10px;
+}
+
+.collection-container{
+    position: relative;
+
+}
+.collection-container::after{
+    content: "";
+    position: absolute;
+    top: 0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 1;
+    border-radius: 10px;
+}
+.collection-head{
+    position: absolute;
+    top: 70%;
+    left: 5%;
+    /* background-color: rgb(255, 255, 255); */
+    padding: 10px;
+    border-radius: 20px;
+    color: white;
+    z-index: 2;
+    word-wrap: break-word;
+    max-width: 60%;
+}
+.collection-head > p{
+    font-size: x-small;
+    margin: 0;
+    color: white;
+    
+}

@@ -82,7 +82,7 @@ const NewNavBar: React.FC = () => {
                   <a
                     className="nav-link"
                     href="#"
-                    onClick={() => navigate("/categories/women")}
+                    onClick={() => navigate("/collections")}
                   >
                     Collections
                   </a>
