@@ -1,5 +1,6 @@
 
 import "../assets/css/designers.css";
+import Designer from "../components/homecomponents/Designer";
 
 const Designers: React.FC = () => {
     const designersData = [
@@ -43,44 +44,30 @@ const Designers: React.FC = () => {
     ]
     return (
         <>
-            <div className="container">
-                <div className="row">
-                    {designersData.map((designer) => (
-                        <div className="col-xs-6 col-lg-3 col-sm-6 col-md-3">
-                            <div className="dsg-container">
-                                <div className="dsg-img d-flex justify-content-center">
-                                    <div className="dsg-img-container">
-                                        <img className="img-fluid" src={designer.image} />
-                                    </div>
-                                </div>
-                                <div className="dsg-content text-center pt-3">
-                                    <h5>{designer.name}</h5>
-                                    <div className="d-flex justify-content-center">
-                                        <div className="d-flex justify-content-between">
-                                            <div className="rate">
-                                            </div>
-                                            <div className="follows">
-                                                <span className="followers">{designer.followers}</span> Followers <span className="likes">{designer.likes}</span> Likes
-                                                <div>
-                                                    <span className="followers">{designer.products}</span> Products <span className="likes">{designer.collections}</span> Collections
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <p className="text-center p-3">
-                                        {designer.caption}
-                                    </p>
-                                    <button className="btn btn-primary">View Profile</button>
-                                </div>
-                            </div>
-
-                        </div>
-                    ))}
-
+            <div className="container-fluid designers">
+        <div className="container">
+            
+          <div className="designers-content">
+                <div className="designers-filters">
+                    <span className="filter-item">All</span>
+                    <span className="filter-item">Popular</span>
+                    <span className="filter-item">New</span>
                 </div>
+            <div className="row designers-profile">
+              <Designer />
+              <Designer />
+              <Designer/>
+              <Designer />
             </div>
+            <div className="row designers-profile mt-5">
+              <Designer />
+              <Designer />
+              <Designer/>
+              <Designer />
+            </div>
+          </div>
+        </div>
+      </div>
         </>
     );
 };

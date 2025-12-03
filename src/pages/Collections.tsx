@@ -9,8 +9,7 @@ const Collections:React.FC = () => {
                     <div className="collection-container">
                         <img src="assets/images/sew.webp" className="img-fluid collection-img"/>
                         <div className="collection-head">
-                            <h6>Collection Name</h6>
-                            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Blanditiis asperiores ullam rerum necessitatibus adipisci iusto aut, praesentium, inventore eius ab autem id ipsa veniam, dolore debitis quaerat libero aspernatur quibusdam?</p>
+                            <h6>Collection Name <span>2K</span> <span className="suffix">Designs</span></h6>
                         </div>
                     </div>
                 </div>
@@ -18,8 +17,25 @@ const Collections:React.FC = () => {
                     <div className="collection-container">
                         <img src="assets/images/sew.webp" className="img-fluid collection-img"/>
                         <div className="collection-head">
-                            <h6>Collection Name</h6>
-                            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Blanditiis asperiores ullam rerum necessitatibus adipisci iusto aut, praesentium, inventore eius ab autem id ipsa veniam, dolore debitis quaerat libero aspernatur quibusdam?</p>
+                            <h6>Collection Name <span>2K</span> <span className="suffix">Designs</span></h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+             <div className="row mt-3">
+                <div className="col-md-6">
+                    <div className="collection-container">
+                        <img src="assets/images/sew.webp" className="img-fluid collection-img"/>
+                        <div className="collection-head">
+                            <h6>Collection Name <span>2K</span> <span className="suffix">Designs</span></h6>
+                        </div>
+                    </div>
+                </div>
+                <div className="col-md-6">
+                    <div className="collection-container">
+                        <img src="assets/images/sew.webp" className="img-fluid collection-img"/>
+                        <div className="collection-head">
+                            <h6>Collection Name <span>2K</span> <span className="suffix">Designs</span></h6>
                         </div>
                     </div>
                 </div>

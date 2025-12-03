@@ -4,7 +4,13 @@
     margin: 0 !important;
 }
 .designers-content{
-    padding: 100px 40px;
+    padding: 70px 40px;
+}
+.designers-filters{
+    padding: 0px 0px 20px 0px;
+}
+.designers-filters > .filter-item{
+    margin: 0px 10px 0px 0px;
 }
 .designers-content h3{
     font-size: 50px;
