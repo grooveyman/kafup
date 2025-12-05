@@ -2,6 +2,7 @@ import "../assets/css/collections.css";
 import CollectionsCard from "../components/collectionscomponents/CollectionsCard";
 import { useEffect, useState } from "react";
 import NavFilter from "../components/explorecomponents/NavFilter";
+import EmptyPage from "../components/EmptyPage";
 
 const Collections: React.FC = () => {
     const filters = [
@@ -58,6 +59,7 @@ const Collections: React.FC = () => {
                     <NavFilter filters={filters} selectedFilter={selectedFilter} onChange={(id) => setSelectedFilter(id)} />
                 </div>
                 <div className="row mt-3">
+                    {items.length == 0 && <EmptyPage />}
                     {items.map((collection) => {
                         return (<CollectionsCard name={collection.name} meta={{ views: collection.views, likes: collection.likes, items: collection.items }} designer={{ name: collection.designer.name, dp_img: collection.designer.img }} collection_id={collection.id} description={collection.description} />
                         )

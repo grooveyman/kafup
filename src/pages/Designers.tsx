@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import "../assets/css/designers.css";
 import DesignerCard from "../components/designercomponents/DesignerCard";
 import NavFilter from "../components/explorecomponents/NavFilter";
+import EmptyPage from "../components/EmptyPage";
 
 const Designers: React.FC = () => {
 
@@ -101,6 +102,8 @@ const Designers: React.FC = () => {
             <NavFilter filters={filters} selectedFilter={selectedFilter} onChange={(id) => setSelectedFilter(id)} />
           </div>
             <div className="row designers-profile">
+              
+              {items.length == 0 && <EmptyPage />}
               {items.map((designer) => {
                 return (
                   <DesignerCard name={designer.name} meta={{ followers: designer.followers, collections: designer.collections, deliveries: designer.deliveries }} categories={designer.categories} profile_id={designer.id} dp_img={designer.image} />

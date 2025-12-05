@@ -8,7 +8,7 @@ const EmptyPage: React.FC = () => {
         <div className="empty-page d-flex flex-column align-items-center justify-content-center text-muted py-5">
             <ArchiveXIcon size={64} color="gray" fill="black" strokeWidth={0.5}/>
             <h5>Empty List</h5>
-            <p>No products found in this category</p>
+            <p>No items found in this category</p>
         </div>
         </>
     );
