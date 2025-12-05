@@ -50,3 +50,31 @@
     font-size: small;
     margin: 0;
 }
+
+.cls-head > h6{
+    margin: 0;
+    color: black;
+}
+
+.cls-head > span{
+    font-size: smaller;
+}
+.cls-profile{
+    background-color: black;
+    padding: 5px;
+    border-radius: 50px;
+}
+.cls-dp > img{
+    height: 30px;
+    width: 30px;
+    border-radius: 100%;
+    margin: 0 !important;
+}
+.cls-dp > p{
+    font-weight: bold;
+    align-items: center;
+    padding: 10px;
+    color: wheat;
+    margin: 0;
+    font-size: smaller;
+}
