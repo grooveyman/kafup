@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import "../assets/css/designers.css";
 import DesignerCard from "../components/designercomponents/DesignerCard";
 import NavFilter from "../components/explorecomponents/NavFilter";
-import Categories from "./Categories";
 
 const Designers: React.FC = () => {
 

@@ -1,4 +1,3 @@
-import { LucideEye } from "lucide-react";
 import "../assets/css/collections.css";
 import CollectionsCard from "../components/collectionscomponents/CollectionsCard";
 import { useEffect, useState } from "react";
