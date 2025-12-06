@@ -47,6 +47,7 @@
     height: 200px;
     width: 100%;
     object-fit: cover;
+    border-radius: 20px;
 
 }
 
@@ -64,3 +65,57 @@
     font-weight: bold;
 
 }
+
+.filters>div {
+    margin: 0px 10px 0px 0px;
+
+}
+
+.filters select {
+    border-radius: 30px !important;
+    font-size: small;
+}
+
+.portfolio-item {
+    margin-bottom: 20px;
+}
+
+.portfolio-item>img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.feat-section {}
+
+.profile-content {
+    padding-left: 50px !important;
+}
+
+.profile-dp {
+    padding: 0 !important;
+    margin: 0 !important;
+    border-radius: 10px;
+}
+
+.profile-dp>img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* mobile */
+@media screen and (max-width: 767px) {
+    .profile-content {
+        padding-left: 30px !important;
+        padding-top: 30px;
+    }
+    .profile-person{
+        padding: 30px !important;
+    }
+}
+
+/* tablet */
+@media screen and (min-width: 768px) and (max-width:1024) {}

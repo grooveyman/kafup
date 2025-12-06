@@ -13,3 +13,28 @@
     background-color: rgba(226, 222, 222, 0.4);
     backdrop-filter: blur(5px) !important;
 }
+/* For stacked mobile links */
+@media (max-width: 992px) {
+  .navbar-nav.flex-column {
+    width: 100%; /* Ensure full width */
+    text-align: left; /* Align text to the left */
+    margin: 10px;
+  }
+
+  .navbar-nav .nav-item {
+    width: 100%; /* Ensure each item takes full width */
+    padding: 5px 0; /* Add spacing between items */
+  }
+  
+  .round-nav{
+    margin: 10px 10px !important;
+  }
+
+  .navbar-nav .nav-link {
+    padding: 10px 20px; /* Add left padding for nav links */
+  }
+
+  .navbar-nav .nav-item button {
+    padding-left: 20px; /* Add left padding for buttons */
+  }
+}

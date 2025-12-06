@@ -6,7 +6,7 @@ const Person: React.FC = () => {
         <>
             <div className="row">
                 <div className="profile-dp">
-                    <img className="img-fluid" src="assets/images/sew.webp" />
+                    <img className="img-fluid" src="https://res.cloudinary.com/dm104hogb/image/upload/v1757794303/kreationz/products/kbbgdq9ffyufsoedz8as.jpg" />
                 </div>
             </div>
             <div className="row mt-3">

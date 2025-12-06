@@ -220,7 +220,10 @@ const Home: React.FC = () => {
       </div>
 
       {/* Vision section */}
-      <Vision />
+      <div className="mb-5">
+         <Vision />
+      </div>
+      
     </>
   );
 };

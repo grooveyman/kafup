@@ -4,6 +4,7 @@
     border-radius: 10px;
 }
 
+
 .collection-container{
     position: relative;
     
@@ -80,5 +81,16 @@
 }
 
 .ad-card{
+    height: 100%;
+}
+
+.collection-item{
+    height: 300px;
+    width: 100%;
+    margin-top: 20px;
+}
+.collection-item > img{
+    border-radius: 10px;
+    object-fit: cover;
     height: 100%;
 }

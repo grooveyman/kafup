@@ -1,4 +1,5 @@
 import { LucideEye } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 interface MetaItem {
     views: number;
@@ -18,6 +19,7 @@ interface CollectinsProps {
 }
 
 const CollectionsCard: React.FC<CollectinsProps> = ({ name, meta, description, designer, collection_id }) => {
+    const navigate = useNavigate();
     return (
         <>
             <div className="col-md-3">
@@ -39,7 +41,7 @@ const CollectionsCard: React.FC<CollectinsProps> = ({ name, meta, description, d
                                 </div>
 
                             </div>
-                            <LucideEye onClick={()=>console.log(collection_id)} />
+                            <LucideEye onClick={()=>navigate(`/collections/${collection_id}`)} />
 
                         </div>
                     </div>
