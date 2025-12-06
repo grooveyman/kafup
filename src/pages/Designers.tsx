@@ -22,6 +22,7 @@ const Designers: React.FC = () => {
         {
           id:"3212sd",
           name: "Alice Klottey",
+          username: "alice-klottey",
           followers: "23K",
           likes: 45,
           products: 100,
@@ -36,6 +37,7 @@ const Designers: React.FC = () => {
         {
           id: "fsdw32fds",
           name: "Mercy Awortwe",
+          username: "mercy-awortwe",
           followers: "3K",
           likes: 5,
           products: 10,
@@ -52,6 +54,7 @@ const Designers: React.FC = () => {
         {
           id:"dss23ds",
           name: "Kelvin Ansah",
+          username: "kelvin-ansah",
           followers: "3K",
           likes: 52,
           products: 108,
@@ -68,6 +71,7 @@ const Designers: React.FC = () => {
         {
           id:"sdc23cs",
           name: "Mercy Awortwe",
+          username: "mercy-awortwe",
           followers: "3K",
           likes: 5,
           products: 10,
@@ -106,7 +110,7 @@ const Designers: React.FC = () => {
               {items.length == 0 && <EmptyPage />}
               {items.map((designer) => {
                 return (
-                  <DesignerCard name={designer.name} meta={{ followers: designer.followers, collections: designer.collections, deliveries: designer.deliveries }} categories={designer.categories} profile_id={designer.id} dp_img={designer.image} />
+                  <DesignerCard name={designer.name} meta={{ followers: designer.followers, collections: designer.collections, deliveries: designer.deliveries }} categories={designer.categories} dp_img={designer.image} username={designer.username} />
                 );
               })}
             </div>

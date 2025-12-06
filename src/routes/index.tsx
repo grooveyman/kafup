@@ -14,6 +14,7 @@ import Success from "../pages/Success";
 import Explore from "../pages/Explore";
 import Designers from "../pages/Designers";
 import Collections from "../pages/Collections";
+import Profile from "../pages/Profile";
 
 export const router = createBrowserRouter([
   {
@@ -31,6 +32,7 @@ export const router = createBrowserRouter([
       {path: "/explore", element: <Explore/>},
       {path: "/designers", element: <Designers/>},
       {path: "/collections", element: <Collections/>},
+      {path: "/designers/:username", element: <Profile />},
       {
         path: "admin",
         element: <AdminLayout />,

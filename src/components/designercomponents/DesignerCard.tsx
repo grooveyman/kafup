@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 
 
 interface MetaItem{
@@ -10,16 +11,18 @@ interface CategoryItem{
 }
 interface DesignerCardProps{
     name:string;
+    username: string;
     meta: MetaItem;
     categories:CategoryItem[];
-    profile_id: string;
     dp_img: string;
 }
 
-const DesignerCard: React.FC<DesignerCardProps> = ({name, meta, categories, profile_id, dp_img}) => {
-   
+const DesignerCard: React.FC<DesignerCardProps> = ({name, meta, categories, dp_img, username}) => {
+   const navigate = useNavigate();
     const handleProfileClick = (id:string) => {
         console.log("Profile clicked for: "+id);
+        navigate(`/designers/${username}`)
+
     }
 
     return (
@@ -41,7 +44,7 @@ const DesignerCard: React.FC<DesignerCardProps> = ({name, meta, categories, prof
 
                <hr/>
                 <div className="">
-                    <button className="btn btn-sm btn-primary" onClick={() => handleProfileClick(profile_id)}>View Profile</button>
+                    <button className="btn btn-sm btn-primary" onClick={() => handleProfileClick(username)}>View Profile</button>
                 </div>
             </div>
         </div>

@@ -1,0 +1,66 @@
+.profile-dp {
+    background-color: grey;
+    height: 300px;
+    width: 100%;
+    border-radius: 20px;
+}
+
+.meta>div {
+    font-size: smaller;
+}
+
+.desc {
+    color: grey;
+    line-height: normal;
+}
+
+.categories>h6 {
+    color: grey;
+}
+
+.categories>span {
+    padding: 5px;
+    background-color: black;
+    border-radius: 10px;
+    margin: 0px 5px 0px 0px;
+    color: white;
+    font-size: small;
+}
+
+.loc>h6 {
+    color: grey;
+}
+
+.socials>span {
+    background-color: black;
+    padding: 5px;
+    color: white;
+    border-radius: 50px;
+    margin: 0px 5px 0px 0px;
+}
+
+.featured-designs {
+    position: relative;
+}
+
+.featured-designs>img {
+    height: 200px;
+    width: 100%;
+    object-fit: cover;
+
+}
+
+.featured-designs>p {
+    position: absolute;
+    top: 90%;
+    left: 50%;
+    /* background-color: rgb(192, 190, 190); */
+    /* padding: 5px; */
+    border-radius: 20px;
+    transform: translate(-50%, -50%);
+    font-size: smaller;
+    color: white;
+    text-shadow: 1px 5px 8px rgba(0, 0, 0, 1);
+    font-weight: bold;
+
+}
