@@ -105,6 +105,10 @@
     object-fit: cover;
     border-radius: 10px;
 }
+.btn-view-profile{
+    font-size: x-small !important;
+
+}
 
 /* mobile */
 @media screen and (max-width: 767px) {

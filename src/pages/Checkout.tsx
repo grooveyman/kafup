@@ -69,7 +69,7 @@ const Checkout: React.FC = () => {
         popup.resumeTransaction(data.access_code, {
           onSuccess: () => {
             console.log(`payment successful: reference:${data.reference}`);
-            navigate(`/success/${data.reference}`);
+            navigate(`/`);
           },
           onCancel: () => {
             toast.error("Payment cancelled");

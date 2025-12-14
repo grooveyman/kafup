@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import "../assets/css/profile.css";
-import { ArrowBigLeftDashIcon, FacebookIcon, InstagramIcon, TwitterIcon, YoutubeIcon } from "lucide-react";
+import { ArrowBigLeftDashIcon} from "lucide-react";
 import Person from "../components/profilecomponents/Person";
 import Lightbox from "yet-another-react-lightbox";
 import { useState } from "react";

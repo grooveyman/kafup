@@ -26,7 +26,7 @@ const DesignerCard: React.FC<DesignerCardProps> = ({name, meta, categories, dp_i
     }
 
     return (
-        <div className="col-md-4 designers-card mt-3">
+        <div className="col-md-3 designers-card mt-3">
             <div className="designers-img">
                 <img src={dp_img} />
             </div>
@@ -42,9 +42,9 @@ const DesignerCard: React.FC<DesignerCardProps> = ({name, meta, categories, dp_i
                     {categories.map((cat)=>(<span>{cat.c_name}</span>))}     
                 </div>
 
-               <hr/>
-                <div className="">
-                    <button className="btn btn-sm btn-primary" onClick={() => handleProfileClick(username)}>View Profile</button>
+               {/* <hr/> */}
+                <div className="mt-3">
+                    <button className="btn btn-sm btn-primary btn-view-profile" onClick={() => handleProfileClick(username)}>View Profile</button>
                 </div>
             </div>
         </div>
