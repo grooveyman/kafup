@@ -6,7 +6,7 @@ import { useApiMutation } from "../hooks/useApi";
 import { toast } from "react-toastify";
 // import { useNavigate } from "react-router-dom";
 import PaystackPop from "@paystack/inline-js";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 export interface OrderType {
   total: number;
@@ -39,7 +39,7 @@ const Checkout: React.FC = () => {
     deliveryAddress: "",
   });
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -69,7 +69,7 @@ const Checkout: React.FC = () => {
         popup.resumeTransaction(data.access_code, {
           onSuccess: () => {
             console.log(`payment successful: reference:${data.reference}`);
-            navigate(`/`);
+            window.location.href = "/";
           },
           onCancel: () => {
             toast.error("Payment cancelled");
