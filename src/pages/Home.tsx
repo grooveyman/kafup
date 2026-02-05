@@ -56,7 +56,7 @@ const Home: React.FC = () => {
   };
   const navigate = useNavigate();
   if (isLoading) console.log("Loading products");
-  if (isError) console.log("Error loading products");
+  if (isError) console.log(`Error loading products`);
   if (data) {
     console.log(data);
   }

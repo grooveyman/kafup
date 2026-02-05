@@ -45,6 +45,7 @@ const Checkout: React.FC = () => {
   ) => {
     e.preventDefault();
     const { name, value } = e.target;
+    
     setCustomerInfo((prev) => ({
       ...prev,
       [name]: value,
@@ -86,10 +87,28 @@ const Checkout: React.FC = () => {
     },
   });
 
+  const validateCustomerInfo = (customerInfo:CustomerType) => {
+    if(!customerInfo.fullname || !customerInfo.email || !customerInfo.phoneNumber || !customerInfo.deliveryAddress){
+      toast.error("Please fill all mandatory fields");
+      return false;
+    }else if(!/\S+@\S+\.\S+/.test(customerInfo.email)){
+      toast.error("Please enter a valid email address");
+      return false;
+    }else if(!/^\d{10}$/.test(customerInfo.phoneNumber)){
+      toast.error("Please enter a valid phone number");
+      return false;
+    }
+    return true;
+  }
+
   const handlePay = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     console.log("Pay clicked");
     //prepare order data
+    //validate customer info
+    if(!validateCustomerInfo(customerInfo)) return;
+
+
     const order: OrderType = {
       total: total,
       quantity: cartQuantity,
