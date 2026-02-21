@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "../assets/css/details.css";
-import { CartItemType, CartVariation, useCartContext } from "../context/CartContext";
+import { CartItemType, CartVariation, DesignerType, useCartContext } from "../context/CartContext";
 import { useApiMutation, useApiQuery } from "../hooks/useApi";
 import DetailsSkeletonLoader from "../components/DetailsSkeletonLoader";
 import { Variation } from "./admin/products/AddProduct";
@@ -12,14 +12,15 @@ interface Product {
   price: number;
   description: string;
   previewimg: string;
-  prodimages: Image[];
+  otherimages: Image[];
   colors: string[];
   quantity: number;
   variations: Variation[]; 
+  designer: DesignerType;
 }
 
 interface Image{
-  imgurl: string;
+  url: string;
 }
 
 const ProductDetails: React.FC = () => {
@@ -34,14 +35,16 @@ const ProductDetails: React.FC = () => {
 
   // fetch product
   const { data, isLoading, isError } = useApiQuery<Product>(
-    ["products"],
-    `/products/product/${productId}`
+    ["products_"],
+    `/designs/product/${productId}`
   );
+
+  //state to manage preview image
   console.log("Fetched data");
   console.log(data);
 
   // send click update request
-  const mutate = useApiMutation<{message:string}>(`/products/productClick/${prodId}`, "PUT", {
+  const mutate = useApiMutation<{message:string}>(`/designs/productClick/${prodId}`, "PUT", {
     onSuccess : (data) => {
   console.log(data.message);
 },
@@ -63,11 +66,11 @@ onError: (error) => {
   const [selectedColor, setSelectedColor] = useState(
     product?.variations?.[0]?.color || ""
   );
-  const [selectedImage, setSelectedImage] = useState(0);
+  const [selectedImage, setSelectedImage] = useState(-1);
   const [fullscreen, setFullscreen] = useState(false);
 
   
-  const images: Image[] = product?.prodimages || [];
+  const images: Image[] = product?.otherimages || [];
   console.log("Product images:", images);
 
   const handleNext = () => {
@@ -100,6 +103,11 @@ onError: (error) => {
       previmg: product.previewimg,
       variations: cartVariations,
       total: product.price * selectedQuantity,
+      designer: {
+        code: product.designer.code,
+        name: product.designer.name,
+        profileImg: product.designer.profileImg
+      }
     };
 
     addToCart(productProd);
@@ -139,7 +147,7 @@ onError: (error) => {
               {images.map((img, index) => (
                 <img
                   key={index}
-                  src={img.imgurl}
+                  src={img.url}
                   className={`img-thumbnail mb-2 ${
                     selectedImage === index ? "border border-primary" : ""
                   }`}
@@ -158,7 +166,7 @@ onError: (error) => {
             {/* Preview */}
             <div className="preview-img flex-grow-1">
               <img
-                src={images[selectedImage]?.imgurl || product.previewimg}
+                src={images[selectedImage]?.url || product.previewimg}
                 className="img-fluid rounded"
                 style={{ cursor: "zoom-in" }}
                 onClick={() => setFullscreen(true)}
@@ -286,7 +294,7 @@ onError: (error) => {
             ‹
           </button>
 
-          <img src={images[selectedImage].imgurl}
+          <img src={images[selectedImage]?.url}
             style={{ maxHeight: "90%", maxWidth: "90%" }}
             alt="Fullscreen preview"
           />

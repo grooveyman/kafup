@@ -4,7 +4,7 @@ import { useCartContext } from "../context/CartContext";
 import { CartType } from "./Cart";
 import { useApiMutation } from "../hooks/useApi";
 import { toast } from "react-toastify";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import PaystackPop from "@paystack/inline-js";
 // import { useNavigate } from "react-router-dom";
 
@@ -20,6 +20,8 @@ export interface CustomerType {
   email: string;
   phoneNumber: string;
   deliveryAddress: string;
+  region: string;
+  city: string;
 }
 const Checkout: React.FC = () => {
   const { cartItems } = useCartContext();
@@ -30,22 +32,24 @@ const Checkout: React.FC = () => {
     quantity: cartItems.length,
     cartItems: cartItems,
   };
-  //  const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const [customerInfo, setCustomerInfo] = useState({
     fullname: "",
     email: "",
     phoneNumber: "",
     deliveryAddress: "",
+    region:"",
+    city:"",
   });
 
   // const navigate = useNavigate();
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     e.preventDefault();
     const { name, value } = e.target;
-    
+
     setCustomerInfo((prev) => ({
       ...prev,
       [name]: value,
@@ -57,7 +61,7 @@ const Checkout: React.FC = () => {
     message: string;
     access_code: string;
     status: boolean;
-    error?:string;
+    error?: string;
     reference: string;
   }>("/orders/processOrder", "POST", {
     onSuccess: (data) => {
@@ -65,19 +69,20 @@ const Checkout: React.FC = () => {
       console.log("response from order");
       console.log(data);
       if (data.status) {
-        
+
         const popup = new PaystackPop();
         popup.resumeTransaction(data.access_code, {
           onSuccess: () => {
             console.log(`payment successful: reference:${data.reference}`);
-            window.location.href = "/";
+            navigate(`/success/${data.reference}`);
+            // window.location.href = "/";
           },
           onCancel: () => {
             toast.error("Payment cancelled");
           }
         });
-        
-      }else{
+
+      } else {
         toast.error(data.error);
       }
     },
@@ -87,14 +92,14 @@ const Checkout: React.FC = () => {
     },
   });
 
-  const validateCustomerInfo = (customerInfo:CustomerType) => {
-    if(!customerInfo.fullname || !customerInfo.email || !customerInfo.phoneNumber || !customerInfo.deliveryAddress){
+  const validateCustomerInfo = (customerInfo: CustomerType) => {
+    if (!customerInfo.fullname || !customerInfo.email || !customerInfo.phoneNumber || !customerInfo.deliveryAddress) {
       toast.error("Please fill all mandatory fields");
       return false;
-    }else if(!/\S+@\S+\.\S+/.test(customerInfo.email)){
+    } else if (!/\S+@\S+\.\S+/.test(customerInfo.email)) {
       toast.error("Please enter a valid email address");
       return false;
-    }else if(!/^\d{10}$/.test(customerInfo.phoneNumber)){
+    } else if (!/^\d{10}$/.test(customerInfo.phoneNumber)) {
       toast.error("Please enter a valid phone number");
       return false;
     }
@@ -106,7 +111,8 @@ const Checkout: React.FC = () => {
     console.log("Pay clicked");
     //prepare order data
     //validate customer info
-    if(!validateCustomerInfo(customerInfo)) return;
+    console.log(customerInfo);
+    if (!validateCustomerInfo(customerInfo)) return;
 
 
     const order: OrderType = {
@@ -166,38 +172,70 @@ const Checkout: React.FC = () => {
                 </div>
               </div>
 
-              <div className="mb-3">
-                <label className="form-label">
-                  Phone Number <span className="mandatory">*</span>
-                </label>
-                <input
-                  type="tel"
-                  className="form-control"
-                  placeholder="Enter your phone number"
-                  value={customerInfo.phoneNumber}
-                  onChange={handleChange}
-                  name="phoneNumber"
-                />
+              <div className="row">
+                <div className="mb-3 col-md-6">
+                  <label className="form-label">
+                    Phone Number <span className="mandatory">*</span>
+                  </label>
+                  <input
+                    type="tel"
+                    className="form-control"
+                    placeholder="Enter your phone number"
+                    value={customerInfo.phoneNumber}
+                    onChange={handleChange}
+                    name="phoneNumber"
+                  />
+                </div>
+                <div className="mb-3 col-md-6">
+                  <label className="form-label">
+                    Delivery Address <span className="mandatory">*</span>
+                  </label>
+                  <input
+                    type="tel"
+                    className="form-control"
+                    placeholder="Enter your shipping address"
+                    value={customerInfo.deliveryAddress}
+                    onChange={handleChange}
+                    name="deliveryAddress"
+                  />
+                </div>
               </div>
-              <div className="mb-3">
-                <label className="form-label">
-                  Delivery Address <span className="mandatory">*</span>
-                </label>
-                <input
-                  type="tel"
-                  className="form-control"
-                  placeholder="Enter your shipping address"
-                  value={customerInfo.deliveryAddress}
-                  onChange={handleChange}
-                  name="deliveryAddress"
-                />
+
+              <div className="row">
+                <div className="mb-3 col-md-6">
+                  <label className="form-label">Region</label>
+                  <select id="region" className="form-select" name="region" value={customerInfo.region} onChange={handleChange}>
+                    <option value="select">Select your region</option>
+                    <option value="ahafo">Ahafo</option>
+                    <option value="ashanti">Ashanti</option>
+                    <option value="bono">Bono</option>
+                    <option value="bono_east">Bono East</option>
+                    <option value="central">Central</option>
+                    <option value="eastern">Eastern</option>
+                    <option value="greater_accra">Greater Accra</option>
+                    <option value="northeast">North East</option>
+                    <option value="northern">Northern</option>
+                    <option value="oti">Oti</option>
+                    <option value="savannah">Savannah</option>
+                    <option value="upper_east">Upper East</option>
+                    <option value="upper_west">Upper West</option>
+                    <option value="volta">Volta</option>
+                    <option value="western">Western</option>
+                    <option value="western_north">Western North</option>
+                  </select>
+                </div>
+                <div className="mb-3 col-md-6">
+                  <label className="form-label">City</label>
+                  <input type="text" name="city" className="form-control" placeholder="City" value={customerInfo.city} onChange={handleChange} />
+                </div>
               </div>
+
               <div className="mb-3">
                 <button
                   type="button"
                   onClick={handlePay}
                   className="btn btn-success"
-                  disabled={mutation.isPending?true:false}
+                  disabled={mutation.isPending ? true : false}
                 >
                   {mutation.isPending ? (
                     <span

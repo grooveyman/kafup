@@ -14,6 +14,11 @@ export interface CartVariation {
   price: number;
   quantity: number;
 }
+export interface DesignerType {
+  code: number;
+  name: string;
+  profileImg: string;
+}
 export interface CartItemType {
   id: string;
   name: string;
@@ -22,6 +27,7 @@ export interface CartItemType {
   total: number;
   previmg: string;
   variations?: CartVariation[];
+  designer: DesignerType;
 }
 
 interface CartContextTypes {

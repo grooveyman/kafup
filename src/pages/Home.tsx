@@ -24,6 +24,12 @@ export interface Product {
   previewimg_height?: number;
   previewimg_width?: number;
   previewimg_public_id?: string;
+  designer: DesignerType;
+}
+export interface DesignerType{
+  code: number;
+  name: string;
+  profileImg: string;
 }
 
 interface ProdImage {
@@ -35,14 +41,15 @@ interface ProdImage {
 const Home: React.FC = () => {
   const { data, isLoading, isError } = useApiQuery<Product[]>(
     ["products"],
-    "/products/?limit=8"
+    "/designs/?limit=8"
   );
+  
 
   const {
     data: popularData,
     isLoading: isLoadingPopular,
     isError: isErrorPopular,
-  } = useApiQuery<Product[]>(["popularproducts"], "/products/popularProducts");
+  } = useApiQuery<Product[]>(["popularproducts"], "/designs/popularProducts");
   console.log("Popular products");
   console.log(popularData);
   if (isErrorPopular) {
