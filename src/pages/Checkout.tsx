@@ -206,22 +206,22 @@ const Checkout: React.FC = () => {
                   <label className="form-label">Region</label>
                   <select id="region" className="form-select" name="region" value={customerInfo.region} onChange={handleChange}>
                     <option value="select">Select your region</option>
-                    <option value="ahafo">Ahafo</option>
-                    <option value="ashanti">Ashanti</option>
-                    <option value="bono">Bono</option>
-                    <option value="bono_east">Bono East</option>
-                    <option value="central">Central</option>
-                    <option value="eastern">Eastern</option>
-                    <option value="greater_accra">Greater Accra</option>
-                    <option value="northeast">North East</option>
-                    <option value="northern">Northern</option>
-                    <option value="oti">Oti</option>
-                    <option value="savannah">Savannah</option>
-                    <option value="upper_east">Upper East</option>
-                    <option value="upper_west">Upper West</option>
-                    <option value="volta">Volta</option>
-                    <option value="western">Western</option>
-                    <option value="western_north">Western North</option>
+                    <option value="Ahafo">Ahafo</option>
+                    <option value="Ashanti">Ashanti</option>
+                    <option value="Bono">Bono</option>
+                    <option value="Bono East">Bono East</option>
+                    <option value="Central">Central</option>
+                    <option value="Eastern">Eastern</option>
+                    <option value="Greater Accra">Greater Accra</option>
+                    <option value="North East">North East</option>
+                    <option value="Northern">Northern</option>
+                    <option value="Oti">Oti</option>
+                    <option value="Savannah">Savannah</option>
+                    <option value="Upper East">Upper East</option>
+                    <option value="Upper West">Upper West</option>
+                    <option value="Volta">Volta</option>
+                    <option value="Western">Western</option>
+                    <option value="Western North">Western North</option>
                   </select>
                 </div>
                 <div className="mb-3 col-md-6">

@@ -6,7 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import { LoginModalProvider } from "./context/LoginModalContext.tsx";
 import LoginModal from "./components/LoginModal.tsx";
-import { CartProvider } from "./context/CartContext.tsx";
+import { CartProvider } from "./context/CartContext";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "react-loading-skeleton/dist/skeleton.css";
 import "sweetalert2/dist/sweetalert2.min.css";
