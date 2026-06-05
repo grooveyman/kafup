@@ -166,7 +166,7 @@ onError: (error) => {
             {/* Preview */}
             <div className="preview-img flex-grow-1">
               <img
-                src={images[selectedImage]?.url || product.previewimg}
+                src={images[selectedImage]?.imgurl || product.previewimg}
                 className="img-fluid rounded"
                 style={{ cursor: "zoom-in" }}
                 onClick={() => setFullscreen(true)}
@@ -294,7 +294,7 @@ onError: (error) => {
             ‹
           </button>
 
-          <img src={images[selectedImage]?.url}
+          <img src={images[selectedImage]?.imgurl}
             style={{ maxHeight: "90%", maxWidth: "90%" }}
             alt="Fullscreen preview"
           />
