@@ -141,7 +141,6 @@ const Home: React.FC = () => {
             <TabList onChange={handleChange} aria-label="lab API tabs example">
               <Tab label="Recent Designs" value="1" />
               <Tab label="Popular Designs" value="2" />
-              <Tab label="Assesories" value="3" />
             </TabList>
           </Box>
           {/* recent designs */}
@@ -210,15 +209,7 @@ const Home: React.FC = () => {
             </div>
           </Fade>
 
-          <Fade in={value === "3"} timeout={600} mountOnEnter unmountOnExit>
-            <div>
-              <TabPanel value="3">
-                <div className="row">
-                  <EmptyPage />
-                </div>
-              </TabPanel>
-            </div>
-          </Fade>
+          
         </TabContext>
       </div>
 

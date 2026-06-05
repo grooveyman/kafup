@@ -9,7 +9,7 @@ import NewNavBar from './NewNavBar';
 
 const MainLayout: React.FC = () => {
     return (
-        <div className="d-flex flex-column min-vh-100">
+        <div className="container d-flex flex-column min-vh-100">
             <NewNavBar />
             <section className='' style={{ marginTop: '70px' }}>
                 <Outlet />

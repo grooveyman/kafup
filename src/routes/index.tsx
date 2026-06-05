@@ -8,7 +8,7 @@ import Cart from "../pages/Cart";
 import ProductList from "../pages/admin/products/ProductList";
 import AdminLayout from "../layouts/AdminLayout";
 import EditProduct from "../pages/admin/products/EditProduct";
-import Categories from "../pages/Categories";
+import Categories from "../pages/Shop";
 import Checkout from "../pages/Checkout";
 import Success from "../pages/Success";
 import Explore from "../pages/Explore";

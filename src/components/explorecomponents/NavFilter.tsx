@@ -57,7 +57,6 @@ const NavFilter: React.FC<NavFilterProps> = ({ filters, selectedFilter, onChange
                                             onClick={() => { }}
                                             aria-label="Open account"
                                         >
-                                            <SearchIcon />
                                         </button>
                                     </div>
 

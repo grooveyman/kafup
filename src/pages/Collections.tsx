@@ -3,6 +3,7 @@ import CollectionsCard from "../components/collectionscomponents/CollectionsCard
 import { useEffect, useState } from "react";
 import NavFilter from "../components/explorecomponents/NavFilter";
 import EmptyPage from "../components/EmptyPage";
+import Breadcrumb from "../components/Breadcrumb";
 
 const Collections: React.FC = () => {
     const filters = [
@@ -55,6 +56,7 @@ const Collections: React.FC = () => {
     return (
         <>
             <div className="container">
+                <Breadcrumb crumbs={[{label:"Home", href:"/"}, {label:"Collections", href:""}]}/>
                 <div className="row">
                     <NavFilter filters={filters} selectedFilter={selectedFilter} onChange={(id) => setSelectedFilter(id)} />
                 </div>

@@ -84,7 +84,7 @@ const NewNavBar: React.FC = () => {
                     href="#"
                     onClick={() => navigate("/designers")}
                   >
-                    Designers
+                    Brands
                   </a>
                 </li>
                 <li className="nav-item">

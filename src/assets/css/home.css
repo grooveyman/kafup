@@ -62,10 +62,19 @@
     margin: 0 !important;
     padding: 0 !important;
     border-radius: var(--curve-edge);
+    position: relative;
+}
+
+.like-btn{
+    position: absolute;
+    top: 10px;
+    right: 5%;
+    background-color: white;
+    padding: 5px;
+    border-radius: 10px;
 }
 .product img{
-    border-top-left-radius: var(--curve-edge);
-    border-top-right-radius: var(--curve-edge);
+    border-radius: var(--curve-edge);
     height: 100%;
     width: 100%;
     object-fit: cover;
@@ -88,7 +97,7 @@
     background-size: cover;
 }
 .desc > p{
-    color: rgb(151, 153, 155);;
+    /* color: rgb(151, 153, 155); */
 }
 
 .parallax-banner{
@@ -225,21 +234,21 @@
     padding: 5px 25px !important;
 }
 .btn-breadcrumb{
-    background-color: var(--lightgrey) !important;
+    /* background-color: var(--lightgrey) !important; */
     color: #000000 !important;
     border-radius: 30px !important;
     border: none !important;
-    padding: 5px 10px !important;
+    /* padding: 5px 10px !important; */
     /* width: 100%; */
-    font-size: smaller !important;
+    font-size: small !important;
 }
 .breadcrumb-active{
      /* background-color: var(--lightgrey) !important; */
     color: #000000 !important;
     border-radius: 30px !important;
     border: none !important;
-    /* padding: 5px 10px !important; */
-    font-size: smaller !important;
+    text-decoration: none;
+    font-size: small !important;
 }
 
 .btn-secondary{

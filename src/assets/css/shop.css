@@ -1,0 +1,20 @@
+
+
+.shop-prod-desc{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0 !important;
+}
+.shop-prod-desc > p > span{
+    font-size: x-small;
+    padding: 2px;
+}
+.shop-prod-desc > p{
+    margin: 0;
+}
+
+.shop-desc-cat > p{
+    color: gray;
+    font-size: small;
+    margin: 0;
+}

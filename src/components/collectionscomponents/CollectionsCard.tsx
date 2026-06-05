@@ -22,7 +22,7 @@ const CollectionsCard: React.FC<CollectinsProps> = ({ name, meta, description, d
     const navigate = useNavigate();
     return (
         <>
-            <div className="col-md-3">
+            <div className="col-md-6 col-sm-12 col-lg-4 col-xl-3 mb-4">
                 <div className="ad-card">
                     <img src="assets/images/software dev.png" className="img-rounded" />
                     <div className="ad-content">
