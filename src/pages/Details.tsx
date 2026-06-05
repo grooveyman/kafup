@@ -12,7 +12,7 @@ interface Product {
   price: number;
   description: string;
   previewimg: string;
-  otherimages: Image[];
+  designImages: Image[];
   colors: string[];
   quantity: number;
   variations: Variation[]; 
@@ -20,7 +20,7 @@ interface Product {
 }
 
 interface Image{
-  url: string;
+  imgurl: string;
 }
 
 const ProductDetails: React.FC = () => {
@@ -36,7 +36,7 @@ const ProductDetails: React.FC = () => {
   // fetch product
   const { data, isLoading, isError } = useApiQuery<Product>(
     ["products_"],
-    `/designs/product/${productId}`
+    `/designs/${productId}`
   );
 
   //state to manage preview image
@@ -70,7 +70,7 @@ onError: (error) => {
   const [fullscreen, setFullscreen] = useState(false);
 
   
-  const images: Image[] = product?.otherimages || [];
+  const images: Image[] = product?.designImages || [];
   console.log("Product images:", images);
 
   const handleNext = () => {
@@ -147,7 +147,7 @@ onError: (error) => {
               {images.map((img, index) => (
                 <img
                   key={index}
-                  src={img.url}
+                  src={img.imgurl}
                   className={`img-thumbnail mb-2 ${
                     selectedImage === index ? "border border-primary" : ""
                   }`}
