@@ -1,11 +1,11 @@
 
 import { useEffect, useState } from "react";
 import "../assets/css/designers.css";
-import DesignerCard from "../components/designercomponents/DesignerCard";
 import NavFilter from "../components/explorecomponents/NavFilter";
 import EmptyPage from "../components/EmptyPage";
+import BrandsCard from "../components/brandscomponents/BrandCard";
 
-const Designers: React.FC = () => {
+const Brands: React.FC = () => {
 
   const filters = [
     { id: "all", name: "All" },
@@ -22,12 +22,14 @@ const Designers: React.FC = () => {
         {
           id:"3212sd",
           name: "Alice Klottey",
-          username: "alice-klottey",
-          followers: "23K",
-          likes: 45,
-          products: 100,
+          meta:{
+            likes: 5,
+            follows: 10,
+             collections:23,
+             deliveries: 98
+
+          },
           image: "assets/images/hero3.jpg",
-          collections: 22,
           caption: "First stop for kaftan, unisex. Men and women, materialize your imaginations. Find the most equisite here",
           categories:[
             {c_name: "Shirt"},
@@ -37,12 +39,14 @@ const Designers: React.FC = () => {
         {
           id: "fsdw32fds",
           name: "Mercy Awortwe",
-          username: "mercy-awortwe",
-          followers: "3K",
-          likes: 5,
-          products: 10,
+          meta:{
+            likes: 5,
+            follows: 10,
+             collections:23,
+             deliveries: 33
+          },
+          
           image: "assets/images/hero2.jpg",
-          collections: 43,
           caption: "A vibrant fashion designer for men's wear. All your men's fashion can be found here in our collections.",
           categories:[
             {
@@ -54,12 +58,12 @@ const Designers: React.FC = () => {
         {
           id:"dss23ds",
           name: "Kelvin Ansah",
-          username: "kelvin-ansah",
-          followers: "3K",
-          likes: 52,
-          products: 108,
+          meta:{
+            likes: 5,
+            follows: 10,
+            deliveries: 32
+          },
           image: "assets/images/hero1.jpg",
-          collections: 87,
           caption: "A vibrant fashion designer for men's wear. All your men's fashion can be found here in our collections.",
           categories:[
             {
@@ -71,12 +75,13 @@ const Designers: React.FC = () => {
         {
           id:"sdc23cs",
           name: "Mercy Awortwe",
-          username: "mercy-awortwe",
-          followers: "3K",
-          likes: 5,
-          products: 10,
+          meta:{
+            likes: 5,
+            follows: 10,
+            collections:23,
+            deliveries: 9
+          },
           image: "assets/images/hero2.jpg",
-          collections: 43,
           caption: "A vibrant fashion designer for men's wear. All your men's fashion can be found here in our collections.",
           categories:[
             {c_name: "Shirt"},
@@ -110,7 +115,7 @@ const Designers: React.FC = () => {
               {items.length == 0 && <EmptyPage />}
               {items.map((designer) => {
                 return (
-                  <DesignerCard name={designer.name} meta={{ followers: designer.followers, collections: designer.collections, deliveries: designer.deliveries }} categories={designer.categories} dp_img={designer.image} username={designer.username} />
+                  <BrandsCard name={designer.name} meta={{ follows: designer.meta.follows, collections: designer.meta.collections, deliveries: designer.meta.deliveries }} categories={designer.categories} cover_img={designer.image} brand_id={designer.id} />
                 );
               })}
             </div>
@@ -122,4 +127,4 @@ const Designers: React.FC = () => {
   );
 };
 
-export default Designers;
+export default Brands;

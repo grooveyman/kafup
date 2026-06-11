@@ -5,6 +5,9 @@ import { CartItemType, CartVariation, DesignerType, useCartContext } from "../co
 import { useApiMutation, useApiQuery } from "../hooks/useApi";
 import DetailsSkeletonLoader from "../components/DetailsSkeletonLoader";
 import { Variation } from "./admin/products/AddProduct";
+import { Star } from "lucide-react";
+import Reviews from "../components/SimilarDesigns";
+import SimilarDesigns from "../components/SimilarDesigns";
 
 interface Product {
   id: string;
@@ -15,11 +18,11 @@ interface Product {
   designImages: Image[];
   colors: string[];
   quantity: number;
-  variations: Variation[]; 
+  designvariations: Variation[];
   designer: DesignerType;
 }
 
-interface Image{
+interface Image {
   imgurl: string;
 }
 
@@ -35,7 +38,7 @@ const ProductDetails: React.FC = () => {
 
   // fetch product
   const { data, isLoading, isError } = useApiQuery<Product>(
-    ["products_"],
+    ["products_"+prodId],
     `/designs/${productId}`
   );
 
@@ -44,32 +47,32 @@ const ProductDetails: React.FC = () => {
   console.log(data);
 
   // send click update request
-  const mutate = useApiMutation<{message:string}>(`/designs/productClick/${prodId}`, "PUT", {
-    onSuccess : (data) => {
-  console.log(data.message);
-},
-onError: (error) => {
-  console.log(error.message);
-}
+  const mutate = useApiMutation<{ message: string }>(`/designs/productClick/${prodId}`, "PUT", {
+    onSuccess: (data) => {
+      console.log(data.message);
+    },
+    onError: (error) => {
+      console.log(error.message);
+    }
   });
   useEffect(() => {
-    if(!calledRef.current){
+    if (!calledRef.current) {
       calledRef.current = true;
       mutate.mutate({});
     }
-    
+
   }, []);
   const product = data;
   console.log("Fetched product:", product);
 
 
   const [selectedColor, setSelectedColor] = useState(
-    product?.variations?.[0]?.color || ""
+    product?.designvariations?.[0]?.color || ""
   );
   const [selectedImage, setSelectedImage] = useState(-1);
   const [fullscreen, setFullscreen] = useState(false);
 
-  
+
   const images: Image[] = product?.designImages || [];
   console.log("Product images:", images);
 
@@ -86,7 +89,8 @@ onError: (error) => {
   };
 
   const handleAddToCart = () => {
-    if (!product) return; 
+    if (!product) return;
+    
 
     const cartVariations: CartVariation[] = [{
       size: selectedSize,
@@ -148,9 +152,8 @@ onError: (error) => {
                 <img
                   key={index}
                   src={img.imgurl}
-                  className={`img-thumbnail mb-2 ${
-                    selectedImage === index ? "border border-primary" : ""
-                  }`}
+                  className={`img-thumbnail mb-2 ${selectedImage === index ? "border border-primary" : ""
+                    }`}
                   onClick={() => setSelectedImage(index)}
                   style={{
                     cursor: "pointer",
@@ -178,25 +181,44 @@ onError: (error) => {
 
         {/* RIGHT SIDE */}
         <div className="col-md-6">
-          <div className="row prod-details">
+          <div className="row prod-details ms-4">
             <h3>{product.name}</h3>
-            <h4>${product.price}</h4>
             <div>
-              <p>{product.description}</p>
+              <p style={{ fontSize: 'small', margin: 0 }}>{product.description}</p>
             </div>
+            <div>
+              <Star size={16} stroke="none" fill="gold" />
+              <Star size={16} stroke="none" fill="gold" />
+              <Star size={16} stroke="none" fill="gold" />
+              <Star size={16} stroke="none" fill="gold" />
+              <Star size={16} stroke="none" fill="gray" />
+              <span className="ms-2">4.0 (120 reviews)</span>
+            </div>
+
+            <div>
+              <hr style={{ margin: '20px 0', opacity: 0.1 }} />
+            </div>
+            <div>
+              <h4 style={{ fontSize: 'larger', fontWeight: 'bold' }}>GHS {product.price}</h4>
+
+            </div>
+            <div>
+              <hr style={{ margin: '20px 0', opacity: 0.1 }} />
+
+            </div>
+
 
             {/* COLOR OPTIONS */}
             <div className="row">
               <div className="col-md-4 varcolor">
-                <p className="mt-3 mb-1">Select Color</p>
+                <p className="mt-1 mb-1">Select Color</p>
                 <div className="d-flex mt-2">
-                  {product.variations && ""}
-                  {product.variations?.map((color) => (
+                  {product.designvariations && ""}
+                  {product.designvariations?.map((color) => (
                     <div
                       key={color.color}
-                      className={`color-swatch me-2 ${
-                        color.color === selectedColor ? "border border-dark" : ""
-                      }`}
+                      className={`color-swatch me-2 ${color.color === selectedColor ? "border border-dark" : ""
+                        }`}
                       style={{
                         width: "20px",
                         height: "20px",
@@ -218,55 +240,60 @@ onError: (error) => {
             <div className="row">
               <div className="col-md-8 varsize">
                 <p className="mt-3 mb-1">Select Size</p>
-                {product.variations?.length === 0 && <p>No size variations available.</p>}
-                {product.variations?.map((variation, index) => (
+                {product.designvariations?.length === 0 && <p>No size variations available.</p>}
+                {product.designvariations?.map((variation, index) => (
                   <>
-                  <input
-                  key={index}
-                  type="radio"
-                  className="btn-check btn-sm"
-                  id={`btn-check-xl-${index}`}
-                  autoComplete="off"
-                  name="size"
-                  value={variation.size}
-                  onChange={handleSizeChange}
-                />
-                <label className="btn" htmlFor={`btn-check-xl-${index}`}>
-                  {variation.size}
-                </label>
-                </>
+                    <input
+                      key={index}
+                      type="radio"
+                      className="btn-check btn-sm"
+                      id={`btn-check-xl-${index}`}
+                      autoComplete="off"
+                      name="size"
+                      value={variation.size}
+                      onChange={handleSizeChange}
+                    />
+                    <label className="btn" htmlFor={`btn-check-xl-${index}`}>
+                      {variation.size}
+                    </label>
+                  </>
                 ))}
-                
+
               </div>
+              <hr style={{ margin: '20px 0', opacity: 0.1 }} />
+
             </div>
 
             {/* QUANTITY */}
             <div className="row">
-              <p className="mt-3 mb-1">Quantity</p>
+              <p className="mb-1">Quantity</p>
               <div className="col-md-4">
-                <input type="number" value={selectedQuantity} onChange={(e)=>setSelectedQuantity(Number(e.target.value))} className="form-control input-quantity"/>
+                <input type="number" value={selectedQuantity} onChange={(e) => setSelectedQuantity(Number(e.target.value))} className="form-control" />
               </div>
             </div>
 
             {/* ACTION BUTTONS */}
-            <div className="row mt-3">
-              <div className="col-md-6">
+            <div className="mt-3 d-flex gap-2 details-actions">
+              
                 <button
-                  className="btn btn-outline-success form-control addcart-btn"
+                  className="btn btn-outline-success addcart-btn"
                   onClick={handleAddToCart}
                 >
                   Add to Cart
                 </button>
-              </div>
-              <div className="col-md-6">
-                <button className="btn btn-success form-control addcart-btn">
+             
+             
+                <button className="btn btn-success addcart-btn">
                   Buy Now
                 </button>
-              </div>
+              
             </div>
           </div>
         </div>
       </div>
+
+      <SimilarDesigns/>
+
 
       {/* FULLSCREEN MODAL */}
       {fullscreen && (

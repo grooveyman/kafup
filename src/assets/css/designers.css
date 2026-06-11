@@ -82,10 +82,13 @@
 .designers-text > h5{
     margin: 0;
 }
-.designers-category > span{
+.brands-category > span{
     background-color: rgb(196, 193, 193);
     border-radius: 20px;
     padding: 5px;
     font-size: x-small;
     margin: 0px 5px 0px 0px;
+}
+.brands-category > p{
+    margin: 0;
 }

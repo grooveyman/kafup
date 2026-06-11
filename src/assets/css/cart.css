@@ -23,6 +23,6 @@ th{
 .qty > input{
     width: 100px !important;
 }
-input[type="number"]{
+/* input[type="number"]{
     padding: 10px !important;
-}
+} */

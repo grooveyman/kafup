@@ -6,6 +6,7 @@ import EmptyPage from "../components/EmptyPage";
 import "../assets/css/shop.css";
 import Breadcrumb from "../components/Breadcrumb";
 import { HeartIcon } from "lucide-react";
+import ListContainer from "../components/shopcomponents/ListContainer";
 
 export interface Category {
   id: string;
@@ -42,29 +43,7 @@ const Shop: React.FC = () => {
                 </div>
               </>
             ) : (
-              data?.map((product) => (
-                <div
-                  className="mb-3 col-md-6 col-sm-6 col-lg-4 col-xs-12 col-xl-3"
-                  
-                  key={product.id}
-                >
-                  <div className="product" >
-                    <img src={product.previewimg} width={"100%"} height={"100%"} onClick={() => navigate("/details/" + product.id)} />
-                    <div className="like-btn"><HeartIcon /></div>
-                  </div>
-                  <div className="shop-prod-desc mt-2">
-                    <h6>{product.name}</h6>
-                    <p>
-                      <span>GHS</span>
-                      {product.price ?? "$40"}
-                    </p>
-                  </div>
-                  <div className="shop-desc-cat">
-                    <p>Category</p>
-                    <button className="mt-2 btn btn-primary btn-sm">Add to Cart</button>
-                  </div>
-                </div>
-              ))
+              <ListContainer list={data}  />
             )
 
           )}

@@ -12,10 +12,11 @@ import Categories from "../pages/Shop";
 import Checkout from "../pages/Checkout";
 import Success from "../pages/Success";
 import Explore from "../pages/Explore";
-import Designers from "../pages/Designers";
+import Designers from "../pages/Brands";
 import Collections from "../pages/Collections";
 import Profile from "../pages/Profile";
-import Collection from "../pages/Collection";
+import Collection from "../pages/DesignerProfile.tsx";
+import Brands from "../pages/Brands";
 
 export const router = createBrowserRouter([
   {
@@ -31,9 +32,9 @@ export const router = createBrowserRouter([
       {path: "/checkout", element: <Checkout/>},
       {path: "/success/:ref", element: <Success/>},
       {path: "/explore", element: <Explore/>},
-      {path: "/designers", element: <Designers/>},
+      {path: "/brands", element: <Brands/>},
       {path: "/collections", element: <Collections/>},
-      {path: "/designers/:username", element: <Profile />},
+      {path: "/brands/:username", element: <Profile />},
       {path: "/collections/:collection", element: <Collection/>},
       {
         path: "admin",
