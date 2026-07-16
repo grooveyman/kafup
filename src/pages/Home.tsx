@@ -12,6 +12,7 @@ import EmptyPage from "../components/EmptyPage";
 import { Variation } from "./admin/products/AddProduct";
 import Vision from "../components/homecomponents/Vision";
 import Designers from "../components/homecomponents/Designers";
+import { Category } from "./Shop";
 export interface Product {
   id: number;
   name: string;
@@ -25,10 +26,11 @@ export interface Product {
   previewimg_width?: number;
   previewimg_public_id?: string;
   designer: DesignerType;
+  categories?: Category;
 }
 export interface DesignerType{
   code: number;
-  name: string;
+  brand_name: string;
   profileImg: string;
 }
 

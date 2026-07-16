@@ -63,7 +63,7 @@ const Checkout: React.FC = () => {
     status: boolean;
     error?: string;
     reference: string;
-  }>("/orders/processOrder", "POST", {
+  }>("/orders/make-order", "POST", {
     onSuccess: (data) => {
       //create payment popup
       console.log("response from order");

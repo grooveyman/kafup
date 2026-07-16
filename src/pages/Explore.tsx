@@ -76,7 +76,7 @@ const Explore: React.FC = () => {
     }, [selectedFilter]);
 
     return (
-        <div className="container ps-5 explore-wrapper">
+        <div className="container explore-wrapper">
             <Breadcrumb crumbs={[{ label: "Home", href: "/" }, { label: "Explore" }]} />
 
             {/* Filter navigation */}

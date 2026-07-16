@@ -15,19 +15,18 @@ export interface CartVariation {
   quantity: number;
 }
 export interface DesignerType {
-  code: number;
-  name: string;
-  profileImg: string;
+  id: string;
 }
+
 export interface CartItemType {
   id: string;
   name: string;
   price: number;
   quantity: number;
   total: number;
-  previmg: string;
-  variations?: CartVariation[];
-  designer: DesignerType;
+  previmg?: string;
+  variations?: CartVariation;
+  designer: string;
 }
 
 interface CartContextTypes {
@@ -55,12 +54,12 @@ export function CartProvider({ children }: CartProviderProps) {
       return;
     }
 
-    if (!cartItem.variations || cartItem.variations.length === 0) {
+    if (!cartItem.variations) {
       toast.error("No variations provided");
       return;
     }
 
-    const newVariation = cartItem.variations[0];
+    const newVariation = cartItem.variations;
 
     if (newVariation.quantity <= 0) {
       toast.error("Variation quantity must be greater than zero");
@@ -68,19 +67,19 @@ export function CartProvider({ children }: CartProviderProps) {
     }
 
     setCartItems((prevCart) => {
-      
+
       const existingItemIndex = prevCart.findIndex(
         (item) =>
           item.name === cartItem.name &&
           item.id === cartItem.id &&
-          item.variations?.[0].size === newVariation.size &&
-          item.variations?.[0].color === newVariation.color
+          item.variations?.size === newVariation.size &&
+          item.variations?.color === newVariation.color
       );
 
       if (existingItemIndex !== -1) {
         const updatedCart = [...prevCart];
         updatedCart[existingItemIndex].quantity += cartItem.quantity;
-        updatedCart[existingItemIndex].variations![0].quantity +=
+        updatedCart[existingItemIndex].variations!.quantity +=
           newVariation.quantity;
         updatedCart[existingItemIndex].total += (cartItem.price * cartItem.quantity);
 
@@ -94,7 +93,7 @@ export function CartProvider({ children }: CartProviderProps) {
       const newCartItem: CartItemType = {
         ...cartItem,
         // id: `${cartItem.id}-${prevCart.length + 1}`, // Ensure unique ID
-        variations: [newVariation],
+        variations: newVariation,
         total: cartItem.price * cartItem.quantity,
       };
 
@@ -108,37 +107,65 @@ export function CartProvider({ children }: CartProviderProps) {
   const removeCart = useCallback((cartItem: CartItemType) => {
     console.log("..removing from cart");
     setCartItems((prevCart) =>
-      prevCart.filter((item) => !(item.id === cartItem.id && item.variations![0].color === cartItem.variations![0].color && item.variations![0].size === cartItem.variations![0].size) )
+      prevCart.filter((item) => !(item.id === cartItem.id && item.variations?.color === cartItem.variations?.color && item.variations?.size === cartItem.variations?.size))
     );
   }, []);
 
   const reduceQuantity = useCallback(
-    (cartItem: CartItemType) =>
+    (cartItem: CartItemType) => {
       setCartItems((prevCart) =>
-        prevCart.map((item) =>
-        {
-          if(item.id === cartItem.id && item.variations![0].color === cartItem.variations![0].color && item.variations![0].size === cartItem.variations![0].size) {
-            const newQuantity = Math.max(item.quantity - 1, 0);
-            return { ...item, quantity: newQuantity, variations: item.variations?.map(v=>({ ...v, quantity: Math.max(v.quantity -1, 0) })), total: item.price * newQuantity };
+        prevCart.map((item) => {
+          const isSameItem =
+            item.id === cartItem.id &&
+            item.variations?.color === cartItem.variations?.color &&
+            item.variations?.size === cartItem.variations?.size;
+
+          if (isSameItem) {
+            const newQuantity = Math.max(item.quantity - 1, 1);
+
+            return {
+              ...item,
+              quantity: newQuantity,
+              total: item.price * newQuantity,
+            };
           }
+
           return item;
         })
-      ),
+      );
+    },
     []
   );
 
-    const increaseQuantity = useCallback(
-    (cartItem: CartItemType) =>
+  const increaseQuantity = useCallback(
+    (cartItem: CartItemType) => {
       setCartItems((prevCart) =>
-        prevCart.map((item) =>{
-          if(item.id === cartItem.id && item.variations![0].color === cartItem.variations![0].color && item.variations![0].size === cartItem.variations![0].size) {
+        prevCart.map((item) => {
+          const isSameItem =
+            item.id === cartItem.id &&
+            item.variations?.color === cartItem.variations?.color &&
+            item.variations?.size === cartItem.variations?.size;
+
+          if (isSameItem) {
             const newQuantity = item.quantity + 1;
-            return { ...item, quantity: newQuantity, variations: item.variations?.map(v=>({ ...v, quantity: v.quantity + 1 })), total: item.price * newQuantity };
+
+            return {
+              ...item,
+              quantity: newQuantity,
+              variations: item.variations
+                ? {
+                  ...item.variations,
+                  quantity: item.variations.quantity + 1,
+                }
+                : undefined,
+              total: item.price * newQuantity,
+            };
           }
+
           return item;
-        }
-        )
-      ),
+        })
+      );
+    },
     []
   );
 

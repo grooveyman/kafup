@@ -62,7 +62,7 @@ useEffect(() => {
                               />
                               <div className="prod-det">
                                 <p className="prodname">{item.name}</p>
-                                <p className="prod-var">{item.variations?.map(v=>v.size).join(",")}</p>
+                                <p className="prod-var">{item.variations?.size}, {item.variations?.color}</p>
                               </div>
                             </div>
                           </td>

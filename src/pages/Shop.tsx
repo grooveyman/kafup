@@ -19,7 +19,7 @@ const Shop: React.FC = () => {
   const navigate = useNavigate();
   // fetch product
 
-  const enpoint = `/designs/`;
+  const enpoint = `/designs?limit=20&offset=0`;
   const { data, isLoading } = useApiQuery<Product[]>(
     ["productscat" + catalias],
     enpoint

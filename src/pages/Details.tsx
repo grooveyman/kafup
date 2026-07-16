@@ -92,26 +92,22 @@ const ProductDetails: React.FC = () => {
     if (!product) return;
     
 
-    const cartVariations: CartVariation[] = [{
+    const cartVariations: CartVariation = {
       size: selectedSize,
       color: selectedColor,
       price: product.price,
       quantity: selectedQuantity,
-    }];
+    };
 
     const productProd: CartItemType = {
       id: product.id,
       name: product.name,
       quantity: selectedQuantity,
       price: product.price,
-      previmg: product.previewimg,
+      // previmg: product.previewimg,
       variations: cartVariations,
       total: product.price * selectedQuantity,
-      designer: {
-        code: product.designer.code,
-        name: product.designer.name,
-        profileImg: product.designer.profileImg
-      }
+      designer: product.designer.id,
     };
 
     addToCart(productProd);
