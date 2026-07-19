@@ -12,7 +12,6 @@ import Categories from "../pages/Shop";
 import Checkout from "../pages/Checkout";
 import Success from "../pages/Success";
 import Explore from "../pages/Explore";
-import Designers from "../pages/Brands";
 import Collections from "../pages/Collections";
 import Profile from "../pages/Profile";
 import Collection from "../pages/DesignerProfile.tsx";

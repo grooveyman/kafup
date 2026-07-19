@@ -6,7 +6,6 @@ import { useApiMutation, useApiQuery } from "../hooks/useApi";
 import DetailsSkeletonLoader from "../components/DetailsSkeletonLoader";
 import { Variation } from "./admin/products/AddProduct";
 import { Star } from "lucide-react";
-import Reviews from "../components/SimilarDesigns";
 import SimilarDesigns from "../components/SimilarDesigns";
 
 interface Product {

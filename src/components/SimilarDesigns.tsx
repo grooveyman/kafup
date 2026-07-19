@@ -1,4 +1,4 @@
-import { Loader, Star } from "lucide-react";
+import { Loader } from "lucide-react";
 import ListContainer from "./shopcomponents/ListContainer";
 import { useApiQuery } from "../hooks/useApi";
 import { Product } from "../pages/Home";

@@ -1,5 +1,4 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 
 interface Crumb {
   label: string;
@@ -11,7 +10,6 @@ interface BreadcrumbProps {
 }
 
 const Breadcrumb: React.FC<BreadcrumbProps> = ({ crumbs }) => {
-  const navigate = useNavigate();
  
   return (
     <nav>

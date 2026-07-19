@@ -1,11 +1,10 @@
-import { ArrowBigLeftDash, FacebookIcon, Heart, InstagramIcon, Search, Share, Star, TwitterIcon, YoutubeIcon } from "lucide-react";
+import { Search } from "lucide-react";
 import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import {  useParams } from "react-router-dom";
 import Lightbox from "yet-another-react-lightbox";
 import "../assets/css/brandprofile.css";
 import Breadcrumb from "../components/Breadcrumb";
 import ProfileCard from "../components/brandscomponents/ProfileCard";
-import ListContainer from "../components/shopcomponents/ListContainer";
 import { useApiQuery } from "../hooks/useApi";
 import { Product } from "./Home";
 import EmptyPage from "../components/EmptyPage";
@@ -13,17 +12,16 @@ import BrandList from "../components/brandscomponents/BrandList";
 
 const DesignerProfile: React.FC = () => {
     const { collection } = useParams();
-    const navigate = useNavigate();
 
     // Lightbox state
     const [open, setOpen] = useState(false);
-    const [index, setIndex] = useState(0);
-    const [slides, setSlides] = useState<{ src: string }[]>([]);
+    const [index] = useState(0);
+    const [slides] = useState<{ src: string }[]>([]);
 
     console.log(collection);
 
     const enpoint = `/designs/`;
-    const { data, isLoading } = useApiQuery<Product[]>(
+    const { data } = useApiQuery<Product[]>(
         ["productscat"],
         enpoint
     );

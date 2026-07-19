@@ -8,7 +8,6 @@ import TabPanel from "@mui/lab/TabPanel";
 import TabList from "@mui/lab/TabList";
 import { Box, Fade, Tab } from "@mui/material";
 import { useState } from "react";
-import EmptyPage from "../components/EmptyPage";
 import { Variation } from "./admin/products/AddProduct";
 import Vision from "../components/homecomponents/Vision";
 import Designers from "../components/homecomponents/Designers";

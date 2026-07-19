@@ -3,13 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { Product } from "../../pages/Home";
 
 
-interface ListItems {
-    id: number | string;
-    previewimg: string;
-    name: string;
-    price: string | number;
-    categories: string;
-}
 
 interface ListProps {
     list: Product[]
