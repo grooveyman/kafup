@@ -169,3 +169,87 @@ background-color: #bab4b5;
   padding: 3px;
   color: white !important;
 }
+
+.footer-nav-item a{
+  text-decoration: none !important;
+  color: #737275;
+}
+.footer-nav-item{
+  font-size: small;
+}
+.carousel img{
+  height: 50vh !important;
+}
+
+.collection-hero{
+  background: url('/public/assets/images/collectionback.jpg');
+  min-width: none;
+  min-height: 70vh;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 20px; 
+  overflow: hidden;
+  position: relative;
+}
+.collection-hero h2{
+  color: white;
+  font-weight: bold;
+  font-size: 80px;
+  padding: 30px;
+  width: 60%;
+}
+.collection-cards{
+  transform: translateY(-120px);
+  position: relative;
+  z-index: 2;
+}
+.homecollection-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+  position: relative;
+}
+
+.homecollection-item img {
+  height: 50vh !important;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+  box-shadow: 0px 2px 10px 5px rgba(0,0,0,0.14);
+  display: block;
+  
+}
+
+.homecollection-item::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+}
+.homecollection-overlay {
+  position: absolute;
+  top: 50%;
+  left: 20px;
+  z-index: 2;
+  color: white;
+}
+.homecollection-overlay h5{
+  font-size: x-large;
+  color: white;
+  font-weight: bold;
+}
+.homecollection-overlay p{
+  font-size: smaller;
+  font-weight: normal !important;
+  line-height: 15px;
+  padding: 0px 10px 0px 0px;
+}
+.icon-btn {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: black !important;
+}

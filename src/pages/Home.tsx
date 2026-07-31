@@ -12,6 +12,7 @@ import { Variation } from "./admin/products/AddProduct";
 import Vision from "../components/homecomponents/Vision";
 import Designers from "../components/homecomponents/Designers";
 import { Category } from "./Shop";
+import HomeCollection from "../components/homecomponents/HomeCollection";
 export interface Product {
   id: number;
   name: string;
@@ -27,7 +28,7 @@ export interface Product {
   designer: DesignerType;
   categories?: Category;
 }
-export interface DesignerType{
+export interface DesignerType {
   code: number;
   brand_name: string;
   profileImg: string;
@@ -44,7 +45,7 @@ const Home: React.FC = () => {
     ["products"],
     "/designs/?limit=8"
   );
-  
+
 
   const {
     data: popularData,
@@ -74,9 +75,9 @@ const Home: React.FC = () => {
       <div>
         <div
           id="carouselExample"
-          className="carousel carousel-slide"
+          className="carousel carousel-fade"
           data-bs-ride="carousel"
-          style={{ height: "100%", padding: "10px", backgroundColor: "white" }}
+          style={{ height: "70%", padding: "10px", backgroundColor: "white" }}
         >
           <div className="carousel-inner">
             <div className="carousel-item active">
@@ -210,19 +211,25 @@ const Home: React.FC = () => {
             </div>
           </Fade>
 
-          
+
         </TabContext>
       </div>
 
+      <div className="mt-5">
+        <div className="container">
+          <HomeCollection />
+        </div>
+
+      </div>
       <div className="mt-5 mb-5">
         <Designers />
       </div>
 
       {/* Vision section */}
       <div className="mb-5">
-         <Vision />
+        <Vision />
       </div>
-      
+
     </>
   );
 };

@@ -19,32 +19,33 @@ const Collections: React.FC = () => {
     const fetchData = (filterKey: string | number) => {
         const collections: any = {
             all: [
-            {
-                id: "4232eads",
-                name: "Kaftan Collection",
-                views: 23,
-                likes: 34,
-                items: 2,
-                description: "Lorem ipsum something big is coming soon on your screens.",
-                designer: {
-                    name: "Ampadu Theophilus",
-                    img: "assets/images/software dev.png"
+                {
+                    id: "4232eads",
+                    name: "Kaftan Collection",
+                    views: 23,
+                    likes: 34,
+                    items: 2,
+                    description: "Lorem ipsum something big is coming soon on your screens.",
+                    designer: {
+                        name: "Ampadu Theophilus",
+                        img: "assets/images/software dev.png"
+                    }
+                },
+                {
+                    id: "23eww",
+                    name: "Batakari Suit",
+                    views: 3,
+                    likes: 89,
+                    items: 90,
+                    description: "Lorem ipsum something big is coming soon on your screens.",
+                    designer: {
+                        name: "Selinam Aku",
+                        img: "assets/images/software dev.png"
+                    }
                 }
-            },
-            {
-                id: "23eww",
-                name: "Batakari Suit",
-                views: 3,
-                likes: 89,
-                items: 90,
-                description: "Lorem ipsum something big is coming soon on your screens.",
-                designer: {
-                    name: "Selinam Aku",
-                    img: "assets/images/software dev.png"
-                }
-            }
 
-        ]};
+            ]
+        };
         return collections[filterKey] || [];
     }
 
@@ -56,14 +57,21 @@ const Collections: React.FC = () => {
     return (
         <>
             <div className="container">
-                <Breadcrumb crumbs={[{label:"Home", href:"/"}, {label:"Collections", href:""}]}/>
+                <Breadcrumb crumbs={[{ label: "Home", href: "/" }, { label: "Collections", href: "" }]} />
                 <div className="row">
                     <NavFilter filters={filters} selectedFilter={selectedFilter} onChange={(id) => setSelectedFilter(id)} />
                 </div>
                 <div className="row mt-3">
                     {items.length == 0 && <EmptyPage />}
                     {items.map((collection) => {
-                        return (<CollectionsCard name={collection.name} meta={{ views: collection.views, likes: collection.likes, items: collection.items }} designer={{ name: collection.designer.name, dp_img: collection.designer.img }} collection_id={collection.id} description={collection.description} />
+                        return (
+                            <>
+                                <div className="col-md-6 col-sm-12 col-lg-4 col-xl-3 mb-4">
+                                    <CollectionsCard name={collection.name} meta={{ views: collection.views, likes: collection.likes, items: collection.items }} designer={{ name: collection.designer.name, dp_img: collection.designer.img }} collection_id={collection.id} description={collection.description} />
+
+                                </div>
+
+                            </>
                         )
                     })}
 
