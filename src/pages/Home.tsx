@@ -15,6 +15,7 @@ import { Category } from "./Shop";
 import HomeCollection from "../components/homecomponents/HomeCollection";
 import PrimaryButton from "../components/PrimaryButton";
 import EmptyPage from "../components/EmptyPage";
+import { HeroSection } from "../components/homecomponents/HeroSection";
 export interface Product {
   id: number;
   name: string;
@@ -75,60 +76,7 @@ const Home: React.FC = () => {
   return (
     <>
       <div>
-        <div
-          id="carouselExample"
-          className="carousel carousel-fade"
-          data-bs-ride="carousel"
-          style={{ height: "70%", padding: "10px", backgroundColor: "white" }}
-        >
-          <div className="carousel-inner">
-            <div className="carousel-item active">
-              <img
-                src="assets/images/closet.webp"
-                className="hero-img"
-                alt="..."
-              />
-            </div>
-            <div className="carousel-item">
-              <img
-                src="assets/images/sew.webp"
-                className="hero-img"
-                alt="..."
-              />
-            </div>
-            <div className="carousel-item">
-              <img
-                src="assets/images/herosec.webp"
-                className="hero-img"
-                alt="..."
-              />
-            </div>
-          </div>
-          <button
-            className="carousel-control-prev"
-            type="button"
-            data-bs-target="#carouselExample"
-            data-bs-slide="prev"
-          >
-            <span
-              className="carousel-control-prev-icon"
-              aria-hidden="true"
-            ></span>
-            <span className="visually-hidden">Previous</span>
-          </button>
-          <button
-            className="carousel-control-next"
-            type="button"
-            data-bs-target="#carouselExample"
-            data-bs-slide="next"
-          >
-            <span
-              className="carousel-control-next-icon"
-              aria-hidden="true"
-            ></span>
-            <span className="visually-hidden">Next</span>
-          </button>
-        </div>
+        <HeroSection />
       </div>
 
       <div className="container">

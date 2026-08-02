@@ -128,6 +128,15 @@
     width: 100%;
     border-radius: 10px;
 }
+.carousel-item{
+    position: relative;
+}
+.carousel-caption{
+    width: 50%;
+}
+.carousel-item > img{
+    border-radius: 10px !important;
+}
 .left-ad{
     background: url("../images//hero3.jpg");
     height: 60vh;
@@ -174,9 +183,7 @@
 .hero-btns > button{
     margin:5px
 }
-.carousel-item > img{
-    border-radius: 10px !important;
-}
+
 .hero-right{
     background-color: lightgrey;
     border-top-right-radius: 10px;
