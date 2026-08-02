@@ -24,8 +24,20 @@ body, * {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  --border-radius: 0.8rem;
+  --section-padding:100px;
+  --inner-section-padding: 100px 0px;
+  --primary-background-color: #1a1a1a;
+  
 }
 
+.section{
+  margin: var(--section-padding) 0px;
+}
+.inner-section{
+  padding: var(--inner-section-padding);
+}
 
 /*
 a {

@@ -81,7 +81,7 @@
 }
 
 .ad-card{
-    height: 100%;
+    height: wrap-content;
 }
 
 .collection-item{

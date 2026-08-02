@@ -1,38 +1,70 @@
-.designers{
-    padding: 70px 0px;
+.designers {
+    /* padding: 70px 0px; */
     background-color: rgb(243, 240, 240);
     margin: 0 !important;
 }
-.designers-content{
-    padding: 10px 40px;
+
+.designers-content {
+    /* padding: 10px 40px; */
 }
-.designers-filters{
+
+.designers-filters {
     padding: 0px 0px 20px 0px;
 }
-.designers-filters > .filter-item{
+
+.designers-filters>.filter-item {
     margin: 0px 10px 0px 0px;
 }
-.designers-content h3{
+
+.designers-content h3 {
     font-size: 50px;
 }
-.designers-content p{
+
+.designers-content p {
     color: rgb(98, 94, 94);
     padding: 0px 0px 40px 0px;
 }
-.designers-profile{
+
+.designers-profile {
     padding: 0px 0px;
-    
+
 }
-.designers-img > img{
+
+.designers-img img {
     width: 100%;
     height: 30vh;
-    border-radius: 10px;
     object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+    border-radius: var(--border-radius);
 }
-.designers-text{
+
+.designers-img::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(240, 248, 255, 0);
+    transition: background-color 0.3s ease;
+    pointer-events: none;
+}
+
+.designers-img:hover::after {
+    background: rgba(240, 248, 255, 0.4); /* aliceblue overlay */
+}
+/* Hover effect */
+.designers-card:hover .designers-img::after {
+    background: rgba(240, 248, 255, 0.35);
+}
+
+/* Optional zoom effect */
+.designers-card:hover .designers-img img {
+    transform: scale(1.05);
+}
+.designers-text {
     padding: 10px 0px;
 }
-.designers-text p{
+
+.designers-text span {
     padding: 0px 0px;
     margin: 0px 0px 5px 0px !important;
     line-height: normal;
@@ -41,8 +73,8 @@
     font-size: small;
 }
 
-.dsg-container{
-    box-shadow: 0px 2px 2px rgba(0,0,0,0.24);
+.dsg-container {
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.24);
     border-radius: 20px;
     min-height: 280px;
     width: 100%;
@@ -50,45 +82,55 @@
     background-color: rgb(243, 239, 239);
     /* margin: 10px; */
 }
-.dsg-img-container > img{
+
+.dsg-img-container>img {
     margin-top: 10px;
     height: 100px;
     width: 100px;
     border-radius: 150px !important;
     object-fit: cover;
 }
-.dsg-content h5{
+
+.dsg-content h5 {
     color: rgb(95, 92, 92);
     font-weight: bold;
     font-size: larger;
     margin: 0;
 }
-.dsg-content > p{
+
+.dsg-content>p {
     color: rgb(141, 137, 137);
     line-height: 18px;
     margin-top: 0px;
 }
-.follows{
+
+.follows {
     font-size: small;
 }
-.follows > .followers, .likes{
+
+.follows>.followers,
+.likes {
     color: grey;
     font-weight: bold;
 }
-.designers-text > span{
+
+.designers-text>span {
     color: grey;
     font-size: smaller;
 }
-.designers-text > h5{
+
+.designers-text>h5 {
     margin: 0;
 }
-.brands-category > span{
+
+.brands-category>span {
     background-color: rgb(196, 193, 193);
     border-radius: 20px;
     padding: 5px;
     font-size: x-small;
     margin: 0px 5px 0px 0px;
 }
-.brands-category > p{
+
+.brands-category>p {
     margin: 0;
 }

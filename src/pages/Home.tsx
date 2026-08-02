@@ -13,6 +13,8 @@ import Vision from "../components/homecomponents/Vision";
 import Designers from "../components/homecomponents/Designers";
 import { Category } from "./Shop";
 import HomeCollection from "../components/homecomponents/HomeCollection";
+import PrimaryButton from "../components/PrimaryButton";
+import EmptyPage from "../components/EmptyPage";
 export interface Product {
   id: number;
   name: string;
@@ -183,9 +185,13 @@ const Home: React.FC = () => {
             <div>
               <TabPanel value="2">
                 <div className="row">
-                  {isLoadingPopular && isErrorPopular ? (
+                  {isLoadingPopular ? (
                     <SkeletonLoader count={3} />
-                  ) : (
+                  ) : isErrorPopular ? (
+                    <>
+                      <EmptyPage/>
+                    </>
+                  ): (
                     popularData?.map((product) => (
                       <div
                         className="col-md-3"
@@ -216,18 +222,66 @@ const Home: React.FC = () => {
       </div>
 
       <div className="mt-5">
-        <div className="container">
+        <div className="container section">
           <HomeCollection />
         </div>
 
       </div>
-      <div className="mt-5 mb-5">
-        <Designers />
+      <div className="section">
+        <div className="container-fluid designers inner-section">
+          <div className="container">
+            <div className="designers-content">
+              <h3>Top Brands</h3>
+              <div className="row">
+                <div className="col-md-6">
+                  <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum
+                    quo, nihil vitae eaque ipsa magni enim repellendus ullam
+                    cumque dolores deleniti inventore omnis.
+                  </p>
+                </div>
+              </div>
+              <Designers />
+              <div className="d-flex justify-content-center mt-4">
+                <PrimaryButton text="View All" onClick={() => { }} />
+              </div>
+            </div>
+
+          </div>
+        </div>
+
       </div>
 
       {/* Vision section */}
-      <div className="mb-5">
+      <div className="section">
         <Vision />
+      </div>
+
+      <div className="">
+        <div className="container-fluid home-signup">
+          <div className="container">
+            <div className="row inner-section">
+              <div className="col-md-6">
+                <h3>Ready to Setup Your Brand on Kafup?</h3>
+                <p>
+                  Sign up with our easy and fast process. No business is too small to be on Kafup. <br/>We are here to help you grow your business and reach more customers.
+                </p>
+              </div>
+              <div className="col-md-6 d-flex align-items-center">
+                <form className="d-flex flex-wrap flex-lg-nowrap flex-row flex-grow-1 w-100 gap-3">
+                  <input
+                    type="email"
+                    className="form-control me-2"
+                    placeholder="Enter your email"
+                  />
+                  <button type="submit" className="btn btn-primary">
+                    Continue
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
     </>
