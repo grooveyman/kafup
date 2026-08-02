@@ -1,10 +1,12 @@
-import { ArrowBigRightIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useTruncate } from "../../hooks/useTrancate";
+import { useEffect, useState } from "react";
+import { useIsMobile } from "../../hooks/useIsMobile";
 
 interface MetaItem {
     views: number;
     likes: number;
-    items: number;
+    designs: number;
 }
 interface Designer {
     name: string;
@@ -20,8 +22,10 @@ interface CollectinsProps {
 
 
 
-const HomeCollectionCard: React.FC<CollectinsProps> = ({ name, meta, description, designer, collection_id }) => {
+const HomeCollectionCard: React.FC<CollectinsProps> = ({ name, meta, description, collection_id }) => {
     const navigate = useNavigate();
+    const isMobile = useIsMobile();
+    const words = window.innerWidth < 768 ? 10 : 25; // Adjust the number of words based on screen size
     return (
         <>
             <div className="">
@@ -30,12 +34,12 @@ const HomeCollectionCard: React.FC<CollectinsProps> = ({ name, meta, description
                         <div className="row p-3">
                             <div className="d-flex justify-content-start gap-3">
                                 <div className="homecollection-item">
-                                    <img src="assets/images/software dev.png" />
+                                    <img src="assets/images/software dev.png" onClick={() => navigate(`/collections/${collection_id}`)} />
                                 </div>
                                 <div className="homecollection-item">
                                     <h6>{name}</h6>
-                                    <span>{meta.views} Views</span><span> {meta.likes} Likes</span>
-                                    <p>{description}</p>
+                                    <span>{meta.views} Views</span><span> {meta.likes} Likes</span><span> {meta.designs} Designs</span>
+                                    <p>{useTruncate(description, { words: words })}</p>
                                 </div>
                             </div>
                         </div>

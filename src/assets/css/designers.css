@@ -63,6 +63,10 @@
 .designers-text {
     padding: 10px 0px;
 }
+.designers-text p{
+    font-size: small;
+    color: rgb(136, 134, 134);
+}
 
 .designers-text span {
     padding: 0px 0px;

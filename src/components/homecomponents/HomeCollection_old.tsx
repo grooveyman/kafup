@@ -1,6 +1,4 @@
-import CollectionsCard from "../collectionscomponents/CollectionsCard";
 import Designers from "./Designers";
-import HomeCollectionCard from "./HomeCollectionCard";
 
 
 const HomeCollection: React.FC = () => {
