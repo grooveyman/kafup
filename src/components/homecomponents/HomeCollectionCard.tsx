@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useTruncate } from "../../hooks/useTrancate";
-import { useEffect, useState } from "react";
-import { useIsMobile } from "../../hooks/useIsMobile";
+
 
 interface MetaItem {
     views: number;
@@ -24,7 +23,6 @@ interface CollectinsProps {
 
 const HomeCollectionCard: React.FC<CollectinsProps> = ({ name, meta, description, collection_id }) => {
     const navigate = useNavigate();
-    const isMobile = useIsMobile();
     const words = window.innerWidth < 768 ? 10 : 25; // Adjust the number of words based on screen size
     return (
         <>
