@@ -16,6 +16,7 @@ import Collections from "../pages/Collections";
 import Profile from "../pages/Profile";
 import Collection from "../pages/DesignerProfile.tsx";
 import Brands from "../pages/Brands";
+import { BuyNowProvider } from "../context/BuyNowContext.tsx";
 
 export const router = createBrowserRouter([
   {
@@ -25,10 +26,10 @@ export const router = createBrowserRouter([
       {index: true, element: <Home/>},
       // {path: "/addproducts", element: <AddProducts/>},
       {path: "/dashboard", element: <Dashboard/>},
-      {path: "/details/:id", element:<Details/>},
+      {path: "/details/:id", element:<BuyNowProvider><Details/></BuyNowProvider>},
       {path: "/cart", element: <Cart/>},
       {path: "/categories/:catalias", element: <Categories/>},
-      {path: "/checkout", element: <Checkout/>},
+      {path: "/checkout", element: <BuyNowProvider><Checkout/></BuyNowProvider>},
       {path: "/success/:ref", element: <Success/>},
       {path: "/explore", element: <Explore/>},
       {path: "/brands", element: <Brands/>},

@@ -8,6 +8,8 @@ import { Variation } from "./admin/products/AddProduct";
 import { Star } from "lucide-react";
 import SimilarDesigns from "../components/SimilarDesigns";
 import { SizeGuideModal } from "../components/homecomponents/SizeGuideModal";
+import { useBuyNowContext } from "../context/BuyNowContext";
+import { toast } from "react-toastify";
 
 interface Product {
   id: string;
@@ -34,7 +36,7 @@ const ProductDetails: React.FC = () => {
   const [selectedSize, setSelectedSize] = useState<string>("");
   const calledRef = useRef(false);
 
-  const { addToCart } = useCartContext();
+  const { addToCart, cartItems } = useCartContext();
 
   // fetch product
   const { data, isLoading, isError } = useApiQuery<Product>(
@@ -112,6 +114,44 @@ const ProductDetails: React.FC = () => {
 
     addToCart(productProd);
   };
+
+  const { setBuyNowItem } = useBuyNowContext();
+  const handleBuyNow = () => {
+    if (!product) return;
+
+
+    const cartVariations: CartVariation = {
+      size: selectedSize,
+      color: selectedColor,
+      price: product.price,
+      quantity: selectedQuantity,
+    };
+
+    const productProd: CartItemType = {
+      id: product.id,
+      name: product.name,
+      quantity: selectedQuantity,
+      price: product.price,
+      // previmg: product.previewimg,
+      variations: cartVariations,
+      total: product.price * selectedQuantity,
+      designer: product.designer.id,
+    };
+
+    //validate size, color, and quantity
+    if (selectedSize.trim() === "" || selectedColor.trim() === "") {
+      toast.error("Please select a size and color.");
+      return;
+    }
+    if (selectedQuantity <= 0) {
+      toast.error("Please select a valid quantity.");
+      return;
+    }
+   
+    setBuyNowItem(productProd);
+    navigate("/checkout");
+  };
+
   const handleSizeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const size = e.target.value;
     setSelectedSize(size);
@@ -279,7 +319,7 @@ const ProductDetails: React.FC = () => {
               </button>
 
 
-              <button className="btn btn-success addcart-btn">
+              <button className="btn btn-success addcart-btn" onClick={handleBuyNow}>
                 Buy Now
               </button>
 

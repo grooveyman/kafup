@@ -6,6 +6,7 @@ import { useApiMutation } from "../hooks/useApi";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import PaystackPop from "@paystack/inline-js";
+import { useBuyNowContext } from "../context/BuyNowContext";
 // import { useNavigate } from "react-router-dom";
 
 export interface OrderType {
@@ -33,6 +34,9 @@ const Checkout: React.FC = () => {
     cartItems: cartItems,
   };
   const navigate = useNavigate();
+
+  const { buyNowItem } = useBuyNowContext();
+ 
 
   const [customerInfo, setCustomerInfo] = useState({
     fullname: "",
@@ -102,6 +106,9 @@ const Checkout: React.FC = () => {
     } else if (!/^\d{10}$/.test(customerInfo.phoneNumber)) {
       toast.error("Please enter a valid phone number");
       return false;
+    }else if(total==0){
+      toast.error("Cart is empty! Reselect items and try again");
+      return false;
     }
     return true;
   }
@@ -116,10 +123,10 @@ const Checkout: React.FC = () => {
 
 
     const order: OrderType = {
-      total: total,
-      quantity: cartQuantity,
+      total: buyNowItem? buyNowItem.total:total,
+      quantity: buyNowItem? buyNowItem.quantity:cartQuantity,
       customer: customerInfo,
-      cart: cart,
+      cart: buyNowItem?{quantity:buyNowItem.quantity, cartItems:[buyNowItem]}:cart,
     };
     console.log(order);
     mutation.mutate(order);

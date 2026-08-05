@@ -10,7 +10,7 @@ export interface CartType{
 }
 const Cart: React.FC = () => {
   const { cartItems, reduceQuantity, increaseQuantity } = useCartContext();
-  console.log(cartItems);
+  // console.log(cartItems);
   const defaultTotal = cartItems.reduce((acc, item) => acc + item.total, 0);
   const [total, setTotal] = useState(defaultTotal);
   const cart: CartType = {
