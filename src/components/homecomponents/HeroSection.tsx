@@ -15,7 +15,7 @@ export const HeroSection: React.FC = () => {
                         className="hero-img"
                         alt="..."
                     />
-                    <div className="carousel-caption d-none d-md-block text-start">
+                    <div className="carousel-caption text-start">
                         <h2>Setup Your brand to Sell and exhibit Your Beautiful Designs</h2>
                         <button className="btn btn-primary">Get Started</button>
                     </div>
@@ -27,7 +27,7 @@ export const HeroSection: React.FC = () => {
                         className="hero-img"
                         alt="..."
                     />
-                   <div className="carousel-caption d-none d-md-block text-start">
+                   <div className="carousel-caption text-start">
                         <h2>Find Design Inspirations for Your Next Appearance or Project</h2>
                         <button className="btn btn-primary">Explore</button>
                     </div>
@@ -38,7 +38,7 @@ export const HeroSection: React.FC = () => {
                         className="hero-img"
                         alt="..."
                     />
-                    <div className="carousel-caption d-none d-md-block text-start">
+                    <div className="carousel-caption text-start">
                         <h2>Choose from our Elegant Designs from Our Best Designers</h2>
                         <button className="btn btn-primary">Shop Now</button>
                     </div>

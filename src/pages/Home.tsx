@@ -54,7 +54,7 @@ const Home: React.FC = () => {
     data: popularData,
     isLoading: isLoadingPopular,
     isError: isErrorPopular,
-  } = useApiQuery<Product[]>(["popularproducts"], "/designs/popularProducts");
+  } = useApiQuery<Product[]>(["popularproducts"], "/designs/popular?limit=8");
   console.log("Popular products");
   console.log(popularData);
   if (isErrorPopular) {

@@ -137,6 +137,16 @@
 .carousel-item > img{
     border-radius: 10px !important;
 }
+
+@media (max-width: 768px) {
+    .carousel-caption {
+        bottom: 10%;
+    }
+
+    .carousel-caption p {
+        font-size: 1.1rem;
+    }
+}
 .left-ad{
     background: url("../images//hero3.jpg");
     height: 60vh;
@@ -270,4 +280,12 @@
     color: #fff;
     margin: 0px !important;
     padding: 30px 70px !important;
+}
+.size-guide-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
+  color: blue;
 }

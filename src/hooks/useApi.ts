@@ -30,7 +30,7 @@ export function useApiQuery<T>(
 
 export function useApiMutation<T>(
     baseUrl: string,
-    method: "POST"|"PUT"|"DELETE",
+    method: "POST"|"PATCH"|"DELETE",
     options?: UseMutationOptions<T, Error, any>
 ){
   return useMutation<T, Error, any>({

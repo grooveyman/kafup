@@ -7,6 +7,7 @@ import DetailsSkeletonLoader from "../components/DetailsSkeletonLoader";
 import { Variation } from "./admin/products/AddProduct";
 import { Star } from "lucide-react";
 import SimilarDesigns from "../components/SimilarDesigns";
+import { SizeGuideModal } from "../components/homecomponents/SizeGuideModal";
 
 interface Product {
   id: string;
@@ -37,8 +38,8 @@ const ProductDetails: React.FC = () => {
 
   // fetch product
   const { data, isLoading, isError } = useApiQuery<Product>(
-    ["products_"+prodId],
-    `/designs/${productId}`
+    ["products_" + prodId],
+    `/designs/detail/${productId}`
   );
 
   //state to manage preview image
@@ -46,7 +47,7 @@ const ProductDetails: React.FC = () => {
   console.log(data);
 
   // send click update request
-  const mutate = useApiMutation<{ message: string }>(`/designs/productClick/${prodId}`, "PUT", {
+  const mutate = useApiMutation<{ message: string }>(`/designs/click/${prodId}`, "PATCH", {
     onSuccess: (data) => {
       console.log(data.message);
     },
@@ -89,7 +90,7 @@ const ProductDetails: React.FC = () => {
 
   const handleAddToCart = () => {
     if (!product) return;
-    
+
 
     const cartVariations: CartVariation = {
       size: selectedSize,
@@ -234,7 +235,7 @@ const ProductDetails: React.FC = () => {
             {/* SIZE OPTIONS */}
             <div className="row">
               <div className="col-md-8 varsize">
-                <p className="mt-3 mb-1">Select Size</p>
+                <p className="mt-3 mb-1">Select Size <a href="#" data-bs-toggle="modal" data-bs-target="#sizeGuideModal">Size Guide</a></p>
                 {product.designvariations?.length === 0 && <p>No size variations available.</p>}
                 {product.designvariations?.map((variation, index) => (
                   <>
@@ -269,25 +270,25 @@ const ProductDetails: React.FC = () => {
 
             {/* ACTION BUTTONS */}
             <div className="mt-3 d-flex gap-2 details-actions">
-              
-                <button
-                  className="btn btn-outline-success addcart-btn"
-                  onClick={handleAddToCart}
-                >
-                  Add to Cart
-                </button>
-             
-             
-                <button className="btn btn-success addcart-btn">
-                  Buy Now
-                </button>
-              
+
+              <button
+                className="btn btn-outline-success addcart-btn"
+                onClick={handleAddToCart}
+              >
+                Add to Cart
+              </button>
+
+
+              <button className="btn btn-success addcart-btn">
+                Buy Now
+              </button>
+
             </div>
           </div>
         </div>
       </div>
 
-      <SimilarDesigns/>
+      <SimilarDesigns />
 
 
       {/* FULLSCREEN MODAL */}
@@ -329,6 +330,7 @@ const ProductDetails: React.FC = () => {
           </button>
         </div>
       )}
+      <SizeGuideModal />
     </div>
   );
 };

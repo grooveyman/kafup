@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useTruncate } from "../../hooks/useTrancate";
+import { useIsMobile } from "../../hooks/useIsMobile";
 
 
 interface MetaItem {
@@ -23,7 +24,8 @@ interface CollectinsProps {
 
 const HomeCollectionCard: React.FC<CollectinsProps> = ({ name, meta, description, collection_id }) => {
     const navigate = useNavigate();
-    const words = window.innerWidth < 768 ? 10 : 25; // Adjust the number of words based on screen size
+    const isMobile = useIsMobile();
+    const words = isMobile ? 10 : 25;
     return (
         <>
             <div className="">
@@ -36,7 +38,11 @@ const HomeCollectionCard: React.FC<CollectinsProps> = ({ name, meta, description
                                 </div>
                                 <div className="homecollection-item">
                                     <h6>{name}</h6>
-                                    <span>{meta.views} Views</span><span> {meta.likes} Likes</span><span> {meta.designs} Designs</span>
+                                    <div className="d-flex gap-2 flex-wrap">
+                                        <span>{meta.views} Views</span>
+                                        <span>{meta.likes} Likes</span>
+                                        <span>{meta.designs} Designs</span>
+                                    </div>
                                     <p>{useTruncate(description, { words: words })}</p>
                                 </div>
                             </div>

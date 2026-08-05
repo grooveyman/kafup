@@ -20,6 +20,7 @@ const NewNavBar: React.FC = () => {
     setIsMobile(window.innerWidth <= 992);
   }
   useEffect(() => {
+    handleResize();
     window.addEventListener("scroll", handleScroll);
     window.addEventListener("resize", handleResize);
     return () => {

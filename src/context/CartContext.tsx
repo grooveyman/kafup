@@ -64,6 +64,9 @@ export function CartProvider({ children }: CartProviderProps) {
     if (newVariation.quantity <= 0) {
       toast.error("Variation quantity must be greater than zero");
       return;
+    }else if(newVariation.color.trim() === "" || newVariation.size.trim() === ""){
+      toast.error("Variation color and size must be provided");
+      return;
     }
 
     setCartItems((prevCart) => {
