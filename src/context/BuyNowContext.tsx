@@ -4,6 +4,7 @@ import { CartItemType } from "./CartContext";
 export interface BuyNowContextType {
     buyNowItem: CartItemType | null;
     setBuyNowItem: (item: CartItemType | null) => void;
+    clearBuyNow: () => void;
 }
 
 interface BuyNowProviderProps {
@@ -13,12 +14,14 @@ const buyNowContext = createContext<BuyNowContextType | undefined>(undefined);
 
 
 export const BuyNowProvider: React.FC<BuyNowProviderProps> = ({ children }) => {
-    const [buyNowItem, setBuyNowItem] = useState<CartItemType | null > (null);
+    const [buyNowItem, setBuyNowItem] = useState<CartItemType | null>(null);
 
-    
+    const clearBuyNow = () => {
+        setBuyNowItem(null);
+    };
 
     return (
-        <buyNowContext.Provider value={{ buyNowItem, setBuyNowItem }}>
+        <buyNowContext.Provider value={{ buyNowItem, setBuyNowItem, clearBuyNow }}>
             {children}
         </buyNowContext.Provider>
     );

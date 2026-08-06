@@ -23,29 +23,30 @@ const CollectionsCard: React.FC<CollectinsProps> = ({ name, meta, description, d
     return (
         <>
             <div className="">
-                <div className="ad-card">
-                    <img src="assets/images/software dev.png" className="img-rounded" />
-                    <div className="ad-content">
-                        <div className="cls-head mb-3">
-                            <h6>{name}</h6>
-                            <span>{meta.views} Views</span><span> {meta.likes} Likes</span>
-                            <span> {meta.items} Items</span>
-                        </div>
-                        <p>{description}</p>
-                        <hr />
-                        <div className="d-flex justify-content-between align-items-center">
-                            <div className="cls-profile">
-                                <div className="cls-dp d-flex align-items-center justify-content-between">
-                                    <img className="" src={designer.dp_img} />
-                                    <p className="">{designer.name}</p>
-                                </div>
-
+                <a href="#" onClick={() => navigate(`/collections/${designer.name}/${collection_id}`)} className="link-card">
+                    <div className="ad-card">
+                        <img src="assets/images/software dev.png" className="img-rounded" />
+                        <div className="ad-content">
+                            <div className="cls-head mb-3">
+                                <h6>{name}</h6>
+                                <span>{meta.views} Views</span><span> {meta.likes} Likes</span>
+                                <span> {meta.items} Items</span>
                             </div>
-                            <LucideEye onClick={()=>navigate(`/collections/${collection_id}`)} />
-
+                            <p>{description}</p>
+                            <hr />
+                            <div className="d-flex justify-content-between align-items-center">
+                                <div className="cls-profile">
+                                    <div className="cls-dp d-flex align-items-center justify-content-start">
+                                        <img className="" src={designer.dp_img} />
+                                        <p className="">{designer.name}</p>
+                                    </div>
+                                </div>
+                                {/* <LucideEye onClick={()=>navigate(`/collections/${collection_id}`)} /> */}
+                            </div>
                         </div>
                     </div>
-                </div>
+                </a>
+
             </div>
         </>
     );

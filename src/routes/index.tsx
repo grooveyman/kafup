@@ -35,7 +35,7 @@ export const router = createBrowserRouter([
       {path: "/brands", element: <Brands/>},
       {path: "/collections", element: <Collections/>},
       {path: "/brands/:username", element: <Profile />},
-      {path: "/collections/:collection", element: <Collection/>},
+      {path: "/collections/:username/:collection_id", element: <Collection/>},
       {
         path: "admin",
         element: <AdminLayout />,

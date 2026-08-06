@@ -289,3 +289,8 @@
   font: inherit;
   color: blue;
 }
+
+.link-card{
+    text-decoration: none;
+    color: inherit;
+}

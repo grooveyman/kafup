@@ -26,25 +26,27 @@ export interface CustomerType {
 }
 const Checkout: React.FC = () => {
   const { cartItems } = useCartContext();
-  const defaultTotal = cartItems.reduce((acc, item) => acc + item.total, 0);
-  const cartQuantity = cartItems.reduce((acc, item) => acc + item.quantity, 0);
+  const { buyNowItem } = useBuyNowContext();
+  console.log("buyNowItem", buyNowItem);
+  const defaultTotal = Number(buyNowItem?.total) ? Number(buyNowItem?.total) : cartItems.reduce((acc, item) => acc + item.total, 0);
+  const cartQuantity = buyNowItem ? buyNowItem.quantity : cartItems.reduce((acc, item) => acc + item.quantity, 0);
+ 
   const [total, setTotal] = useState(defaultTotal);
+   console.log("defaultTotal", total);
   const cart: CartType = {
     quantity: cartItems.length,
     cartItems: cartItems,
   };
   const navigate = useNavigate();
 
-  const { buyNowItem } = useBuyNowContext();
- 
 
   const [customerInfo, setCustomerInfo] = useState({
     fullname: "",
     email: "",
     phoneNumber: "",
     deliveryAddress: "",
-    region:"",
-    city:"",
+    region: "",
+    city: "",
   });
 
   // const navigate = useNavigate();
@@ -106,7 +108,7 @@ const Checkout: React.FC = () => {
     } else if (!/^\d{10}$/.test(customerInfo.phoneNumber)) {
       toast.error("Please enter a valid phone number");
       return false;
-    }else if(total==0){
+    } else if (defaultTotal == 0) {
       toast.error("Cart is empty! Reselect items and try again");
       return false;
     }
@@ -123,10 +125,10 @@ const Checkout: React.FC = () => {
 
 
     const order: OrderType = {
-      total: buyNowItem? buyNowItem.total:total,
-      quantity: buyNowItem? buyNowItem.quantity:cartQuantity,
+      total: defaultTotal,
+      quantity: buyNowItem ? buyNowItem.quantity : cartQuantity,
       customer: customerInfo,
-      cart: buyNowItem?{quantity:buyNowItem.quantity, cartItems:[buyNowItem]}:cart,
+      cart: buyNowItem ? { quantity: buyNowItem.quantity, cartItems: [buyNowItem] } : cart,
     };
     console.log(order);
     mutation.mutate(order);
@@ -257,8 +259,8 @@ const Checkout: React.FC = () => {
             </div>
           </div>
           <CartSummary
-            subtotal={total}
-            estotal={total}
+            subtotal={defaultTotal}
+            estotal={defaultTotal}
             status={"2"}
             cart={cart}
           />

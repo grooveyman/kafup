@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import NavFilter from "../components/explorecomponents/NavFilter";
 import EmptyPage from "../components/EmptyPage";
 import Breadcrumb from "../components/Breadcrumb";
+import { Search } from "lucide-react";
 
 const Collections: React.FC = () => {
     const filters = [
@@ -59,7 +60,15 @@ const Collections: React.FC = () => {
             <div className="container">
                 <Breadcrumb crumbs={[{ label: "Home", href: "/" }, { label: "Collections", href: "" }]} />
                 <div className="row">
-                    <NavFilter filters={filters} selectedFilter={selectedFilter} onChange={(id) => setSelectedFilter(id)} />
+                    <div className="col-md-8">
+                        <NavFilter filters={filters} selectedFilter={selectedFilter} onChange={(id) => setSelectedFilter(id)} />
+                    </div>
+                    <div className="col-md-4">
+                        <div className="input-group">
+                        <input type="text" className="form-control" placeholder="Search collections..." />
+                        <button className="btn btn-primary"><Search /></button>
+                        </div>
+                    </div>
                 </div>
                 <div className="row mt-3">
                     {items.length == 0 && <EmptyPage />}
@@ -68,13 +77,10 @@ const Collections: React.FC = () => {
                             <>
                                 <div className="col-md-6 col-sm-12 col-lg-4 col-xl-3 mb-4">
                                     <CollectionsCard name={collection.name} meta={{ views: collection.views, likes: collection.likes, items: collection.items }} designer={{ name: collection.designer.name, dp_img: collection.designer.img }} collection_id={collection.id} description={collection.description} />
-
                                 </div>
-
                             </>
                         )
                     })}
-
                 </div>
             </div>
         </>

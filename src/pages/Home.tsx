@@ -30,6 +30,19 @@ export interface Product {
   previewimg_public_id?: string;
   designer: DesignerType;
   categories?: Category;
+  collections?: CollectionType;
+}
+export interface CollectionType{
+  id: number;
+  name: string;
+  description: string;
+  designer: DesignerType;
+  meta: {
+    views: number;
+    likes: number;
+    items: number;
+  };
+  collection_id: string;
 }
 export interface DesignerType {
   code: number;
