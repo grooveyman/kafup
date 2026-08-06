@@ -173,7 +173,20 @@
 .footer{
     background-color: var(--lightgrey);
     padding: 50px 0px;
+    background-color: #000 !important;
 }
+.footer-content{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+}
+@media (max-width: 768px) {
+  .footer-content {
+    justify-content: center;
+  }
+}
+
 .copyright{
     font-size: small;
     color: black;

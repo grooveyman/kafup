@@ -36,7 +36,7 @@ const ProductDetails: React.FC = () => {
   const [selectedSize, setSelectedSize] = useState<string>("");
   const calledRef = useRef(false);
 
-  const { addToCart, cartItems } = useCartContext();
+  const { addToCart } = useCartContext();
 
   // fetch product
   const { data, isLoading, isError } = useApiQuery<Product>(

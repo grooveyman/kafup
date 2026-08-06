@@ -11,13 +11,6 @@ interface ClothingSize {
     eu: string;
 }
 
-interface ShoeSize {
-    uk: string;
-    us: string;
-    eu: string;
-    footLength: string;
-}
-
 const clothingSizes: ClothingSize[] = [
     { size: "XS", uk: "4–6", us: "2–4", eu: "32–34" },
     { size: "S", uk: "8–10", us: "6–8", eu: "36–38" },

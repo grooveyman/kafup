@@ -94,7 +94,7 @@ setExtraImages([
   //mutation to send post request
   const mutation = useApiMutation<{ message: string }>(
     `/products/product/${prodid}`,
-    "PUT",
+    "PATCH",
     {
       onSuccess: (data) => {
         toast.success(data.message);

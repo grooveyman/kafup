@@ -16,18 +16,10 @@ import { Product } from "./Home";
 const DesignerProfile: React.FC = () => {
     const { username, collection_id } = useParams();
 
-    // --------------------------------------------------
-    // State
-    // --------------------------------------------------
-
     const [open, setOpen] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState("");
     const [selectedCollection, setSelectedCollection] = useState("");
     const [search, setSearch] = useState("");
-
-    // --------------------------------------------------
-    // Fetch designs
-    // --------------------------------------------------
 
     const endpoint = "/designs/";
 
@@ -37,10 +29,6 @@ const DesignerProfile: React.FC = () => {
     );
 
     console.log(data);
-
-    // --------------------------------------------------
-    // Collections
-    // --------------------------------------------------
 
     const collections = useMemo(() => {
         return [
@@ -55,9 +43,7 @@ const DesignerProfile: React.FC = () => {
         ];
     }, [data]);
 
-    // --------------------------------------------------
-    // Categories
-    // --------------------------------------------------
+    
 
     const categories = useMemo(() => {
         return [
@@ -72,9 +58,7 @@ const DesignerProfile: React.FC = () => {
         ];
     }, [data]);
 
-    // --------------------------------------------------
-    // Filter designs
-    // --------------------------------------------------
+    
 
     const filteredData = useMemo(() => {
         if (!data) return [];
@@ -126,10 +110,7 @@ const DesignerProfile: React.FC = () => {
         search,
     ]);
 
-    // --------------------------------------------------
-    // Reset filters
-    // --------------------------------------------------
-
+    
     const resetFilters = () => {
         setSelectedCollection("");
         setSelectedCategory("");
