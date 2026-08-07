@@ -1,23 +1,436 @@
-
-
-.shop-prod-desc{
+.shop-prod-desc {
     display: flex;
     justify-content: space-between;
     margin-bottom: 0 !important;
 }
-.shop-prod-desc > p > span{
+
+.shop-prod-desc > p > span {
     font-size: x-small;
     padding: 2px;
 }
-.shop-prod-desc > p{
+
+.shop-prod-desc > p {
     margin: 0;
 }
 
-.shop-desc-cat > p{
+.shop-desc-cat > p {
     color: gray;
     font-size: small;
     margin: 0;
 }
-.form-control{
+
+.form-control {
     border-radius: 10px !important;
+}
+
+
+/* =========================
+   PRICE FILTER
+========================= */
+
+.price-filter-modern {
+    width: fit-content;
+    padding: 4px 0;
+}
+
+
+/* =========================
+   HEADING
+========================= */
+
+.price-filter-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 18px;
+}
+
+.price-filter-heading h6 {
+    margin: 0;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    color: #222;
+}
+
+.price-reset {
+    border: 0;
+    background: transparent;
+
+    padding: 0;
+
+    font-size: 12px;
+    font-weight: 500;
+
+    color: #12a066;
+
+    cursor: pointer;
+}
+
+.price-reset:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================
+   PRICE INPUTS
+========================= */
+
+.price-inputs {
+    display: flex;
+    align-items: flex-end;
+
+    gap: 10px;
+
+    margin-bottom: 10px;
+}
+
+.price-input-wrapper {
+    flex: 1;
+
+    min-width: 0;
+}
+
+.price-input-wrapper > span {
+    display: block;
+
+    margin-bottom: 6px;
+
+    font-size: 11px;
+    font-weight: 500;
+
+    color: #777;
+}
+
+
+/* =========================
+   MODERN INPUT
+========================= */
+
+.price-input {
+    display: flex;
+    align-items: center;
+
+    height: 42px;
+
+    padding: 0 12px;
+
+    background: #f8f9fa;
+
+    border: 1px solid #e7e7e7;
+
+    border-radius: 10px;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+
+/* Focus */
+
+.price-input:focus-within {
+    background: #fff;
+
+    border-color: #12a066;
+
+    box-shadow: 0 0 0 3px rgba(18, 160, 102, 0.08);
+}
+
+
+/* Currency */
+
+.price-input > span {
+    margin-right: 5px;
+
+    color: #888;
+
+    font-size: 13px;
+}
+
+
+/* Number Input */
+
+.price-input input {
+    width: 100%;
+
+    min-width: 0;
+
+    padding: 0;
+
+    border: 0;
+
+    outline: 0;
+
+    background: transparent;
+
+    font-size: 13px;
+
+    font-weight: 500;
+
+    color: #222;
+}
+
+
+/* Placeholder */
+
+.price-input input::placeholder {
+    color: #aaa;
+}
+
+
+/* =========================
+   REMOVE NUMBER ARROWS
+========================= */
+.price-input input[type="number"]::-webkit-inner-spin-button,
+.price-input input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+.price-input input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+
+
+
+/* =========================
+   SEPARATOR
+========================= */
+
+.price-separator {
+    padding-bottom: 12px;
+
+    color: #aaa;
+
+    font-size: 13px;
+
+    flex-shrink: 0;
+}
+
+
+/* =========================
+   RANGE LABELS
+========================= */
+
+.price-range-labels {
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-top: 7px;
+
+    font-size: 11px;
+
+    color: #999;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 576px) {
+
+    .price-inputs {
+        gap: 8px;
+    }
+
+    .price-input {
+        height: 40px;
+
+        padding: 0 10px;
+    }
+
+    .price-input-wrapper > span {
+        font-size: 10px;
+    }
+
+    .price-input input {
+        font-size: 12px;
+    }
+
+    .price-input > span {
+        font-size: 12px;
+
+        margin-right: 4px;
+    }
+
+    .price-separator {
+        padding-bottom: 11px;
+    }
+}
+
+/* =========================
+   MODERN RANGE SLIDER
+========================= */
+
+
+.modern-slider {
+
+    position: relative;
+
+    width:100%;
+
+    height:24px;
+
+    margin-top:15px;
+}
+
+
+/* Background */
+
+.modern-slider-track {
+
+    position:absolute;
+
+    top:50%;
+
+    width:100%;
+
+    height:4px;
+
+    transform:translateY(-50%);
+
+    background:#e5e7eb;
+
+    border-radius:20px;
+
+}
+
+
+/* Selected */
+
+.modern-slider-active {
+
+    position:absolute;
+
+    top:50%;
+
+    height:4px;
+
+    transform:translateY(-50%);
+
+    background:#12a066;
+
+    border-radius:20px;
+
+}
+
+
+
+/* Inputs */
+
+.modern-range {
+
+    position:absolute;
+
+    top:0;
+
+    left:0;
+
+    width:100%;
+
+    height:24px;
+
+    background:none;
+
+    pointer-events:none;
+
+    appearance:none;
+
+    -webkit-appearance:none;
+
+}
+
+
+
+/* Chrome */
+
+.modern-range::-webkit-slider-thumb {
+
+
+    appearance:none;
+
+    -webkit-appearance:none;
+
+
+    width:16px;
+
+    height:16px;
+
+
+    border-radius:50%;
+
+
+    background:#fff;
+
+
+    border:2px solid #12a066;
+
+
+    cursor:pointer;
+
+
+    pointer-events:auto;
+
+
+    box-shadow:
+    0 2px 6px rgba(0,0,0,.15);
+
+}
+
+
+
+/* Firefox */
+
+.modern-range::-moz-range-thumb {
+
+
+    width:16px;
+
+    height:16px;
+
+
+    border-radius:50%;
+
+
+    background:#fff;
+
+
+    border:2px solid #12a066;
+
+
+    cursor:pointer;
+
+
+    pointer-events:auto;
+
+
+    box-shadow:
+    0 2px 6px rgba(0,0,0,.15);
+
+}
+
+
+
+
+.modern-range-max {
+
+    z-index:3;
+
+}
+
+
+.modern-range:not(.modern-range-max){
+
+    z-index:4;
+
 }

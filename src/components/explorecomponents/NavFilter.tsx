@@ -33,7 +33,7 @@ const NavFilter: React.FC<NavFilterProps> = ({ filters, selectedFilter, onChange
                         <div className="row w-100">
                             <div className="col-12">
                                 <div className="d-flex w-100 align-items-center gap-2">
-
+                                    <span>Categories: </span>
                                     {filters.map((f) => (
                                         <div
                                             key={f.id}

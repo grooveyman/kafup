@@ -5,6 +5,8 @@ import NavFilter from "../components/explorecomponents/NavFilter";
 import EmptyPage from "../components/EmptyPage";
 import Breadcrumb from "../components/Breadcrumb";
 import { Search } from "lucide-react";
+import SearchField from "../components/SearchField";
+import { toast } from "react-toastify";
 
 const Collections: React.FC = () => {
     const filters = [
@@ -13,7 +15,7 @@ const Collections: React.FC = () => {
         { id: "new", name: "New" },
         { id: "toprated", name: "Top Rated" }
     ];
-    const [selectedFilter, setSelectedFilter] = useState<string | number>("all");
+        const [selectedFilter, setSelectedFilter] = useState<string | number>("all");
     const [items, setItems] = useState<any[]>([]);
 
 
@@ -55,6 +57,23 @@ const Collections: React.FC = () => {
         const data = fetchData(selectedFilter);
         setItems(data);
     }, [selectedFilter]);
+
+    const [searchKey, setSearchKey] = useState("");
+    const filteredItems = items.filter((item) => item.name.toLowerCase().includes(searchKey.toLowerCase()));
+
+
+
+    const handleSearch = (searchTerm: string) => {
+        setSearchKey(searchTerm);
+        // setItems(filteredItems);
+        console.log("Search term:", searchTerm);
+    };
+
+    const handleSearchSubmit = (value: string) => {
+        //call search API
+        toast.success("You'll be searching soon...");
+    }
+
     return (
         <>
             <div className="container">
@@ -64,15 +83,12 @@ const Collections: React.FC = () => {
                         <NavFilter filters={filters} selectedFilter={selectedFilter} onChange={(id) => setSelectedFilter(id)} />
                     </div>
                     <div className="col-md-4">
-                        <div className="input-group">
-                        <input type="text" className="form-control" placeholder="Search collections..." />
-                        <button className="btn btn-primary"><Search /></button>
-                        </div>
+                        <SearchField value={searchKey} onChange={handleSearch} placeholder="Search Collection" onSearchSubmit={handleSearchSubmit} />
                     </div>
                 </div>
                 <div className="row mt-3">
-                    {items.length == 0 && <EmptyPage />}
-                    {items.map((collection) => {
+                    {filteredItems.length == 0 && <EmptyPage />}
+                    {filteredItems.map((collection) => {
                         return (
                             <>
                                 <div className="col-md-6 col-sm-12 col-lg-4 col-xl-3 mb-4">
