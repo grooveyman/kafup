@@ -56,7 +56,7 @@ const Shop: React.FC = () => {
   };
 
   const handleSearchSubmit = () => {
-
+    console.log("Search to backend");
   };
 
   //price filter

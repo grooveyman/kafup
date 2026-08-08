@@ -7,7 +7,7 @@ interface MetaItem {
 }
 
 interface CategoryType {
-    c_name: string;
+    name: string;
 }
 
 interface BrandsProps {
@@ -36,7 +36,7 @@ const BrandsCard: React.FC<BrandsProps> = ({ name, meta, categories, brand_id })
                             <div className="mb-2">
                                 <span>Category</span>
                             </div>
-                            {categories.map((cat) => (<span>{cat.c_name}</span>))}
+                            {categories.map((cat) => (<span>{cat.name}</span>))}
                         </div>
                         
                         <div className="d-flex justify-content-between align-items-center">

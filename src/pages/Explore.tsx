@@ -6,6 +6,82 @@ import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 import Breadcrumb from "../components/Breadcrumb";
 import { EyeIcon, Heart } from "lucide-react";
+import SearchField from "../components/SearchField";
+
+const data = [
+    {
+        id: '3232',
+        name: "Artist Design",
+        image: "assets/images/software dev.png",
+        meta: {
+            likes: 32,
+            views: 33
+        },
+        categories: {
+            name: "Children"
+        }
+    },
+    {
+        id: '764',
+        name: "Artist Design",
+        image: "assets/images/software dev.png",
+        meta: {
+            likes: 32,
+            views: 33
+        },
+        categories: {
+            name: "Children"
+        }
+    },
+    {
+        id: '765',
+        name: "Artist Design",
+        image: "assets/images/software dev.png",
+        meta: {
+            likes: 32,
+            views: 33
+        },
+        categories: {
+            name: "Sons"
+        }
+    },
+    {
+        id: '765',
+        name: "Artist Design",
+        image: "assets/images/software dev.png",
+        meta: {
+            likes: 32,
+            views: 33
+        },
+        categories: {
+            name: "Women"
+        }
+    },
+    {
+        id: '3256',
+        name: "Artist Design",
+        image: "assets/images/software dev.png",
+        meta: {
+            likes: 32,
+            views: 33
+        },
+        categories: {
+            name: "Men"
+        }
+    },
+    {
+        id: '2131',
+        name: "Artist Design",
+        image: "assets/images/software dev.png",
+        meta: {
+            likes: 32,
+            views: 12
+        },
+        categories: {
+            name: "Children"
+        }
+    }
+];
 
 const Explore: React.FC = () => {
     const filters = [
@@ -75,22 +151,44 @@ const Explore: React.FC = () => {
         setItems(fetchData(selectedFilter));
     }, [selectedFilter]);
 
+    const [searchTerm, setSearchTerm] = useState("");
+
+    const filteredData = data?.filter((item) => {
+        const matchSearch = item.name.toLowerCase().includes(searchTerm.toLowerCase());
+        const matchFilter = selectedFilter === "all" || item.categories?.name === selectedFilter;
+        return matchFilter && matchSearch;
+    });
+    const handleSearch = (value: string) => {
+        setSearchTerm(value);
+    };
+
+    const handleSearchSubmit = () => {
+
+    };
+
     return (
         <div className="container explore-wrapper">
             <Breadcrumb crumbs={[{ label: "Home", href: "/" }, { label: "Explore" }]} />
 
             {/* Filter navigation */}
             <div className="row">
-                <NavFilter
-                    filters={filters}
-                    selectedFilter={selectedFilter}
-                    onChange={(id) => setSelectedFilter(id)}
-                />
+                <div className="col-md-8">
+                    <NavFilter
+                        filters={filters}
+                        selectedFilter={selectedFilter}
+                        onChange={(id) => setSelectedFilter(id)}
+                    />
+                </div>
+                <div className="col-md-4">
+                    <SearchField value={searchTerm} onChange={handleSearch} placeholder="Search in explore..." onSearchSubmit={handleSearchSubmit} />
+
+                </div>
+
             </div>
 
             {/* Image grid */}
             <div className="row">
-                {items.map((item, i) => (
+                {filteredData.map((item, i) => (
                     <div className="explore-container col-md-4 col-xl-4 col-xs-6 col-lg-4 col-sm-6">
                         <div
                             className="img-container"
@@ -110,13 +208,13 @@ const Explore: React.FC = () => {
                             {/* <div className="image-title pt-2">{item.name}</div> */}
                         </div>
                         <div className="d-flex justify-content-between">
-                            <div>Name of Product</div>
+                            <div>{item.name}</div>
                             <div>
                                 <div className="d-flex justify-content-start gap-1 align-items-center">
                                     <Heart size={14} />
-                                    <p style={{ margin: 0, fontSize: "small" }}>23k</p>
+                                    <p style={{ margin: 0, fontSize: "small" }}>{item.meta.likes}</p>
                                     <EyeIcon size={14} fill="gray" />
-                                    <p style={{ margin: 0, fontSize: "small" }}>23k</p>
+                                    <p style={{ margin: 0, fontSize: "small" }}>{item.meta.views}</p>
                                 </div>
                             </div>
                         </div>
