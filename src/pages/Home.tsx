@@ -17,6 +17,7 @@ import PrimaryButton from "../components/PrimaryButton";
 import EmptyPage from "../components/EmptyPage";
 import { HeroSection } from "../components/homecomponents/HeroSection";
 import { DesignerSignUp } from "../components/homecomponents/DesignerSignUp";
+import ListContainer from "../components/shopcomponents/ListContainer";
 export interface Product {
   id: number;
   name: string;
@@ -116,26 +117,29 @@ const Home: React.FC = () => {
                 <div className="row">
                   {isLoading ? (
                     <SkeletonLoader count={3} />
-                  ) : (
-                    data?.map((product) => (
-                      <div
-                        className="col-md-3"
-                        onClick={() => navigate("/details/" + product.id)}
-                        key={product.id}
-                      >
-                        <div className="product">
-                          <img
-                            src={product.previewimg}
-                            width={"100%"}
-                            height={"100%"}
-                          />
-                        </div>
-                        <div className="desc mt-2">
-                          <h6>{product.name}</h6>
-                          <p>{product.price ?? "$40"}</p>
-                        </div>
-                      </div>
-                    ))
+                  ) : !data || data.length === 0? (
+                    <EmptyPage />
+                  ):(
+                    <ListContainer list={data} />
+                    // data?.map((product) => (
+                      // <div
+                      //   className="col-md-3"
+                      //   onClick={() => navigate("/details/" + product.id)}
+                      //   key={product.id}
+                      // >
+                      //   <div className="product">
+                      //     <img
+                      //       src={product.previewimg}
+                      //       width={"100%"}
+                      //       height={"100%"}
+                      //     />
+                      //   </div>
+                      //   <div className="desc mt-2">
+                      //     <h6>{product.name}</h6>
+                      //     <p>{product.price ?? "$40"}</p>
+                      //   </div>
+                      // </div>
+                    // ))
                   )}
                 </div>
               </TabPanel>

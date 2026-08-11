@@ -102,3 +102,33 @@ font-size: 0.2rem !important;   /* smaller text */
 .similar-designs{
     margin-top: 100px;
 }
+
+.review-breakdown {
+    width: 100%;
+    max-width: 400px;
+}
+
+.review-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.review-number {
+    width: 15px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.review-row .progress {
+    flex: 1;
+    height: 8px;
+    border-radius: 20px;
+    background-color: #e9ecef;
+}
+
+.review-row .progress-bar {
+    border-radius: 20px;
+    background-color: green;
+}

@@ -10,6 +10,7 @@ import SimilarDesigns from "../components/SimilarDesigns";
 import { SizeGuideModal } from "../components/homecomponents/SizeGuideModal";
 import { useBuyNowContext } from "../context/BuyNowContext";
 import { toast } from "react-toastify";
+import Reviews from "../components/Reviews";
 
 interface Product {
   id: string;
@@ -147,7 +148,7 @@ const ProductDetails: React.FC = () => {
       toast.error("Please select a valid quantity.");
       return;
     }
-   
+
     setBuyNowItem(productProd);
     navigate("/checkout");
   };
@@ -329,6 +330,11 @@ const ProductDetails: React.FC = () => {
       </div>
 
       <SimilarDesigns />
+
+      {/* Reviews */}
+      <div className="section">
+        <Reviews />
+      </div>
 
 
       {/* FULLSCREEN MODAL */}
