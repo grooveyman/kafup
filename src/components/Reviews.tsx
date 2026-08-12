@@ -1,5 +1,29 @@
 import { Star } from "lucide-react";
+import EmptyPage from "./EmptyPage";
+import { StarsComponent } from "./StarsComponent";
 
+
+const data = {
+    total: 3,
+    offset: 1,
+    limit: 3,
+    results: [
+        {
+            name: 'Kelvin Osei',
+            rate: 4.5,
+            title: 'Great outfit',
+            message: 'Lorem ipsum dolor sit immer amer. Cupiditate dicta debitis quae inventore in, architecto fugiat maiores voluptatibus? Repellendus. Quidem quia consequuntur, ullam reprehenderit odit, id sunt est accusamus consectetur,',
+            created_at: '2026-09-23 03:02:23:22241'
+        },
+        {
+            name: 'Kelvin Osei',
+            rate: 4.5,
+            title: 'Great outfit',
+            message: 'Lorem ipsum dolor sit immer amer. Cupiditate dicta debitis quae inventore in, architecto fugiat maiores voluptatibus? Repellendus. Quidem quia consequuntur, ullam reprehenderit odit, id sunt est accusamus consectetur,',
+            created_at: '2026-09-23 03:02:23:22241'
+        }
+    ]
+};
 
 const Reviews: React.FC = () => {
 
@@ -11,7 +35,7 @@ const Reviews: React.FC = () => {
                     <div className="">
                         <div className="d-flex align-items-center gap-2">
                             <h2 className="mb-0">4.8</h2>
-                            <Star size={20} />
+                            <Star size={20} fill="gold" stroke="none" />
                             <Star size={20} />
                             <Star size={20} />
                             <Star size={20} />
@@ -65,8 +89,31 @@ const Reviews: React.FC = () => {
                         </div>
                     </div>
                 </div>
-                <div className="col-md-7">
+                <div className="col-md-7 mt-4">
+                    <div>
+                        {data.total === 0 && <EmptyPage />}
+                        {data.results.map((item) => {
+                            return (
+                                <>
+                                    <div className="comment-head">
+                                        <div className="d-flex justify-content-start gap-2 reviewer">
+                                            <h6>{item.name}</h6>
+                                            <p> | 5 days ago</p>
+                                        </div>
+                                        <div className="stars">
+                                            <StarsComponent rate={4.5} />
+                                        </div>
+                                    </div>
 
+                                    <div className="comment-body mt-4">
+                                        <h6>{item.title}</h6>
+                                        <p>{item.message}</p>
+                                    </div>
+                                     <hr />
+                                </>
+                            );
+                        })}
+                    </div>
                 </div>
             </div>
         </>

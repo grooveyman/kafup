@@ -132,3 +132,23 @@ font-size: 0.2rem !important;   /* smaller text */
     border-radius: 20px;
     background-color: green;
 }
+
+.reviewer h6{
+    margin: 0;
+}
+.comment-head .reviewer p{
+    font-size: small;
+    color: gray;
+    margin: 0;
+}
+.comment-body h6{
+    font-weight: bold;
+}
+.comment-body p{
+    font-size: small;
+    font-weight: light;
+}
+.stars{
+    outline: none;
+    border: none;
+}
