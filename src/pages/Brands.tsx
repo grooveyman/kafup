@@ -186,9 +186,9 @@ const Brands: React.FC = () => {
         </div>
         <div className="">
           <div className="row">
-            <div className="col-md-8">
+            {/* <div className="col-md-8">
               <NavFilter filters={filters} selectedFilter={selectedFilter} onChange={(id) => setSelectedFilter(id)} />
-            </div>
+            </div> */}
             <div className="col-md-4">
               <SearchField value={searchTerm} onChange={handleSearch} />
             </div>
