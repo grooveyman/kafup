@@ -185,7 +185,7 @@ const Brands: React.FC = () => {
           <Breadcrumb crumbs={[{ label: "Home", href: "/" }, { label: "Brands", href: "/brands" }]} />
         </div>
         <div className="">
-          <div className="row">
+          <div className="row d-flex justify-content-end">
             {/* <div className="col-md-8">
               <NavFilter filters={filters} selectedFilter={selectedFilter} onChange={(id) => setSelectedFilter(id)} />
             </div> */}
@@ -195,7 +195,7 @@ const Brands: React.FC = () => {
           </div>
 
           {/* 1st 3 designers */}
-          <div className="row">
+          <div className="row mt-3">
 
             {topthree.map((item) => (
               <div className="col-md-4">
