@@ -2,8 +2,9 @@ import { Star } from "lucide-react";
 
 interface StarsProps {
     rate: number;
+    size: number;
 }
-export const StarsComponent: React.FC<StarsProps> = ({ rate }) => {
+export const StarsComponent: React.FC<StarsProps> = ({ rate, size }) => {
     const fullStars = Math.floor(rate);
     const hasHalfStar = rate % 1 !== 0;
     const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
@@ -14,7 +15,7 @@ export const StarsComponent: React.FC<StarsProps> = ({ rate }) => {
             {Array.from({ length: fullStars }).map((_, index) => (
                 <Star
                     key={`full-${index}`}
-                    size={15}
+                    size={size}
                     fill="gold"
                     stroke="gold"
                 />
@@ -23,7 +24,7 @@ export const StarsComponent: React.FC<StarsProps> = ({ rate }) => {
             {/* Half star */}
             {hasHalfStar && (
                 <div className="half-star">
-                    <Star size={15} fill="url(#halfGradient)" stroke="gold" />
+                    <Star size={size} fill="url(#halfGradient)" stroke="gold" />
                     <svg width="0" height="0">
                         <defs>
                             <linearGradient id="halfGradient">

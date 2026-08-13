@@ -25,3 +25,66 @@
     border-radius: 5px;
     color: white;
 }
+
+.topthree-body{
+    padding: 20px;
+}
+.topthree-dp img{
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 100%;
+}
+.topthree-title span, p{
+    color: gray;
+    font-size: small;
+    margin: 0 !important;
+    padding: 0 !important;
+   
+}
+.topthree-title{
+    margin: 0 !important;
+    padding: 0 !important;
+}
+.topthree-meta span{
+    font-size: smaller;
+}
+.topthree-badges .badge-sm{
+    background-color: black;
+    font-size: xx-small;
+    border-radius: 10px;
+    color: white;
+    padding: 5px;
+}
+.topthree-card{
+    position: relative;
+    border-radius: 10px !important;
+}
+.rank-circle{
+    position: absolute;
+    bottom: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: 70px;
+    height: 70px;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: goldenrod;
+    color: white;
+
+    font-size: 20px;
+    font-weight: 700;
+
+    border: 3px solid goldenrod;
+
+    z-index: 10;
+}
+.hr{
+    margin: 0;
+}

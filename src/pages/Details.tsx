@@ -11,6 +11,7 @@ import { SizeGuideModal } from "../components/homecomponents/SizeGuideModal";
 import { useBuyNowContext } from "../context/BuyNowContext";
 import { toast } from "react-toastify";
 import Reviews from "../components/Reviews";
+import { StarsComponent } from "../components/StarsComponent";
 
 interface Product {
   id: string;
@@ -223,12 +224,8 @@ const ProductDetails: React.FC = () => {
             <div>
               <p style={{ fontSize: 'small', margin: 0 }}>{product.description}</p>
             </div>
-            <div>
-              <Star size={16} stroke="none" fill="gold" />
-              <Star size={16} stroke="none" fill="gold" />
-              <Star size={16} stroke="none" fill="gold" />
-              <Star size={16} stroke="none" fill="gold" />
-              <Star size={16} stroke="none" fill="gray" />
+            <div className="d-flex justify-content-start">
+              <StarsComponent rate={4.0} size={15} />
               <span className="ms-2">4.0 (120 reviews)</span>
             </div>
 

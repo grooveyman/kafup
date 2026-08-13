@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 interface MetaItem {
     follows: number;
     collections: number;
-    deliveries: number;
+    sold: number;
 }
 
 interface CategoryType {
@@ -29,7 +29,7 @@ const BrandsCard: React.FC<BrandsProps> = ({ name, meta, categories, brand_id })
                     <div className="ad-content">
                         <div className="cls-head mb-3">
                             <h6>{name}</h6>
-                            <span>{meta.follows} Follows</span><span> {meta.deliveries} Deliveries</span>
+                            <span>{meta.follows} Follows</span><span> {meta.sold} Deliveries</span>
                             <span> {meta.collections} Collections</span>
                         </div>
                         <div className="brands-category">

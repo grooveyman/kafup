@@ -33,13 +33,9 @@ const Reviews: React.FC = () => {
                 <h1>Reviews</h1>
                 <div className="col-md-5">
                     <div className="">
-                        <div className="d-flex align-items-center gap-2">
+                        <div className="d-flex justify-content-start gap-2">
                             <h2 className="mb-0">4.8</h2>
-                            <Star size={20} fill="gold" stroke="none" />
-                            <Star size={20} />
-                            <Star size={20} />
-                            <Star size={20} />
-                            <Star size={20} />
+                            <StarsComponent size={20}  rate={4.5}/>
                         </div>
                         <p>Based on 90 reviews</p>
                     </div>
@@ -100,8 +96,8 @@ const Reviews: React.FC = () => {
                                             <h6>{item.name}</h6>
                                             <p> | 5 days ago</p>
                                         </div>
-                                        <div className="stars">
-                                            <StarsComponent rate={4.5} />
+                                        <div className="stars d-flex justify-content-start">
+                                            <StarsComponent size={15} rate={4.5} />
                                         </div>
                                     </div>
 

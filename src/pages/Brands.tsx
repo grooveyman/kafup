@@ -6,6 +6,7 @@ import EmptyPage from "../components/EmptyPage";
 import BrandsCard from "../components/brandscomponents/BrandCard";
 import Breadcrumb from "../components/Breadcrumb";
 import SearchField from "../components/SearchField";
+import { TopThreeCard } from "../components/brandscomponents/TopThreeCard";
 
 
 const data = [
@@ -13,12 +14,18 @@ const data = [
     id: '3232',
     name: "Artist Design",
     image: "assets/images/software dev.png",
+    rank: 6,
+    pts: 2330,
+    badges: [
+      "Top Designer", "Designer"
+    ],
     meta: {
       likes: 32,
       views: 33,
       follows: 33,
       collections: 90,
-      deliveries: 54
+      sold: 54,
+      designs:41
     },
     categories: [{
       name: "Children"
@@ -28,12 +35,18 @@ const data = [
     id: '764',
     name: "Artist Design",
     image: "assets/images/software dev.png",
+    rank: 5,
+    pts: 2330,
+    badges: [
+      "Top Designer", "Best Seller"
+    ],
     meta: {
       likes: 32,
       views: 33,
       follows: 33,
       collections: 90,
-      deliveries: 54
+      sold: 54,
+      designs:41
     },
     categories: [{
       name: "Children"
@@ -43,12 +56,18 @@ const data = [
     id: '765',
     name: "Artist Design",
     image: "assets/images/software dev.png",
+    rank: 4,
+    pts: 2330,
+    badges: [
+      "Top Seller", "Designer"
+    ],
     meta: {
       likes: 32,
       views: 33,
       follows: 33,
       collections: 90,
-      deliveries: 54
+      sold: 54,
+      designs:41
     },
     categories: [{
       name: "Sons"
@@ -58,12 +77,18 @@ const data = [
     id: '765',
     name: "Artist Design",
     image: "assets/images/software dev.png",
+    rank: 2,
+    pts: 2330,
+    badges: [
+      "Top Designer", "Designer"
+    ],
     meta: {
       likes: 32,
       views: 33,
       follows: 33,
       collections: 90,
-      deliveries: 54
+      sold: 54,
+      designs:41
     },
     categories: [{
       name: "Women"
@@ -73,12 +98,18 @@ const data = [
     id: '3256',
     name: "Artist Design",
     image: "assets/images/software dev.png",
+    rank: 1,
+    pts: 2330,
+    badges: [
+      "Top Designer", "Designer"
+    ],
     meta: {
       likes: 32,
       views: 33,
       follows: 33,
       collections: 90,
-      deliveries: 54
+      sold: 54,
+      designs:41
     },
     categories: [{
       name: "Men"
@@ -88,12 +119,18 @@ const data = [
     id: '2131',
     name: "Artist Design",
     image: "assets/images/software dev.png",
+    rank: 3,
+    pts: 2330,
+    badges: [
+      "Top Designer", "Designer"
+    ],
     meta: {
       likes: 32,
       views: 12,
       follows: 33,
       collections: 90,
-      deliveries: 54
+      sold: 54,
+      designs:41
     },
     categories: [{
       name: "Children"
@@ -112,13 +149,14 @@ const Brands: React.FC = () => {
 
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedFilter, setSelectedFilter] = useState<string | number>("all");
-  const [items, setItems] = useState<any[]>([]);
+  const [ items, setItems] = useState<any[]>([]);
 
   const filteredData = data.filter((item) => {
     const matchSearch = item.name.toLowerCase().includes(searchTerm.toLowerCase());
     const matchCategory = selectedFilter === "all" || item.categories.some((category) => category.name === selectedFilter);
     return matchCategory && matchSearch;
   });
+
 
 
 
@@ -131,6 +169,13 @@ const Brands: React.FC = () => {
     // const data = fetchData(selectedFilter);
     setItems(data);
   }, [selectedFilter]);
+
+  //get top three ranked
+  const topthree = data
+    .filter((item) => item.rank !== undefined && item.rank >= 1 && item.rank <= 3)
+    .sort((a, b) => (a.rank ?? 0) - (b.rank ?? 0));
+
+  console.log(topthree);
 
   return (
     <>
@@ -148,12 +193,25 @@ const Brands: React.FC = () => {
               <SearchField value={searchTerm} onChange={handleSearch} />
             </div>
           </div>
-          <div className="row designers-profile">
+
+          {/* 1st 3 designers */}
+          <div className="row">
+
+            {topthree.map((item) => (
+              <div className="col-md-4">
+                <TopThreeCard name={item.name} meta={item.meta} badges={item.badges} pts={item.pts} rank={item.rank} image={item.image}  />
+              </div>
+            ))}
+
+
+
+          </div>
+          <div className="row designers-profile mt-5">
 
             {filteredData.length == 0 && <EmptyPage />}
             {filteredData.map((designer) => {
               return (
-                <BrandsCard name={designer.name} meta={{ follows: designer.meta.follows, collections: designer.meta.collections, deliveries: designer.meta.deliveries }} categories={designer.categories} cover_img={designer.image} brand_id={designer.id} />
+                <BrandsCard name={designer.name} meta={{ follows: designer.meta.follows, collections: designer.meta.collections, sold: designer.meta.sold }} categories={designer.categories} cover_img={designer.image} brand_id={designer.id} />
               );
             })}
           </div>
