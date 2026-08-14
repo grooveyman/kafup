@@ -1,6 +1,6 @@
 import { SearchIcon, ShoppingBagIcon, User } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import "../assets/css/newnav.css";
 import CartSidebar from "../components/CartSidebar";
 import { useCartContext } from "../context/CartContext";
@@ -18,32 +18,35 @@ const NewNavBar: React.FC = () => {
 
   const handleResize = () => {
     setIsMobile(window.innerWidth <= 992);
-  }
+  };
+
   useEffect(() => {
     handleResize();
     window.addEventListener("scroll", handleScroll);
     window.addEventListener("resize", handleResize);
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", handleResize);
-    }
-
+    };
   }, []);
+
   return (
     <>
       <nav
         className={`${scrolled ? "scrolled" : "not-scrolled"
-          } navbar fixed-top navbar-expand-lg ${isMobile ? 'bg-light' : ''}`}
+          } navbar fixed-top navbar-expand-lg ${isMobile ? "bg-light" : ""}`}
       >
         <div className="container pt-2">
-          <a
-            className="navbar-brand round-nav-brand"
-            href=""
+          <NavLink
+            className={({ isActive }) =>
+              `nav-link ${isActive ? "active" : ""} navbar-brand round-nav-brand`
+            }
+            to="/"
             onClick={() => navigate("/")}
           >
             Kafup
-            {/* <img src={logo} width="80" height="40" /> */}
-          </a>
+          </NavLink>
 
           <button
             className="navbar-toggler"
@@ -58,68 +61,91 @@ const NewNavBar: React.FC = () => {
           </button>
 
           <div className="collapse navbar-collapse" id="navbarText">
-            <div className={`d-flex w-100 justify-content-between ${isMobile ? 'flex-column align-items-start' : ''}`}>
-              <ul className={`navbar-nav mb-2 mb-lg-0 mx-auto round-nav ${isMobile ? 'flex-column align-items-start' : ''}`}>
+            <div
+              className={`d-flex w-100 justify-content-between ${
+                isMobile ? "flex-column align-items-start" : ""
+              }`}
+            >
+              <ul
+                className={`navbar-nav mb-2 mb-lg-0 mx-auto round-nav ${
+                  isMobile ? "flex-column align-items-start" : ""
+                }`}
+              >
                 <li className="nav-item">
-                  <a
-                    className="nav-link"
-                    href="#"
-                    onClick={() => navigate("/")}
+                  <NavLink
+                    className={({ isActive }) =>
+                      `nav-link ${isActive ? "active" : ""}`
+                    }
+                    to="/"
+                    end
                   >
                     Home
-                  </a>
+                  </NavLink>
                 </li>
+
                 <li className="nav-item">
-                  <a
-                    className="nav-link"
-                    href="#"
-                    onClick={() => navigate("/categories/shop")}
+                  <NavLink
+                    className={({ isActive }) =>
+                      `nav-link ${isActive ? "active" : ""}`
+                    }
+                    to="/categories/shop"
                   >
                     Shop
-                  </a>
+                  </NavLink>
                 </li>
+
                 <li className="nav-item">
-                  <a
-                    className="nav-link"
-                    href="#"
-                    onClick={() => navigate("/explore")}
+                  <NavLink
+                    className={({ isActive }) =>
+                      `nav-link ${isActive ? "active" : ""}`
+                    }
+                    to="/explore"
                   >
                     Explore
-                  </a>
+                  </NavLink>
                 </li>
+
                 <li className="nav-item">
-                  <a
-                    className="nav-link"
-                    href="#"
-                    onClick={() => navigate("/brands")}
+                  <NavLink
+                    className={({ isActive }) =>
+                      `nav-link ${isActive ? "active" : ""}`
+                    }
+                    to="/brands"
                   >
                     Brands
-                  </a>
+                  </NavLink>
                 </li>
+
                 <li className="nav-item">
-                  <a
-                    className="nav-link"
-                    href="#"
-                    onClick={() => navigate("/collections")}
+                  <NavLink
+                    className={({ isActive }) =>
+                      `nav-link ${isActive ? "active" : ""}`
+                    }
+                    to="/collections"
                   >
                     Collections
-                  </a>
+                  </NavLink>
                 </li>
               </ul>
 
-              <ul className={`navbar-nav mb-lg-0 round-nav p-2 ${isMobile ? 'flex-column align-items-start' : ''}`}>
+              <ul
+                className={`navbar-nav mb-lg-0 round-nav p-2 ${
+                  isMobile ? "flex-column align-items-start" : ""
+                }`}
+              >
                 <li className="nav-item me-2">
                   <button
                     type="button"
                     className="nav-link btn btn-link p-0"
-                    onClick={() => { }}
+                    onClick={() => {}}
                     aria-label="Open account"
                   >
                     <div className="d-flex justify-content-between gap-2">
                       <SearchIcon />
-                      {isMobile && <span className="d-block mt-2">Search</span>}
+                      {isMobile && (
+                        <span className="d-block mt-2">Search</span>
+                      )}
                     </div>
-
                   </button>
                 </li>
 
@@ -132,9 +158,10 @@ const NewNavBar: React.FC = () => {
                   >
                     <div className="d-flex justify-content-between gap-2">
                       <User />
-                      {isMobile && <span className="d-block mt-2">Account</span>}
+                      {isMobile && (
+                        <span className="d-block mt-2">Account</span>
+                      )}
                     </div>
-
                   </button>
                 </li>
 
@@ -147,6 +174,7 @@ const NewNavBar: React.FC = () => {
                   >
                     <div className="d-flex justify-content-between gap-2">
                       <ShoppingBagIcon />
+
                       {cartItems.length > 0 && (
                         <span
                           className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
@@ -155,7 +183,10 @@ const NewNavBar: React.FC = () => {
                           {cartItems.length}
                         </span>
                       )}
-                      {isMobile && <span className="d-block mt-2">Cart</span>}
+
+                      {isMobile && (
+                        <span className="d-block mt-2">Cart</span>
+                      )}
                     </div>
 
                     <span

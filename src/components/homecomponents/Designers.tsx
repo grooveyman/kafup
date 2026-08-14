@@ -44,7 +44,7 @@ const Designers: React.FC = () => {
     <>
 
 
-      <div className="row designers-profile mt-3">
+      <div className="row designers-profile mt-4">
         {topbrands.data.map((brand) => (
           <div className="col-md-6 col-sm-12 col-lg-4 col-xl-4 mb-4" key={brand.id}>
             <div className="designers-card">
