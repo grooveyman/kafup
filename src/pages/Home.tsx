@@ -121,25 +121,7 @@ const Home: React.FC = () => {
                     <EmptyPage />
                   ):(
                     <ListContainer list={data} />
-                    // data?.map((product) => (
-                      // <div
-                      //   className="col-md-3"
-                      //   onClick={() => navigate("/details/" + product.id)}
-                      //   key={product.id}
-                      // >
-                      //   <div className="product">
-                      //     <img
-                      //       src={product.previewimg}
-                      //       width={"100%"}
-                      //       height={"100%"}
-                      //     />
-                      //   </div>
-                      //   <div className="desc mt-2">
-                      //     <h6>{product.name}</h6>
-                      //     <p>{product.price ?? "$40"}</p>
-                      //   </div>
-                      // </div>
-                    // ))
+                    
                   )}
                 </div>
               </TabPanel>
