@@ -7,6 +7,7 @@ import BrandsCard from "../components/brandscomponents/BrandCard";
 import Breadcrumb from "../components/Breadcrumb";
 import SearchField from "../components/SearchField";
 import { TopThreeCard } from "../components/brandscomponents/TopThreeCard";
+import { DataTable } from "../components/DataTable";
 
 
 const data = [
@@ -25,7 +26,7 @@ const data = [
       follows: 33,
       collections: 90,
       sold: 54,
-      designs:41
+      designs: 41
     },
     categories: [{
       name: "Children"
@@ -46,7 +47,7 @@ const data = [
       follows: 33,
       collections: 90,
       sold: 54,
-      designs:41
+      designs: 41
     },
     categories: [{
       name: "Children"
@@ -67,7 +68,7 @@ const data = [
       follows: 33,
       collections: 90,
       sold: 54,
-      designs:41
+      designs: 41
     },
     categories: [{
       name: "Sons"
@@ -88,7 +89,7 @@ const data = [
       follows: 33,
       collections: 90,
       sold: 54,
-      designs:41
+      designs: 41
     },
     categories: [{
       name: "Women"
@@ -109,7 +110,7 @@ const data = [
       follows: 33,
       collections: 90,
       sold: 54,
-      designs:41
+      designs: 41
     },
     categories: [{
       name: "Men"
@@ -130,7 +131,7 @@ const data = [
       follows: 33,
       collections: 90,
       sold: 54,
-      designs:41
+      designs: 41
     },
     categories: [{
       name: "Children"
@@ -149,7 +150,7 @@ const Brands: React.FC = () => {
 
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedFilter, setSelectedFilter] = useState<string | number>("all");
-  const [ items, setItems] = useState<any[]>([]);
+  const [items, setItems] = useState<any[]>([]);
 
   const filteredData = data.filter((item) => {
     const matchSearch = item.name.toLowerCase().includes(searchTerm.toLowerCase());
@@ -171,9 +172,10 @@ const Brands: React.FC = () => {
   }, [selectedFilter]);
 
   //get top three ranked
+  const order = [2,1,3];
   const topthree = data
     .filter((item) => item.rank !== undefined && item.rank >= 1 && item.rank <= 3)
-    .sort((a, b) => (a.rank ?? 0) - (b.rank ?? 0));
+    .sort((a, b) => order.indexOf(a.rank!) - order.indexOf(b.rank!));
 
   console.log(topthree);
 
@@ -185,11 +187,11 @@ const Brands: React.FC = () => {
           <Breadcrumb crumbs={[{ label: "Home", href: "/" }, { label: "Brands", href: "/brands" }]} />
         </div>
         <div className="">
-          <div className="row d-flex justify-content-end">
+          <div className="row d-flex justify-content-center">
             {/* <div className="col-md-8">
               <NavFilter filters={filters} selectedFilter={selectedFilter} onChange={(id) => setSelectedFilter(id)} />
             </div> */}
-            <div className="col-md-4">
+            <div className="col-md-4 d-flex mb-5">
               <SearchField value={searchTerm} onChange={handleSearch} />
             </div>
           </div>
@@ -199,21 +201,50 @@ const Brands: React.FC = () => {
 
             {topthree.map((item) => (
               <div className="col-md-4">
-                <TopThreeCard name={item.name} meta={item.meta} badges={item.badges} pts={item.pts} rank={item.rank} image={item.image}  />
+                <TopThreeCard name={item.name} meta={item.meta} badges={item.badges} pts={item.pts} rank={item.rank} image={item.image} />
               </div>
             ))}
+          </div>
 
+          {/* Remaining ddesigners */}
+          <div className="section">
+            <DataTable headings={["Rank", "Designer", "Sold", "Designs", "Badge", "Collections", "Points", "Actions"]} data={filteredData} renderRow={(item) => {
+              return (
+                <tr>
+                  <td>{item.rank}</td>
+                  <td>
+                    <div className="d-flex justify-content-start gap-2 brandslist">
+                      <img src={item.image} className="" />
+                      <p className="d-flex align-items-center"> {item.name}</p>
+                    </div>
+                  </td>
+                  <td>{item.meta.sold}</td>
+                  <td>{item.meta.designs}</td>
+                  <td>
+                    <div className="badge-container">
+                      {item.badges.map((item) => (
+                        <span className="brands-badge">{item}</span>
+                      ))}
+                    </div>
 
-
+                  </td>
+                  <td>{item.meta.collections}</td>
+                  <td>{item.pts}</td>
+                  <td>
+                    <button className="btn btn-primary-sm">View Profile</button>
+                  </td>
+                </tr>
+              );
+            }} />
           </div>
           <div className="row designers-profile mt-5">
 
-            {filteredData.length == 0 && <EmptyPage />}
+            {/* {filteredData.length == 0 && <EmptyPage />}
             {filteredData.map((designer) => {
               return (
                 <BrandsCard name={designer.name} meta={{ follows: designer.meta.follows, collections: designer.meta.collections, sold: designer.meta.sold }} categories={designer.categories} cover_img={designer.image} brand_id={designer.id} />
               );
-            })}
+            })} */}
           </div>
 
         </div>

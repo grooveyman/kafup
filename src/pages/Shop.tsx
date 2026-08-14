@@ -25,7 +25,7 @@ const filters = [
 
 const Shop: React.FC = () => {
 
-  const [selectedFilter, setSelectedFilter] = useState<string | number>("all");
+  const [selectedFilters, setSelectedFilters] = useState<(string | number)[]>(["all"]);
   const [searchKey, setSearchKey] = useState("");
 
   const { catalias } = useParams<{ catalias: string }>();
@@ -41,11 +41,9 @@ const Shop: React.FC = () => {
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 1000]);
 
 
-  console.log("Fetched data");
-  console.log(data);
   const filteredData = data?.filter((item) => {
     const matchSearch = item.name.toLowerCase().includes(searchKey.toLowerCase());
-    const matchFilter = selectedFilter === "all" || item.categories?.name === selectedFilter;
+    const matchFilter = selectedFilters.includes("all") || selectedFilters.includes(item.categories?.name!);
     const matchPrice = item.price >= priceRange[0] && item.price <= priceRange[1];
     return matchFilter && matchSearch && matchPrice;
   });
@@ -59,6 +57,30 @@ const Shop: React.FC = () => {
     console.log("Search to backend");
   };
 
+  const handleFilterChange = (id: string | number) => {
+    setSelectedFilters((prev) => {
+      if (id === "all") {
+        if(prev.includes("all")){
+          return [];
+        }
+        return ["all"];
+      }
+
+      //without all
+      const withoutAll = prev.filter((filteredId) => filteredId !== "all");
+
+      //remove if already selected
+      if (withoutAll.includes(id)) {
+        const updated = withoutAll.filter((filterId) => filterId !== id);
+
+        //nothing selected, go back to all
+        return updated.length === 0 ? ["all"] : updated;
+      }
+
+      return [...prev, id];
+    });
+  }
+
   //price filter
 
 
@@ -70,7 +92,7 @@ const Shop: React.FC = () => {
         <div className="row">
           <hr />
           <div className="col-md-8">
-            <NavFilter filters={filters} selectedFilter={selectedFilter} onChange={(id) => setSelectedFilter(id)} />
+            <NavFilter filters={filters} selectedFilters={selectedFilters} onChange={handleFilterChange} />
           </div>
           <div className="col-md-4">
             <SearchField value={searchKey} onChange={handleSearch} placeholder="Search Collection" onSearchSubmit={handleSearchSubmit} />

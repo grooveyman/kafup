@@ -39,6 +39,13 @@ body, * {
   padding: var(--inner-section-padding);
 }
 
+.btn-primary-sm{
+  font-size: small !important;
+  background-color: #1a1a1a !important;
+  color: white !important;
+  border-radius: 20px !important;
+}
+
 /*
 a {
   font-weight: 500;

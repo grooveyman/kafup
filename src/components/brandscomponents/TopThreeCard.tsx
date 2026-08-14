@@ -38,6 +38,7 @@ export const TopThreeCard: React.FC<TopThreeProps> = ({ name, image, rank, pts, 
                             <span>{meta.collections} collections</span>
                         </div>
                     </div>
+                   
 
                     <div className="mt-3 topthree-badges">
                         <div className="d-flex justify-content-start gap-1">
@@ -52,7 +53,7 @@ export const TopThreeCard: React.FC<TopThreeProps> = ({ name, image, rank, pts, 
                         <p>since 8th Aug, 2026</p>
                     </div>
                 </div>
-                <div className="rank-circle">
+                <div className={`rank-circle ${rank === 1? 'rank-1st':(rank === 2? 'rank-2nd':'rank-3rd')}`}>
                     {rank}
                 </div>
             </div>

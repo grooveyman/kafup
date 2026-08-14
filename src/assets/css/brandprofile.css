@@ -1,24 +1,27 @@
-
-.brand-cover > img{
+.brand-cover>img {
     width: 100%;
     height: 250px;
     object-fit: cover;
 }
-.brand-card > img{
+
+.brand-card>img {
     width: 100%;
     border-radius: 10px;
-    
+
 }
-.brand-meta >span{
+
+.brand-meta>span {
     font-size: smaller !important;
     padding: 0px 5px 0px 0px;
 }
-.brand-pitch{
+
+.brand-pitch {
     line-height: 1.2;
     font-size: small;
     font-weight: light;
 }
-.brand-actions >span{
+
+.brand-actions>span {
     padding: 5px;
     background-color: black;
     margin: 2px;
@@ -26,41 +29,60 @@
     color: white;
 }
 
-.topthree-body{
+.topthree-body {
     padding: 20px;
 }
-.topthree-dp img{
+
+.topthree-dp img {
     width: 50px;
     height: 50px;
     object-fit: cover;
     border-radius: 100%;
 }
-.topthree-title span, p{
+
+.topthree-title span,
+p {
     color: gray;
     font-size: small;
     margin: 0 !important;
     padding: 0 !important;
-   
+
 }
-.topthree-title{
+
+.topthree-title {
     margin: 0 !important;
     padding: 0 !important;
 }
-.topthree-meta span{
+
+.topthree-meta span {
     font-size: smaller;
+    color: gray;
 }
-.topthree-badges .badge-sm{
+
+.searchfield{
+    border-radius: 30px !important;
+}
+
+.topthree-badges .badge-sm {
     background-color: black;
     font-size: xx-small;
     border-radius: 10px;
     color: white;
     padding: 5px;
 }
-.topthree-card{
+
+.topthree-card {
     position: relative;
     border-radius: 10px !important;
+    padding: 20px;
 }
-.rank-circle{
+.topthree-card:hover{
+    background-color: #ccc9c9;
+}
+
+
+
+.rank-circle {
     position: absolute;
     bottom: -25px;
     left: 50%;
@@ -85,6 +107,128 @@
 
     z-index: 10;
 }
-.hr{
+
+.card-1st{
+    background-color: #FFD700;
+}
+.card-2nd{
+    background-color: #C0C0C0;
+}
+
+.card-3rd{
+    background-color: #CD7F32;
+}
+
+.rank-2nd {
+    background-color: gray;
+}
+
+.rank-3rd {
+    background-color: brown;
+}
+
+.brandslist img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 100%;
+}
+
+.brandslist p {
+    color: black;
+}
+
+.brands-badge {
+    background-color: rgb(57, 110, 30);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 10px;
+    font-size: smaller;
+    margin: 0 2px;
+
+    /* Prevent badge text from breaking */
+    white-space: nowrap;
+    display: inline-block;
+}
+
+/* TABLE */
+.modern-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: auto;
+}
+
+.modern-table th,
+.modern-table td {
+    vertical-align: middle;
+    padding: 15px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+/* Make the badge area a flex row */
+.badge-container {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+/* Badge */
+.badge-sm {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    white-space: nowrap;
+    flex-shrink: 0;
+
+    padding: 7px 12px;
+    border-radius: 20px;
+
+    background: #347522;
+    color: white;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+
+    .table-responsive {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .modern-table {
+        min-width: 900px;
+    }
+
+    .modern-table th,
+    .modern-table td {
+        white-space: nowrap;
+    }
+}
+.hr {
     margin: 0;
+}
+
+.filter-item {
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: 1px solid #e2e2e2;
+    background: #fff;
+    color: #555;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.filter-item:hover {
+    border-color: #12a066;
+    color: #12a066;
+}
+
+.filter-item.filter-active {
+    background: rgba(18, 160, 102, 0.12);
+    border-color: #12a066;
+    color: #12a066;
+    font-weight: 600;
 }

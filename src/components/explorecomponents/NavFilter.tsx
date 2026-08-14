@@ -7,65 +7,65 @@ interface FilterItem {
 
 interface NavFilterProps {
     filters: FilterItem[];
-    selectedFilter: string | number;
+    selectedFilters: (string | number)[];
     onChange: (filterId: string | number) => void;
 }
 
-const NavFilter: React.FC<NavFilterProps> = ({ filters, selectedFilter, onChange }) => {
+const NavFilter: React.FC<NavFilterProps> = ({
+    filters,
+    selectedFilters,
+    onChange
+}) => {
     const [scrolled, setScrolled] = useState<boolean>(false);
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    // const navigate = useNavigate();
+
+    const handleScroll = () => {
+        setScrolled(window.scrollY > 50);
+    };
 
     useEffect(() => {
         window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
+
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
     }, []);
 
-
     return (
-        <>
-            {/* category navigation */}
-            <div className="navfilter mb-3">
-                <nav
-                    className={`${scrolled ? "scrolled" : "not-scrolled"} navbar navbar-expand-lg`}
-                >
-                    <div className="container">
-                        <div className="row w-100">
-                            <div className="col-12">
-                                <div className="d-flex w-100 align-items-center gap-2">
-                                    <span>Categories: </span>
-                                    {filters.map((f) => (
+        <div className="navfilter mb-3">
+            <nav
+                className={`${scrolled ? "scrolled" : "not-scrolled"
+                    } navbar navbar-expand-lg`}
+            >
+                <div className="container">
+                    <div className="row w-100">
+                        <div className="col-12">
+                            <div className="d-flex w-100 align-items-center gap-2">
+
+                                <span>Categories:</span>
+
+                                {filters.map((f) => {
+                                    const isSelected = selectedFilters.includes(f.id);
+                                    return (
                                         <div
                                             key={f.id}
-                                            className={`filter-item ${selectedFilter === f.id
-                                                ? "btn-dark"
-                                                : "btn-outline-dark"
+                                            className={`filter-item ${isSelected
+                                                ? "filter-active"
+                                                : ""
                                                 }`}
                                             onClick={() => onChange(f.id)}
                                         >
                                             {f.name}
                                         </div>
-                                    ))}
+                                    );
 
-                                    {/* Push to far right */}
-                                    <div className="ms-auto">
-                                        <button
-                                            type="button"
-                                            className="nav-link btn btn-link p-0"
-                                            onClick={() => { }}
-                                            aria-label="Open account"
-                                        >
-                                        </button>
-                                    </div>
+                                })}
 
-                                </div>
                             </div>
                         </div>
                     </div>
-                </nav>
-            </div>
-
-        </>
+                </div>
+            </nav>
+        </div>
     );
 };
 
