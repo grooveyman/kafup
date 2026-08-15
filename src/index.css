@@ -29,12 +29,19 @@ body, * {
   --section-padding:100px;
   --inner-section-padding: 100px 0px;
   --primary-background-color: #1a1a1a;
+
+  --primary-color: #2f1214;
+  --secondary-color: #882720;
+  --primary-complement: #b27b5c;
+  --gray-color: #ccc0c0;
+  --primary-color2: #2f3322;
   
 }
 
 .section{
   margin: var(--section-padding) 0px;
 }
+
 .inner-section{
   padding: var(--inner-section-padding);
 }
