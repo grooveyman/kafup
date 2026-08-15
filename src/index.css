@@ -35,6 +35,8 @@ body, * {
   --primary-complement: #b27b5c;
   --gray-color: #ccc0c0;
   --primary-color2: #2f3322;
+
+  --hover-transform: scale(1.05);
   
 }
 

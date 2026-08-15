@@ -28,23 +28,19 @@ const HomeCollectionCard: React.FC<CollectinsProps> = ({ name, meta, description
     const words = isMobile ? 10 : 25;
     return (
         <>
-            <div className="">
+            <div className="collections-card">
                 <div className="mb-4 d-flex align-items-center">
-                    <div className="collection-cards">
-                        <div className="row p-3">
-                            <div className="d-flex justify-content-start gap-3">
-                                <div className="homecollection-item">
-                                    <img src="assets/images/software dev.png" onClick={() => navigate(`/collections/${collection_id}`)} />
+                    <div className="" key={collection_id}>
+                        <div className="">
+                            <div className="">
+                                <img src="assets/images/software dev.png" />
+                            </div>
+                            <div className="collections-card-text">
+                                <div>
+                                    <span>{meta.likes} likes {meta.views} follows</span>
                                 </div>
-                                <div className="homecollection-item">
-                                    <h6>{name}</h6>
-                                    <div className="d-flex gap-2 flex-wrap">
-                                        <span>{meta.views} Views</span>
-                                        <span>{meta.likes} Likes</span>
-                                        <span>{meta.designs} Designs</span>
-                                    </div>
-                                    <p>{useTruncate(description, { words: words })}</p>
-                                </div>
+                                <h5>{name}</h5>
+                                
                             </div>
                         </div>
                     </div>

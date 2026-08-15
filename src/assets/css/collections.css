@@ -1,26 +1,25 @@
-
-
-.collection-img{
+.collection-img {
     border-radius: 10px;
 }
 
 
-.collection-container{
+.collection-container {
     position: relative;
-    
 }
-.collection-container::after{
+
+.collection-container::after {
     content: "";
     position: absolute;
     top: 0;
-    left:0;
+    left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0, 0, 0, 0.5);
     z-index: 1;
     border-radius: 10px;
 }
-.collection-head{
+
+.collection-head {
     position: absolute;
     top: 75%;
     left: 5%;
@@ -32,46 +31,51 @@
     word-wrap: break-word;
     max-width: 60%;
 }
-.collection-head > p{
+
+.collection-head>p {
     font-size: x-small;
     margin: 0;
     color: white;
 }
 
-.collection-head span{
+.collection-head span {
     background-color: black !important;
     padding: 5px;
     border-radius: 100%;
     color: white;
     margin: 0;
 }
-.collection-head .suffix{
+
+.collection-head .suffix {
     color: grey;
     background: none !important;
     font-size: small;
     margin: 0;
 }
 
-.cls-head > h6{
+.cls-head>h6 {
     margin: 0;
     color: black;
 }
 
-.cls-head > span{
+.cls-head>span {
     font-size: smaller;
 }
-.cls-profile{
+
+.cls-profile {
     background-color: black;
     padding: 5px;
     border-radius: 50px;
 }
-.cls-dp > img{
+
+.cls-dp>img {
     height: 30px;
     width: 30px;
     border-radius: 100%;
     margin: 0 !important;
 }
-.cls-dp > p{
+
+.cls-dp>p {
     font-weight: bold;
     align-items: center;
     padding: 10px;
@@ -80,17 +84,39 @@
     font-size: 0.7em;
 }
 
-.ad-card{
-    height: wrap-content;
+.collections-card {
+    transition: ease 0.5s;
 }
 
-.collection-item{
+.collection-item {
     height: 300px;
     width: 100%;
     margin-top: 20px;
 }
-.collection-item > img{
+
+.collection-item>img {
     border-radius: 10px;
     object-fit: cover;
     height: 100%;
+}
+
+.collections-card img {
+    width: 100%;
+    height: 30em;
+    border-radius: 20px;
+    box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.08);
+    object-fit: cover;
+}
+
+.collections-card-text {
+    margin: 20px 0px;
+}
+
+.collections-card-text span {
+    color: var(--primary-complement);
+    font-size: small;
+}
+
+.collections-card:hover {
+    transform: var(--hover-transform);
 }
