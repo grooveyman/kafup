@@ -22,7 +22,7 @@ interface CollectinsProps {
 
 
 
-const HomeCollectionCard: React.FC<CollectinsProps> = ({ name, meta, description, collection_id }) => {
+const HomeCollectionCard: React.FC<CollectinsProps> = ({ name, meta, designer, collection_id }) => {
     const navigate = useNavigate();
     const isMobile = useIsMobile();
     const words = isMobile ? 10 : 25;
@@ -40,7 +40,7 @@ const HomeCollectionCard: React.FC<CollectinsProps> = ({ name, meta, description
                                     <span>{meta.likes} likes {meta.views} follows</span>
                                 </div>
                                 <h5>{name}</h5>
-                                
+                                <p>{designer.name}</p>
                             </div>
                         </div>
                     </div>

@@ -112,6 +112,10 @@
     margin: 20px 0px;
 }
 
+.collections-card-text p{
+    color: var(--gray-color);
+}
+
 .collections-card-text span {
     color: var(--primary-complement);
     font-size: small;
