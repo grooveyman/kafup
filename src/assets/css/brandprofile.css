@@ -29,6 +29,13 @@
     color: white;
 }
 
+.brands-top{
+    background-color: var(--primary-color);
+    margin: 0 !important;
+    padding: 40px;
+}
+
+
 .topthree-body {
     padding: 20px;
 }
@@ -75,7 +82,7 @@ p {
     position: relative;
     border-radius: 10px !important;
     padding: 20px;
-    background-color: var(--gray-color);
+    background-color: white;
     color: var(--primary-color);
     transition: transform 0.3s ease;
 }

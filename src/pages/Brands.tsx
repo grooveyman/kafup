@@ -172,7 +172,7 @@ const Brands: React.FC = () => {
   }, [selectedFilter]);
 
   //get top three ranked
-  const order = [2,1,3];
+  const order = [2, 1, 3];
   const topthree = data
     .filter((item) => item.rank !== undefined && item.rank >= 1 && item.rank <= 3)
     .sort((a, b) => order.indexOf(a.rank!) - order.indexOf(b.rank!));
@@ -183,10 +183,10 @@ const Brands: React.FC = () => {
     <>
       {/* <div className="designers"> */}
       <div className="container">
-        <div className="row">
-          <Breadcrumb crumbs={[{ label: "Home", href: "/" }, { label: "Brands", href: "/brands" }]} />
-        </div>
-        <div className="">
+        <Breadcrumb crumbs={[{ label: "Home", href: "/" }, { label: "Brands", href: "/brands" }]} />
+      </div>
+      <div className="container-fluid brands-top">
+        <div className="container">
           <div className="row d-flex justify-content-center">
             {/* <div className="col-md-8">
               <NavFilter filters={filters} selectedFilter={selectedFilter} onChange={(id) => setSelectedFilter(id)} />
@@ -205,50 +205,55 @@ const Brands: React.FC = () => {
               </div>
             ))}
           </div>
+        </div>
 
-          {/* Remaining ddesigners */}
-          <div className="section">
-            <DataTable headings={["Rank", "Designer", "Sold", "Designs", "Badge", "Collections", "Points", "Actions"]} data={filteredData} renderRow={(item) => {
-              return (
-                <tr>
-                  <td>{item.rank}</td>
-                  <td>
-                    <div className="d-flex justify-content-start gap-2 brandslist">
-                      <img src={item.image} className="" />
-                      <p className="d-flex align-items-center"> {item.name}</p>
-                    </div>
-                  </td>
-                  <td>{item.meta.sold}</td>
-                  <td>{item.meta.designs}</td>
-                  <td>
-                    <div className="badge-container">
-                      {item.badges.map((item) => (
-                        <span className="brands-badge">{item}</span>
-                      ))}
-                    </div>
+      </div>
 
-                  </td>
-                  <td>{item.meta.collections}</td>
-                  <td>{item.pts}</td>
-                  <td>
-                    <button className="btn btn-primary-sm">View Profile</button>
-                  </td>
-                </tr>
-              );
-            }} />
-          </div>
-          <div className="row designers-profile mt-5">
+      {/* Remaining ddesigners */}
+      <div className="container">
+        <div className="section">
+          <DataTable headings={["Rank", "Designer", "Sold", "Designs", "Badge", "Collections", "Points", "Actions"]} data={filteredData} renderRow={(item) => {
+            return (
+              <tr>
+                <td>{item.rank}</td>
+                <td>
+                  <div className="d-flex justify-content-start gap-2 brandslist">
+                    <img src={item.image} className="" />
+                    <p className="d-flex align-items-center"> {item.name}</p>
+                  </div>
+                </td>
+                <td>{item.meta.sold}</td>
+                <td>{item.meta.designs}</td>
+                <td>
+                  <div className="badge-container">
+                    {item.badges.map((item) => (
+                      <span className="brands-badge">{item}</span>
+                    ))}
+                  </div>
 
-            {/* {filteredData.length == 0 && <EmptyPage />}
+                </td>
+                <td>{item.meta.collections}</td>
+                <td>{item.pts}</td>
+                <td>
+                  <button className="btn btn-primary-sm">View Profile</button>
+                </td>
+              </tr>
+            );
+          }} />
+        </div>
+        <div className="row designers-profile mt-5">
+
+          {/* {filteredData.length == 0 && <EmptyPage />}
             {filteredData.map((designer) => {
               return (
                 <BrandsCard name={designer.name} meta={{ follows: designer.meta.follows, collections: designer.meta.collections, sold: designer.meta.sold }} categories={designer.categories} cover_img={designer.image} brand_id={designer.id} />
               );
             })} */}
-          </div>
-
         </div>
       </div>
+
+
+
       {/* </div> */}
     </>
   );
