@@ -18,13 +18,13 @@ interface TopThreeProps {
 export const TopThreeCard: React.FC<TopThreeProps> = ({ name, image, rank, pts, badges, meta }) => {
     return (
         <>
-            <div className={`topthree-card ad-card ${rank !== 1? 'mt-4':''}`}>
+            <div className={`topthree-card ${rank !== 1? 'mt-4':''}`}>
                 <div className="topthree-body">
                     <div className="d-flex justify-content-between">
                         <div className="topthree-dp">
                             <img src={image} />
                         </div>
-                        <p className="text-black">{pts}pts</p>
+                        <p className="text-color">{pts}pts</p>
                     </div>
                     <div className="topthree-title mt-2 d-flex justify-content-start gap-2">
                         <h6>{name}</h6> <span>&#9679;</span> <p>{meta.sold} sold</p>

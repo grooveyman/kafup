@@ -36,8 +36,12 @@ body, * {
   --gray-color: #ccc0c0;
   --primary-color2: #2f3322;
 
-  --hover-transform: scale(1.05);
+  --hover-transform: 1.05;
   
+}
+
+.text-color{
+  color: var(--primary-complement) !important;
 }
 
 .section{

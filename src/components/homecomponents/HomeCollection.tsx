@@ -34,17 +34,34 @@ const HomeCollection: React.FC = () => {
             <div className="row">
                 <div className="col-md-6 col-sm-12 col-lg-6 col-xl-6 mb-4">
                     <h2 className="">Our Best Collections Today</h2>
-
                 </div>
 
-
-                <div className="row">
-                    {topCollections.map((collection) => (
-                        <div className="col-md-6 col-sm-12 col-lg-4">
-                            <HomeCollectionCard name={collection.name} meta={collection.meta} description={collection.description} designer={collection.designer} collection_id={collection.collection_id} />
+                <div className="row best-col">
+                    <div className="col-md-12 col-lg-8 mb-3">
+                        <div className="best-col-large">
+                            <img src="assets/images/carousel 11.png" />
+                            <div className="best-col-text mt-2">
+                                <p>{topCollections[0].designer.name}</p>
+                                <p>{topCollections[0].name}</p>
+                                <span>{topCollections[0].meta.likes} likes {topCollections[0].meta.views} views</span>
+                            </div>
                         </div>
-                    ))}
+                    </div>
+                    <div className="col-md-12 col-lg-4">
+                        {topCollections.slice(1).map((collection) => (
+                            <div className="best-col-small">
+                                <img src="assets/images/carousel 10.png" alt="" className="" />
+                                <div className="best-col-text mt-2">
+                                    <p>{collection.designer.name}</p>
+                                    <p>{collection.name}</p>
+                                    <span>{collection.meta.likes} likes {collection.meta.views} views</span>
+                                </div>
+                            </div>
+                        ))}
+                        
+                    </div>
                 </div>
+
             </div>
 
         </>
