@@ -172,3 +172,14 @@
     height: 45%;
     display: block;
 }
+
+.pagination .active > button{
+    background: var(--primary-complement) !important;
+    border: 1px solid var(--primary-complement) !important;
+}
+.pagination .page-link{
+    color: var(--primary-color);
+}
+.pagination .page-link:hover{
+    color: var(--primary-complement);
+}

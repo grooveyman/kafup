@@ -94,6 +94,7 @@ const Explore: React.FC = () => {
     const [selectedFilters, setSelectedFilters] = useState<(string | number)[]>(["all"]);
     const [items, setItems] = useState<any[]>([]);
     const [lastScroll, setLastScroll] = useState(0);
+    
 
     // Lightbox state
     const [open, setOpen] = useState(false);

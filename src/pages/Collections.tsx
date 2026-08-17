@@ -1,11 +1,13 @@
 import "../assets/css/collections.css";
 import CollectionsCard from "../components/collectionscomponents/CollectionsCard";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import NavFilter from "../components/explorecomponents/NavFilter";
 import EmptyPage from "../components/EmptyPage";
 import Breadcrumb from "../components/Breadcrumb";
 import SearchField from "../components/SearchField";
 import { toast } from "react-toastify";
+import SkeletonLoader from "../components/SkeletonLoader";
+import { Pagination } from "../components/Pagination";
 
 const data = [
     {
@@ -17,6 +19,18 @@ const data = [
         description: "Lorem ipsum something big is coming soon on your screens.",
         designer: {
             name: "Ampadu Theophilus",
+            img: "assets/images/software dev.png"
+        }
+    },
+    {
+        id: "23eww",
+        name: "Batakari Suit",
+        views: 3,
+        likes: 89,
+        items: 90,
+        description: "Lorem ipsum something big is coming soon on your screens.",
+        designer: {
+            name: "Selinam Aku",
             img: "assets/images/software dev.png"
         }
     },
@@ -46,6 +60,8 @@ const Collections: React.FC = () => {
     const [selectedFilters, setSelectedFilters] =
         useState<(string | number)[]>(["all"]);
 
+    const [currentPage, setCurrentPage] = useState(1);
+
     const [searchKey, setSearchKey] = useState("");
 
     // Toggle filters
@@ -54,7 +70,7 @@ const Collections: React.FC = () => {
 
             // All clears all filters
             if (id === "all") {
-                return [];
+               return prev.includes("all") ? [] : ["all"];
             }
 
             // Remove if already selected
@@ -92,6 +108,12 @@ const Collections: React.FC = () => {
                 .includes(searchKey.toLowerCase())
         );
 
+    const itemsPerPage = 2;
+    const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const paginatedItems = filteredItems.slice(startIndex, startIndex + itemsPerPage);
+
+
     const handleSearch = (searchTerm: string) => {
         setSearchKey(searchTerm);
     };
@@ -99,6 +121,10 @@ const Collections: React.FC = () => {
     const handleSearchSubmit = (value: string) => {
         toast.success("You'll be searching soon...");
     };
+
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [selectedFilters, searchKey]);
 
     return (
         <div className="container">
@@ -137,7 +163,7 @@ const Collections: React.FC = () => {
                     <EmptyPage />
                 )}
 
-                {filteredItems.map((collection) => (
+                {paginatedItems.map((collection) => (
                     <div
                         key={collection.id}
                         className="col-md-6 col-sm-12 col-lg-4 col-xl-3 mb-4"
@@ -159,6 +185,10 @@ const Collections: React.FC = () => {
                     </div>
                 ))}
 
+            </div>
+
+            <div className="row">
+                <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />
             </div>
 
         </div>
