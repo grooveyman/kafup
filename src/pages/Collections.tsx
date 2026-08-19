@@ -7,6 +7,7 @@ import Breadcrumb from "../components/Breadcrumb";
 import SearchField from "../components/SearchField";
 import { toast } from "react-toastify";
 import PrimaryButton from "../components/PrimaryButton";
+import { useApiQuery } from "../hooks/useApi";
 
 
 const data = [
@@ -48,6 +49,20 @@ const data = [
     }
 ];
 
+export interface Collection {
+    id: string;
+    name: string;
+    views: number;
+    likes: number;
+    items: number;
+    description: string;
+    designer: {
+        name: string;
+        img: string;
+    };
+}
+
+
 const Collections: React.FC = () => {
 
     const filters = [
@@ -58,11 +73,29 @@ const Collections: React.FC = () => {
     ];
 
     const [selectedFilters, setSelectedFilters] =
-        useState<(string)[]>(["all"]);
+        useState<string[]>(["all"]);
+
+    const params = new URLSearchParams();
+    params.set("limit", "20");
+    params.set("offset", "0");
+    selectedFilters.forEach((filter) => {
+        if (filter !== "all") {
+            params.append("filter[]", filter);
+        }
+    });
+
+    const endpoint = `/collections?${params.toString()}`;
+
+    const { data, isLoading } = useApiQuery<Collection[]>(["collections"], endpoint);
+
 
 
     const [searchKey, setSearchKey] = useState("");
 
+        // Filter collections
+    const filteredItems = (data ?? []).filter((item) => item.name.toLowerCase().includes(searchKey.toLowerCase()));
+
+    
     // Toggle filters
     const handleFilterChange = (id: string) => {
         setSelectedFilters((prev) => {
@@ -72,40 +105,19 @@ const Collections: React.FC = () => {
                 return prev.includes("all") ? [] : ["all"];
             }
 
+            const withoutAll = prev.filter((filterId) => filterId !== "all");
+
             // Remove if already selected
-            if (prev.includes(id)) {
-                return prev.filter((filterId) => filterId !== id);
+            if (withoutAll.includes(id)) {
+                const updated = withoutAll.filter((filteredId) => filteredId !== id);
+                return updated.length === 0 ? ["all"] : updated;
             }
 
             // Add filter
-            return [...prev, id];
+            return [...withoutAll, id];
         });
     };
 
-    // Filter collections
-    const filteredItems = data
-        .filter((item) => {
-
-            // No filters = show everything
-            if (selectedFilters.length === 0) {
-                return true;
-            }
-
-            // Popular
-            if (selectedFilters.includes("popular")) {
-                // Example condition
-                if (item.likes < 50) {
-                    return false;
-                }
-            }
-
-            return true;
-        })
-        .filter((item) =>
-            item.name
-                .toLowerCase()
-                .includes(searchKey.toLowerCase())
-        );
 
     const handleSearch = (searchTerm: string) => {
         setSearchKey(searchTerm);
