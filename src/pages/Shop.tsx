@@ -10,6 +10,8 @@ import NavFilter from "../components/explorecomponents/NavFilter";
 import SearchField from "../components/SearchField";
 import { useEffect, useState } from "react";
 import PriceRangeFilter from "../components/shopcomponents/PriceRangeFilter";
+import PrimaryButton from "../components/PrimaryButton";
+import { toast } from "react-toastify";
 
 export interface Category {
   id: string;
@@ -25,27 +27,43 @@ const filters = [
 
 const Shop: React.FC = () => {
 
-  const [selectedFilters, setSelectedFilters] = useState<(string | number)[]>(["all"]);
+  const [selectedFilters, setSelectedFilters] = useState<(string)[]>(["all"]);
   const [searchKey, setSearchKey] = useState("");
 
   const { catalias } = useParams<{ catalias: string }>();
   console.log("Category alias:", catalias);
   // fetch product
 
-  const enpoint = `/designs?limit=20&offset=0`;
+  const params = new URLSearchParams();
+
+  params.set("limit", "20");
+  params.set("offset", "0");
+
+  if (catalias) {
+    params.set("category", catalias);
+  }
+
+  if (!selectedFilters.includes("all")) {
+    selectedFilters.forEach((filter) => {
+      params.append("filter[]", filter);
+    });
+  }
+  const endpoint = `/designs?${params.toString()}`;
+
+
   const { data, isLoading } = useApiQuery<Product[]>(
-    ["productscat" + catalias],
-    enpoint
+    ["productscat", catalias!.toString(), selectedFilters.toString()],
+    endpoint
   );
 
+  // console.log("selected filters", selectedFilters.toString());
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 1000]);
 
 
   const filteredData = data?.filter((item) => {
     const matchSearch = item.name.toLowerCase().includes(searchKey.toLowerCase());
-    const matchFilter = selectedFilters.includes("all") || selectedFilters.includes(item.categories?.name!);
     const matchPrice = item.price >= priceRange[0] && item.price <= priceRange[1];
-    return matchFilter && matchSearch && matchPrice;
+    return matchSearch && matchPrice;
   });
 
 
@@ -57,31 +75,30 @@ const Shop: React.FC = () => {
     console.log("Search to backend");
   };
 
-  const handleFilterChange = (id: string | number) => {
+  const handleFilterChange = (id: string) => {
     setSelectedFilters((prev) => {
-      if (id === "all") {
-        if(prev.includes("all")){
-          return [];
-        }
-        return ["all"];
-      }
 
+      if (id === "all") {
+        return prev.includes("all") ? [] : ["all"];
+      }
       //without all
       const withoutAll = prev.filter((filteredId) => filteredId !== "all");
 
       //remove if already selected
       if (withoutAll.includes(id)) {
         const updated = withoutAll.filter((filterId) => filterId !== id);
-
         //nothing selected, go back to all
         return updated.length === 0 ? ["all"] : updated;
       }
 
-      return [...prev, id];
+
+      return [...withoutAll, id];
     });
   }
 
-  //price filter
+  const handleLoadMore = () => {
+    toast.success("More will loaded");
+  };
 
 
 
@@ -120,6 +137,19 @@ const Shop: React.FC = () => {
 
           )}
         </div>
+
+        {
+          !filteredData || filteredData.length === 0 ? (
+            ""
+          ) : (
+            <div className="row">
+              <div className="d-flex justify-content-center">
+                <PrimaryButton text="Load More" onClick={handleLoadMore} />
+              </div>
+            </div>
+          )
+        }
+
       </div>
 
     </>

@@ -8,6 +8,7 @@ import Breadcrumb from "../components/Breadcrumb";
 import SearchField from "../components/SearchField";
 import { TopThreeCard } from "../components/brandscomponents/TopThreeCard";
 import { DataTable } from "../components/DataTable";
+import { Pagination } from "@mui/material";
 
 
 const data = [
@@ -125,6 +126,7 @@ const data = [
     badges: [
       "Top Designer", "Designer"
     ],
+    createdAt: '',
     meta: {
       likes: 32,
       views: 12,
@@ -149,35 +151,40 @@ const Brands: React.FC = () => {
   ];
 
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedFilter, setSelectedFilter] = useState<string | number>("all");
-  const [items, setItems] = useState<any[]>([]);
-
-  const filteredData = data.filter((item) => {
-    const matchSearch = item.name.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchCategory = selectedFilter === "all" || item.categories.some((category) => category.name === selectedFilter);
-    return matchCategory && matchSearch;
-  });
+  const [currentPage, setCurrentPage] = useState(1);
 
 
+  const itemsPerPage = 2;
+  const totalPages = Math.ceil(data.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const paginatedItems = data.slice(startIndex, startIndex + itemsPerPage);
 
 
   const handleSearch = (value: string) => {
     setSearchTerm(value);
   };
 
-  //fetch on filter change
   useEffect(() => {
-    // const data = fetchData(selectedFilter);
-    setItems(data);
-  }, [selectedFilter]);
+    setCurrentPage(1);
+  }, [searchTerm]);
 
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerHeight <= 768);
+    };
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    }
+  })
   //get top three ranked
-  const order = [2, 1, 3];
+  const order = isMobile? [1,2,3] : [2, 1, 3];
   const topthree = data
     .filter((item) => item.rank !== undefined && item.rank >= 1 && item.rank <= 3)
     .sort((a, b) => order.indexOf(a.rank!) - order.indexOf(b.rank!));
-
-  console.log(topthree);
 
   return (
     <>
@@ -188,9 +195,7 @@ const Brands: React.FC = () => {
       <div className="container-fluid brands-top">
         <div className="container">
           <div className="row d-flex justify-content-center">
-            {/* <div className="col-md-8">
-              <NavFilter filters={filters} selectedFilter={selectedFilter} onChange={(id) => setSelectedFilter(id)} />
-            </div> */}
+          
             <div className="col-md-4 d-flex mb-5">
               <SearchField value={searchTerm} onChange={handleSearch} />
             </div>
@@ -206,13 +211,12 @@ const Brands: React.FC = () => {
             ))}
           </div>
         </div>
-
       </div>
 
-      {/* Remaining ddesigners */}
+      {/* Remaining designers */}
       <div className="container">
         <div className="section">
-          <DataTable headings={["Rank", "Designer", "Sold", "Designs", "Badge", "Collections", "Points", "Actions"]} data={filteredData} renderRow={(item) => {
+          <DataTable headings={["Rank", "Designer", "Sold", "Designs", "Badge", "Collections", "Points", "Actions"]} data={paginatedItems} renderRow={(item) => {
             return (
               <tr>
                 <td>{item.rank}</td>
@@ -241,15 +245,13 @@ const Brands: React.FC = () => {
             );
           }} />
         </div>
-        <div className="row designers-profile mt-5">
 
-          {/* {filteredData.length == 0 && <EmptyPage />}
-            {filteredData.map((designer) => {
-              return (
-                <BrandsCard name={designer.name} meta={{ follows: designer.meta.follows, collections: designer.meta.collections, sold: designer.meta.sold }} categories={designer.categories} cover_img={designer.image} brand_id={designer.id} />
-              );
-            })} */}
+        <div className="row">
+          <div className="d-flex justify-content-center">
+            <Pagination count={totalPages} page={currentPage} onChange={(_, page) => setCurrentPage(page)} />
+          </div>
         </div>
+
       </div>
 
 

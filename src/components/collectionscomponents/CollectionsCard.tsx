@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { useTruncate } from "../../hooks/useTrancate";
 
 interface MetaItem {
     views: number;
@@ -19,6 +20,7 @@ interface CollectinsProps {
 
 const CollectionsCard: React.FC<CollectinsProps> = ({ name, meta, description, designer, collection_id }) => {
     const navigate = useNavigate();
+    // const 
     return (
         <>
             <div className="">
@@ -31,11 +33,11 @@ const CollectionsCard: React.FC<CollectinsProps> = ({ name, meta, description, d
                                 <span>{meta.views} Views</span><span> {meta.likes} Likes</span>
                                 <span> {meta.items} Items</span>
                             </div>
-                            <p>{description}</p>
+                            <p>{useTruncate(description,{words:10})}</p>
                             <hr />
                             <div className="d-flex justify-content-between align-items-center">
                                 <div className="cls-profile">
-                                    <div className="cls-dp d-flex align-items-center justify-content-start">
+                                    <div className="cls-dp d-flex align-items-center justify-content-start gap-1">
                                         <img className="" src={designer.dp_img} />
                                         <p className="">{designer.name}</p>
                                     </div>

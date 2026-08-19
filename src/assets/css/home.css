@@ -291,7 +291,7 @@
 .home-signup{
     background-color: var(--primary-background-color);
     color: #fff;
-    margin: 0px !important;
+    margin: 20px 0px 0px 0px !important;
     padding: 30px 70px !important;
 }
 .size-guide-btn {

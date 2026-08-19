@@ -78,7 +78,7 @@
 .cls-dp>p {
     font-weight: bold;
     align-items: center;
-    padding: 10px;
+    padding: 0px 10px 0px 0px !important;
     color: wheat;
     margin: 0;
     font-size: 0.7em;
@@ -144,7 +144,9 @@
     margin-bottom: 10px;
     transition: transform 0.3s ease;
 }
-.best-col-large:hover, .best-col-small:hover{
+
+.best-col-large:hover,
+.best-col-small:hover {
     transform: scale(calc(var(--hover-transform) - 0.02));
 }
 
@@ -173,13 +175,15 @@
     display: block;
 }
 
-.pagination .active > button{
+.pagination .active>button {
     background: var(--primary-complement) !important;
     border: 1px solid var(--primary-complement) !important;
 }
-.pagination .page-link{
+
+.pagination .page-link {
     color: var(--primary-color);
 }
-.pagination .page-link:hover{
+
+.pagination .page-link:hover {
     color: var(--primary-complement);
 }

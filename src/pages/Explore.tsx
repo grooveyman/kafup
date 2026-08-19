@@ -91,10 +91,11 @@ const Explore: React.FC = () => {
         { id: "toprated", name: "Top Rated" }
     ];
 
-    const [selectedFilters, setSelectedFilters] = useState<(string | number)[]>(["all"]);
+    const [selectedFilters, setSelectedFilters] = useState<(string)[]>(["all"]);
     const [items, setItems] = useState<any[]>([]);
     const [lastScroll, setLastScroll] = useState(0);
-    
+
+
 
     // Lightbox state
     const [open, setOpen] = useState(false);
@@ -103,7 +104,7 @@ const Explore: React.FC = () => {
     const [searchTerm, setSearchTerm] = useState("");
 
 
-    const handleFilterChange = (id: string | number) => {
+    const handleFilterChange = (id: string) => {
         setSelectedFilters((prev) => {
             if (id === "all") {
                 return [];
@@ -130,6 +131,8 @@ const Explore: React.FC = () => {
         return true;
     }).filter((item) => item.name.toLowerCase().includes(searchTerm.toLowerCase()));
 
+    
+
     const handleSearch = (value: string) => {
         setSearchTerm(value);
     };
@@ -155,82 +158,85 @@ const Explore: React.FC = () => {
         return () => window.removeEventListener("scroll", handleScroll);
     }, [lastScroll]);
 
-        const handleSearchSubmit = () => {
-        };
-
-        return (
-            <div className="container explore-wrapper">
-                <Breadcrumb crumbs={[{ label: "Home", href: "/" }, { label: "Explore" }]} />
-
-                {/* Filter navigation */}
-                <div className="row">
-                    <div className="col-md-8">
-                        <NavFilter
-                            filters={filters}
-                            selectedFilters={selectedFilters}
-                            onChange={handleFilterChange}
-                        />
-                    </div>
-                    <div className="col-md-4">
-                        <SearchField value={searchTerm} onChange={handleSearch} placeholder="Search in explore..." onSearchSubmit={handleSearchSubmit} />
-
-                    </div>
-
-                </div>
-
-                {/* Image grid */}
-                <div className="row">
-                    {filteredItems.map((item, i) => (
-                        <div className="explore-container col-md-4 col-xl-4 col-xs-6 col-lg-4 col-sm-6">
-                            <div
-                                className="img-container"
-                                key={i}
-                            >
-                                <img
-                                    src={item.image}
-                                    alt={item.name}
-                                    className="clickable-image"
-                                    onClick={() => {
-                                        setSlides(items.map(img => ({ src: img.image })));
-                                        setIndex(i);
-                                        setOpen(true);
-                                    }}
-                                />
-
-                                {/* <div className="image-title pt-2">{item.name}</div> */}
-                            </div>
-                            <div className="d-flex justify-content-between">
-                                <div>{item.name}</div>
-                                <div>
-                                    <div className="d-flex justify-content-start gap-1 align-items-center">
-                                        <Heart size={14} />
-                                        <p style={{ margin: 0, fontSize: "small" }}>{item.meta.likes}</p>
-                                        <EyeIcon size={14} fill="gray" />
-                                        <p style={{ margin: 0, fontSize: "small" }}>{item.meta.views}</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    ))}
-                </div>
-
-                <div className="mt-5">
-                    <div className="d-flex justify-content-center">
-                        <button className="btn btn-primary">Load More</button>
-                    </div>
-                </div>
 
 
-                {/* Lightbox viewer */}
-                <Lightbox
-                    open={open}
-                    close={() => setOpen(false)}
-                    index={index}
-                    slides={slides}
-                />
-            </div>
-        );
+    const handleSearchSubmit = () => {
     };
 
-    export default Explore;
+    return (
+        <div className="container explore-wrapper">
+            <Breadcrumb crumbs={[{ label: "Home", href: "/" }, { label: "Explore" }]} />
+
+            {/* Filter navigation */}
+            <div className="row">
+                <div className="col-md-8">
+                    <NavFilter
+                        filters={filters}
+                        selectedFilters={selectedFilters}
+                        onChange={handleFilterChange}
+                    />
+                </div>
+                <div className="col-md-4">
+                    <SearchField value={searchTerm} onChange={handleSearch} placeholder="Search in explore..." onSearchSubmit={handleSearchSubmit} />
+
+                </div>
+
+            </div>
+
+            {/* Image grid */}
+            <div className="row">
+                {filteredItems.map((item, i) => (
+                    <div className="explore-container col-md-4 col-xl-4 col-xs-6 col-lg-4 col-sm-6">
+                        <div
+                            className="img-container"
+                            key={i}
+                        >
+                            <img
+                                src={item.image}
+                                alt={item.name}
+                                className="clickable-image"
+                                onClick={() => {
+                                    setSlides(filteredItems.map(img => ({ src: img.image })));
+                                    setIndex(i);
+                                    setOpen(true);
+                                }}
+                            />
+
+                            {/* <div className="image-title pt-2">{item.name}</div> */}
+                        </div>
+                        <div className="d-flex justify-content-between">
+                            <div>{item.name}</div>
+                            <div>
+                                <div className="d-flex justify-content-start gap-1 align-items-center">
+                                    <Heart size={14} />
+                                    <p style={{ margin: 0, fontSize: "small" }}>{item.meta.likes}</p>
+                                    <EyeIcon size={14} fill="gray" />
+                                    <p style={{ margin: 0, fontSize: "small" }}>{item.meta.views}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                ))}
+            </div>
+
+            <div className="mt-5">
+                <div className="d-flex justify-content-center">
+                    <button className="btn btn-primary">Load More</button>
+                </div>
+            </div>
+
+
+            {/* Lightbox viewer */}
+            
+            <Lightbox
+                open={open}
+                close={() => setOpen(false)}
+                index={index}
+                slides={slides}
+            />
+        </div>
+    );
+};
+
+export default Explore;

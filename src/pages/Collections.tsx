@@ -6,8 +6,8 @@ import EmptyPage from "../components/EmptyPage";
 import Breadcrumb from "../components/Breadcrumb";
 import SearchField from "../components/SearchField";
 import { toast } from "react-toastify";
-import SkeletonLoader from "../components/SkeletonLoader";
-import { Pagination } from "../components/Pagination";
+import PrimaryButton from "../components/PrimaryButton";
+
 
 const data = [
     {
@@ -28,7 +28,7 @@ const data = [
         views: 3,
         likes: 89,
         items: 90,
-        description: "Lorem ipsum something big is coming soon on your screens.",
+        description: "Lorem ipsum something big is coming soon on your screens. Lorem ipsum something big is coming soon on your screens.",
         designer: {
             name: "Selinam Aku",
             img: "assets/images/software dev.png"
@@ -58,19 +58,18 @@ const Collections: React.FC = () => {
     ];
 
     const [selectedFilters, setSelectedFilters] =
-        useState<(string | number)[]>(["all"]);
+        useState<(string)[]>(["all"]);
 
-    const [currentPage, setCurrentPage] = useState(1);
 
     const [searchKey, setSearchKey] = useState("");
 
     // Toggle filters
-    const handleFilterChange = (id: string | number) => {
+    const handleFilterChange = (id: string) => {
         setSelectedFilters((prev) => {
 
             // All clears all filters
             if (id === "all") {
-               return prev.includes("all") ? [] : ["all"];
+                return prev.includes("all") ? [] : ["all"];
             }
 
             // Remove if already selected
@@ -108,12 +107,6 @@ const Collections: React.FC = () => {
                 .includes(searchKey.toLowerCase())
         );
 
-    const itemsPerPage = 2;
-    const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const paginatedItems = filteredItems.slice(startIndex, startIndex + itemsPerPage);
-
-
     const handleSearch = (searchTerm: string) => {
         setSearchKey(searchTerm);
     };
@@ -122,9 +115,9 @@ const Collections: React.FC = () => {
         toast.success("You'll be searching soon...");
     };
 
-    useEffect(() => {
-        setCurrentPage(1);
-    }, [selectedFilters, searchKey]);
+    const handleLoadMore = () => {
+        toast.success("More will be loaded");
+    };
 
     return (
         <div className="container">
@@ -163,10 +156,10 @@ const Collections: React.FC = () => {
                     <EmptyPage />
                 )}
 
-                {paginatedItems.map((collection) => (
+                {filteredItems.map((collection) => (
                     <div
                         key={collection.id}
-                        className="col-md-6 col-sm-12 col-lg-4 col-xl-3 mb-4"
+                        className="col-md-6 col-sm-12 col-lg-4 col-xl-3 mb-4 hover-effect"
                     >
                         <CollectionsCard
                             name={collection.name}
@@ -187,10 +180,11 @@ const Collections: React.FC = () => {
 
             </div>
 
-            <div className="row">
-                <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />
+            <div className="row mt-4">
+                <div className="d-flex justify-content-center">
+                    <PrimaryButton text="Load More" onClick={handleLoadMore} />
+                </div>
             </div>
-
         </div>
     );
 };

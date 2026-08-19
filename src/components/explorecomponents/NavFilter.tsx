@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 
 interface FilterItem {
-    id: string | number;
+    id: string;
     name: string;
 }
 
 interface NavFilterProps {
     filters: FilterItem[];
-    selectedFilters: (string | number)[];
-    onChange: (filterId: string | number) => void;
+    selectedFilters: (string)[];
+    onChange: (filterId: string) => void;
 }
 
 const NavFilter: React.FC<NavFilterProps> = ({

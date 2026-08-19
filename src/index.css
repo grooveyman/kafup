@@ -40,6 +40,13 @@ body, * {
   
 }
 
+.hover-effect{
+  transition: ease 0.5s;
+}
+.hover-effect:hover{
+  transform: scale(var(--hover-transform));
+}
+
 .text-color{
   color: var(--primary-complement) !important;
 }
