@@ -1,4 +1,6 @@
 import { useNavigate } from "react-router-dom";
+import { DesignerCardMin } from "../DesignerCardMin";
+import { DesignerType } from "../../pages/Home";
 import { useTruncate } from "../../hooks/useTrancate";
 
 interface MetaItem {
@@ -6,49 +8,37 @@ interface MetaItem {
     likes: number;
     items: number;
 }
-interface Designer {
-    name: string;
-    dp_img: string;
-}
+
 interface CollectinsProps {
     name: string;
     meta: MetaItem;
     description: string;
-    designer: Designer;
+    designer: DesignerType;
     collection_id: string;
+    collection_img: string;
 }
 
-const CollectionsCard: React.FC<CollectinsProps> = ({ name, meta, description, designer, collection_id }) => {
+const CollectionsCard: React.FC<CollectinsProps> = ({ name, description, designer, collection_id, collection_img }) => {
     const navigate = useNavigate();
     // const 
     return (
         <>
-            <div className="">
-                <a href="#" onClick={() => navigate(`/collections/${designer.name}/${collection_id}`)} className="link-card">
+            <div className="" key={collection_id} onClick={() => navigate(`/collections/${designer.name}/${collection_id}`)}>
+                <div className="d-flex align-items-center" style={{ height: "100%" }}>
                     <div className="ad-card">
-                        <img src="assets/images/software dev.png" className="img-rounded" />
+                        <img src={collection_img ? `${collection_img}`:`${import.meta.env.BASE_URL}assets/images/software dev.png`} className="img-rounded" />
                         <div className="ad-content">
-                            <div className="cls-head mb-3">
-                                <h6>{name}</h6>
-                                <span>{meta.views} Views</span><span> {meta.likes} Likes</span>
-                                <span> {meta.items} Items</span>
-                            </div>
-                            <p>{useTruncate(description,{words:10})}</p>
+                             <h6>{name}</h6>
+                             <p>{useTruncate(description, {words:15})}</p>
                             <hr />
                             <div className="d-flex justify-content-between align-items-center">
-                                <div className="cls-profile">
-                                    <div className="cls-dp d-flex align-items-center justify-content-start gap-1">
-                                        <img className="" src={designer.dp_img} />
-                                        <p className="">{designer.name}</p>
-                                    </div>
-                                </div>
-                                {/* <LucideEye onClick={()=>navigate(`/collections/${collection_id}`)} /> */}
+                                <DesignerCardMin name={designer.name} image={designer.image} />
                             </div>
                         </div>
                     </div>
-                </a>
-
+                </div>
             </div>
+
         </>
     );
 }

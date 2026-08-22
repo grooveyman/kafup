@@ -25,7 +25,7 @@ const BrandsCard: React.FC<BrandsProps> = ({ name, meta, categories, brand_id })
         <>
             <div className="col-md-6 col-sm-12 col-lg-4 col-xl-3 mb-4">
                 <div className="ad-card">
-                    <img onClick={() => navigate(`/collections/${brand_id}`)} src="assets/images/software dev.png" className="img-rounded" />
+                    <img onClick={() => navigate(`/collections/${brand_id}`)} src="/assets/images/software%20dev.png" className="img-rounded" />
                     <div className="ad-content">
                         <div className="cls-head mb-3">
                             <h6>{name}</h6>

@@ -31,7 +31,7 @@ const ListContainer: React.FC<ListProps> = ({ list }) => {
                         </p>
                     </div>
                     <div className="shop-desc-cat">
-                    <p>{product.designer.brand_name}</p>
+                    <p>{product.designer.name}</p>
                         <div>
                             <span className="badge bg-secondary text-decoration-none">
                                 {product.categories?.name}

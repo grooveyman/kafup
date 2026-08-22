@@ -1,5 +1,5 @@
 import "../assets/css/home.css";
-
+import "../assets/css/admin.css";
 import { useApiQuery } from "../hooks/useApi";
 import SkeletonLoader from "../components/SkeletonLoader";
 import { useNavigate } from "react-router-dom";
@@ -8,7 +8,7 @@ import TabPanel from "@mui/lab/TabPanel";
 import TabList from "@mui/lab/TabList";
 import { Box, Fade, Tab } from "@mui/material";
 import { useState } from "react";
-import { Variation } from "./admin/products/AddProduct";
+// import { Variation } from "./admin/products/AddProduct";
 import Vision from "../components/homecomponents/Vision";
 import Designers from "../components/homecomponents/Designers";
 import { Category } from "./Shop";
@@ -16,8 +16,10 @@ import HomeCollection from "../components/homecomponents/HomeCollection";
 import PrimaryButton from "../components/PrimaryButton";
 import EmptyPage from "../components/EmptyPage";
 import { HeroSection } from "../components/homecomponents/HeroSection";
-import { DesignerSignUp } from "../components/homecomponents/DesignerSignUp";
 import ListContainer from "../components/shopcomponents/ListContainer";
+import { Variation } from "./Details";
+
+
 export interface Product {
   id: number;
   name: string;
@@ -47,9 +49,9 @@ export interface CollectionType {
   collection_id: string;
 }
 export interface DesignerType {
-  code: number;
-  brand_name: string;
-  profileImg: string;
+  // code: number;
+  name: string;
+  image: string;
 }
 
 interface ProdImage {
@@ -183,9 +185,7 @@ const Home: React.FC = () => {
               <div className="row">
                 <div className="col-md-6">
                   <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum
-                    quo, nihil vitae eaque ipsa magni enim repellendus ullam
-                    cumque dolores deleniti inventore omnis.
+                    Discover exceptional brands bringing creativity, quality, and innovation to every design. Explore our top brands and find unique products crafted to inspire, impress, and elevate your style.
                   </p>
                 </div>
               </div>
@@ -204,10 +204,6 @@ const Home: React.FC = () => {
       <div className="section">
         <Vision />
       </div>
-
-      {/* <div className="">
-        <DesignerSignUp />
-      </div> */}
     </>
   );
 };

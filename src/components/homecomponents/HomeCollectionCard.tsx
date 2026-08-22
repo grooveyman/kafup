@@ -1,7 +1,3 @@
-import { useNavigate } from "react-router-dom";
-import { useTruncate } from "../../hooks/useTrancate";
-import { useIsMobile } from "../../hooks/useIsMobile";
-
 
 interface MetaItem {
     views: number;
@@ -23,9 +19,6 @@ interface CollectinsProps {
 
 
 const HomeCollectionCard: React.FC<CollectinsProps> = ({ name, meta, designer, collection_id }) => {
-    const navigate = useNavigate();
-    const isMobile = useIsMobile();
-    const words = isMobile ? 10 : 25;
     return (
         <>
             <div className="collections-card">
@@ -33,7 +26,7 @@ const HomeCollectionCard: React.FC<CollectinsProps> = ({ name, meta, designer, c
                     <div className="" key={collection_id}>
                         <div className="">
                             <div className="">
-                                <img src="assets/images/software dev.png" />
+                                <img src="/assets/images/software%20dev.png" />
                             </div>
                             <div className="collections-card-text">
                                 <div>

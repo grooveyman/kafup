@@ -1,6 +1,6 @@
 import "../assets/css/collections.css";
 import CollectionsCard from "../components/collectionscomponents/CollectionsCard";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import NavFilter from "../components/explorecomponents/NavFilter";
 import EmptyPage from "../components/EmptyPage";
 import Breadcrumb from "../components/Breadcrumb";
@@ -8,46 +8,8 @@ import SearchField from "../components/SearchField";
 import { toast } from "react-toastify";
 import PrimaryButton from "../components/PrimaryButton";
 import { useApiQuery } from "../hooks/useApi";
+import SkeletonLoader from "../components/SkeletonLoader";
 
-
-const data = [
-    {
-        id: "4232eads",
-        name: "Kaftan Collection",
-        views: 23,
-        likes: 34,
-        items: 2,
-        description: "Lorem ipsum something big is coming soon on your screens.",
-        designer: {
-            name: "Ampadu Theophilus",
-            img: "assets/images/software dev.png"
-        }
-    },
-    {
-        id: "23eww",
-        name: "Batakari Suit",
-        views: 3,
-        likes: 89,
-        items: 90,
-        description: "Lorem ipsum something big is coming soon on your screens. Lorem ipsum something big is coming soon on your screens.",
-        designer: {
-            name: "Selinam Aku",
-            img: "assets/images/software dev.png"
-        }
-    },
-    {
-        id: "23eww",
-        name: "Batakari Suit",
-        views: 3,
-        likes: 89,
-        items: 90,
-        description: "Lorem ipsum something big is coming soon on your screens.",
-        designer: {
-            name: "Selinam Aku",
-            img: "assets/images/software dev.png"
-        }
-    }
-];
 
 export interface Collection {
     id: string;
@@ -58,8 +20,9 @@ export interface Collection {
     description: string;
     designer: {
         name: string;
-        img: string;
+        image: string;
     };
+    thumbnail: string;
 }
 
 
@@ -76,6 +39,7 @@ const Collections: React.FC = () => {
         useState<string[]>(["all"]);
 
     const params = new URLSearchParams();
+    
     params.set("limit", "20");
     params.set("offset", "0");
     selectedFilters.forEach((filter) => {
@@ -87,7 +51,7 @@ const Collections: React.FC = () => {
     const endpoint = `/collections?${params.toString()}`;
 
     const { data, isLoading } = useApiQuery<Collection[]>(["collections"], endpoint);
-
+    console.log(isLoading?"":data);
 
 
     const [searchKey, setSearchKey] = useState("");
@@ -125,6 +89,7 @@ const Collections: React.FC = () => {
 
     const handleSearchSubmit = (value: string) => {
         toast.success("You'll be searching soon...");
+        console.log(value);
     };
 
     const handleLoadMore = () => {
@@ -164,9 +129,9 @@ const Collections: React.FC = () => {
 
             <div className="row mt-3">
 
-                {filteredItems.length === 0 && (
-                    <EmptyPage />
-                )}
+              
+
+                {isLoading && <SkeletonLoader />}
 
                 {filteredItems.map((collection) => (
                     <div
@@ -180,9 +145,10 @@ const Collections: React.FC = () => {
                                 likes: collection.likes,
                                 items: collection.items
                             }}
+                            collection_img={collection.thumbnail}
                             designer={{
                                 name: collection.designer.name,
-                                dp_img: collection.designer.img
+                                image: collection.designer.image
                             }}
                             collection_id={collection.id}
                             description={collection.description}
@@ -190,7 +156,12 @@ const Collections: React.FC = () => {
                     </div>
                 ))}
 
+                  {!isLoading && filteredItems.length === 0 && (
+                    <EmptyPage />
+                )}
+
             </div>
+
 
             <div className="row mt-4">
                 <div className="d-flex justify-content-center">

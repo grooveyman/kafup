@@ -3,10 +3,13 @@
     background-color: gainsboro;
     /* background: none; */
     border-radius: 20px;
+    /* height: 35vh; */
 }
 .ad-card > img{
     width: 100%;
+    height: 25vh;
     border-radius: 20px;
+    object-fit: cover;
 }
 .ad-content{
     padding: 30px 50px;

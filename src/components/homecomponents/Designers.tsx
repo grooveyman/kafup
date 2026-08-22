@@ -1,69 +1,57 @@
 import "../../assets/css/designers.css";
+import { useApiQuery } from "../../hooks/useApi";
 import { useTruncate } from "../../hooks/useTrancate";
+import EmptyPage from "../EmptyPage";
+import SkeletonLoader from "../SkeletonLoader";
+
+interface BrandsResponse {
+  total: number;
+  limit: number;
+  results: TopBrandsType[];
+}
+interface TopBrandsMeta {
+  likes: number;
+  follows: number;
+}
+interface TopBrandsType {
+  id: string;
+  name: string;
+  description: string;
+  meta: TopBrandsMeta;
+  image: string;
+}
 
 const Designers: React.FC = () => {
-  //get top brands
-  const topbrands = {
-    data:[
-      {
-        id:"32323-ds23-32",
-        brand_name: "Senior Man's Brand",
-        meta:{
-          likes:23,
-          follows:"6k",
-          designs: "100",
-          sold: "89"
-        },
-        pitch: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-      },
-      {
-        id:"32323-ds23-32",
-        brand_name: "Senior Man's Brand",
-        meta:{
-          likes:23,
-          follows:"6k",
-          designs: "100",
-          sold: "89"
-        },
-        pitch: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.."
-      },
-      {
-        id:"32323-ds23-32",
-        brand_name: "Senior Man's Brand",
-        meta:{
-          likes:23,
-          follows:"6k",
-          designs: "100",
-          sold: "89"
-        },
-        pitch: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam..."
-      }
-    ]
-  }
+
+  const endpoint = `/brands`;
+  const { isLoading, data } = useApiQuery<BrandsResponse>(['topbrands'], endpoint);
+  
   return (
     <>
-
-
       <div className="row designers-profile mt-4">
-        {topbrands.data.map((brand) => (
-          <div className="col-md-6 col-sm-12 col-lg-4 col-xl-4 mb-4" key={brand.id}>
-            <div className="designers-card">
-              <div className="designers-img">
-                <img src="assets/images/software dev.png" />
+        {isLoading && <SkeletonLoader />}
+        {data && data.total !== 0 ? (
+          data.results.map((brand) => (
+            <div className="col-md-6 col-sm-12 col-lg-4 col-xl-4 mb-4" key={brand.id}>
+              <div className="designers-card">
+                <div className="designers-img">
+                  <img src={brand.image === '' || brand.image == null ? `${import.meta.env.BASE_URL}assets/images/software%20dev.png` : brand.image} />
+                </div>
+                <div className="designers-text">
+                  <div>
+                    <span>{brand.meta.likes} likes {brand.meta.follows} follows</span>
+                  </div>
+                  <h5>{brand.name}</h5>
+                  <p>
+                    {useTruncate(brand.description, { words: 20 })}
+                  </p>
+                </div>
               </div>
-            <div className="designers-text">
-              <div>
-                <span>{brand.meta.likes} likes {brand.meta.follows} follows</span>
-              </div>
-              <h5>{brand.brand_name}</h5>
-              <p>
-                {useTruncate(brand.pitch, { words: 20 })}
-              </p>
             </div>
-          </div>
-        </div>
-        ))}
-
+          ))
+        ) : (
+          <EmptyPage />
+        )}
       </div>
     </>
   );

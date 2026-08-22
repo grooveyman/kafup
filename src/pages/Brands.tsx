@@ -1,9 +1,6 @@
 
 import { useEffect, useState } from "react";
 import "../assets/css/designers.css";
-import NavFilter from "../components/explorecomponents/NavFilter";
-import EmptyPage from "../components/EmptyPage";
-import BrandsCard from "../components/brandscomponents/BrandCard";
 import Breadcrumb from "../components/Breadcrumb";
 import SearchField from "../components/SearchField";
 import { TopThreeCard } from "../components/brandscomponents/TopThreeCard";
@@ -15,7 +12,7 @@ const data = [
   {
     id: '3232',
     name: "Artist Design",
-    image: "assets/images/software dev.png",
+    image: "/assets/images/software%20dev.png",
     rank: 6,
     pts: 2330,
     badges: [
@@ -36,7 +33,7 @@ const data = [
   {
     id: '764',
     name: "Artist Design",
-    image: "assets/images/software dev.png",
+    image: "/assets/images/software%20dev.png",
     rank: 5,
     pts: 2330,
     badges: [
@@ -57,7 +54,7 @@ const data = [
   {
     id: '765',
     name: "Artist Design",
-    image: "assets/images/software dev.png",
+    image: "/assets/images/software%20dev.png",
     rank: 4,
     pts: 2330,
     badges: [
@@ -78,7 +75,7 @@ const data = [
   {
     id: '765',
     name: "Artist Design",
-    image: "assets/images/software dev.png",
+    image: "/assets/images/software%20dev.png",
     rank: 2,
     pts: 2330,
     badges: [
@@ -99,7 +96,7 @@ const data = [
   {
     id: '3256',
     name: "Artist Design",
-    image: "assets/images/software dev.png",
+    image: "/assets/images/software%20dev.png",
     rank: 1,
     pts: 2330,
     badges: [
@@ -120,7 +117,7 @@ const data = [
   {
     id: '2131',
     name: "Artist Design",
-    image: "assets/images/software dev.png",
+    image: "/assets/images/software%20dev.png",
     rank: 3,
     pts: 2330,
     badges: [
@@ -143,12 +140,12 @@ const data = [
 
 const Brands: React.FC = () => {
 
-  const filters = [
-    { id: "all", name: "All" },
-    { id: "popular", name: "Popular" },
-    { id: "new", name: "New" },
-    { id: "toprated", name: "Top Rated" }
-  ];
+  // const filters = [
+  //   { id: "all", name: "All" },
+  //   { id: "popular", name: "Popular" },
+  //   { id: "new", name: "New" },
+  //   { id: "toprated", name: "Top Rated" }
+  // ];
 
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -253,10 +250,6 @@ const Brands: React.FC = () => {
         </div>
 
       </div>
-
-
-
-      {/* </div> */}
     </>
   );
 };

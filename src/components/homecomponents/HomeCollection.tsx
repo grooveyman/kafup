@@ -1,6 +1,4 @@
 
-import HomeCollectionCard from "./HomeCollectionCard";
-
 
 const HomeCollection: React.FC = () => {
 

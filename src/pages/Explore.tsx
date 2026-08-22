@@ -12,7 +12,7 @@ const data = [
     {
         id: '3232',
         name: "Artist Design",
-        image: "assets/images/software dev.png",
+        image: `${import.meta.env.BASE_URL}assets/images/software dev.png`,
         meta: {
             likes: 32,
             views: 33
@@ -24,7 +24,7 @@ const data = [
     {
         id: '764',
         name: "Artist Design",
-        image: "assets/images/software dev.png",
+        image: `${import.meta.env.BASE_URL}assets/images/software dev.png`,
         meta: {
             likes: 32,
             views: 33
@@ -36,7 +36,7 @@ const data = [
     {
         id: '765',
         name: "Artist Design",
-        image: "assets/images/software dev.png",
+        image: `${import.meta.env.BASE_URL}assets/images/software dev.png`,
         meta: {
             likes: 32,
             views: 33
@@ -48,7 +48,7 @@ const data = [
     {
         id: '765',
         name: "Artist Design",
-        image: "assets/images/software dev.png",
+        image: `${import.meta.env.BASE_URL}assets/images/software dev.png`,
         meta: {
             likes: 32,
             views: 33
@@ -60,7 +60,7 @@ const data = [
     {
         id: '3256',
         name: "Artist Design",
-        image: "assets/images/software dev.png",
+        image: `${import.meta.env.BASE_URL}assets/images/software dev.png`,
         meta: {
             likes: 32,
             views: 33
@@ -72,7 +72,7 @@ const data = [
     {
         id: '2131',
         name: "Artist Design",
-        image: "assets/images/software dev.png",
+        image: `${import.meta.env.BASE_URL}assets/images/software dev.png`,
         meta: {
             likes: 32,
             views: 12
@@ -92,7 +92,6 @@ const Explore: React.FC = () => {
     ];
 
     const [selectedFilters, setSelectedFilters] = useState<(string)[]>(["all"]);
-    const [items, setItems] = useState<any[]>([]);
     const [lastScroll, setLastScroll] = useState(0);
 
 

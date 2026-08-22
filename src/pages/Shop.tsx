@@ -8,7 +8,7 @@ import Breadcrumb from "../components/Breadcrumb";
 import ListContainer from "../components/shopcomponents/ListContainer";
 import NavFilter from "../components/explorecomponents/NavFilter";
 import SearchField from "../components/SearchField";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import PriceRangeFilter from "../components/shopcomponents/PriceRangeFilter";
 import PrimaryButton from "../components/PrimaryButton";
 import { toast } from "react-toastify";

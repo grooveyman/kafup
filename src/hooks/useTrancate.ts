@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 
 
 type TruncateOptions = {
@@ -6,20 +5,18 @@ type TruncateOptions = {
     characters?: number;
 };
 
-export const useTruncate = (text: string, {words, characters}: TruncateOptions) => {
-    return useMemo(() => {
-        if(!text) return "";
+export const useTruncate = (text: string, { words, characters }: TruncateOptions) => {
+    if (!text) return "";
 
-        if(words){
-            const wordArray = text.trim().split(/\s+/);
+    if (words) {
+        const wordArray = text.trim().split(/\s+/);
 
-            return wordArray.length > words ? `${wordArray.slice(0, words).join(" ")}...` : text;
-        }
+        return wordArray.length > words ? `${wordArray.slice(0, words).join(" ")}...` : text;
+    }
 
-        if(characters){
-            return text.length > characters ? `${text.slice(0, characters)}...` : text;
-        }
+    if (characters) {
+        return text.length > characters ? `${text.slice(0, characters)}...` : text;
+    }
 
-        return text;
-    }, [text, words, characters])
+    return text;
 };

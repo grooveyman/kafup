@@ -17,7 +17,7 @@ const Vision: React.FC = () => {
                     <div className="col-md-6 col-lg-12 col-sm-12 col-xl-5">
                         <div className="d-flex align-items-center" style={{ height: "100%" }}>
                             <div className="ad-card">
-                                <img src="assets/images/software dev.png" className="img-rounded" />
+                                <img src={`${import.meta.env.BASE_URL}assets/images/software%20dev.png`} className="img-rounded" />
                                 <div className="ad-content">
                                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum autem officia, quae debitis.</p>
                                     <hr />

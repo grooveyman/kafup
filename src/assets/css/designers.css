@@ -138,3 +138,11 @@
 .brands-category>p {
     margin: 0;
 }
+.designer-card-min img{
+    height: 30px;
+    width: 30px;
+    object-fit: cover !important;
+}
+.designer-card-min h6{
+    font-size: small !important;
+}

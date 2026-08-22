@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import "./admin.css";
+// import "./admin.css";
 import { CopyPlus } from "lucide-react";
 import Breadcrumb from "../../../components/Breadcrumb";
 import { useApiMutation } from "../../../hooks/useApi";

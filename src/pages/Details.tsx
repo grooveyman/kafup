@@ -4,14 +4,20 @@ import "../assets/css/details.css";
 import { CartItemType, CartVariation, DesignerType, useCartContext } from "../context/CartContext";
 import { useApiMutation, useApiQuery } from "../hooks/useApi";
 import DetailsSkeletonLoader from "../components/DetailsSkeletonLoader";
-import { Variation } from "./admin/products/AddProduct";
-import { Star } from "lucide-react";
+// import { Variation } from "./admin/products/AddProduct";
 import SimilarDesigns from "../components/SimilarDesigns";
 import { SizeGuideModal } from "../components/homecomponents/SizeGuideModal";
 import { useBuyNowContext } from "../context/BuyNowContext";
 import { toast } from "react-toastify";
 import Reviews from "../components/Reviews";
 import { StarsComponent } from "../components/StarsComponent";
+
+export interface Variation {
+  size: string;
+  color: string;
+  price: number;
+  quantity: number;
+}
 
 interface Product {
   id: string;

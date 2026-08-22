@@ -39,7 +39,10 @@ body, * {
   --hover-transform: 1.05;
   
 }
-
+.btn-sm{
+  font-size: smaller !important;
+  padding: 2px 1px !important;
+}
 .hover-effect{
   transition: ease 0.5s;
 }

@@ -1,6 +1,6 @@
-import { Star } from "lucide-react";
 import EmptyPage from "./EmptyPage";
 import { StarsComponent } from "./StarsComponent";
+import { DesignerCard } from "./DesignerCard";
 
 
 const data = {
@@ -35,7 +35,7 @@ const Reviews: React.FC = () => {
                     <div className="">
                         <div className="d-flex justify-content-start gap-2">
                             <h2 className="mb-0">4.8</h2>
-                            <StarsComponent size={20}  rate={4.5}/>
+                            <StarsComponent size={20} rate={4.5} />
                         </div>
                         <p>Based on 90 reviews</p>
                     </div>
@@ -84,6 +84,10 @@ const Reviews: React.FC = () => {
                             </div>
                         </div>
                     </div>
+
+                    <div className="rate-designer row mt-4">
+                        <DesignerCard />
+                    </div>
                 </div>
                 <div className="col-md-7 mt-4">
                     <div>
@@ -105,7 +109,7 @@ const Reviews: React.FC = () => {
                                         <h6>{item.title}</h6>
                                         <p>{item.message}</p>
                                     </div>
-                                     <hr />
+                                    <hr />
                                 </>
                             );
                         })}
