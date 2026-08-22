@@ -39,7 +39,7 @@ const Collections: React.FC = () => {
         useState<string[]>(["all"]);
 
     const params = new URLSearchParams();
-    
+
     params.set("limit", "20");
     params.set("offset", "0");
     selectedFilters.forEach((filter) => {
@@ -136,7 +136,7 @@ const Collections: React.FC = () => {
                 {filteredItems.map((collection) => (
                     <div
                         key={collection.id}
-                        className="col-md-6 col-sm-12 col-lg-4 col-xl-3 mb-4 hover-effect"
+                        className="col-md-6 col-sm-12 col-lg-4 col-xl-3 mb-4 d-flex hover-effect"
                     >
                         <CollectionsCard
                             name={collection.name}

@@ -48,13 +48,6 @@
     pointer-events: none;
 }
 
-.designers-img:hover::after {
-    background: rgba(240, 248, 255, 0.4); /* aliceblue overlay */
-}
-/* Hover effect */
-.designers-card:hover .designers-img::after {
-    background: rgba(240, 248, 255, 0.35);
-}
 
 /* Optional zoom effect */
 .designers-card:hover .designers-img img {

@@ -23,17 +23,21 @@ const CollectionsCard: React.FC<CollectinsProps> = ({ name, description, designe
     // const 
     return (
         <>
-            <div className="" key={collection_id} onClick={() => navigate(`/collections/${designer.name}/${collection_id}`)}>
-                <div className="d-flex align-items-center" style={{ height: "100%" }}>
-                    <div className="ad-card">
-                        <img src={collection_img ? `${collection_img}`:`${import.meta.env.BASE_URL}assets/images/software dev.png`} className="img-rounded" />
-                        <div className="ad-content">
-                             <h6>{name}</h6>
-                             <p>{useTruncate(description, {words:15})}</p>
-                            <hr />
-                            <div className="d-flex justify-content-between align-items-center">
-                                <DesignerCardMin name={designer.name} image={designer.image} />
+            <div className="w-100" key={collection_id} onClick={() => navigate(`/collections/${designer.name}/${collection_id}`)}>
+                <div className="">
+                    <div className="designers-card">
+                        <div className="designers-img">
+                            <img src={collection_img === '' || collection_img == null ? `${import.meta.env.BASE_URL}assets/images/software%20dev.png` : collection_img} />
+                        </div>
+                        <div className="designers-text">
+                            <div>
+                                <p className="small-text">{designer.name}</p>
+                                {/* <span>{meta.likes} likes {brand.meta.follows} follows</span> */}
                             </div>
+                            <h5>{name}</h5>
+                            <p>
+                                {useTruncate(description, { words: 20 })}
+                            </p>
                         </div>
                     </div>
                 </div>

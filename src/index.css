@@ -39,6 +39,10 @@ body, * {
   --hover-transform: 1.05;
   
 }
+
+.small-text{
+  color: var(--primary-complement) !important;
+}
 .btn-sm{
   font-size: smaller !important;
   padding: 2px 1px !important;
