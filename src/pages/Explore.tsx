@@ -7,82 +7,93 @@ import "yet-another-react-lightbox/styles.css";
 import Breadcrumb from "../components/Breadcrumb";
 import { EyeIcon, Heart } from "lucide-react";
 import SearchField from "../components/SearchField";
+import { useApiQuery } from "../hooks/useApi";
 
-const data = [
-    {
-        id: '3232',
-        name: "Artist Design",
-        image: `${import.meta.env.BASE_URL}assets/images/software dev.png`,
-        meta: {
-            likes: 32,
-            views: 33
-        },
-        categories: {
-            name: "Children"
-        }
-    },
-    {
-        id: '764',
-        name: "Artist Design",
-        image: `${import.meta.env.BASE_URL}assets/images/software dev.png`,
-        meta: {
-            likes: 32,
-            views: 33
-        },
-        categories: {
-            name: "Children"
-        }
-    },
-    {
-        id: '765',
-        name: "Artist Design",
-        image: `${import.meta.env.BASE_URL}assets/images/software dev.png`,
-        meta: {
-            likes: 32,
-            views: 33
-        },
-        categories: {
-            name: "Sons"
-        }
-    },
-    {
-        id: '765',
-        name: "Artist Design",
-        image: `${import.meta.env.BASE_URL}assets/images/software dev.png`,
-        meta: {
-            likes: 32,
-            views: 33
-        },
-        categories: {
-            name: "Women"
-        }
-    },
-    {
-        id: '3256',
-        name: "Artist Design",
-        image: `${import.meta.env.BASE_URL}assets/images/software dev.png`,
-        meta: {
-            likes: 32,
-            views: 33
-        },
-        categories: {
-            name: "Men"
-        }
-    },
-    {
-        id: '2131',
-        name: "Artist Design",
-        image: `${import.meta.env.BASE_URL}assets/images/software dev.png`,
-        meta: {
-            likes: 32,
-            views: 12
-        },
-        categories: {
-            name: "Children"
-        }
-    }
-];
+// const data = [
+//     {
+//         id: '3232',
+//         name: "Artist Design",
+//         image: `${import.meta.env.BASE_URL}assets/images/software dev.png`,
+//         meta: {
+//             likes: 32,
+//             views: 33
+//         },
+//         categories: {
+//             name: "Children"
+//         }
+//     },
+//     {
+//         id: '764',
+//         name: "Artist Design",
+//         image: `${import.meta.env.BASE_URL}assets/images/software dev.png`,
+//         meta: {
+//             likes: 32,
+//             views: 33
+//         },
+//         categories: {
+//             name: "Children"
+//         }
+//     },
+//     {
+//         id: '765',
+//         name: "Artist Design",
+//         image: `${import.meta.env.BASE_URL}assets/images/software dev.png`,
+//         meta: {
+//             likes: 32,
+//             views: 33
+//         },
+//         categories: {
+//             name: "Sons"
+//         }
+//     },
+//     {
+//         id: '765',
+//         name: "Artist Design",
+//         image: `${import.meta.env.BASE_URL}assets/images/software dev.png`,
+//         meta: {
+//             likes: 32,
+//             views: 33
+//         },
+//         categories: {
+//             name: "Women"
+//         }
+//     },
+//     {
+//         id: '3256',
+//         name: "Artist Design",
+//         image: `${import.meta.env.BASE_URL}assets/images/software dev.png`,
+//         meta: {
+//             likes: 32,
+//             views: 33
+//         },
+//         categories: {
+//             name: "Men"
+//         }
+//     },
+//     {
+//         id: '2131',
+//         name: "Artist Design",
+//         image: `${import.meta.env.BASE_URL}assets/images/software dev.png`,
+//         meta: {
+//             likes: 32,
+//             views: 12
+//         },
+//         categories: {
+//             name: "Children"
+//         }
+//     }
+// ];
 
+interface ExploreResponse{
+    id: string;
+    name: string;
+    image: string;
+    designer: string;
+    meta: {likes: number,
+        views: number
+    },
+    categories: {name: string}
+}
 const Explore: React.FC = () => {
     const filters = [
         { id: "all", name: "All" },
@@ -94,7 +105,8 @@ const Explore: React.FC = () => {
     const [selectedFilters, setSelectedFilters] = useState<(string)[]>(["all"]);
     const [lastScroll, setLastScroll] = useState(0);
 
-
+    const {isLoading, data } = useApiQuery<ExploreResponse[]>(['explore'], `/designs/explore?limit=4&offset=0`);
+    console.log(isLoading ? "":data);
 
     // Lightbox state
     const [open, setOpen] = useState(false);
@@ -117,7 +129,7 @@ const Explore: React.FC = () => {
         });
     };
 
-    const filteredItems = data.filter((item) => {
+    const filteredItems = data?.filter((item) => {
         if (selectedFilters.length === 0) {
             return true;
         }
@@ -184,7 +196,7 @@ const Explore: React.FC = () => {
 
             {/* Image grid */}
             <div className="row">
-                {filteredItems.map((item, i) => (
+                {filteredItems?.map((item, i) => (
                     <div className="explore-container col-md-4 col-xl-4 col-xs-6 col-lg-4 col-sm-6">
                         <div
                             className="img-container"

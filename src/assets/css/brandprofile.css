@@ -242,3 +242,11 @@ p {
     color: #12a066;
     font-weight: 600;
 }
+
+.top-desc h3{
+    color: white;
+}
+.top-desc p{
+    font-size: normal;
+    max-width: 55vw;
+}

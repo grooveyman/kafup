@@ -142,14 +142,13 @@ const Shop: React.FC = () => {
           !filteredData || filteredData.length === 0 ? (
             ""
           ) : (
-            <div className="row">
+            <div className="row mt-5">
               <div className="d-flex justify-content-center">
                 <PrimaryButton text="Load More" onClick={handleLoadMore} />
               </div>
             </div>
           )
         }
-
       </div>
 
     </>

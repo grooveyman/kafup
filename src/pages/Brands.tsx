@@ -6,13 +6,14 @@ import SearchField from "../components/SearchField";
 import { TopThreeCard } from "../components/brandscomponents/TopThreeCard";
 import { DataTable } from "../components/DataTable";
 import { Pagination } from "@mui/material";
+import { Award } from "lucide-react";
 
 
 const data = [
   {
     id: '3232',
     name: "Artist Design",
-    image: "/assets/images/software%20dev.png",
+    image: `${import.meta.env.BASE_URL}assets/images/software dev.png`,
     rank: 6,
     pts: 2330,
     badges: [
@@ -33,7 +34,7 @@ const data = [
   {
     id: '764',
     name: "Artist Design",
-    image: "/assets/images/software%20dev.png",
+    image: `${import.meta.env.BASE_URL}assets/images/software dev.png`,
     rank: 5,
     pts: 2330,
     badges: [
@@ -54,7 +55,7 @@ const data = [
   {
     id: '765',
     name: "Artist Design",
-    image: "/assets/images/software%20dev.png",
+    image: `${import.meta.env.BASE_URL}assets/images/software dev.png`,
     rank: 4,
     pts: 2330,
     badges: [
@@ -75,7 +76,7 @@ const data = [
   {
     id: '765',
     name: "Artist Design",
-    image: "/assets/images/software%20dev.png",
+    image: `${import.meta.env.BASE_URL}assets/images/software dev.png`,
     rank: 2,
     pts: 2330,
     badges: [
@@ -96,7 +97,7 @@ const data = [
   {
     id: '3256',
     name: "Artist Design",
-    image: "/assets/images/software%20dev.png",
+    image: `${import.meta.env.BASE_URL}assets/images/software dev.png`,
     rank: 1,
     pts: 2330,
     badges: [
@@ -117,7 +118,7 @@ const data = [
   {
     id: '2131',
     name: "Artist Design",
-    image: "/assets/images/software%20dev.png",
+    image: `${import.meta.env.BASE_URL}assets/images/software dev.png`,
     rank: 3,
     pts: 2330,
     badges: [
@@ -140,22 +141,15 @@ const data = [
 
 const Brands: React.FC = () => {
 
-  // const filters = [
-  //   { id: "all", name: "All" },
-  //   { id: "popular", name: "Popular" },
-  //   { id: "new", name: "New" },
-  //   { id: "toprated", name: "Top Rated" }
-  // ];
-
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
 
 
-  const itemsPerPage = 2;
+  const itemsPerPage = 5;
   const totalPages = Math.ceil(data.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const paginatedItems = data.slice(startIndex, startIndex + itemsPerPage);
-
+  const rankedData = data.filter((item) => item.rank !== undefined && item.rank >=1).sort((a, b) => a.rank! - b.rank!);
+  const paginatedItems = rankedData.slice(startIndex, startIndex + itemsPerPage)
 
   const handleSearch = (value: string) => {
     setSearchTerm(value);
@@ -176,12 +170,7 @@ const Brands: React.FC = () => {
     return () => {
       window.removeEventListener("resize", handleResize);
     }
-  })
-  //get top three ranked
-  const order = isMobile? [1,2,3] : [2, 1, 3];
-  const topthree = data
-    .filter((item) => item.rank !== undefined && item.rank >= 1 && item.rank <= 3)
-    .sort((a, b) => order.indexOf(a.rank!) - order.indexOf(b.rank!));
+  });
 
   return (
     <>
@@ -191,22 +180,27 @@ const Brands: React.FC = () => {
       </div>
       <div className="container-fluid brands-top">
         <div className="container">
-          <div className="row d-flex justify-content-center">
+          <div className="row d-flex justify-content-end">
           
             <div className="col-md-4 d-flex mb-5">
               <SearchField value={searchTerm} onChange={handleSearch} />
             </div>
+
+            <div className="top-desc">
+              <h3 className="">Top Designers</h3>
+              <p>Designers are ranked based on their hardwork, dedication and resilience on Kafup. They gather points on many different criteria to boost their rank. \n Ranking is done weekly on accumulated points garnered by the designers. <a href="">See more</a> for our ranking criteria</p>
+            </div>
           </div>
 
           {/* 1st 3 designers */}
-          <div className="row mt-3">
+          {/* <div className="row mt-3">
 
             {topthree.map((item) => (
               <div className="col-md-4">
                 <TopThreeCard name={item.name} meta={item.meta} badges={item.badges} pts={item.pts} rank={item.rank} image={item.image} />
               </div>
             ))}
-          </div>
+          </div> */}
         </div>
       </div>
 
@@ -219,6 +213,9 @@ const Brands: React.FC = () => {
                 <td>{item.rank}</td>
                 <td>
                   <div className="d-flex justify-content-start gap-2 brandslist">
+                    <div className="d-flex align-items-center">
+                      {item.rank === 1? (<Award fill="gold" stroke="white" size={30} />):(item.rank === 2 ? (<Award fill="silver" stroke="white" size={30} />):(item.rank === 3 ? (<Award fill="#CD7F32" stroke="white" size={30} />):("")))}
+                    </div>
                     <img src={item.image} className="" />
                     <p className="d-flex align-items-center"> {item.name}</p>
                   </div>

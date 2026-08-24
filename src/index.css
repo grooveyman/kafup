@@ -40,8 +40,9 @@ body, * {
   
 }
 
+
 .small-text{
-  color: var(--primary-complement) !important;
+  color: var(--primary-color) !important;
 }
 .btn-sm{
   font-size: smaller !important;
