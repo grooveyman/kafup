@@ -11,6 +11,8 @@ import { useBuyNowContext } from "../context/BuyNowContext";
 import { toast } from "react-toastify";
 import Reviews from "../components/Reviews";
 import { StarsComponent } from "../components/StarsComponent";
+import SecondaryButton from "../components/SecondaryButton";
+import PrimaryButton from "../components/PrimaryButton";
 
 export interface Variation {
   size: string;
@@ -19,6 +21,11 @@ export interface Variation {
   quantity: number;
 }
 
+export interface Designer{
+    id: string;
+    brand_name: string;
+    meta: {likes:number; collections:number; follows:number; designs:number;}
+}
 interface Product {
   id: string;
   name: string;
@@ -29,7 +36,7 @@ interface Product {
   colors: string[];
   quantity: number;
   designvariations: Variation[];
-  designer: DesignerType;
+  designer: Designer;
 }
 
 interface Image {
@@ -48,7 +55,7 @@ const ProductDetails: React.FC = () => {
 
   // fetch product
   const { data, isLoading, isError } = useApiQuery<Product>(
-    ["products_" + prodId],
+    ["products_" + prodId, 'reviews'],
     `/designs/detail/${productId}`
   );
 
@@ -306,28 +313,22 @@ const ProductDetails: React.FC = () => {
 
             {/* QUANTITY */}
             <div className="row">
-              <p className="mb-1">Quantity</p>
-              <div className="col-md-4">
-                <input type="number" value={selectedQuantity} onChange={(e) => setSelectedQuantity(Number(e.target.value))} className="form-control" />
+              <div>
+                <p className="mb-1">Quantity</p>
+                <div className="col-md-4">
+                  <input type="number" value={selectedQuantity} onChange={(e) => setSelectedQuantity(Number(e.target.value))} className="form-control" />
+                </div>
               </div>
             </div>
 
             {/* ACTION BUTTONS */}
-            <div className="mt-3 d-flex gap-2 details-actions">
-
-              <button
-                className="btn btn-outline-success addcart-btn"
-                onClick={handleAddToCart}
-              >
-                Add to Cart
-              </button>
-
-
-              <button className="btn btn-success addcart-btn" onClick={handleBuyNow}>
-                Buy Now
-              </button>
-
+            <div className="row">
+              <div className="mt-3 d-flex gap-2 details-actions">
+                <PrimaryButton text="Add to Cart" onClick={handleAddToCart} />
+                <SecondaryButton text="Buy Now" onClick={handleBuyNow} />
+              </div>
             </div>
+
           </div>
         </div>
       </div>
@@ -336,7 +337,7 @@ const ProductDetails: React.FC = () => {
 
       {/* Reviews */}
       <div className="section">
-        <Reviews />
+        <Reviews designer={data.designer} design_id={data.id} />
       </div>
 
 

@@ -256,13 +256,7 @@
     justify-content: center;
     text-align: center;
 }
-.btn-primary{
-    background-color: black !important;
-    color: #fff !important;
-    border-radius: 30px !important;
-    border: none !important;
-    padding: 5px 25px !important;
-}
+
 .btn-breadcrumb{
     /* background-color: var(--lightgrey) !important; */
     color: #000000 !important;

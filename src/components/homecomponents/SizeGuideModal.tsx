@@ -19,15 +19,6 @@ const clothingSizes: ClothingSize[] = [
     { size: "XL", uk: "20–22", us: "18–20", eu: "48–50" },
 ];
 
-// const shoeSizes: ShoeSize[] = [
-//     { uk: "3", us: "5", eu: "36", footLength: "22.5 cm" },
-//     { uk: "4", us: "6", eu: "37", footLength: "23.5 cm" },
-//     { uk: "5", us: "7", eu: "38", footLength: "24.5 cm" },
-//     { uk: "6", us: "8", eu: "39", footLength: "25.5 cm" },
-//     { uk: "7", us: "9", eu: "40", footLength: "26.0 cm" },
-//     { uk: "8", us: "10", eu: "41", footLength: "27.0 cm" },
-// ];
-
 export const SizeGuideModal: React.FC = () => {
     const [category, setCategory] = useState<Category>("clothing");
     const [sizeSystem, setSizeSystem] = useState<SizeSystem>("UK");

@@ -40,13 +40,26 @@ body, * {
   
 }
 
+.btn-complement{
+  background-color: var(--primary-complement) !important;
+  color: white !important;
+  border-radius: 40px !important;
+}
+
+.btn-primary{
+    background-color: black !important;
+    color: #fff !important;
+    border-radius: 30px !important;
+    border: none !important;
+    padding: 5px 15px !important;
+}
 
 .small-text{
   color: var(--primary-color) !important;
 }
 .btn-sm{
   font-size: smaller !important;
-  padding: 2px 1px !important;
+  /* padding: 2px 1px !important; */
 }
 .hover-effect{
   transition: ease 0.5s;

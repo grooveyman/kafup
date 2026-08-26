@@ -7,8 +7,22 @@ import { TopThreeCard } from "../components/brandscomponents/TopThreeCard";
 import { DataTable } from "../components/DataTable";
 import { Pagination } from "@mui/material";
 import { Award } from "lucide-react";
+import { useApiQuery } from "../hooks/useApi";
 
+interface BrandsResponseData {
+  id: string;
+  name: string;
+  image: string;
+  meta: { likes: number; follows: number; collections: number; designs: number };
+  points: number;
+  rank: number;
+  badges: { name: string; }[]
+}
 
+interface BrandsResponse {
+  total: number;
+  results: BrandsResponseData[];
+}
 const data = [
   {
     id: '3232',
@@ -143,13 +157,29 @@ const Brands: React.FC = () => {
 
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-
-
   const itemsPerPage = 5;
-  const totalPages = Math.ceil(data.length / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const rankedData = data.filter((item) => item.rank !== undefined && item.rank >=1).sort((a, b) => a.rank! - b.rank!);
-  const paginatedItems = rankedData.slice(startIndex, startIndex + itemsPerPage)
+
+  const offset = (currentPage - 1) * itemsPerPage;
+  //get brands
+  const { isLoading, data: newdata } = useApiQuery<BrandsResponse>(['brands'], `/brands?limit=${itemsPerPage}&offset=${offset}`);
+  console.log(!isLoading ? newdata : "");
+  const rankedData =
+    newdata?.results
+      ?.filter(
+        (item) =>
+          item.points !== undefined &&
+          item.points >= 1
+      )
+      ?.sort(
+        (a, b) =>
+          (a.rank ?? 0) - (b.rank ?? 0)
+      ) ?? [];
+
+  const totalPages = Math.ceil(
+    (newdata?.total ?? 0) / itemsPerPage
+  );
+
+
 
   const handleSearch = (value: string) => {
     setSearchTerm(value);
@@ -181,7 +211,7 @@ const Brands: React.FC = () => {
       <div className="container-fluid brands-top">
         <div className="container">
           <div className="row d-flex justify-content-end">
-          
+
             <div className="col-md-4 d-flex mb-5">
               <SearchField value={searchTerm} onChange={handleSearch} />
             </div>
@@ -207,31 +237,30 @@ const Brands: React.FC = () => {
       {/* Remaining designers */}
       <div className="container">
         <div className="section">
-          <DataTable headings={["Rank", "Designer", "Sold", "Designs", "Badge", "Collections", "Points", "Actions"]} data={paginatedItems} renderRow={(item) => {
+          <DataTable headings={["Rank", "Designer", "Sold", "Designs", "Badge", "Collections", "Points", "Actions"]} data={rankedData} renderRow={(item) => {
             return (
               <tr>
                 <td>{item.rank}</td>
                 <td>
                   <div className="d-flex justify-content-start gap-2 brandslist">
                     <div className="d-flex align-items-center">
-                      {item.rank === 1? (<Award fill="gold" stroke="white" size={30} />):(item.rank === 2 ? (<Award fill="silver" stroke="white" size={30} />):(item.rank === 3 ? (<Award fill="#CD7F32" stroke="white" size={30} />):("")))}
+                      {item.rank === 1 ? (<Award fill="gold" stroke="white" size={30} />) : (item.rank === 2 ? (<Award fill="silver" stroke="white" size={30} />) : (item.rank === 3 ? (<Award fill="#CD7F32" stroke="white" size={30} />) : ("")))}
                     </div>
-                    <img src={item.image} className="" />
+                    <img src={`${item.image ?? import.meta.env.BASE_URL + 'assets/images/software dev.png'}`} className="" />
                     <p className="d-flex align-items-center"> {item.name}</p>
                   </div>
                 </td>
-                <td>{item.meta.sold}</td>
+                <td>{item.meta.likes}</td>
                 <td>{item.meta.designs}</td>
                 <td>
                   <div className="badge-container">
-                    {item.badges.map((item) => (
-                      <span className="brands-badge">{item}</span>
-                    ))}
+                    {item.badges.map((badge) => (<span className="brands-badge">{badge.name}</span>))}
                   </div>
-
                 </td>
-                <td>{item.meta.collections}</td>
-                <td>{item.pts}</td>
+                <td>
+                  {item.meta.collections}
+                </td>
+                <td>{item.points}</td>
                 <td>
                   <button className="btn btn-primary-sm">View Profile</button>
                 </td>

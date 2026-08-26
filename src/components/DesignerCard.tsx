@@ -1,7 +1,10 @@
+import { Designer } from "../pages/Details";
 
+interface DesignerCardProp{
+    designer: Designer;
+}
 
-
-export const DesignerCard: React.FC = () => {
+export const DesignerCard: React.FC<DesignerCardProp> = ({designer}) => {
     return (
         <>
             <div className="small-title">
@@ -20,12 +23,12 @@ export const DesignerCard: React.FC = () => {
 
 
                 <div className="designer-card-meta">
-                    <h6>Selorm Closet</h6>
+                    <h6>{designer.brand_name}</h6>
                     <div className="d-flex justify-content-start flex-wrap flex-row flex-grow gap-1">
-                        <span>41 likes</span>
-                        <span>9 follows</span>
-                        <span>23 designs</span>
-                        <span>18 collections</span>
+                        <span>{designer.meta.likes} likes</span>
+                        <span>{designer.meta.follows} follows</span>
+                        <span>{designer.meta.designs} designs</span>
+                        <span>{designer.meta.collections} collections</span>
                     </div>
                 </div>
             </div>
