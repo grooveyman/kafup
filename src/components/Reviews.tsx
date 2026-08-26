@@ -6,24 +6,26 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { useApiMutation, useApiQuery } from "../hooks/useApi";
 import { Designer } from "../pages/Details";
+import { useQueryClient } from "react-query";
+import { relativeTime } from "../hooks/relativeTime";
 
 
-interface ReviewProps{
+interface ReviewProps {
     designer: Designer;
     design_id: string;
 }
-interface Response{
+interface Response {
     total: number;
     results: ResponseType[];
 }
-interface ResponseType{
+interface ResponseType {
     reviewer_name: string;
-    review_time: string;
-    review_rate: number;
+    createdAt: string;
+    rate: number;
     title: string;
     comment: string;
 }
-const Reviews: React.FC<ReviewProps> = ({designer, design_id}) => {
+const Reviews: React.FC<ReviewProps> = ({ designer, design_id }) => {
     const [showModal, setShowModal] = useState(false);
     const [reviewData, setReviewData] = useState({
         title: "",
@@ -35,12 +37,15 @@ const Reviews: React.FC<ReviewProps> = ({designer, design_id}) => {
     console.log("designers")
     console.log(designer);
 
+    const queryClient = useQueryClient();
     const mutate = useApiMutation<{ message: string }>(`/reviews/`, "POST", {
         onSuccess: (data) => {
             console.log(data);
             setPostLoading(false);
             setShowModal(false);
-            toast.success(`Review successfully submitted. Thank You`)
+            toast.success(`Review successfully submitted. Thank You`);
+            queryClient.invalidateQueries({ queryKey: ["reviews"] });
+
         },
         onError: (error) => {
             console.log(error.message);
@@ -49,8 +54,8 @@ const Reviews: React.FC<ReviewProps> = ({designer, design_id}) => {
     });
 
     //find reviews
-    const {data:newdata, isLoading} = useApiQuery<Response>(['reviews', design_id], `/reviews/${design_id}/?limit=3&offset=0`);
-    console.log(!isLoading?newdata:"");
+    const { data: newdata, isLoading } = useApiQuery<Response>(['reviews', design_id], `/reviews/${design_id}/?limit=3&offset=0`);
+    console.log(!isLoading ? newdata : "");
 
     const handleSubmitReview = () => {
         try {
@@ -61,14 +66,14 @@ const Reviews: React.FC<ReviewProps> = ({designer, design_id}) => {
                 toast.error(`Comment cannot be empty`);
             } else {
                 setPostLoading(true);
-                mutate.mutate({title: reviewData.title, comment:reviewData.comment, rating:reviewData.rating, designer_id:designer.id, design_id:design_id});
+                mutate.mutate({ title: reviewData.title, comment: reviewData.comment, rating: reviewData.rating, designer_id: designer.id, design_id: design_id });
                 // setShowModal(false);
 
-                setReviewData({
-                    title: "",
-                    comment: "",
-                    rating: 0
-                });
+                // setReviewData({
+                //     title: "",
+                //     comment: "",
+                //     rating: 0
+                // });
             }
 
         } catch (error) {
@@ -90,7 +95,6 @@ const Reviews: React.FC<ReviewProps> = ({designer, design_id}) => {
 
                     <div className="rate-overview mt-4">
                         <h4>Rating Overview</h4>
-
                         <div>
                             <div className="review-breakdown">
 
@@ -134,7 +138,7 @@ const Reviews: React.FC<ReviewProps> = ({designer, design_id}) => {
                     </div>
 
                     <div className="rate-designer row mt-4">
-                        
+
                         <DesignerCard designer={designer} />
                     </div>
                 </div>
@@ -150,10 +154,11 @@ const Reviews: React.FC<ReviewProps> = ({designer, design_id}) => {
                                     <div className="comment-head">
                                         <div className="d-flex justify-content-start gap-2 reviewer">
                                             <h6>Name of customer</h6>
-                                            <p> | 5 days ago</p>
+                                            <p> | {relativeTime(item.createdAt)}</p>
                                         </div>
                                         <div className="stars d-flex justify-content-start">
-                                            <StarsComponent size={15} rate={4.5} />
+                                           
+                                            <StarsComponent size={15} rate={Number(item.rate)} />
                                         </div>
                                     </div>
 
