@@ -8,6 +8,7 @@ import { useApiMutation, useApiQuery } from "../hooks/useApi";
 import { Designer } from "../pages/Details";
 import { useQueryClient } from "react-query";
 import { relativeTime } from "../hooks/relativeTime";
+import Loading from "./Loading";
 
 
 interface ReviewProps {
@@ -27,8 +28,13 @@ interface ResponseType {
 }
 
 interface OverviewResponse {
-    rate: string;
-
+    rate: number;
+    five: number;
+    total: number;
+    four: number;
+    three: number;
+    two: number;
+    one: number;
 }
 const Reviews: React.FC<ReviewProps> = ({ designer, design_id }) => {
     const [showModal, setShowModal] = useState(false);
@@ -60,10 +66,12 @@ const Reviews: React.FC<ReviewProps> = ({ designer, design_id }) => {
 
     //find reviews
     const { data: newdata, isLoading } = useApiQuery<Response>(['reviews', design_id], `/reviews/${design_id}/?limit=4&offset=0`);
+
     console.log(!isLoading ? newdata : "");
 
     //find rating overview
     const { data: overviewData, isLoading: loadOverview } = useApiQuery<OverviewResponse>(['rateoverview', design_id], `/reviews/overview/${design_id}`);
+    const rate = Number(overviewData?.rate ?? 0);
     console.log(!loadOverview ? overviewData : "");
 
     const handleSubmitReview = () => {
@@ -89,6 +97,12 @@ const Reviews: React.FC<ReviewProps> = ({ designer, design_id }) => {
             console.log("Failed to submit review: ", error);
         }
     };
+
+    const ratePercent = (rateval: number, total: number) => {
+        if (!rateval) return '0%';
+        const res = (rateval / total) * 100;
+        return res.toFixed(0);
+    };
     return (
         <>
             <div className="row reviews">
@@ -97,7 +111,8 @@ const Reviews: React.FC<ReviewProps> = ({ designer, design_id }) => {
                     <div className="">
                         <div className="d-flex justify-content-start gap-2">
                             <h2 className="mb-0">{Number(overviewData?.rate)}</h2>
-                            <StarsComponent size={20} rate={Number(overviewData?.rate??0)} />
+
+                            <StarsComponent size={20} rate={rate} />
                         </div>
                         <p>Based on 90 reviews</p>
                     </div>
@@ -105,44 +120,54 @@ const Reviews: React.FC<ReviewProps> = ({ designer, design_id }) => {
                     <div className="rate-overview mt-4">
                         <h4>Rating Overview</h4>
                         <div>
-                            <div className="review-breakdown">
+                            {loadOverview ? (
+                                <Loading />
+                            ) : (
 
-                                <div className="review-row">
-                                    <span className="review-number">5</span>
-                                    <div className="progress">
-                                        <div className="progress-bar" style={{ width: "80%" }}></div>
+                                overviewData ? (
+                                    <div className="review-breakdown">
+
+                                    <div className="review-row">
+                                        <span className="review-number">5</span>
+                                        <div className="progress">
+                                    
+                                            <div className="progress-bar" style={{ width: `${ratePercent(overviewData.five, overviewData?.total)}%` }}></div>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div className="review-row">
-                                    <span className="review-number">4</span>
-                                    <div className="progress">
-                                        <div className="progress-bar" style={{ width: "60%" }}></div>
+                                    <div className="review-row">
+                                        <span className="review-number">4</span>
+                                        <div className="progress">
+                                            <div className="progress-bar" style={{ width: `${ratePercent(overviewData.four, overviewData?.total)}%` }}></div>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div className="review-row">
-                                    <span className="review-number">3</span>
-                                    <div className="progress">
-                                        <div className="progress-bar" style={{ width: "35%" }}></div>
+                                    <div className="review-row">
+                                        <span className="review-number">3</span>
+                                        <div className="progress">
+                                            <div className="progress-bar" style={{ width: `${ratePercent(overviewData.three, overviewData?.total)}%` }}></div>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div className="review-row">
-                                    <span className="review-number">2</span>
-                                    <div className="progress">
-                                        <div className="progress-bar" style={{ width: "15%" }}></div>
+                                    <div className="review-row">
+                                        <span className="review-number">2</span>
+                                        <div className="progress">
+                                            <div className="progress-bar" style={{ width: `${ratePercent(overviewData.two, overviewData?.total)}%` }}></div>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div className="review-row">
-                                    <span className="review-number">1</span>
-                                    <div className="progress">
-                                        <div className="progress-bar" style={{ width: "5%" }}></div>
+                                    <div className="review-row">
+                                        <span className="review-number">1</span>
+                                        <div className="progress">
+                                            <div className="progress-bar" style={{ width: `${ratePercent(overviewData.one, overviewData?.total)}%` }}></div>
+                                        </div>
                                     </div>
-                                </div>
 
-                            </div>
+                                </div>
+                                ):(
+                                    <EmptyPage />
+                                )
+                            )}
                         </div>
                     </div>
 
@@ -156,7 +181,8 @@ const Reviews: React.FC<ReviewProps> = ({ designer, design_id }) => {
                         <button className="btn btn-complement" onClick={() => setShowModal(true)}> Add Review</button>
                     </div>
                     <div>
-                        {(newdata && newdata.total === 0) && <EmptyPage />}
+                        {isLoading && <Loading/>}
+                        {(!newdata) || (!isLoading && newdata && newdata.results.length === 0) && <EmptyPage />}
                         {newdata?.results.map((item) => {
                             return (
                                 <>
