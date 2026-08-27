@@ -21,9 +21,14 @@ interface Response {
 interface ResponseType {
     reviewer_name: string;
     createdAt: string;
-    rate: number;
+    rate_value: number;
     title: string;
     comment: string;
+}
+
+interface OverviewResponse {
+    rate: string;
+
 }
 const Reviews: React.FC<ReviewProps> = ({ designer, design_id }) => {
     const [showModal, setShowModal] = useState(false);
@@ -34,8 +39,6 @@ const Reviews: React.FC<ReviewProps> = ({ designer, design_id }) => {
     });
     const [postLoading, setPostLoading] = useState(false);
 
-    console.log("designers")
-    console.log(designer);
 
     const queryClient = useQueryClient();
     const mutate = useApiMutation<{ message: string }>(`/reviews/`, "POST", {
@@ -44,7 +47,9 @@ const Reviews: React.FC<ReviewProps> = ({ designer, design_id }) => {
             setPostLoading(false);
             setShowModal(false);
             toast.success(`Review successfully submitted. Thank You`);
-            queryClient.invalidateQueries({ queryKey: ["reviews"] });
+            queryClient.invalidateQueries({ queryKey: ["reviews", design_id] });
+            queryClient.invalidateQueries({ queryKey: ["rateoverview", design_id] });
+
 
         },
         onError: (error) => {
@@ -54,8 +59,12 @@ const Reviews: React.FC<ReviewProps> = ({ designer, design_id }) => {
     });
 
     //find reviews
-    const { data: newdata, isLoading } = useApiQuery<Response>(['reviews', design_id], `/reviews/${design_id}/?limit=3&offset=0`);
+    const { data: newdata, isLoading } = useApiQuery<Response>(['reviews', design_id], `/reviews/${design_id}/?limit=4&offset=0`);
     console.log(!isLoading ? newdata : "");
+
+    //find rating overview
+    const { data: overviewData, isLoading: loadOverview } = useApiQuery<OverviewResponse>(['rateoverview', design_id], `/reviews/overview/${design_id}`);
+    console.log(!loadOverview ? overviewData : "");
 
     const handleSubmitReview = () => {
         try {
@@ -69,11 +78,11 @@ const Reviews: React.FC<ReviewProps> = ({ designer, design_id }) => {
                 mutate.mutate({ title: reviewData.title, comment: reviewData.comment, rating: reviewData.rating, designer_id: designer.id, design_id: design_id });
                 // setShowModal(false);
 
-                // setReviewData({
-                //     title: "",
-                //     comment: "",
-                //     rating: 0
-                // });
+                setReviewData({
+                    title: "",
+                    comment: "",
+                    rating: 0
+                });
             }
 
         } catch (error) {
@@ -87,8 +96,8 @@ const Reviews: React.FC<ReviewProps> = ({ designer, design_id }) => {
                 <div className="col-md-5">
                     <div className="">
                         <div className="d-flex justify-content-start gap-2">
-                            <h2 className="mb-0">4.8</h2>
-                            <StarsComponent size={20} rate={4.5} />
+                            <h2 className="mb-0">{Number(overviewData?.rate)}</h2>
+                            <StarsComponent size={20} rate={Number(overviewData?.rate??0)} />
                         </div>
                         <p>Based on 90 reviews</p>
                     </div>
@@ -157,8 +166,8 @@ const Reviews: React.FC<ReviewProps> = ({ designer, design_id }) => {
                                             <p> | {relativeTime(item.createdAt)}</p>
                                         </div>
                                         <div className="stars d-flex justify-content-start">
-                                           
-                                            <StarsComponent size={15} rate={Number(item.rate)} />
+
+                                            <StarsComponent size={15} rate={Number(item.rate_value)} />
                                         </div>
                                     </div>
 

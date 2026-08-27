@@ -5,7 +5,7 @@ interface StarsProps {
     size: number;
 }
 export const StarsComponent: React.FC<StarsProps> = ({ rate, size }) => {
-    console.log("rate: ", rate);
+   
     const fullStars = Math.floor(rate);
     const hasHalfStar = rate % 1 !== 0;
     const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
