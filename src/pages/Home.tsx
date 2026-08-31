@@ -60,11 +60,21 @@ interface ProdImage {
   public_id: string;
 }
 
+interface Response{
+  results: Product[];
+  total: number;
+}
+
+
 const Home: React.FC = () => {
-  const { data, isLoading, isError } = useApiQuery<Product[]>(
+  //recent designs
+  const { data, isLoading, isError } = useApiQuery<Response>(
     ["products"],
     "/designs/?limit=8"
   );
+
+  console.log("DATA FROM HOME recent designs")
+  console.log(!isLoading?data:"");
 
 
   const {
@@ -76,7 +86,7 @@ const Home: React.FC = () => {
   console.log(popularData);
   if (isErrorPopular) {
     console.log(`Error getting popular products`);
-    console.log(popularData);
+   
   }
   const [value, setValue] = useState("1");
 
@@ -119,10 +129,10 @@ const Home: React.FC = () => {
                 <div className="row">
                   {isLoading ? (
                     <SkeletonLoader count={3} />
-                  ) : !data || data.length === 0? (
+                  ) : !data || data.results.length === 0? (
                     <EmptyPage />
                   ):(
-                    <ListContainer list={data} />
+                    <ListContainer list={data?.results} />
                     
                   )}
                 </div>
@@ -191,7 +201,7 @@ const Home: React.FC = () => {
               </div>
               <Designers />
               <div className="d-flex justify-content-center mt-4">
-                <PrimaryButton text="View All" onClick={() => { }} />
+                <PrimaryButton text="View All" onClick={() => { navigate("/brands") }} />
               </div>
             </div>
 

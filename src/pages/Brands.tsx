@@ -274,6 +274,7 @@ const Brands: React.FC = () => {
             <Pagination count={totalPages} page={currentPage} onChange={(_, page) => setCurrentPage(page)} />
           </div>
         </div>
+      
 
       </div>
     </>

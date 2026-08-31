@@ -88,7 +88,7 @@ const NewNavBar: React.FC = () => {
                     className={({ isActive }) =>
                       `nav-link ${isActive ? "active" : ""}`
                     }
-                    to="/categories/shop"
+                    to="/shop"
                   >
                     Shop
                   </NavLink>

@@ -8,7 +8,7 @@ import Breadcrumb from "../components/Breadcrumb";
 import ListContainer from "../components/shopcomponents/ListContainer";
 import NavFilter from "../components/explorecomponents/NavFilter";
 import SearchField from "../components/SearchField";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PriceRangeFilter from "../components/shopcomponents/PriceRangeFilter";
 import PrimaryButton from "../components/PrimaryButton";
 import { toast } from "react-toastify";
@@ -18,6 +18,10 @@ export interface Category {
   name: string;
 }
 
+interface Response {
+  results: Product[];
+  total: number;
+}
 const filters = [
   { id: "all", name: "All" },
   { id: "popular", name: "Popular" },
@@ -29,19 +33,15 @@ const Shop: React.FC = () => {
 
   const [selectedFilters, setSelectedFilters] = useState<(string)[]>(["all"]);
   const [searchKey, setSearchKey] = useState("");
+  const [offset, setOffset] = useState(0);
+  const limit = 2;
 
-  const { catalias } = useParams<{ catalias: string }>();
-  console.log("Category alias:", catalias);
-  // fetch product
+  const [products, setProducts] = useState<Product[]>([]);
 
   const params = new URLSearchParams();
 
-  params.set("limit", "20");
-  params.set("offset", "0");
-
-  if (catalias) {
-    params.set("category", catalias);
-  }
+  params.set("limit", limit.toString());
+  params.set("offset", offset.toString());
 
   if (!selectedFilters.includes("all")) {
     selectedFilters.forEach((filter) => {
@@ -50,17 +50,19 @@ const Shop: React.FC = () => {
   }
   const endpoint = `/designs?${params.toString()}`;
 
-
-  const { data, isLoading } = useApiQuery<Product[]>(
-    ["productscat", catalias!.toString(), selectedFilters.toString()],
+  const { data, isLoading } = useApiQuery<Response>(
+    ["productscat", selectedFilters.toString(), offset.toString()],
     endpoint
   );
+
+
+  console.log(!isLoading ? data : "");
 
   // console.log("selected filters", selectedFilters.toString());
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 1000]);
 
 
-  const filteredData = data?.filter((item) => {
+  const filteredData = products.filter((item) => {
     const matchSearch = item.name.toLowerCase().includes(searchKey.toLowerCase());
     const matchPrice = item.price >= priceRange[0] && item.price <= priceRange[1];
     return matchSearch && matchPrice;
@@ -76,6 +78,7 @@ const Shop: React.FC = () => {
   };
 
   const handleFilterChange = (id: string) => {
+    setOffset(0);
     setSelectedFilters((prev) => {
 
       if (id === "all") {
@@ -96,10 +99,20 @@ const Shop: React.FC = () => {
     });
   }
 
-  const handleLoadMore = () => {
-    toast.success("More will loaded");
-  };
+  useEffect(() => {
+    if (!data?.results) return;
+    setProducts((prev) => {
+      if (offset === 0) {
+        return data.results;
+      }
+      return [...prev, ...data.results];
+    });
+  }, [data, offset]);
 
+
+  const handleLoadMore = () => {
+    setOffset((prev) => prev + limit);
+  };
 
 
   return (
@@ -122,33 +135,24 @@ const Shop: React.FC = () => {
           <hr />
         </div>
         <div className="row">
-          {isLoading ? (
-            <SkeletonLoader count={3} />
-          ) : (
-            !filteredData || filteredData.length === 0 ? (
-              <>
-                <div className="">
-                  <EmptyPage />
-                </div>
-              </>
+          {<div className="row">
+            
+            {filteredData.length === 0 && !isLoading ? (
+              <EmptyPage />
             ) : (
               <ListContainer list={filteredData} />
-            )
-
-          )}
+            )}
+          </div>}
         </div>
 
-        {
-          !filteredData || filteredData.length === 0 ? (
-            ""
-          ) : (
-            <div className="row mt-5">
-              <div className="d-flex justify-content-center">
-                <PrimaryButton text="Load More" onClick={handleLoadMore} />
-              </div>
+        {data && products.length < data.total && !isLoading && (
+          <div className="row mt-5">
+            <div className="d-flex justify-content-center">
+              <PrimaryButton text="Load More" onClick={handleLoadMore} />
             </div>
-          )
-        }
+          </div>
+        )}
+
       </div>
 
     </>

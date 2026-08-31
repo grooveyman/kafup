@@ -4,7 +4,7 @@ import Home from "../pages/Home";
 import Dashboard from "../pages/admin/Dashboard";
 import Details from "../pages/Details";
 import Cart from "../pages/Cart";
-import Categories from "../pages/Shop";
+import Shop from "../pages/Shop";
 import Checkout from "../pages/Checkout";
 import Success from "../pages/Success";
 import Explore from "../pages/Explore";
@@ -24,7 +24,7 @@ export const router = createBrowserRouter([
       {path: "/dashboard", element: <Dashboard/>},
       {path: "/details/:id", element:<BuyNowProvider><Details/></BuyNowProvider>},
       {path: "/cart", element: <Cart/>},
-      {path: "/categories/:catalias", element: <Categories/>},
+      {path: "/shop", element: <Shop/>},
       {path: "/checkout", element: <BuyNowProvider><Checkout/></BuyNowProvider>},
       {path: "/success/:ref", element: <Success/>},
       {path: "/explore", element: <Explore/>},

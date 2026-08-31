@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "../assets/css/details.css";
 import { CartItemType, CartVariation, DesignerType, useCartContext } from "../context/CartContext";
@@ -50,6 +50,13 @@ const ProductDetails: React.FC = () => {
   const [selectedQuantity, setSelectedQuantity] = useState(0);
   const [selectedSize, setSelectedSize] = useState<string>("");
   const calledRef = useRef(false);
+  const [rateOverview, setRateOverview] = useState({totalReviews: 0, rating:0});
+
+  const getRateOverview = useCallback((value: {totalReviews: number; rating: number}) => {
+    setRateOverview(value);
+  },[])
+
+  console.log("Rate overview update: ", rateOverview);
 
   const { addToCart } = useCartContext();
 
@@ -238,8 +245,8 @@ const ProductDetails: React.FC = () => {
               <p style={{ fontSize: 'small', margin: 0 }}>{product.description}</p>
             </div>
             <div className="d-flex justify-content-start">
-              <StarsComponent rate={4.0} size={15} />
-              <span className="ms-2">4.0 (120 reviews)</span>
+              <StarsComponent rate={rateOverview.rating} size={15} />
+              <span className="ms-2">{rateOverview.rating} ({rateOverview.totalReviews} reviews)</span>
             </div>
 
             <div>
@@ -337,7 +344,7 @@ const ProductDetails: React.FC = () => {
 
       {/* Reviews */}
       <div className="section">
-        <Reviews designer={data.designer} design_id={data.id} />
+        <Reviews designer={data.designer} design_id={data.id} onSendRateOverview={getRateOverview} />
       </div>
 
 

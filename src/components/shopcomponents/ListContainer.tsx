@@ -11,6 +11,8 @@ interface ListProps {
 
 const ListContainer: React.FC<ListProps> = ({ list }) => {
     const navigate = useNavigate();
+    console.log("list container data");
+    console.log(list)
 
     return (
         <>

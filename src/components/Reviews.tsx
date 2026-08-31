@@ -2,7 +2,7 @@ import EmptyPage from "./EmptyPage";
 import { StarsComponent } from "./StarsComponent";
 import { DesignerCard } from "./DesignerCard";
 import { ReviewModal } from "./ReviewModal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useApiMutation, useApiQuery } from "../hooks/useApi";
 import { Designer } from "../pages/Details";
@@ -14,6 +14,7 @@ import Loading from "./Loading";
 interface ReviewProps {
     designer: Designer;
     design_id: string;
+    onSendRateOverview: (value: { totalReviews: number; rating: number }) => void;
 }
 interface Response {
     total: number;
@@ -35,8 +36,10 @@ interface OverviewResponse {
     three: number;
     two: number;
     one: number;
+    count: number;
 }
-const Reviews: React.FC<ReviewProps> = ({ designer, design_id }) => {
+
+const Reviews: React.FC<ReviewProps> = ({ designer, design_id, onSendRateOverview }) => {
     const [showModal, setShowModal] = useState(false);
     const [reviewData, setReviewData] = useState({
         title: "",
@@ -72,7 +75,12 @@ const Reviews: React.FC<ReviewProps> = ({ designer, design_id }) => {
     //find rating overview
     const { data: overviewData, isLoading: loadOverview } = useApiQuery<OverviewResponse>(['rateoverview', design_id], `/reviews/overview/${design_id}`);
     const rate = Number(overviewData?.rate ?? 0);
-    console.log(!loadOverview ? overviewData : "");
+
+    useEffect(() => {
+        if (!loadOverview && overviewData) {
+            onSendRateOverview({ totalReviews: overviewData.count, rating: Number(overviewData?.rate ?? 0) });
+        }
+    }, [loadOverview, overviewData, onSendRateOverview]);
 
     const handleSubmitReview = () => {
         try {
@@ -114,7 +122,7 @@ const Reviews: React.FC<ReviewProps> = ({ designer, design_id }) => {
 
                             <StarsComponent size={20} rate={rate} />
                         </div>
-                        <p>Based on 90 reviews</p>
+                        <p>Based on {overviewData?.count} reviews</p>
                     </div>
 
                     <div className="rate-overview mt-4">
@@ -127,44 +135,44 @@ const Reviews: React.FC<ReviewProps> = ({ designer, design_id }) => {
                                 overviewData ? (
                                     <div className="review-breakdown">
 
-                                    <div className="review-row">
-                                        <span className="review-number">5</span>
-                                        <div className="progress">
-                                    
-                                            <div className="progress-bar" style={{ width: `${ratePercent(overviewData.five, overviewData?.total)}%` }}></div>
-                                        </div>
-                                    </div>
+                                        <div className="review-row">
+                                            <span className="review-number">5</span>
+                                            <div className="progress">
 
-                                    <div className="review-row">
-                                        <span className="review-number">4</span>
-                                        <div className="progress">
-                                            <div className="progress-bar" style={{ width: `${ratePercent(overviewData.four, overviewData?.total)}%` }}></div>
+                                                <div className="progress-bar" style={{ width: `${ratePercent(overviewData.five, overviewData?.total)}%` }}></div>
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div className="review-row">
-                                        <span className="review-number">3</span>
-                                        <div className="progress">
-                                            <div className="progress-bar" style={{ width: `${ratePercent(overviewData.three, overviewData?.total)}%` }}></div>
+                                        <div className="review-row">
+                                            <span className="review-number">4</span>
+                                            <div className="progress">
+                                                <div className="progress-bar" style={{ width: `${ratePercent(overviewData.four, overviewData?.total)}%` }}></div>
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div className="review-row">
-                                        <span className="review-number">2</span>
-                                        <div className="progress">
-                                            <div className="progress-bar" style={{ width: `${ratePercent(overviewData.two, overviewData?.total)}%` }}></div>
+                                        <div className="review-row">
+                                            <span className="review-number">3</span>
+                                            <div className="progress">
+                                                <div className="progress-bar" style={{ width: `${ratePercent(overviewData.three, overviewData?.total)}%` }}></div>
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div className="review-row">
-                                        <span className="review-number">1</span>
-                                        <div className="progress">
-                                            <div className="progress-bar" style={{ width: `${ratePercent(overviewData.one, overviewData?.total)}%` }}></div>
+                                        <div className="review-row">
+                                            <span className="review-number">2</span>
+                                            <div className="progress">
+                                                <div className="progress-bar" style={{ width: `${ratePercent(overviewData.two, overviewData?.total)}%` }}></div>
+                                            </div>
                                         </div>
-                                    </div>
 
-                                </div>
-                                ):(
+                                        <div className="review-row">
+                                            <span className="review-number">1</span>
+                                            <div className="progress">
+                                                <div className="progress-bar" style={{ width: `${ratePercent(overviewData.one, overviewData?.total)}%` }}></div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                ) : (
                                     <EmptyPage />
                                 )
                             )}
@@ -181,7 +189,7 @@ const Reviews: React.FC<ReviewProps> = ({ designer, design_id }) => {
                         <button className="btn btn-complement" onClick={() => setShowModal(true)}> Add Review</button>
                     </div>
                     <div>
-                        {isLoading && <Loading/>}
+                        {isLoading && <Loading />}
                         {(!newdata) || (!isLoading && newdata && newdata.results.length === 0) && <EmptyPage />}
                         {newdata?.results.map((item) => {
                             return (
