@@ -23,7 +23,7 @@ const CollectionsCard: React.FC<CollectinsProps> = ({ name, description, designe
     // const 
     return (
         <>
-            <div className="w-100" key={collection_id} onClick={() => navigate(`/collections/${designer.name}/${collection_id}`)}>
+            <div className="w-100" key={collection_id} onClick={() => navigate(`/profile/${designer.name}?collection=${collection_id}`)}>
                 <div className="">
                     <div className="designers-card">
                         <div className="designers-img">
@@ -32,7 +32,6 @@ const CollectionsCard: React.FC<CollectinsProps> = ({ name, description, designe
                         <div className="designers-text">
                             <div>
                                 <p className="small-text">{designer.name}</p>
-                                {/* <span>{meta.likes} likes {brand.meta.follows} follows</span> */}
                             </div>
                             <h5>{name}</h5>
                             <p>

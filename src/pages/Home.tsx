@@ -49,7 +49,7 @@ export interface CollectionType {
   collection_id: string;
 }
 export interface DesignerType {
-  // code: number;
+  id: string;
   name: string;
   image: string;
 }

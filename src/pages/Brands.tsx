@@ -16,7 +16,8 @@ interface BrandsResponseData {
   meta: { likes: number; follows: number; collections: number; designs: number };
   points: number;
   rank: number;
-  badges: { name: string; }[]
+  badges: { name: string; }[];
+  
 }
 
 interface BrandsResponse {
@@ -262,7 +263,7 @@ const Brands: React.FC = () => {
                 </td>
                 <td>{item.points}</td>
                 <td>
-                  <button className="btn btn-primary-sm">View Profile</button>
+                  <button className="btn btn-primary-sm" onClick={() => {navigation.navigate(`profile/${item.name}/`)}}>View Profile</button>
                 </td>
               </tr>
             );

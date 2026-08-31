@@ -19,6 +19,7 @@ export interface Collection {
     items: number;
     description: string;
     designer: {
+        id: string;
         name: string;
         image: string;
     };
@@ -147,6 +148,7 @@ const Collections: React.FC = () => {
                             }}
                             collection_img={collection.thumbnail}
                             designer={{
+                                id: collection.designer.id,
                                 name: collection.designer.name,
                                 image: collection.designer.image
                             }}
