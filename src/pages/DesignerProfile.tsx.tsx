@@ -12,6 +12,7 @@ import BrandList from "../components/brandscomponents/BrandList";
 
 import { useApiQuery } from "../hooks/useApi";
 import { Product } from "./Home";
+import { ProductResponse } from "./Shop";
 
 const DesignerProfile: React.FC = () => {
     const { username, collection_id } = useParams();
@@ -23,7 +24,7 @@ const DesignerProfile: React.FC = () => {
 
     const endpoint = "/designs/";
 
-    const { data, isLoading } = useApiQuery<Product[]>(
+    const { data, isLoading } = useApiQuery<ProductResponse>(
         ["designs", username ?? "", collection_id ?? ""],
         endpoint
     );
@@ -34,7 +35,7 @@ const DesignerProfile: React.FC = () => {
         return [
             ...new Set(
                 data
-                    ?.map((item) => item.collections?.name)
+                    ?.results.map((item) => item.collections?.name)
                     .filter(
                         (collection): collection is string =>
                             Boolean(collection)
@@ -49,7 +50,7 @@ const DesignerProfile: React.FC = () => {
         return [
             ...new Set(
                 data
-                    ?.map((item) => item.categories?.name)
+                    ?.results.map((item) => item.categories?.name)
                     .filter(
                         (category): category is string =>
                             Boolean(category)
@@ -65,7 +66,7 @@ const DesignerProfile: React.FC = () => {
 
         const searchTerm = search.trim().toLowerCase();
 
-        return data.filter((item) => {
+        return data.results.filter((item) => {
             // Route collection filter
             // const matchesRouteCollection = collection_id
             //     ? item.collections?.name === collection_id

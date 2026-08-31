@@ -18,7 +18,7 @@ export interface Category {
   name: string;
 }
 
-interface Response {
+export interface ProductResponse {
   results: Product[];
   total: number;
 }
@@ -50,7 +50,7 @@ const Shop: React.FC = () => {
   }
   const endpoint = `/designs?${params.toString()}`;
 
-  const { data, isLoading } = useApiQuery<Response>(
+  const { data, isLoading } = useApiQuery<ProductResponse>(
     ["productscat", selectedFilters.toString(), offset.toString()],
     endpoint
   );
