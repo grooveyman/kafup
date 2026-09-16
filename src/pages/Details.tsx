@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "../assets/css/details.css";
-import { CartItemType, CartVariation, DesignerType, useCartContext } from "../context/CartContext";
+import { CartItemType, CartVariation, useCartContext } from "../context/CartContext";
 import { useApiMutation, useApiQuery } from "../hooks/useApi";
 import DetailsSkeletonLoader from "../components/DetailsSkeletonLoader";
 // import { Variation } from "./admin/products/AddProduct";

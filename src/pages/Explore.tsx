@@ -8,6 +8,7 @@ import Breadcrumb from "../components/Breadcrumb";
 import { EyeIcon, Heart } from "lucide-react";
 import SearchField from "../components/SearchField";
 import { useApiQuery } from "../hooks/useApi";
+import { useDebounce } from "../hooks/useDebounce";
 
 // const data = [
 //     {
@@ -129,6 +130,8 @@ const Explore: React.FC = () => {
         });
     };
 
+    const debouncedSearchTerm = useDebounce(searchTerm, 300);
+
     const filteredItems = data?.filter((item) => {
         if (selectedFilters.length === 0) {
             return true;
@@ -140,7 +143,7 @@ const Explore: React.FC = () => {
             }
         }
         return true;
-    }).filter((item) => item.name.toLowerCase().includes(searchTerm.toLowerCase()));
+    }).filter((item) => item.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase()));
 
     
 

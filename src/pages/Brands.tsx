@@ -8,6 +8,7 @@ import { DataTable } from "../components/DataTable";
 import { Pagination } from "@mui/material";
 import { Award } from "lucide-react";
 import { useApiQuery } from "../hooks/useApi";
+import { useDebounce } from "../hooks/useDebounce";
 import SkeletonLoader from "../components/SkeletonLoader";
 import EmptyPage from "../components/EmptyPage";
 
@@ -40,12 +41,15 @@ const Brands: React.FC = () => {
   const { isLoading, data: newdata } = useApiQuery<BrandsResponse>(['brands'], `/brands?limit=${itemsPerPage}&offset=${offset}`);
   console.log(!isLoading ? newdata : "");
   
+  const debouncedSearchTerm = useDebounce(searchTerm, 300);
+
   const rankedData =
     newdata?.results
       ?.filter(
         (item) =>
           item.points !== undefined &&
-          item.points >= 1
+          item.points >= 1 &&
+          item.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
       )
       ?.sort(
         (a, b) =>
