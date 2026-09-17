@@ -1,7 +1,6 @@
-import { useParams } from "react-router-dom";
 import { Product } from "./Home";
 import { useApiQuery } from "../hooks/useApi";
-import SkeletonLoader from "../components/SkeletonLoader";
+import { useDebounce } from "../hooks/useDebounce";
 import EmptyPage from "../components/EmptyPage";
 import "../assets/css/shop.css";
 import Breadcrumb from "../components/Breadcrumb";
@@ -11,7 +10,6 @@ import SearchField from "../components/SearchField";
 import { useEffect, useState } from "react";
 import PriceRangeFilter from "../components/shopcomponents/PriceRangeFilter";
 import PrimaryButton from "../components/PrimaryButton";
-import { toast } from "react-toastify";
 
 export interface Category {
   id: string;
@@ -56,14 +54,12 @@ const Shop: React.FC = () => {
   );
 
 
-  console.log(!isLoading ? data : "");
-
-  // console.log("selected filters", selectedFilters.toString());
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 1000]);
 
+  const debouncedSearchKey = useDebounce(searchKey, 300);
 
   const filteredData = products.filter((item) => {
-    const matchSearch = item.name.toLowerCase().includes(searchKey.toLowerCase());
+    const matchSearch = item.name.toLowerCase().includes(debouncedSearchKey.toLowerCase());
     const matchPrice = item.price >= priceRange[0] && item.price <= priceRange[1];
     return matchSearch && matchPrice;
   });
