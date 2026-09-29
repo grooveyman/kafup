@@ -16,7 +16,7 @@ const Loading: React.FC<SpinnerProps> = ({size = "md", text}) => {
                 role="status"
             >
                 <span className="visually-hidden">
-                    Loading data...
+                    Loading...
                 </span>
             </div>
 
