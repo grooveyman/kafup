@@ -74,7 +74,7 @@ const Home: React.FC = () => {
   );
 
   console.log("DATA FROM HOME recent designs")
-  console.log(!isLoading?data:"");
+  console.log(!isLoading?data?.results:"");
 
 
   const {
