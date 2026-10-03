@@ -46,12 +46,33 @@ body, * {
   border-radius: 40px !important;
 }
 
+.btn-new-primary{
+  background-color: var(--primary-color) !important;
+  color: white !important;
+  border-radius: 40px !important;
+  padding: 0px 25px !important;
+  height: 35px !important;
+  /* margin: 5px 10px !important; */
+}
+
 .btn-primary{
     background-color: black !important;
     color: #fff !important;
     border-radius: 30px !important;
     border: none !important;
     padding: 5px 15px !important;
+}
+
+.section-heading{
+  font-size: 1.9rem !important;
+  font-weight: 800 !important;
+}
+
+.section-description{
+  font-size: 1.0rem !important;
+  font-weight: 400 !important;
+  width: 80% !important;
+  
 }
 
 .small-text{

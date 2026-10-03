@@ -18,10 +18,10 @@ interface BrandsResponseData {
   id: string;
   name: string;
   image: string;
-  meta: { likes: number; follows: number; collections: number; designs: number; views: number; sold: number };
-  points: number;
-  rank: number;
-  badges: { name: string; }[];
+  meta: { likes: number; follows: number; collections: number; designs: number; views: number; sold: number, rank: number };
+  points: number | null;
+
+  badges?: ({ name: string } | string)[] | null;
   
 }
 
@@ -29,6 +29,9 @@ interface BrandsResponse {
   total: number;
   results: BrandsResponseData[];
 }
+
+const getPointsValue = (points: BrandsResponseData["points"]): number =>
+  typeof points === "number" ? points : points ?? 0;
 
 const Brands: React.FC = () => {
 
@@ -38,7 +41,7 @@ const Brands: React.FC = () => {
 
   const offset = (currentPage - 1) * itemsPerPage;
   //get brands
-  const { isLoading, data: newdata } = useApiQuery<BrandsResponse>(['brands'], `/brands?limit=${itemsPerPage}&offset=${offset}`);
+  const { isLoading, data: newdata } = useApiQuery<BrandsResponse>(['brands', String(offset)], `/brands?limit=${itemsPerPage}&offset=${offset}`);
   console.log(!isLoading ? newdata : "");
   
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
@@ -47,13 +50,11 @@ const Brands: React.FC = () => {
     newdata?.results
       ?.filter(
         (item) =>
-          item.points !== undefined &&
-          item.points >= 1 &&
           item.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
       )
       ?.sort(
         (a, b) =>
-          (a.rank ?? 0) - (b.rank ?? 0)
+          (a.meta.rank ?? 0) - (b.meta.rank ?? 0)
       ) ?? [];
       
   const topThreeBrands = rankedData.slice(0, 3);
@@ -110,9 +111,9 @@ const Brands: React.FC = () => {
                     <TopThreeCard 
                       name={item.name} 
                       meta={item.meta} 
-                      badges={item.badges ? item.badges.map((b: any) => typeof b === 'string' ? b : b.name) : []} 
-                      pts={item.points} 
-                      rank={item.rank} 
+                      badges={Array.isArray(item.badges) ? item.badges.map((badge) => typeof badge === "string" ? badge : badge.name) : []} 
+                      pts={getPointsValue(item.points)} 
+                      rank={item.meta.rank} 
                       image={item.image || `${import.meta.env.BASE_URL}assets/images/software dev.png`} 
                     />
                   </div>
@@ -133,11 +134,11 @@ const Brands: React.FC = () => {
             <DataTable headings={["Rank", "Designer", "Sold", "Designs", "Badge", "Collections", "Points", "Actions"]} data={rankedData} renderRow={(item) => {
               return (
                 <tr>
-                  <td>{item.rank}</td>
+                  <td>{item.meta.rank}</td>
                   <td>
                     <div className="d-flex justify-content-start gap-2 brandslist">
                       <div className="d-flex align-items-center">
-                        {item.rank === 1 ? (<Award fill="gold" stroke="white" size={30} />) : (item.rank === 2 ? (<Award fill="silver" stroke="white" size={30} />) : (item.rank === 3 ? (<Award fill="#CD7F32" stroke="white" size={30} />) : ("")))}
+                        {item.meta.rank === 1 ? (<Award fill="gold" stroke="white" size={30} />) : (item.meta.rank === 2 ? (<Award fill="silver" stroke="white" size={30} />) : (item.meta.rank === 3 ? (<Award fill="#CD7F32" stroke="white" size={30} />) : ("")))}
                       </div>
                       <img src={`${item.image ?? import.meta.env.BASE_URL + 'assets/images/software dev.png'}`} className="" />
                       <p className="d-flex align-items-center"> {item.name}</p>
@@ -147,15 +148,15 @@ const Brands: React.FC = () => {
                   <td>{item.meta.designs}</td>
                   <td>
                     <div className="badge-container">
-                      {item.badges.map((badge, idx) => (<span key={idx} className="brands-badge">{typeof badge === 'string' ? badge : badge.name}</span>))}
+                      {(Array.isArray(item.badges) ? item.badges : []).map((badge, idx) => (<span key={idx} className="brands-badge">{typeof badge === "string" ? badge : badge.name}</span>))}
                     </div>
                   </td>
                   <td>
                     {item.meta.collections}
                   </td>
-                  <td>{item.points}</td>
+                  <td>{getPointsValue(item.points)}</td>
                   <td>
-                    <button className="btn btn-primary-sm" onClick={() => {navigate(`profile/${item.name}/`)}}>View Profile</button>
+                    <button className="btn btn-primary-sm" onClick={() => {navigate(`/profile/${item.name}/`)}}>View Profile</button>
                   </td>
                 </tr>
               );

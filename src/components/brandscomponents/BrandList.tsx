@@ -14,7 +14,7 @@ const BrandList: React.FC<ListProps> = ({ list }) => {
         <>
         {list?.map((product) => (
             <div
-                className="mb-3 col-md-12 col-sm-12 col-lg-6 col-xs-12 col-xxl-4 col-xl-4"
+                className="mb-3 col-md-12 col-sm-12 col-lg-6 col-xs-12 col-xxl-5 col-xl-5"
 
                 key={product.id}
             >

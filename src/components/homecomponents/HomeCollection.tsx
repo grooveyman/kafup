@@ -30,8 +30,14 @@ const HomeCollection: React.FC = () => {
     return (
         <>
             <div className="row">
-                <div className="col-md-6 col-sm-12 col-lg-6 col-xl-6 mb-4">
-                    <h2 className="">Our Best Collections Today</h2>
+                <div className="col-md-12 col-sm-12 col-lg-12 col-xl-12 mb-4">
+                    <div className="d-flex justify-content-between">
+                        <div>
+                            <h2 className="section-heading">Our Best Collections Today</h2>
+                            <p className="section-description">Browse ideas from the best designers, shop from them, and get inspiration for your next appearance.</p>
+                        </div>
+                        <button className="btn btn-new-primary">View All</button>
+                    </div>
                 </div>
 
                 <div className="row best-col">
