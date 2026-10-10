@@ -9,91 +9,18 @@ import { EyeIcon, Heart } from "lucide-react";
 import SearchField from "../components/SearchField";
 import { useApiQuery } from "../hooks/useApi";
 import { useDebounce } from "../hooks/useDebounce";
+import EmptyPage from "../components/EmptyPage";
 
-// const data = [
-//     {
-//         id: '3232',
-//         name: "Artist Design",
-//         image: `${import.meta.env.BASE_URL}assets/images/software dev.png`,
-//         meta: {
-//             likes: 32,
-//             views: 33
-//         },
-//         categories: {
-//             name: "Children"
-//         }
-//     },
-//     {
-//         id: '764',
-//         name: "Artist Design",
-//         image: `${import.meta.env.BASE_URL}assets/images/software dev.png`,
-//         meta: {
-//             likes: 32,
-//             views: 33
-//         },
-//         categories: {
-//             name: "Children"
-//         }
-//     },
-//     {
-//         id: '765',
-//         name: "Artist Design",
-//         image: `${import.meta.env.BASE_URL}assets/images/software dev.png`,
-//         meta: {
-//             likes: 32,
-//             views: 33
-//         },
-//         categories: {
-//             name: "Sons"
-//         }
-//     },
-//     {
-//         id: '765',
-//         name: "Artist Design",
-//         image: `${import.meta.env.BASE_URL}assets/images/software dev.png`,
-//         meta: {
-//             likes: 32,
-//             views: 33
-//         },
-//         categories: {
-//             name: "Women"
-//         }
-//     },
-//     {
-//         id: '3256',
-//         name: "Artist Design",
-//         image: `${import.meta.env.BASE_URL}assets/images/software dev.png`,
-//         meta: {
-//             likes: 32,
-//             views: 33
-//         },
-//         categories: {
-//             name: "Men"
-//         }
-//     },
-//     {
-//         id: '2131',
-//         name: "Artist Design",
-//         image: `${import.meta.env.BASE_URL}assets/images/software dev.png`,
-//         meta: {
-//             likes: 32,
-//             views: 12
-//         },
-//         categories: {
-//             name: "Children"
-//         }
-//     }
-// ];
-
-interface ExploreResponse{
+interface ExploreResponse {
     id: string;
     name: string;
     image: string;
     designer: string;
-    meta: {likes: number,
+    meta: {
+        likes: number,
         views: number
     },
-    categories: {name: string}
+    categories: { name: string }
 }
 const Explore: React.FC = () => {
     const filters = [
@@ -106,8 +33,8 @@ const Explore: React.FC = () => {
     const [selectedFilters, setSelectedFilters] = useState<(string)[]>(["all"]);
     const [lastScroll, setLastScroll] = useState(0);
 
-    const {isLoading, data } = useApiQuery<ExploreResponse[]>(['explore'], `/designs/explore?limit=4&offset=0`);
-    console.log(isLoading ? "":data);
+    const { isLoading, data } = useApiQuery<ExploreResponse[]>(['explore'], `/designs/explore?limit=4&offset=0`);
+    console.log(isLoading ? "" : data);
 
     // Lightbox state
     const [open, setOpen] = useState(false);
@@ -145,7 +72,7 @@ const Explore: React.FC = () => {
         return true;
     }).filter((item) => item.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase()));
 
-    
+
 
     const handleSearch = (value: string) => {
         setSearchTerm(value);
@@ -198,51 +125,58 @@ const Explore: React.FC = () => {
             </div>
 
             {/* Image grid */}
-            <div className="row">
-                {filteredItems?.map((item, i) => (
-                    <div className="explore-container col-md-4 col-xl-4 col-xs-6 col-lg-4 col-sm-6">
-                        <div
-                            className="img-container"
-                            key={i}
-                        >
-                            <img
-                                src={item.image}
-                                alt={item.name}
-                                className="clickable-image"
-                                onClick={() => {
-                                    setSlides(filteredItems.map(img => ({ src: img.image })));
-                                    setIndex(i);
-                                    setOpen(true);
-                                }}
-                            />
+            {filteredItems?.length === 0 ? (
+                <EmptyPage message="No items found in explore."/>
+            ) : (
+                <>
+                    <div className="row">
+                        {filteredItems?.map((item, i) => (
+                            <div className="explore-container col-md-4 col-xl-4 col-xs-6 col-lg-4 col-sm-6">
+                                <div
+                                    className="img-container"
+                                    key={i}
+                                >
+                                    <img
+                                        src={item.image}
+                                        alt={item.name}
+                                        className="clickable-image"
+                                        onClick={() => {
+                                            setSlides(filteredItems.map(img => ({ src: img.image })));
+                                            setIndex(i);
+                                            setOpen(true);
+                                        }}
+                                    />
 
-                            {/* <div className="image-title pt-2">{item.name}</div> */}
-                        </div>
-                        <div className="d-flex justify-content-between">
-                            <div>{item.name}</div>
-                            <div>
-                                <div className="d-flex justify-content-start gap-1 align-items-center">
-                                    <Heart size={14} />
-                                    <p style={{ margin: 0, fontSize: "small" }}>{item.meta.likes}</p>
-                                    <EyeIcon size={14} fill="gray" />
-                                    <p style={{ margin: 0, fontSize: "small" }}>{item.meta.views}</p>
+                                    {/* <div className="image-title pt-2">{item.name}</div> */}
                                 </div>
+                                <div className="d-flex justify-content-between">
+                                    <div>{item.name}</div>
+                                    <div>
+                                        <div className="d-flex justify-content-start gap-1 align-items-center">
+                                            <Heart size={14} />
+                                            <p style={{ margin: 0, fontSize: "small" }}>{item.meta.likes}</p>
+                                            <EyeIcon size={14} fill="gray" />
+                                            <p style={{ margin: 0, fontSize: "small" }}>{item.meta.views}</p>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
-                        </div>
-
+                        ))}
                     </div>
-                ))}
-            </div>
 
-            <div className="mt-5">
-                <div className="d-flex justify-content-center">
-                    <button className="btn btn-primary">Load More</button>
-                </div>
-            </div>
+                    <div className="mt-5">
+                        <div className="d-flex justify-content-center">
+                            <button className="btn btn-primary">Load More</button>
+                        </div>
+                    </div>
+                </>
+            )}
+
 
 
             {/* Lightbox viewer */}
-            
+
             <Lightbox
                 open={open}
                 close={() => setOpen(false)}

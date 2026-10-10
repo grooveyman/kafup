@@ -82,8 +82,7 @@ const Home: React.FC = () => {
     isLoading: isLoadingPopular,
     isError: isErrorPopular,
   } = useApiQuery<Product[]>(["popularproducts"], "/designs/popular?limit=8");
-  console.log("Popular products");
-  console.log(popularData);
+  
   if (isErrorPopular) {
     console.log(`Error getting popular products`);
    
@@ -154,7 +153,7 @@ const Home: React.FC = () => {
                   ) : (
                     popularData?.map((product) => (
                       <div
-                        className="col-md-3"
+                        className="mb-5 col-md-3"
                         onClick={() => navigate("/details/" + product.id)}
                         key={product.id}
                       >

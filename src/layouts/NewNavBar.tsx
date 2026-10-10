@@ -1,4 +1,4 @@
-import { SearchIcon, ShoppingBagIcon, User } from "lucide-react";
+import { ShoppingBagIcon, User } from "lucide-react";
 import { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import "../assets/css/newnav.css";
@@ -140,12 +140,6 @@ const NewNavBar: React.FC = () => {
                     onClick={() => {}}
                     aria-label="Open account"
                   >
-                    <div className="d-flex justify-content-between gap-2">
-                      <SearchIcon />
-                      {isMobile && (
-                        <span className="d-block mt-2">Search</span>
-                      )}
-                    </div>
                   </button>
                 </li>
 

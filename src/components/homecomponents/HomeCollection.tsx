@@ -1,3 +1,4 @@
+import PrimaryButton from "../PrimaryButton";
 
 
 const HomeCollection: React.FC = () => {
@@ -31,12 +32,14 @@ const HomeCollection: React.FC = () => {
         <>
             <div className="row">
                 <div className="col-md-12 col-sm-12 col-lg-12 col-xl-12 mb-4">
-                    <div className="d-flex justify-content-between">
+                    <div className="d-flex justify-content-between flex-row flex-wrap">
                         <div>
                             <h2 className="section-heading">Our Best Collections Today</h2>
                             <p className="section-description">Browse ideas from the best designers, shop from them, and get inspiration for your next appearance.</p>
                         </div>
-                        <button className="btn btn-new-primary">View All</button>
+                        <div>
+                            <PrimaryButton onClick={() => { }} className="btn btn-new-primary" text="View All" />
+                        </div>
                     </div>
                 </div>
 
@@ -62,7 +65,7 @@ const HomeCollection: React.FC = () => {
                                 </div>
                             </div>
                         ))}
-                        
+
                     </div>
                 </div>
 

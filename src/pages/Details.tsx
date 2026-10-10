@@ -19,12 +19,13 @@ export interface Variation {
   color: string;
   price: number;
   quantity: number;
+  dimension: any;
 }
 
-export interface Designer{
-    id: string;
-    brand_name: string;
-    meta: {likes:number; collections:number; follows:number; designs:number;}
+export interface Designer {
+  id: string;
+  brand_name: string;
+  meta: { likes: number; collections: number; follows: number; designs: number; }
 }
 interface Product {
   id: string;
@@ -50,13 +51,12 @@ const ProductDetails: React.FC = () => {
   const [selectedQuantity, setSelectedQuantity] = useState(0);
   const [selectedSize, setSelectedSize] = useState<string>("");
   const calledRef = useRef(false);
-  const [rateOverview, setRateOverview] = useState({totalReviews: 0, rating:0});
+  const [rateOverview, setRateOverview] = useState({ totalReviews: 0, rating: 0 });
 
-  const getRateOverview = useCallback((value: {totalReviews: number; rating: number}) => {
+  const getRateOverview = useCallback((value: { totalReviews: number; rating: number }) => {
     setRateOverview(value);
-  },[])
+  }, [])
 
-  console.log("Rate overview update: ", rateOverview);
 
   const { addToCart } = useCartContext();
 
@@ -295,23 +295,31 @@ const ProductDetails: React.FC = () => {
               <div className="col-md-8 varsize">
                 <p className="mt-3 mb-1">Select Size <a href="#" data-bs-toggle="modal" data-bs-target="#sizeGuideModal">Size Guide</a></p>
                 {product.designvariations?.length === 0 && <p>No size variations available.</p>}
-                {product.designvariations?.map((variation, index) => (
-                  <>
-                    <input
-                      key={index}
-                      type="radio"
-                      className="btn-check btn-sm"
-                      id={`btn-check-xl-${index}`}
-                      autoComplete="off"
-                      name="size"
-                      value={variation.size}
-                      onChange={handleSizeChange}
-                    />
-                    <label className="btn" htmlFor={`btn-check-xl-${index}`}>
-                      {variation.size}
-                    </label>
-                  </>
-                ))}
+                <div className="d-flex justify-content-start gap-2 mb-2">
+                  {product.designvariations?.map((variation, index) => (
+                    <div className="" key={index}>
+                      <div>
+                        <input
+                          key={index}
+                          type="radio"
+                          className="btn-check btn-sm"
+                          id={`btn-check-xl-${index}`}
+                          autoComplete="off"
+                          name="size"
+                          value={variation.size}
+                          onChange={handleSizeChange}
+                        />
+                        <label className="btn" htmlFor={`btn-check-xl-${index}`}>
+                          {variation.size} ({variation.dimension ? variation.dimension.type : ""})
+                        </label>
+                        <div>
+                          <span className="badge bg-secondary">{variation.dimension?.gender}</span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
 
               </div>
               <hr style={{ margin: '20px 0', opacity: 0.1 }} />

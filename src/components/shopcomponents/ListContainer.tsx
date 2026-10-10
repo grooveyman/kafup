@@ -18,7 +18,7 @@ const ListContainer: React.FC<ListProps> = ({ list }) => {
         <>
             {list?.map((product) => (
                 <div
-                    className="mb-3 col-md-6 col-sm-12 col-lg-4 col-xs-12 col-xxl-3 col-xl-3"
+                    className="mb-5 col-md-6 col-sm-12 col-lg-4 col-xs-12 col-xxl-3 col-xl-3"
 
                     key={product.id}
                 >

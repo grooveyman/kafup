@@ -90,7 +90,6 @@ const Shop: React.FC = () => {
         return updated.length === 0 ? ["all"] : updated;
       }
 
-
       return [...withoutAll, id];
     });
   }
@@ -148,7 +147,6 @@ const Shop: React.FC = () => {
             </div>
           </div>
         )}
-
       </div>
 
     </>

@@ -4,10 +4,13 @@ import { useApiQuery } from "../hooks/useApi";
 import { Product } from "../pages/Home";
 import EmptyPage from "./EmptyPage";
 
-
+interface DesignResponse{
+    total: number;
+    results: Product[];
+}
 const SimilarDesigns: React.FC = () => {
     const enpoint = `/designs/`;
-    const { data, isLoading } = useApiQuery<Product[]>(
+    const { data, isLoading } = useApiQuery<DesignResponse>(
         ["productscat"],
         enpoint
     );
@@ -17,14 +20,14 @@ const SimilarDesigns: React.FC = () => {
                 <div className="row">
                     <h5>Similar Designs You May Like</h5>
                     {isLoading && <Loader/>}
-                    {!data || data.length === 0 ? (
+                    {!data?.results || data.results.length === 0 ? (
                         <>
                             <div className="">
                                 <EmptyPage />
                             </div>
                         </>
                     ) : (
-                        <ListContainer list={data} />
+                        <ListContainer list={data.results} />
                     )
                     }
                 </div>
