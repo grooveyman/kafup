@@ -121,6 +121,44 @@ input[type="number"] {
     padding: 10px !important;
 }
 
+.quantity-control {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+}
+
+.quantity-control input[type="number"] {
+    width: 72px;
+    border-radius: 0;
+    text-align: center;
+}
+
+.quantity-control-button {
+    width: 40px;
+    height: 40px;
+    border: 1px solid #ced4da;
+    background: #fff;
+    color: #212529;
+    font-size: 1.25rem;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.quantity-control-button:first-child {
+    border-radius: 4px 0 0 4px;
+}
+
+.quantity-control-button:last-child {
+    border-radius: 0 4px 4px 0;
+}
+
+.quantity-control-button:focus-visible {
+    position: relative;
+    z-index: 1;
+    outline: 2px solid #212529;
+    outline-offset: 2px;
+}
+
 /* .addcart-btn{
     border-radius:  0 !important;
     height: 50px !important;

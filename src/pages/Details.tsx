@@ -48,7 +48,7 @@ const ProductDetails: React.FC = () => {
   const { id: prodId } = useParams<{ id: string }>();
   const productId = prodId!;
   const navigate = useNavigate();
-  const [selectedQuantity, setSelectedQuantity] = useState(0);
+  const [selectedQuantity, setSelectedQuantity] = useState("1");
   const [selectedSize, setSelectedSize] = useState<string>("");
   const calledRef = useRef(false);
   const [rateOverview, setRateOverview] = useState({ totalReviews: 0, rating: 0 });
@@ -122,25 +122,49 @@ const ProductDetails: React.FC = () => {
     }
   };
 
+  const getValidQuantity = () => {
+    const quantity = Number(selectedQuantity);
+    if (!/^[1-9]\d*$/.test(selectedQuantity) || !Number.isSafeInteger(quantity)) {
+      toast.error("Please enter a valid whole-number quantity.");
+      return null;
+    }
+    return quantity;
+  };
+
+  const adjustSelectedQuantity = (amount: number) => {
+    const quantity = Number(selectedQuantity);
+    if (!Number.isSafeInteger(quantity) || quantity < 1) {
+      setSelectedQuantity("1");
+      return;
+    }
+
+    const nextQuantity = quantity + amount;
+    if (Number.isSafeInteger(nextQuantity) && nextQuantity >= 1) {
+      setSelectedQuantity(String(nextQuantity));
+    }
+  };
+
   const handleAddToCart = () => {
     if (!product) return;
 
+    const quantity = getValidQuantity();
+    if (quantity === null) return;
 
     const cartVariations: CartVariation = {
       size: selectedSize,
       color: selectedColor,
       price: product.price,
-      quantity: selectedQuantity,
+      quantity,
     };
 
     const productProd: CartItemType = {
       id: product.id,
       name: product.name,
-      quantity: selectedQuantity,
+      quantity,
       price: product.price,
       previmg: product.previewimg,
       variations: cartVariations,
-      total: product.price * selectedQuantity,
+      total: product.price * quantity,
       designer: product.designer.id,
     };
 
@@ -151,22 +175,24 @@ const ProductDetails: React.FC = () => {
   const handleBuyNow = () => {
     if (!product) return;
 
+    const quantity = getValidQuantity();
+    if (quantity === null) return;
 
     const cartVariations: CartVariation = {
       size: selectedSize,
       color: selectedColor,
       price: product.price,
-      quantity: selectedQuantity,
+      quantity,
     };
 
     const productProd: CartItemType = {
       id: product.id,
       name: product.name,
-      quantity: selectedQuantity,
+      quantity,
       price: product.price,
       // previmg: product.previewimg,
       variations: cartVariations,
-      total: product.price * selectedQuantity,
+      total: product.price * quantity,
       designer: product.designer.id,
     };
 
@@ -175,11 +201,6 @@ const ProductDetails: React.FC = () => {
       toast.error("Please select a size and color.");
       return;
     }
-    if (selectedQuantity <= 0) {
-      toast.error("Please select a valid quantity.");
-      return;
-    }
-
     setBuyNowItem(productProd);
     navigate("/checkout");
   };
@@ -340,8 +361,32 @@ const ProductDetails: React.FC = () => {
             <div className="row">
               <div>
                 <p className="mb-1">Quantity</p>
-                <div className="col-md-4">
-                  <input type="number" value={selectedQuantity} onChange={(e) => setSelectedQuantity(Number(e.target.value))} className="form-control" />
+                <div className="quantity-control">
+                  <button
+                    type="button"
+                    className="quantity-control-button"
+                    aria-label="Decrease quantity"
+                    onClick={() => adjustSelectedQuantity(-1)}
+                  >
+                    -
+                  </button>
+                  <input
+                    type="number"
+                    min="1"
+                    step="1"
+                    value={selectedQuantity}
+                    onChange={(e) => setSelectedQuantity(e.target.value)}
+                    className="form-control"
+                    aria-label="Quantity"
+                  />
+                  <button
+                    type="button"
+                    className="quantity-control-button"
+                    aria-label="Increase quantity"
+                    onClick={() => adjustSelectedQuantity(1)}
+                  >
+                    +
+                  </button>
                 </div>
               </div>
             </div>
