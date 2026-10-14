@@ -3,7 +3,6 @@ import ListContainer from "./shopcomponents/ListContainer";
 import { useApiQuery } from "../hooks/useApi";
 import { Product } from "../pages/Home";
 import EmptyPage from "./EmptyPage";
-import { useEffect } from "react";
 
 interface DesignResponse{
     total: number;
