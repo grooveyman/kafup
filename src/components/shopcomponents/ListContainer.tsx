@@ -1,7 +1,6 @@
 import { HeartIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Product } from "../../pages/Home";
-import PrimarySmButton from "../PrimarySmButton";
 
 
 
@@ -42,9 +41,9 @@ const ListContainer: React.FC<ListProps> = ({ list }) => {
                         </div>
 
 
-                        <div className="mt-2">
+                        {/* <div className="mt-2">
                             <PrimarySmButton text="Add to Cart" className="" onClick={() => { }} />
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             ))

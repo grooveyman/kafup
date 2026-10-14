@@ -57,6 +57,9 @@ const ProductDetails: React.FC = () => {
     setRateOverview(value);
   }, [])
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [prodId]);
 
   const { addToCart } = useCartContext();
 
@@ -93,11 +96,18 @@ const ProductDetails: React.FC = () => {
   const [selectedColor, setSelectedColor] = useState(
     product?.designvariations?.[0]?.color || ""
   );
-  const [selectedImage, setSelectedImage] = useState(-1);
+  const [selectedImage, setSelectedImage] = useState(0);
   const [fullscreen, setFullscreen] = useState(false);
 
 
-  const images: Image[] = product?.designImages || [];
+  const images: Image[] = product
+    ? [
+        { imgurl: product.previewimg },
+        ...(product.designImages || []).filter(
+          (image) => image.imgurl !== product.previewimg
+        ),
+      ]
+    : [];
   console.log("Product images:", images);
 
   const handleNext = () => {
@@ -128,7 +138,7 @@ const ProductDetails: React.FC = () => {
       name: product.name,
       quantity: selectedQuantity,
       price: product.price,
-      // previmg: product.previewimg,
+      previmg: product.previewimg,
       variations: cartVariations,
       total: product.price * selectedQuantity,
       designer: product.designer.id,
@@ -202,13 +212,13 @@ const ProductDetails: React.FC = () => {
     <div className="container mt-4 mb-5">
       <div className="row mt-6">
         {/* LEFT SIDE */}
-        <div className="col-md-6">
-          <div className="d-flex">
+        <div className="mb-5 col-md-6">
+          <div className="d-flex details-image-layout">
             {/* Thumbnails */}
-            <div className="other-img d-flex flex-column me-2">
+            <div className="other-img d-flex flex-wrap flex-column me-2">
               {images.map((img, index) => (
                 <img
-                  key={index}
+                  key={`${img.imgurl}-${index}`}
                   src={img.imgurl}
                   className={`img-thumbnail mb-2 ${selectedImage === index ? "border border-primary" : ""
                     }`}

@@ -131,8 +131,17 @@
 .carousel-item{
     position: relative;
 }
+.carousel-item::after{
+    position: absolute;
+    inset: 35% 0 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.95), transparent);
+    border-radius: 10px;
+    content: "";
+    pointer-events: none;
+}
 .carousel-caption{
     width: 50%;
+    z-index: 2;
 }
 .carousel-item > img{
     border-radius: 10px !important;

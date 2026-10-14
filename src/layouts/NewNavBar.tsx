@@ -13,6 +13,13 @@ const NewNavBar: React.FC = () => {
   const { cartItems, removeCart } = useCartContext();
   const navigate = useNavigate();
   const [isMobile, setIsMobile] = useState<boolean>(false);
+  const [isNavExpanded, setIsNavExpanded] = useState<boolean>(false);
+
+  const closeMobileNav = () => {
+    if (isMobile) {
+      setIsNavExpanded(false);
+    }
+  };
 
   const handleScroll = () => setScrolled(window.scrollY > 50);
 
@@ -51,16 +58,18 @@ const NewNavBar: React.FC = () => {
           <button
             className="navbar-toggler"
             type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarText"
             aria-controls="navbarText"
-            aria-expanded="false"
+            aria-expanded={isNavExpanded}
             aria-label="Toggle navigation"
+            onClick={() => setIsNavExpanded((expanded) => !expanded)}
           >
             <span className="navbar-toggler-icon"></span>
           </button>
 
-          <div className="collapse navbar-collapse" id="navbarText">
+          <div
+            className={`collapse navbar-collapse ${isNavExpanded ? "show" : ""}`}
+            id="navbarText"
+          >
             <div
               className={`d-flex w-100 justify-content-between ${
                 isMobile ? "flex-column align-items-start" : ""
@@ -78,6 +87,7 @@ const NewNavBar: React.FC = () => {
                     }
                     to="/"
                     end
+                    onClick={closeMobileNav}
                   >
                     Home
                   </NavLink>
@@ -89,6 +99,7 @@ const NewNavBar: React.FC = () => {
                       `nav-link ${isActive ? "active" : ""}`
                     }
                     to="/shop"
+                    onClick={closeMobileNav}
                   >
                     Shop
                   </NavLink>
@@ -100,6 +111,7 @@ const NewNavBar: React.FC = () => {
                       `nav-link ${isActive ? "active" : ""}`
                     }
                     to="/explore"
+                    onClick={closeMobileNav}
                   >
                     Explore
                   </NavLink>
@@ -111,6 +123,7 @@ const NewNavBar: React.FC = () => {
                       `nav-link ${isActive ? "active" : ""}`
                     }
                     to="/brands"
+                    onClick={closeMobileNav}
                   >
                     Brands
                   </NavLink>
@@ -122,6 +135,7 @@ const NewNavBar: React.FC = () => {
                       `nav-link ${isActive ? "active" : ""}`
                     }
                     to="/collections"
+                    onClick={closeMobileNav}
                   >
                     Collections
                   </NavLink>
@@ -147,7 +161,10 @@ const NewNavBar: React.FC = () => {
                   <button
                     type="button"
                     className="nav-link btn btn-link p-0"
-                    onClick={openLogin}
+                    onClick={() => {
+                      closeMobileNav();
+                      openLogin();
+                    }}
                     aria-label="Open account"
                   >
                     <div className="d-flex justify-content-between gap-2">
@@ -163,7 +180,10 @@ const NewNavBar: React.FC = () => {
                   <button
                     type="button"
                     className="nav-link btn btn-link p-0 position-relative"
-                    onClick={() => setShowCart(true)}
+                    onClick={() => {
+                      closeMobileNav();
+                      setShowCart(true);
+                    }}
                     aria-label="Open cart"
                   >
                     <div className="d-flex justify-content-between gap-2">
@@ -194,6 +214,15 @@ const NewNavBar: React.FC = () => {
           </div>
         </div>
       </nav>
+
+      {isMobile && isNavExpanded && (
+        <button
+          type="button"
+          className="mobile-nav-backdrop"
+          aria-label="Close navigation menu"
+          onClick={closeMobileNav}
+        />
+      )}
 
       {showCart && (
         <CartSidebar

@@ -2,6 +2,7 @@
     height: 70px !important;
     width: 70px !important;
     border-radius: 10px;
+    object-fit: cover;
   }
 
   .prodcart-details{

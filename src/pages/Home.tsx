@@ -166,7 +166,7 @@ const Home: React.FC = () => {
                         </div>
                         <div className="desc mt-2">
                           <h6>{product.name}</h6>
-                          <p>{product.price ?? "$40"}</p>
+                          <p>GHS {product.price ?? "40"}</p>
                         </div>
                       </div>
                     ))

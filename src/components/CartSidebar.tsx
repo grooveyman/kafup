@@ -2,6 +2,7 @@ import React from "react";
 import "../assets/css/sidebar.css";
 import { Trash } from "lucide-react";
 import { CartItemType, useCartContext } from "../context/CartContext";
+import { useBuyNowContext } from "../context/BuyNowContext";
 import { useNavigate } from "react-router-dom";
 
 interface CartItem {
@@ -25,11 +26,18 @@ const CartSidebar: React.FC<CartSidebarProps> = ({
   onDelete,
 }) => {
   const {cartItems:cartItems2} = useCartContext();
+  const { clearBuyNow } = useBuyNowContext();
   const total = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
   const navigate = useNavigate();
 
-  console.log(cartItems2);
+  // console.log(cartItems2);
+
+  const handleCheckout = () => {
+    clearBuyNow();
+    onClose();
+    navigate("/checkout");
+  };
   return (
     <>
       {/* Backdrop */}
@@ -69,7 +77,7 @@ const CartSidebar: React.FC<CartSidebarProps> = ({
                         <div>{item.name}</div>
                         <div className="prodcart-price">
                           {" "}
-                          <span>{item.quantity}x</span> ${item.price}
+                          <span>{item.quantity}x</span> {item.price}
                         </div>
                       </div>
                     </div>
@@ -92,10 +100,10 @@ const CartSidebar: React.FC<CartSidebarProps> = ({
 
           <div className="d-flex justify-content-between">
             <strong>Total</strong>
-            <strong>${Number(total.toFixed(2))}</strong>
+            <strong>GHS {Number(total.toFixed(2))}</strong>
           </div>
-          <button className="btn btn-info w-100 mt-3" onClick={() => navigate("/cart")}>View Cart</button>
-          <button className="btn btn-primary w-100 mt-3">Checkout</button>
+          <button className="btn btn-complement w-100 mt-3" onClick={() => navigate("/cart")}>View Cart</button>
+          <button className="btn btn-primary w-100 mt-3" onClick={handleCheckout}>Checkout</button>
         </div>
       </div>
     </>

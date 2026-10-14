@@ -31,7 +31,7 @@ const BrandList: React.FC<ListProps> = ({ list }) => {
                 </div>
                 <div className="shop-desc-cat">
                     <p>Category</p>
-                    <button className="mt-2 btn btn-primary btn-sm">Add to Cart</button>
+                    {/* <button className="mt-2 btn btn-primary btn-sm">Add to Cart</button> */}
                 </div>
             </div>
             ))

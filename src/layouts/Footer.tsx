@@ -1,6 +1,7 @@
 import { DesignerSignUp } from "../components/homecomponents/DesignerSignUp";
 
 const Footer: React.FC = () => {
+  const year = new Date().getFullYear();
   return (
     <>
     <DesignerSignUp />
@@ -8,7 +9,7 @@ const Footer: React.FC = () => {
         <div className="container">
           <div className="footer-content">
             <div className="copyright d-flex justify-content-center">
-              &copy; Kafup 2025. All Rights Reserved
+              &copy; Kafup {year}. All Rights Reserved
             </div>
             <div>
               <nav>
