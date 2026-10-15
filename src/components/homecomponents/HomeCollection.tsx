@@ -1,3 +1,4 @@
+import { Link, useNavigate } from "react-router-dom";
 import PrimaryButton from "../PrimaryButton";
 
 
@@ -28,6 +29,8 @@ const HomeCollection: React.FC = () => {
         }
     ];
 
+    const navigate = useNavigate();
+
     return (
         <>
             <div className="row">
@@ -38,7 +41,7 @@ const HomeCollection: React.FC = () => {
                             <p className="section-description">Browse ideas from the best designers, shop from them, and get inspiration for your next appearance.</p>
                         </div>
                         <div>
-                            <PrimaryButton onClick={() => { }} className="btn btn-new-primary" text="View All" />
+                            <PrimaryButton onClick={() => {navigate("/collections")}} className="btn btn-new-primary" text="View All" />
                         </div>
                     </div>
                 </div>
@@ -46,24 +49,29 @@ const HomeCollection: React.FC = () => {
                 <div className="row best-col">
                     <div className="col-md-12 col-lg-8 mb-3">
                         <div className="best-col-large">
-                            <img src="assets/images/carousel 11.png" />
-                            <div className="best-col-text mt-2">
-                                <p>{topCollections[0].designer.name}</p>
-                                <p>{topCollections[0].name}</p>
-                                <span>{topCollections[0].meta.likes} likes {topCollections[0].meta.views} views</span>
-                            </div>
+                            <Link style={{ textDecoration: "none" }} to={`/profile/${topCollections[0].designer.name}`}>
+                                <img src="assets/images/carousel 11.png" />
+                                <div className="best-col-text mt-2">
+                                    <p>{topCollections[0].designer.name}</p>
+                                    <p>{topCollections[0].name}</p>
+                                    <span>{topCollections[0].meta.likes} likes {topCollections[0].meta.views} views</span>
+                                </div>
+                            </Link>
+
                         </div>
                     </div>
                     <div className="col-md-12 col-lg-4">
                         {topCollections.slice(1).map((collection) => (
-                            <div className="best-col-small">
-                                <img src="assets/images/carousel 10.png" alt="" className="" />
-                                <div className="best-col-text mt-2">
-                                    <p>{collection.designer.name}</p>
-                                    <p>{collection.name}</p>
-                                    <span>{collection.meta.likes} likes {collection.meta.views} views</span>
+                            <Link style={{ textDecoration: "none" }} to={`/profile/${collection.designer.name}`}>
+                                <div className="best-col-small">
+                                    <img src="assets/images/carousel 10.png" alt="" className="" />
+                                    <div className="best-col-text mt-2">
+                                        <p>{collection.designer.name}</p>
+                                        <p>{collection.name}</p>
+                                        <span>{collection.meta.likes} likes {collection.meta.views} views</span>
+                                    </div>
                                 </div>
-                            </div>
+                            </Link>
                         ))}
 
                     </div>
