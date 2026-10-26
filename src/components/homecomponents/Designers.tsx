@@ -4,7 +4,7 @@ import { useApiQuery } from "../../hooks/useApi";
 import { useTruncate } from "../../hooks/useTrancate";
 import EmptyPage from "../EmptyPage";
 import SkeletonLoader from "../SkeletonLoader";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 interface BrandsResponse {
   total: number;
