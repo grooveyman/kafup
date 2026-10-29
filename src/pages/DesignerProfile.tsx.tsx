@@ -1,6 +1,7 @@
 import { Search } from "lucide-react";
-import { useEffect, useMemo, useRef, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useMemo, useState } from "react";
+import { useParams } from "react-router-dom";
+import { useDebounce } from "../hooks/useDebounce";
 import Lightbox from "yet-another-react-lightbox";
 
 import "../assets/css/brandprofile.css";
@@ -10,7 +11,7 @@ import EmptyPage from "../components/EmptyPage";
 import ProfileCard from "../components/brandscomponents/ProfileCard";
 import BrandList from "../components/brandscomponents/BrandList";
 
-import { useApiMutation, useApiQuery } from "../hooks/useApi";
+import { useApiQuery } from "../hooks/useApi";
 import { ProductResponse } from "./Shop";
 
 const DesignerProfile: React.FC = () => {
@@ -82,19 +83,16 @@ const DesignerProfile: React.FC = () => {
         ];
     }, [data]);
 
+    
 
+    const debouncedSearch = useDebounce(search, 300);
 
     const filteredData = useMemo(() => {
         if (!data) return [];
 
-        const searchTerm = search.trim().toLowerCase();
+        const searchTerm = debouncedSearch.trim().toLowerCase();
 
         return data.results.filter((item) => {
-            // Route collection filter
-            // const matchesRouteCollection = collection_id
-            //     ? item.collections?.name === collection_id
-            //     : true;
-
             // Dropdown collection filter
             const matchesCollection = selectedCollection
                 ? item.collections?.name === selectedCollection
@@ -131,7 +129,7 @@ const DesignerProfile: React.FC = () => {
         collection,
         selectedCollection,
         selectedCategory,
-        search,
+        debouncedSearch,
     ]);
 
 

@@ -13,6 +13,15 @@
     background-color: rgba(226, 222, 222, 0.4);
     backdrop-filter: blur(5px) !important;
 }
+.mobile-nav-backdrop{
+  position: fixed;
+  inset: 0;
+  z-index: 1020;
+  padding: 0;
+  border: 0;
+  background: rgba(0, 0, 0, 0.55);
+  cursor: default;
+}
 /* For stacked mobile links */
 @media (max-width: 992px) {
   .navbar-nav.flex-column {

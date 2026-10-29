@@ -8,15 +8,15 @@ const Vision: React.FC = () => {
         <>
             <div className="container">
                 <div className="row">
-                    <div className="col-md-6 p-5">
+                    <div className="col-md-12 col-sm-12 col-xs-12 col-lg-12 col-xl-6 col-xxl-6 py-5">
                         <div className="ad-text-head">
                             <h6>Kafup</h6>
                             <p className="ad-text-vision pt-3">Dress to Influence, Not to Impress!</p>
                             <p>The ultimate place for your African apparel</p>
-                            <button className="btn btn-primary" onClick={() => {navigate("/shop")}}>Shop Now</button>
+                            <button className="mt-2 btn btn-primary" onClick={() => {navigate("/shop")}}>Shop Now</button>
                         </div>
                     </div>
-                    <div className="col-md-6 col-lg-12 col-sm-12 col-xl-5">
+                    <div className="col-md-12 col-lg-12 col-sm-12 col-xl-6 col-xxl-6">
                         <div className="d-flex align-items-center" style={{ height: "100%" }}>
                             <div className="ad-card">
                                 <img src={`${import.meta.env.BASE_URL}assets/images/software%20dev.png`} className="img-rounded" />

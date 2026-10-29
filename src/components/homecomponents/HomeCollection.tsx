@@ -1,6 +1,5 @@
-import { useApiQuery } from "../../hooks/useApi";
-import { CollectionType } from "../../pages/Home";
-import EmptyPage from "../EmptyPage";
+import { Link, useNavigate } from "react-router-dom";
+import PrimaryButton from "../PrimaryButton";
 
 
 const HomeCollection: React.FC = () => {
@@ -31,45 +30,53 @@ const HomeCollection: React.FC = () => {
         }
     ];
 
-    const { data, isLoading } = useApiQuery<CollectionType[]>(["top-collections"], "/collections/top");
-    console.log("Collection log");
-    console.log(isLoading ? "" : data);
+    const navigate = useNavigate();
+
     return (
         <>
             <div className="row">
-                <div className="col-md-6 col-sm-12 col-lg-6 col-xl-6 mb-4">
-                    <h2 className="">Our Best Collections Today</h2>
+                <div className="col-md-12 col-sm-12 col-lg-12 col-xl-12 mb-4">
+                    <div className="d-flex justify-content-between flex-row flex-wrap">
+                        <div>
+                            <h2 className="section-heading">Our Best Collections Today</h2>
+                            <p className="section-description">Browse ideas from the best designers, shop from them, and get inspiration for your next appearance.</p>
+                        </div>
+                        <div>
+                            <PrimaryButton onClick={() => {navigate("/collections")}} className="btn btn-new-primary" text="View All" />
+                        </div>
+                    </div>
                 </div>
 
-                {!isLoading && data?.length == 0 || data === undefined ? (<EmptyPage />) : (
-                    <div className="row">
-                        <div className="col-md-12 col-lg-8">
-                            <div className="best-col-large">
-                                <img src={data?.[0]?.thumbnail} alt="Top Collection" className="img-fluid" />
+                <div className="row best-col">
+                    <div className="col-md-12 col-lg-8 mb-3">
+                        <div className="best-col-large">
+                            <Link style={{ textDecoration: "none" }} to={`/profile/${topCollections[0].designer.name}`}>
+                                <img src="assets/images/carousel 11.png" />
                                 <div className="best-col-text mt-2">
-                                    <p>{data?.[0]?.designer.brand_name}</p>
-                                    <p>{data?.[0]?.name}</p>
-                                    <span>{data?.[0]?.clicks} view(s)</span>
+                                    <p>{topCollections[0].designer.name}</p>
+                                    <p>{topCollections[0].name}</p>
+                                    <span>{topCollections[0].meta.likes} likes {topCollections[0].meta.views} views</span>
                                 </div>
-                            </div>
-                        </div>
-                        <div className="col-md-12 col-lg-4">
-                            {data?.slice(1).map((collection) => (
-                                <div className="best-col-small">
-                                    <img src={collection.thumbnail} alt="" className="" />
-                                    <div className="best-col-text mt-2">
-                                        <p>{collection.designer.brand_name}</p>
-                                        <p>{collection.name}</p>
-                                        <span>{collection.clicks} view(s)</span>
-                                    </div>
-                                </div>
-                            ))}
+                            </Link>
 
                         </div>
                     </div>
-                )}
+                    <div className="col-md-12 col-lg-4">
+                        {topCollections.slice(1).map((collection) => (
+                            <Link style={{ textDecoration: "none" }} to={`/profile/${collection.designer.name}`}>
+                                <div className="best-col-small">
+                                    <img src="assets/images/carousel 10.png" alt="" className="" />
+                                    <div className="best-col-text mt-2">
+                                        <p>{collection.designer.name}</p>
+                                        <p>{collection.name}</p>
+                                        <span>{collection.meta.likes} likes {collection.meta.views} views</span>
+                                    </div>
+                                </div>
+                            </Link>
+                        ))}
 
-
+                    </div>
+                </div>
 
             </div>
 

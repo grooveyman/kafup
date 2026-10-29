@@ -1,7 +1,6 @@
 import { HeartIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Product } from "../../pages/Home";
-import PrimarySmButton from "../PrimarySmButton";
 
 
 

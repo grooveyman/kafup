@@ -8,6 +8,7 @@ import SearchField from "../components/SearchField";
 import { toast } from "react-toastify";
 import PrimaryButton from "../components/PrimaryButton";
 import { useApiQuery } from "../hooks/useApi";
+import { useDebounce } from "../hooks/useDebounce";
 import SkeletonLoader from "../components/SkeletonLoader";
 
 
@@ -68,9 +69,10 @@ const Collections: React.FC = () => {
     console.log(isLoading ? "" : data);
 
     const [searchKey, setSearchKey] = useState("");
+    const debouncedSearchKey = useDebounce(searchKey, 300);
 
-    // Filter collections
-    const filteredItems = collections.filter((item) => item.name.toLowerCase().includes(searchKey.toLowerCase()));
+        // Filter collections
+    const filteredItems = (data ?? []).filter((item) => item.name.toLowerCase().includes(debouncedSearchKey.toLowerCase()));
 
 
     // Toggle filters

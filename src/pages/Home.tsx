@@ -71,7 +71,7 @@ const Home: React.FC = () => {
   );
 
   console.log("DATA FROM HOME recent designs")
-  console.log(!isLoading ? data : "");
+  console.log(!isLoading?data?.results:"");
 
 
   const {
@@ -79,8 +79,7 @@ const Home: React.FC = () => {
     isLoading: isLoadingPopular,
     isError: isErrorPopular,
   } = useApiQuery<Product[]>(["popularproducts"], "/designs/popular?limit=8");
-  console.log("Popular products");
-  console.log(popularData);
+  
   if (isErrorPopular) {
     console.log(`Error getting popular products`);
 
@@ -151,7 +150,7 @@ const Home: React.FC = () => {
                   ) : (
                     popularData?.map((product) => (
                       <div
-                        className="col-md-3"
+                        className="mb-5 col-md-3"
                         onClick={() => navigate("/details/" + product.id)}
                         key={product.id}
                       >
@@ -164,11 +163,7 @@ const Home: React.FC = () => {
                         </div>
                         <div className="shop-prod-desc mt-2">
                           <h6>{product.name}</h6>
-
-                          <p>
-                            <span>GHS</span>
-                            {product.price ?? "$40"}
-                          </p>
+                          <p>GHS {product.price ?? "40"}</p>
                         </div>
                       </div>
                     ))

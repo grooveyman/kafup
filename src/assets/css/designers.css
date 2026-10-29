@@ -56,6 +56,15 @@
 .designers-text {
     padding: 10px 0px;
 }
+.designers-actions {
+    padding: 10px 0px;
+}
+.designers-actions span{
+    background-color: var(--gray-color);
+    padding: 1px 5px !important;
+    border-radius: 5px;
+    font-size: smaller;
+}
 .designers-text p{
     font-size: small;
     color: rgb(136, 134, 134);

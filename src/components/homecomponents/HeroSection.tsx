@@ -17,7 +17,7 @@ export const HeroSection: React.FC = () => {
                     />
                     <div className="carousel-caption text-start">
                         <h2>Setup Your brand to Sell and exhibit Your Beautiful Designs</h2>
-                        <button className="btn btn-primary">Get Started</button>
+                        <button className="btn btn-secondary">Get Started</button>
                     </div>
 
                 </div>
@@ -29,7 +29,7 @@ export const HeroSection: React.FC = () => {
                     />
                    <div className="carousel-caption text-start">
                         <h2>Find Design Inspirations for Your Next Appearance or Project</h2>
-                        <button className="btn btn-primary">Explore</button>
+                        <button className="btn btn-secondary">Explore</button>
                     </div>
                 </div>
                 <div className="carousel-item">
@@ -40,7 +40,7 @@ export const HeroSection: React.FC = () => {
                     />
                     <div className="carousel-caption text-start">
                         <h2>Choose from our Elegant Designs from Our Best Designers</h2>
-                        <button className="btn btn-primary">Shop Now</button>
+                        <button className="btn btn-secondary">Shop Now</button>
                     </div>
                 </div>
             </div>

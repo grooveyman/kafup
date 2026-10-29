@@ -8,14 +8,14 @@ import Breadcrumb from "../components/Breadcrumb";
 import { EyeIcon, Heart } from "lucide-react";
 import SearchField from "../components/SearchField";
 import { useApiQuery } from "../hooks/useApi";
-import { Product } from "./Home";
+import { useDebounce } from "../hooks/useDebounce";
+import EmptyPage from "../components/EmptyPage";
 
-
-interface ExploreProduct {
+interface ExploreResponse {
     id: string;
     name: string;
     image: string;
-    designer: {name: string};
+    designer: string;
     meta: {
         likes: number,
         views: number
@@ -43,12 +43,8 @@ const Explore: React.FC = () => {
     const [products, setProducts] = useState<ExploreProduct[]>([]);
     const limit = 9;
 
-    const { isLoading, data } = useApiQuery<ExploreResponse>(['explore', selectedFilters.toString(), offset.toString()], `/designs/explore?limit=${limit}&offset=${offset}`);
+    const { isLoading, data } = useApiQuery<ExploreResponse[]>(['explore'], `/designs/explore?limit=4&offset=0`);
     console.log(isLoading ? "" : data);
-
-    const params = new URLSearchParams();
-    params.set("limit", limit.toString());
-    params.set("offset", offset.toString());
 
     // Lightbox state
     const [open, setOpen] = useState(false);
@@ -72,7 +68,9 @@ const Explore: React.FC = () => {
         });
     };
 
-    const filteredItems = products?.filter((item) => {
+    const debouncedSearchTerm = useDebounce(searchTerm, 300);
+
+    const filteredItems = data?.filter((item) => {
         if (selectedFilters.length === 0) {
             return true;
         }
@@ -83,7 +81,7 @@ const Explore: React.FC = () => {
             }
         }
         return true;
-    }).filter((item) => item.name.toLowerCase().includes(searchTerm.toLowerCase()));
+    }).filter((item) => item.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase()));
 
 
 
@@ -151,51 +149,54 @@ const Explore: React.FC = () => {
             </div>
 
             {/* Image grid */}
-            <div className="row">
-                {filteredItems?.map((item, i) => (
-                    <div className="explore-container col-md-4 col-xl-4 col-xs-6 col-lg-4 col-sm-6">
-                        <div
-                            className="img-container"
-                            key={i}
-                        >
-                            <img
-                                src={item.image}
-                                alt={item.name}
-                                className="clickable-image"
-                                onClick={() => {
-                                    setSlides(filteredItems.map(img => ({ src: img.image })));
-                                    setIndex(i);
-                                    setOpen(true);
-                                }}
-                            />
+            {filteredItems?.length === 0 ? (
+                <EmptyPage message="No items found in explore."/>
+            ) : (
+                <>
+                    <div className="row">
+                        {filteredItems?.map((item, i) => (
+                            <div className="explore-container col-md-4 col-xl-4 col-xs-6 col-lg-4 col-sm-6">
+                                <div
+                                    className="img-container"
+                                    key={i}
+                                >
+                                    <img
+                                        src={item.image}
+                                        alt={item.name}
+                                        className="clickable-image"
+                                        onClick={() => {
+                                            setSlides(filteredItems.map(img => ({ src: img.image })));
+                                            setIndex(i);
+                                            setOpen(true);
+                                        }}
+                                    />
 
-                            {/* <div className="image-title pt-2">{item.name}</div> */}
-                        </div>
-                        <div className="d-flex justify-content-between">
-                            <div>{item.name}</div>
-                            <div>
-                                <div className="d-flex justify-content-start gap-1 align-items-center">
-                                    <Heart size={14} />
-                                    <p style={{ margin: 0, fontSize: "small" }}>{item.meta.likes}</p>
-                                    <EyeIcon size={14} fill="gray" />
-                                    <p style={{ margin: 0, fontSize: "small" }}>{item.meta.views}</p>
+                                    {/* <div className="image-title pt-2">{item.name}</div> */}
                                 </div>
-                            </div>
-                        </div>
-                        <div className="m-0">
-                            <p>{item.designer.name}</p>
-                        </div>
-                    </div>
-                ))}
-            </div>
+                                <div className="d-flex justify-content-between">
+                                    <div>{item.name}</div>
+                                    <div>
+                                        <div className="d-flex justify-content-start gap-1 align-items-center">
+                                            <Heart size={14} />
+                                            <p style={{ margin: 0, fontSize: "small" }}>{item.meta.likes}</p>
+                                            <EyeIcon size={14} fill="gray" />
+                                            <p style={{ margin: 0, fontSize: "small" }}>{item.meta.views}</p>
+                                        </div>
+                                    </div>
+                                </div>
 
-            {data && products.length < data.total && !isLoading && (
-                <div className="mt-5">
-                    <div className="d-flex justify-content-center">
-                        <button className="btn btn-primary" onClick={handleLoadMore}>Load More</button>
+                            </div>
+                        ))}
                     </div>
-                </div>
+
+                    <div className="mt-5">
+                        <div className="d-flex justify-content-center">
+                            <button className="btn btn-primary">Load More</button>
+                        </div>
+                    </div>
+                </>
             )}
+
 
 
             {/* Lightbox viewer */}

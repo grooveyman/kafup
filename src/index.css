@@ -1,7 +1,7 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap');
 
-body, * {
+body,
+* {
   font-family: 'Josefin Sans', sans-serif;
 }
 
@@ -26,7 +26,7 @@ body, * {
   -moz-osx-font-smoothing: grayscale;
 
   --border-radius: 0.8rem;
-  --section-padding:100px;
+  --section-padding: 100px;
   --inner-section-padding: 100px 0px;
   --primary-background-color: #1a1a1a;
 
@@ -37,50 +37,82 @@ body, * {
   --primary-color2: #2f3322;
 
   --hover-transform: 1.05;
-  
+
 }
 
-.btn-complement{
+.btn-complement {
   background-color: var(--primary-complement) !important;
   color: white !important;
   border-radius: 40px !important;
 }
 
-.btn-primary{
-    background-color: black !important;
-    color: #fff !important;
-    border-radius: 30px !important;
-    border: none !important;
-    padding: 5px 15px !important;
+.btn-new-primary {
+  background-color: var(--primary-color) !important;
+  color: white !important;
+  border-radius: 40px !important;
+  /* padding: 0px 25px !important; */
+  /* height: 35px !important; */
+  /* margin: 5px 10px !important; */
 }
 
-.small-text{
+.btn-primary {
+  background-color: black !important;
+  color: #fff !important;
+  border-radius: 30px !important;
+  border: none !important;
+  padding: 5px 15px !important;
+}
+
+.btn-info {
+  background-color: gray !important;
+  color: #fff !important;
+  border-radius: 30px !important;
+  border: none !important;
+  padding: 5px 15px !important;
+}
+
+.section-heading {
+  font-size: 1.9rem !important;
+  font-weight: 800 !important;
+}
+
+.section-description {
+  font-size: 1.0rem !important;
+  font-weight: 400 !important;
+  width: 80% !important;
+
+}
+
+.small-text {
   color: var(--primary-color) !important;
 }
-.btn-sm{
+
+.btn-sm {
   font-size: smaller !important;
   /* padding: 2px 1px !important; */
 }
-.hover-effect{
+
+.hover-effect {
   transition: ease 0.5s;
 }
-.hover-effect:hover{
+
+.hover-effect:hover {
   transform: scale(var(--hover-transform));
 }
 
-.text-color{
+.text-color {
   color: var(--primary-complement) !important;
 }
 
-.section{
+.section {
   margin: var(--section-padding) 0px;
 }
 
-.inner-section{
+.inner-section {
   padding: var(--inner-section-padding);
 }
 
-.btn-primary-sm{
+.btn-primary-sm {
   font-size: small !important;
   background-color: #1a1a1a !important;
   color: white !important;

@@ -1,8 +1,10 @@
+import { Heart } from "lucide-react";
 import "../../assets/css/designers.css";
 import { useApiQuery } from "../../hooks/useApi";
 import { useTruncate } from "../../hooks/useTrancate";
 import EmptyPage from "../EmptyPage";
 import SkeletonLoader from "../SkeletonLoader";
+import { useNavigate } from "react-router-dom";
 
 interface BrandsResponse {
   total: number;
@@ -25,7 +27,7 @@ const Designers: React.FC = () => {
 
   const endpoint = `/brands`;
   const { isLoading, data } = useApiQuery<BrandsResponse>(['topbrands'], endpoint);
-  
+  const navigate = useNavigate();
   return (
     <>
       <div className="row designers-profile mt-4">
@@ -35,17 +37,27 @@ const Designers: React.FC = () => {
             <div className="col-md-6 col-sm-12 col-lg-4 col-xl-4 mb-4" key={brand.id}>
               <div className="designers-card">
                 <div className="designers-img">
-                  <img src={brand.image === '' || brand.image == null ? `${import.meta.env.BASE_URL}assets/images/software%20dev.png` : brand.image} />
+                  <img onClick={() => {navigate(`/profile/${brand.name}`)}} src={brand.image === '' || brand.image == null ? `${import.meta.env.BASE_URL}assets/images/software%20dev.png` : brand.image} />
                 </div>
-                <div className="designers-text">
-                  <div>
-                    <span>{brand.meta.likes} likes {brand.meta.follows} follows</span>
+                <div className="d-flex justify-content-between">
+                  <div className="designers-text">
+                    <div>
+                      <span>{brand.meta.likes} likes {brand.meta.follows} follows</span>
+                    </div>
+                    <h5>{brand.name}</h5>
+                    <p>
+                      {useTruncate(brand.description, { words: 20 })}
+                    </p>
                   </div>
-                  <h5>{brand.name}</h5>
-                  <p>
-                    {useTruncate(brand.description, { words: 20 })}
-                  </p>
+                  <div className="designers-actions">
+                    <div className="d-flex justify-content-end gap-2">
+                      <Heart size={20} />
+                      <span>Follow</span>
+                    </div>
+
+                  </div>
                 </div>
+
               </div>
             </div>
           ))

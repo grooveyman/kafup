@@ -1,5 +1,6 @@
 import { Product } from "./Home";
 import { useApiQuery } from "../hooks/useApi";
+import { useDebounce } from "../hooks/useDebounce";
 import EmptyPage from "../components/EmptyPage";
 import "../assets/css/shop.css";
 import Breadcrumb from "../components/Breadcrumb";
@@ -53,14 +54,12 @@ const Shop: React.FC = () => {
   );
 
 
-  console.log(!isLoading ? data : "");
-
-  // console.log("selected filters", selectedFilters.toString());
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 1000]);
 
+  const debouncedSearchKey = useDebounce(searchKey, 300);
 
   const filteredData = products.filter((item) => {
-    const matchSearch = item.name.toLowerCase().includes(searchKey.toLowerCase());
+    const matchSearch = item.name.toLowerCase().includes(debouncedSearchKey.toLowerCase());
     const matchPrice = item.price >= priceRange[0] && item.price <= priceRange[1];
     return matchSearch && matchPrice;
   });
@@ -90,7 +89,6 @@ const Shop: React.FC = () => {
         //nothing selected, go back to all
         return updated.length === 0 ? ["all"] : updated;
       }
-
 
       return [...withoutAll, id];
     });
@@ -149,7 +147,6 @@ const Shop: React.FC = () => {
             </div>
           </div>
         )}
-
       </div>
 
     </>

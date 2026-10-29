@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "../assets/css/details.css";
-import { CartItemType, CartVariation, DesignerType, useCartContext } from "../context/CartContext";
+import { CartItemType, CartVariation, useCartContext } from "../context/CartContext";
 import { useApiMutation, useApiQuery } from "../hooks/useApi";
 import DetailsSkeletonLoader from "../components/DetailsSkeletonLoader";
 // import { Variation } from "./admin/products/AddProduct";
@@ -19,12 +19,13 @@ export interface Variation {
   color: string;
   price: number;
   quantity: number;
+  dimension: any;
 }
 
-export interface Designer{
-    id: string;
-    brand_name: string;
-    meta: {likes:number; collections:number; follows:number; designs:number;}
+export interface Designer {
+  id: string;
+  brand_name: string;
+  meta: { likes: number; collections: number; follows: number; designs: number; }
 }
 interface Product {
   id: string;
@@ -47,16 +48,18 @@ const ProductDetails: React.FC = () => {
   const { id: prodId } = useParams<{ id: string }>();
   const productId = prodId!;
   const navigate = useNavigate();
-  const [selectedQuantity, setSelectedQuantity] = useState(0);
+  const [selectedQuantity, setSelectedQuantity] = useState("1");
   const [selectedSize, setSelectedSize] = useState<string>("");
   const calledRef = useRef(false);
-  const [rateOverview, setRateOverview] = useState({totalReviews: 0, rating:0});
+  const [rateOverview, setRateOverview] = useState({ totalReviews: 0, rating: 0 });
 
-  const getRateOverview = useCallback((value: {totalReviews: number; rating: number}) => {
+  const getRateOverview = useCallback((value: { totalReviews: number; rating: number }) => {
     setRateOverview(value);
-  },[])
+  }, [])
 
-  console.log("Rate overview update: ", rateOverview);
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [prodId]);
 
   const { addToCart } = useCartContext();
 
@@ -93,11 +96,18 @@ const ProductDetails: React.FC = () => {
   const [selectedColor, setSelectedColor] = useState(
     product?.designvariations?.[0]?.color || ""
   );
-  const [selectedImage, setSelectedImage] = useState(-1);
+  const [selectedImage, setSelectedImage] = useState(0);
   const [fullscreen, setFullscreen] = useState(false);
 
 
-  const images: Image[] = product?.designImages || [];
+  const images: Image[] = product
+    ? [
+        { imgurl: product.previewimg },
+        ...(product.designImages || []).filter(
+          (image) => image.imgurl !== product.previewimg
+        ),
+      ]
+    : [];
   console.log("Product images:", images);
 
   const handleNext = () => {
@@ -112,24 +122,49 @@ const ProductDetails: React.FC = () => {
     }
   };
 
+  const getValidQuantity = () => {
+    const quantity = Number(selectedQuantity);
+    if (!/^[1-9]\d*$/.test(selectedQuantity) || !Number.isSafeInteger(quantity)) {
+      toast.error("Please enter a valid whole-number quantity.");
+      return null;
+    }
+    return quantity;
+  };
+
+  const adjustSelectedQuantity = (amount: number) => {
+    const quantity = Number(selectedQuantity);
+    if (!Number.isSafeInteger(quantity) || quantity < 1) {
+      setSelectedQuantity("1");
+      return;
+    }
+
+    const nextQuantity = quantity + amount;
+    if (Number.isSafeInteger(nextQuantity) && nextQuantity >= 1) {
+      setSelectedQuantity(String(nextQuantity));
+    }
+  };
+
   const handleAddToCart = () => {
     if (!product) return;
+
+    const quantity = getValidQuantity();
+    if (quantity === null) return;
 
     const cartVariations: CartVariation = {
       size: selectedSize,
       color: selectedColor,
       price: product.price,
-      quantity: selectedQuantity,
+      quantity,
     };
 
     const productProd: CartItemType = {
       id: product.id,
       name: product.name,
-      quantity: selectedQuantity,
+      quantity,
       price: product.price,
-      // previmg: product.previewimg,
+      previmg: product.previewimg,
       variations: cartVariations,
-      total: product.price * selectedQuantity,
+      total: product.price * quantity,
       designer: product.designer.id,
     };
 
@@ -140,22 +175,24 @@ const ProductDetails: React.FC = () => {
   const handleBuyNow = () => {
     if (!product) return;
 
+    const quantity = getValidQuantity();
+    if (quantity === null) return;
 
     const cartVariations: CartVariation = {
       size: selectedSize,
       color: selectedColor,
       price: product.price,
-      quantity: selectedQuantity,
+      quantity,
     };
 
     const productProd: CartItemType = {
       id: product.id,
       name: product.name,
-      quantity: selectedQuantity,
+      quantity,
       price: product.price,
       // previmg: product.previewimg,
       variations: cartVariations,
-      total: product.price * selectedQuantity,
+      total: product.price * quantity,
       designer: product.designer.id,
     };
 
@@ -164,11 +201,6 @@ const ProductDetails: React.FC = () => {
       toast.error("Please select a size and color.");
       return;
     }
-    if (selectedQuantity <= 0) {
-      toast.error("Please select a valid quantity.");
-      return;
-    }
-
     setBuyNowItem(productProd);
     navigate("/checkout");
   };
@@ -201,13 +233,13 @@ const ProductDetails: React.FC = () => {
     <div className="container mt-4 mb-5">
       <div className="row mt-6">
         {/* LEFT SIDE */}
-        <div className="col-md-6">
-          <div className="d-flex">
+        <div className="mb-5 col-md-6">
+          <div className="d-flex details-image-layout">
             {/* Thumbnails */}
-            <div className="other-img d-flex flex-column me-2">
+            <div className="other-img d-flex flex-wrap flex-column me-2">
               {images.map((img, index) => (
                 <img
-                  key={index}
+                  key={`${img.imgurl}-${index}`}
                   src={img.imgurl}
                   className={`img-thumbnail mb-2 ${selectedImage === index ? "border border-primary" : ""
                     }`}
@@ -294,23 +326,31 @@ const ProductDetails: React.FC = () => {
               <div className="col-md-8 varsize">
                 <p className="mt-3 mb-1">Select Size <a href="#" data-bs-toggle="modal" data-bs-target="#sizeGuideModal">Size Guide</a></p>
                 {product.designvariations?.length === 0 && <p>No size variations available.</p>}
-                {product.designvariations?.map((variation, index) => (
-                  <>
-                    <input
-                      key={index}
-                      type="radio"
-                      className="btn-check btn-sm"
-                      id={`btn-check-xl-${index}`}
-                      autoComplete="off"
-                      name="size"
-                      value={variation.size}
-                      onChange={handleSizeChange}
-                    />
-                    <label className="btn" htmlFor={`btn-check-xl-${index}`}>
-                      {variation.size}
-                    </label>
-                  </>
-                ))}
+                <div className="d-flex justify-content-start gap-2 mb-2">
+                  {product.designvariations?.map((variation, index) => (
+                    <div className="" key={index}>
+                      <div>
+                        <input
+                          key={index}
+                          type="radio"
+                          className="btn-check btn-sm"
+                          id={`btn-check-xl-${index}`}
+                          autoComplete="off"
+                          name="size"
+                          value={variation.size}
+                          onChange={handleSizeChange}
+                        />
+                        <label className="btn" htmlFor={`btn-check-xl-${index}`}>
+                          {variation.size} ({variation.dimension ? variation.dimension.type : ""})
+                        </label>
+                        <div>
+                          <span className="badge bg-secondary">{variation.dimension?.gender}</span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
 
               </div>
               <hr style={{ margin: '20px 0', opacity: 0.1 }} />
@@ -321,8 +361,32 @@ const ProductDetails: React.FC = () => {
             <div className="row">
               <div>
                 <p className="mb-1">Quantity</p>
-                <div className="col-md-4">
-                  <input type="number" value={selectedQuantity} onChange={(e) => setSelectedQuantity(Number(e.target.value))} className="form-control" />
+                <div className="quantity-control">
+                  <button
+                    type="button"
+                    className="quantity-control-button"
+                    aria-label="Decrease quantity"
+                    onClick={() => adjustSelectedQuantity(-1)}
+                  >
+                    -
+                  </button>
+                  <input
+                    type="number"
+                    min="1"
+                    step="1"
+                    value={selectedQuantity}
+                    onChange={(e) => setSelectedQuantity(e.target.value)}
+                    className="form-control"
+                    aria-label="Quantity"
+                  />
+                  <button
+                    type="button"
+                    className="quantity-control-button"
+                    aria-label="Increase quantity"
+                    onClick={() => adjustSelectedQuantity(1)}
+                  >
+                    +
+                  </button>
                 </div>
               </div>
             </div>

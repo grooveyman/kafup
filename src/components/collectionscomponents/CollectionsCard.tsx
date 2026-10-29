@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import { DesignerCardMin } from "../DesignerCardMin";
 import { DesignerType } from "../../pages/Home";
 import { useTruncate } from "../../hooks/useTrancate";
 
