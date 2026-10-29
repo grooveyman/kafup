@@ -1,7 +1,5 @@
-import { useParams } from "react-router-dom";
 import { Product } from "./Home";
 import { useApiQuery } from "../hooks/useApi";
-import SkeletonLoader from "../components/SkeletonLoader";
 import EmptyPage from "../components/EmptyPage";
 import "../assets/css/shop.css";
 import Breadcrumb from "../components/Breadcrumb";
@@ -11,7 +9,6 @@ import SearchField from "../components/SearchField";
 import { useEffect, useState } from "react";
 import PriceRangeFilter from "../components/shopcomponents/PriceRangeFilter";
 import PrimaryButton from "../components/PrimaryButton";
-import { toast } from "react-toastify";
 
 export interface Category {
   id: string;
@@ -34,7 +31,7 @@ const Shop: React.FC = () => {
   const [selectedFilters, setSelectedFilters] = useState<(string)[]>(["all"]);
   const [searchKey, setSearchKey] = useState("");
   const [offset, setOffset] = useState(0);
-  const limit = 2;
+  const limit = 8;
 
   const [products, setProducts] = useState<Product[]>([]);
 
@@ -136,7 +133,7 @@ const Shop: React.FC = () => {
         </div>
         <div className="row">
           {<div className="row">
-            
+
             {filteredData.length === 0 && !isLoading ? (
               <EmptyPage />
             ) : (

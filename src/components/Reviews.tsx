@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useApiMutation, useApiQuery } from "../hooks/useApi";
 import { Designer } from "../pages/Details";
-import { useQueryClient } from "react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { relativeTime } from "../hooks/relativeTime";
 import Loading from "./Loading";
 
@@ -55,10 +55,9 @@ const Reviews: React.FC<ReviewProps> = ({ designer, design_id, onSendRateOvervie
             console.log(data);
             setPostLoading(false);
             setShowModal(false);
-            toast.success(`Review successfully submitted. Thank You`);
             queryClient.invalidateQueries({ queryKey: ["reviews", design_id] });
             queryClient.invalidateQueries({ queryKey: ["rateoverview", design_id] });
-
+            toast.success(`Review successfully submitted. Thank You`);
 
         },
         onError: (error) => {
@@ -70,7 +69,6 @@ const Reviews: React.FC<ReviewProps> = ({ designer, design_id, onSendRateOvervie
     //find reviews
     const { data: newdata, isLoading } = useApiQuery<Response>(['reviews', design_id], `/reviews/${design_id}/?limit=4&offset=0`);
 
-    console.log(!isLoading ? newdata : "");
 
     //find rating overview
     const { data: overviewData, isLoading: loadOverview } = useApiQuery<OverviewResponse>(['rateoverview', design_id], `/reviews/overview/${design_id}`);

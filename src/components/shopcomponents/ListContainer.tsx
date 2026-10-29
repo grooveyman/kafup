@@ -18,7 +18,7 @@ const ListContainer: React.FC<ListProps> = ({ list }) => {
         <>
             {list?.map((product) => (
                 <div
-                    className="mb-3 col-md-6 col-sm-12 col-lg-4 col-xs-12 col-xxl-3 col-xl-3"
+                    className="mb-5 col-md-6 col-sm-12 col-lg-4 col-xs-12 col-xxl-3 col-xl-3"
 
                     key={product.id}
                 >
@@ -28,13 +28,15 @@ const ListContainer: React.FC<ListProps> = ({ list }) => {
                     </div>
                     <div className="shop-prod-desc mt-2">
                         <h6>{product.name}</h6>
+
                         <p>
                             <span>GHS</span>
                             {product.price ?? "$40"}
                         </p>
                     </div>
+                    
                     <div className="shop-desc-cat">
-                        <p>{product.designer.name}</p>
+                        <p>{product.designer.brand_name}</p>
                         <div>
                             <span className="badge bg-secondary text-decoration-none">
                                 {product.categories?.name}
@@ -42,9 +44,9 @@ const ListContainer: React.FC<ListProps> = ({ list }) => {
                         </div>
 
 
-                        <div className="mt-2">
+                        {/* <div className="mt-2">
                             <PrimarySmButton text="Add to Cart" className="" onClick={() => { }} />
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             ))

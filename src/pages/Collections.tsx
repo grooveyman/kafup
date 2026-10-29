@@ -1,6 +1,6 @@
 import "../assets/css/collections.css";
 import CollectionsCard from "../components/collectionscomponents/CollectionsCard";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import NavFilter from "../components/explorecomponents/NavFilter";
 import EmptyPage from "../components/EmptyPage";
 import Breadcrumb from "../components/Breadcrumb";
@@ -26,6 +26,11 @@ export interface Collection {
     thumbnail: string;
 }
 
+interface CollectionResponse {
+    results: Collection[];
+    total: number;
+}
+
 
 const Collections: React.FC = () => {
 
@@ -38,11 +43,18 @@ const Collections: React.FC = () => {
 
     const [selectedFilters, setSelectedFilters] =
         useState<string[]>(["all"]);
+    const [collections, setCollections] = useState<Collection[]>([]);
+
+
+
+    const [offset, setOffset] = useState(0);
+    const limit = 8;
 
     const params = new URLSearchParams();
 
-    params.set("limit", "20");
-    params.set("offset", "0");
+    params.set("limit", limit.toString());
+    params.set("offset", offset.toString());
+
     selectedFilters.forEach((filter) => {
         if (filter !== "all") {
             params.append("filter[]", filter);
@@ -51,18 +63,19 @@ const Collections: React.FC = () => {
 
     const endpoint = `/collections?${params.toString()}`;
 
-    const { data, isLoading } = useApiQuery<Collection[]>(["collections"], endpoint);
-    console.log(isLoading?"":data);
+    const { data, isLoading } = useApiQuery<CollectionResponse>(["collections", selectedFilters.toString(), offset.toString()], endpoint);
 
+    console.log(isLoading ? "" : data);
 
     const [searchKey, setSearchKey] = useState("");
 
-        // Filter collections
-    const filteredItems = (data ?? []).filter((item) => item.name.toLowerCase().includes(searchKey.toLowerCase()));
+    // Filter collections
+    const filteredItems = collections.filter((item) => item.name.toLowerCase().includes(searchKey.toLowerCase()));
 
-    
+
     // Toggle filters
     const handleFilterChange = (id: string) => {
+        setOffset(0);
         setSelectedFilters((prev) => {
 
             // All clears all filters
@@ -94,8 +107,20 @@ const Collections: React.FC = () => {
     };
 
     const handleLoadMore = () => {
-        toast.success("More will be loaded");
+        setOffset((prev) => prev + limit);
     };
+
+    useEffect(() => {
+        if (!data?.results) return;
+        setCollections((prev) => {
+            if (offset === 0) {
+                return data.results;
+            }
+            return [...prev, ...data.results];
+        });
+    }, [data, offset]);
+
+
 
     return (
         <div className="container">
@@ -130,7 +155,7 @@ const Collections: React.FC = () => {
 
             <div className="row mt-3">
 
-              
+
 
                 {isLoading && <SkeletonLoader />}
 
@@ -149,7 +174,7 @@ const Collections: React.FC = () => {
                             collection_img={collection.thumbnail}
                             designer={{
                                 id: collection.designer.id,
-                                name: collection.designer.name,
+                                brand_name: collection.designer.name,
                                 image: collection.designer.image
                             }}
                             collection_id={collection.id}
@@ -158,18 +183,20 @@ const Collections: React.FC = () => {
                     </div>
                 ))}
 
-                  {!isLoading && filteredItems.length === 0 && (
+                {!isLoading && filteredItems.length === 0 && (
                     <EmptyPage />
                 )}
 
             </div>
 
 
-            <div className="row mt-4">
-                <div className="d-flex justify-content-center">
-                    <PrimaryButton text="Load More" onClick={handleLoadMore} />
+            {data && collections.length < data.total && !isLoading && (
+                <div className="row mt-4">
+                    <div className="d-flex justify-content-center">
+                        <PrimaryButton text="Load More" onClick={handleLoadMore} />
+                    </div>
                 </div>
-            </div>
+            )}
         </div>
     );
 };

@@ -126,22 +126,23 @@
 }
 
 .best-col-large {
-    height: 86.2%;
-    transition: transform 0.3s ease;
+    /* height: 50.2%; */
+    transition: transform 0.3s ease; 
 }
 
 .best-col-large img {
     width: 100%;
-    height: 100%;
+    height: 70vh !important;
     object-fit: cover;
     border-radius: 10px;
 }
 
 .best-col-small {
-    height: calc(50% - 10px);
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 10px;
+    /* height: calc(45% - 95px); */
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* margin-bottom: 10px; */
+    margin-bottom: 20px;
     transition: transform 0.3s ease;
 }
 
@@ -152,7 +153,7 @@
 
 .best-col-small img {
     width: 100%;
-    height: 100%;
+    height: 30vh;
     min-height: 0;
     object-fit: cover;
     border-radius: 10px;

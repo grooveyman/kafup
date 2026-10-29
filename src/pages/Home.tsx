@@ -41,17 +41,14 @@ export interface CollectionType {
   name: string;
   description: string;
   designer: DesignerType;
-  meta: {
-    views: number;
-    likes: number;
-    items: number;
-  };
+  clicks: number;
   collection_id: string;
+  thumbnail: string;
 }
 export interface DesignerType {
   id: string;
-  name: string;
   image: string;
+  brand_name: string;
 }
 
 interface ProdImage {
@@ -60,7 +57,7 @@ interface ProdImage {
   public_id: string;
 }
 
-interface Response{
+interface Response {
   results: Product[];
   total: number;
 }
@@ -74,7 +71,7 @@ const Home: React.FC = () => {
   );
 
   console.log("DATA FROM HOME recent designs")
-  console.log(!isLoading?data:"");
+  console.log(!isLoading ? data : "");
 
 
   const {
@@ -86,7 +83,7 @@ const Home: React.FC = () => {
   console.log(popularData);
   if (isErrorPopular) {
     console.log(`Error getting popular products`);
-   
+
   }
   const [value, setValue] = useState("1");
 
@@ -129,11 +126,11 @@ const Home: React.FC = () => {
                 <div className="row">
                   {isLoading ? (
                     <SkeletonLoader count={3} />
-                  ) : !data || data.results.length === 0? (
+                  ) : !data || data.results.length === 0 ? (
                     <EmptyPage />
-                  ):(
+                  ) : (
                     <ListContainer list={data?.results} />
-                    
+
                   )}
                 </div>
               </TabPanel>
@@ -165,9 +162,13 @@ const Home: React.FC = () => {
                             height={"100%"}
                           />
                         </div>
-                        <div className="desc mt-2">
+                        <div className="shop-prod-desc mt-2">
                           <h6>{product.name}</h6>
-                          <p>{product.price ?? "$40"}</p>
+
+                          <p>
+                            <span>GHS</span>
+                            {product.price ?? "$40"}
+                          </p>
                         </div>
                       </div>
                     ))
@@ -181,7 +182,7 @@ const Home: React.FC = () => {
         </TabContext>
       </div>
 
-      <div className="mt-5">
+      <div className="">
         <div className="container section">
           <HomeCollection />
         </div>

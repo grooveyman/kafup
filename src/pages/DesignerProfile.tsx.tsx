@@ -1,6 +1,6 @@
 import { Search } from "lucide-react";
-import { useMemo, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import Lightbox from "yet-another-react-lightbox";
 
 import "../assets/css/brandprofile.css";
@@ -10,12 +10,35 @@ import EmptyPage from "../components/EmptyPage";
 import ProfileCard from "../components/brandscomponents/ProfileCard";
 import BrandList from "../components/brandscomponents/BrandList";
 
-import { useApiQuery } from "../hooks/useApi";
-import { Product } from "./Home";
+import { useApiMutation, useApiQuery } from "../hooks/useApi";
 import { ProductResponse } from "./Shop";
 
 const DesignerProfile: React.FC = () => {
-    const { username, collection_id } = useParams();
+    const [searchParams] = useSearchParams();
+    const collection = searchParams.get("collection");
+    const username = searchParams.get("username");
+
+    //ensure on click for collection ID
+    const clickSent = useRef<string | null>(null);
+
+    const clickMutation = useApiMutation<{ message: string }>(`/collections/click/${collection}`, 'PATCH', {
+        onSuccess: (data) => {
+            console.log(data);
+
+        },
+        onError: (error) => {
+            console.log(error);
+        }
+    });
+
+    useEffect(() => {
+        if (!collection) return;
+        if (clickSent.current === collection) return;
+        clickSent.current = collection;
+        console.log("Collection: ", collection);
+        clickMutation.mutate({});
+    }, [collection]);
+
 
     const [open, setOpen] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState("");
@@ -25,7 +48,7 @@ const DesignerProfile: React.FC = () => {
     const endpoint = "/designs/";
 
     const { data, isLoading } = useApiQuery<ProductResponse>(
-        ["designs", username ?? "", collection_id ?? ""],
+        ["designs", username ?? "", collection ?? ""],
         endpoint
     );
 
@@ -44,7 +67,7 @@ const DesignerProfile: React.FC = () => {
         ];
     }, [data]);
 
-    
+
 
     const categories = useMemo(() => {
         return [
@@ -59,7 +82,7 @@ const DesignerProfile: React.FC = () => {
         ];
     }, [data]);
 
-    
+
 
     const filteredData = useMemo(() => {
         if (!data) return [];
@@ -85,16 +108,16 @@ const DesignerProfile: React.FC = () => {
             // Search filter
             const matchesSearch = searchTerm
                 ? [
-                      item.name,
-                      item.categories?.name,
-                      item.collections?.name,
-                  ]
-                      .filter(Boolean)
-                      .some((value) =>
-                          String(value)
-                              .toLowerCase()
-                              .includes(searchTerm)
-                      )
+                    item.name,
+                    item.categories?.name,
+                    item.collections?.name,
+                ]
+                    .filter(Boolean)
+                    .some((value) =>
+                        String(value)
+                            .toLowerCase()
+                            .includes(searchTerm)
+                    )
                 : true;
 
             return (
@@ -105,13 +128,13 @@ const DesignerProfile: React.FC = () => {
         });
     }, [
         data,
-        collection_id,
+        collection,
         selectedCollection,
         selectedCategory,
         search,
     ]);
 
-    
+
     const resetFilters = () => {
         setSelectedCollection("");
         setSelectedCategory("");
@@ -244,14 +267,14 @@ const DesignerProfile: React.FC = () => {
                             {(selectedCollection ||
                                 selectedCategory ||
                                 search) && (
-                                <button
-                                    type="button"
-                                    className="btn btn-outline-secondary"
-                                    onClick={resetFilters}
-                                >
-                                    Reset
-                                </button>
-                            )}
+                                    <button
+                                        type="button"
+                                        className="btn btn-outline-secondary"
+                                        onClick={resetFilters}
+                                    >
+                                        Reset
+                                    </button>
+                                )}
                         </div>
 
                         {/* Designs */}

@@ -115,7 +115,6 @@ const ProductDetails: React.FC = () => {
   const handleAddToCart = () => {
     if (!product) return;
 
-
     const cartVariations: CartVariation = {
       size: selectedSize,
       color: selectedColor,

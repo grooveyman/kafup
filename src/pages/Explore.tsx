@@ -8,92 +8,27 @@ import Breadcrumb from "../components/Breadcrumb";
 import { EyeIcon, Heart } from "lucide-react";
 import SearchField from "../components/SearchField";
 import { useApiQuery } from "../hooks/useApi";
+import { Product } from "./Home";
 
-// const data = [
-//     {
-//         id: '3232',
-//         name: "Artist Design",
-//         image: `${import.meta.env.BASE_URL}assets/images/software dev.png`,
-//         meta: {
-//             likes: 32,
-//             views: 33
-//         },
-//         categories: {
-//             name: "Children"
-//         }
-//     },
-//     {
-//         id: '764',
-//         name: "Artist Design",
-//         image: `${import.meta.env.BASE_URL}assets/images/software dev.png`,
-//         meta: {
-//             likes: 32,
-//             views: 33
-//         },
-//         categories: {
-//             name: "Children"
-//         }
-//     },
-//     {
-//         id: '765',
-//         name: "Artist Design",
-//         image: `${import.meta.env.BASE_URL}assets/images/software dev.png`,
-//         meta: {
-//             likes: 32,
-//             views: 33
-//         },
-//         categories: {
-//             name: "Sons"
-//         }
-//     },
-//     {
-//         id: '765',
-//         name: "Artist Design",
-//         image: `${import.meta.env.BASE_URL}assets/images/software dev.png`,
-//         meta: {
-//             likes: 32,
-//             views: 33
-//         },
-//         categories: {
-//             name: "Women"
-//         }
-//     },
-//     {
-//         id: '3256',
-//         name: "Artist Design",
-//         image: `${import.meta.env.BASE_URL}assets/images/software dev.png`,
-//         meta: {
-//             likes: 32,
-//             views: 33
-//         },
-//         categories: {
-//             name: "Men"
-//         }
-//     },
-//     {
-//         id: '2131',
-//         name: "Artist Design",
-//         image: `${import.meta.env.BASE_URL}assets/images/software dev.png`,
-//         meta: {
-//             likes: 32,
-//             views: 12
-//         },
-//         categories: {
-//             name: "Children"
-//         }
-//     }
-// ];
 
-interface ExploreResponse{
+interface ExploreProduct {
     id: string;
     name: string;
     image: string;
-    designer: string;
-    meta: {likes: number,
+    designer: {name: string};
+    meta: {
+        likes: number,
         views: number
     },
-    categories: {name: string}
+    categories: { name: string }
 }
+interface ExploreResponse {
+    total: number;
+    results: ExploreProduct[];
+}
+
+
+
 const Explore: React.FC = () => {
     const filters = [
         { id: "all", name: "All" },
@@ -104,9 +39,16 @@ const Explore: React.FC = () => {
 
     const [selectedFilters, setSelectedFilters] = useState<(string)[]>(["all"]);
     const [lastScroll, setLastScroll] = useState(0);
+    const [offset, setOffset] = useState(0);
+    const [products, setProducts] = useState<ExploreProduct[]>([]);
+    const limit = 9;
 
-    const {isLoading, data } = useApiQuery<ExploreResponse[]>(['explore'], `/designs/explore?limit=4&offset=0`);
-    console.log(isLoading ? "":data);
+    const { isLoading, data } = useApiQuery<ExploreResponse>(['explore', selectedFilters.toString(), offset.toString()], `/designs/explore?limit=${limit}&offset=${offset}`);
+    console.log(isLoading ? "" : data);
+
+    const params = new URLSearchParams();
+    params.set("limit", limit.toString());
+    params.set("offset", offset.toString());
 
     // Lightbox state
     const [open, setOpen] = useState(false);
@@ -116,6 +58,7 @@ const Explore: React.FC = () => {
 
 
     const handleFilterChange = (id: string) => {
+        setOffset(0);
         setSelectedFilters((prev) => {
             if (id === "all") {
                 return [];
@@ -129,7 +72,7 @@ const Explore: React.FC = () => {
         });
     };
 
-    const filteredItems = data?.filter((item) => {
+    const filteredItems = products?.filter((item) => {
         if (selectedFilters.length === 0) {
             return true;
         }
@@ -142,7 +85,7 @@ const Explore: React.FC = () => {
         return true;
     }).filter((item) => item.name.toLowerCase().includes(searchTerm.toLowerCase()));
 
-    
+
 
     const handleSearch = (value: string) => {
         setSearchTerm(value);
@@ -169,10 +112,23 @@ const Explore: React.FC = () => {
         return () => window.removeEventListener("scroll", handleScroll);
     }, [lastScroll]);
 
+    useEffect(() => {
+        if (!data?.results) return;
+        setProducts((prev) => {
+            if (offset === 0) {
+                return data.results;
+            }
+            return [...prev, ...data.results];
+        });
+    }, [data, offset]);
 
 
     const handleSearchSubmit = () => {
     };
+
+    const handleLoadMore = () => {
+        setOffset((prev) => prev + limit);
+    }
 
     return (
         <div className="container explore-wrapper">
@@ -226,20 +182,24 @@ const Explore: React.FC = () => {
                                 </div>
                             </div>
                         </div>
-
+                        <div className="m-0">
+                            <p>{item.designer.name}</p>
+                        </div>
                     </div>
                 ))}
             </div>
 
-            <div className="mt-5">
-                <div className="d-flex justify-content-center">
-                    <button className="btn btn-primary">Load More</button>
+            {data && products.length < data.total && !isLoading && (
+                <div className="mt-5">
+                    <div className="d-flex justify-content-center">
+                        <button className="btn btn-primary" onClick={handleLoadMore}>Load More</button>
+                    </div>
                 </div>
-            </div>
+            )}
 
 
             {/* Lightbox viewer */}
-            
+
             <Lightbox
                 open={open}
                 close={() => setOpen(false)}

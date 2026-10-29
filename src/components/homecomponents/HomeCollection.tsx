@@ -1,3 +1,6 @@
+import { useApiQuery } from "../../hooks/useApi";
+import { CollectionType } from "../../pages/Home";
+import EmptyPage from "../EmptyPage";
 
 
 const HomeCollection: React.FC = () => {
@@ -7,8 +10,9 @@ const HomeCollection: React.FC = () => {
             name: "Collection Name",
             meta: { views: 100, likes: 50, items: 10, designs: 45 },
             description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit",
-            designer: { name: "Designer Name", dp_img: "assets/images/designer.jpg" },
+            designer: { name: "Designer Name", dp_img: "assets/images/carousel 10.png" },
             collection_id: "1",
+            thumbnail: "assets/images/carousel 7.png"
 
         },
         {
@@ -27,6 +31,9 @@ const HomeCollection: React.FC = () => {
         }
     ];
 
+    const { data, isLoading } = useApiQuery<CollectionType[]>(["top-collections"], "/collections/top");
+    console.log("Collection log");
+    console.log(isLoading ? "" : data);
     return (
         <>
             <div className="row">
@@ -34,31 +41,35 @@ const HomeCollection: React.FC = () => {
                     <h2 className="">Our Best Collections Today</h2>
                 </div>
 
-                <div className="row best-col">
-                    <div className="col-md-12 col-lg-8 mb-3">
-                        <div className="best-col-large">
-                            <img src="assets/images/carousel 11.png" />
-                            <div className="best-col-text mt-2">
-                                <p>{topCollections[0].designer.name}</p>
-                                <p>{topCollections[0].name}</p>
-                                <span>{topCollections[0].meta.likes} likes {topCollections[0].meta.views} views</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-md-12 col-lg-4">
-                        {topCollections.slice(1).map((collection) => (
-                            <div className="best-col-small">
-                                <img src="assets/images/carousel 10.png" alt="" className="" />
+                {!isLoading && data?.length == 0 || data === undefined ? (<EmptyPage />) : (
+                    <div className="row">
+                        <div className="col-md-12 col-lg-8">
+                            <div className="best-col-large">
+                                <img src={data?.[0]?.thumbnail} alt="Top Collection" className="img-fluid" />
                                 <div className="best-col-text mt-2">
-                                    <p>{collection.designer.name}</p>
-                                    <p>{collection.name}</p>
-                                    <span>{collection.meta.likes} likes {collection.meta.views} views</span>
+                                    <p>{data?.[0]?.designer.brand_name}</p>
+                                    <p>{data?.[0]?.name}</p>
+                                    <span>{data?.[0]?.clicks} view(s)</span>
                                 </div>
                             </div>
-                        ))}
-                        
+                        </div>
+                        <div className="col-md-12 col-lg-4">
+                            {data?.slice(1).map((collection) => (
+                                <div className="best-col-small">
+                                    <img src={collection.thumbnail} alt="" className="" />
+                                    <div className="best-col-text mt-2">
+                                        <p>{collection.designer.brand_name}</p>
+                                        <p>{collection.name}</p>
+                                        <span>{collection.clicks} view(s)</span>
+                                    </div>
+                                </div>
+                            ))}
+
+                        </div>
                     </div>
-                </div>
+                )}
+
+
 
             </div>
 
