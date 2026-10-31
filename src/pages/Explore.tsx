@@ -1,20 +1,25 @@
 import { useEffect, useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import "../assets/css/explore.css";
 import NavFilter from "../components/explorecomponents/NavFilter";
 
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 import Breadcrumb from "../components/Breadcrumb";
-import { EyeIcon, Heart } from "lucide-react";
+import { EyeIcon } from "lucide-react";
 import SearchField from "../components/SearchField";
-import { useApiQuery } from "../hooks/useApi";
+import { useApiMutation, useApiQuery } from "../hooks/useApi";
 import { useDebounce } from "../hooks/useDebounce";
 import EmptyPage from "../components/EmptyPage";
+import ExploreSkeletonLoader from "../components/explorecomponents/ExploreSkeletonLoader";
+import LikeButton from "../components/LikeButton";
 
-interface ExploreResponse {
+interface ExploreProduct {
     id: string;
     name: string;
     image: string;
+    designImages?: DesignImage[];
+    prodimages?: DesignImage[];
     designer: string;
     meta: {
         likes: number,
@@ -25,6 +30,9 @@ interface ExploreResponse {
 interface ExploreResponse {
     total: number;
     results: ExploreProduct[];
+}
+interface DesignImage {
+    imgurl: string;
 }
 
 
@@ -43,7 +51,7 @@ const Explore: React.FC = () => {
     const [products, setProducts] = useState<ExploreProduct[]>([]);
     const limit = 9;
 
-    const { isLoading, data } = useApiQuery<ExploreResponse[]>(['explore'], `/designs/explore?limit=4&offset=0`);
+    const { isLoading, data } = useApiQuery<ExploreResponse>(['explore', offset.toString()], `/designs/explore?limit=${limit}&offset=${offset}`);
     console.log(isLoading ? "" : data);
 
     // Lightbox state
@@ -51,6 +59,12 @@ const Explore: React.FC = () => {
     const [index, setIndex] = useState(0);
     const [slides, setSlides] = useState<{ src: string }[]>([]);
     const [searchTerm, setSearchTerm] = useState("");
+    const queryClient = useQueryClient();
+    const clickMutation = useApiMutation<{ message: string }>("/designs/click", "PATCH", {
+        onSuccess: async () => {
+            await queryClient.invalidateQueries({ queryKey: ["explore"] });
+        },
+    });
 
 
     const handleFilterChange = (id: string) => {
@@ -70,7 +84,7 @@ const Explore: React.FC = () => {
 
     const debouncedSearchTerm = useDebounce(searchTerm, 300);
 
-    const filteredItems = data?.filter((item) => {
+    const filteredItems = products.filter((item) => {
         if (selectedFilters.length === 0) {
             return true;
         }
@@ -124,6 +138,13 @@ const Explore: React.FC = () => {
     const handleSearchSubmit = () => {
     };
 
+    const getDesignSlides = (primaryImage: string, designImages: DesignImage[] = []) => [
+        { src: primaryImage },
+        ...designImages
+            .filter((image) => image.imgurl !== primaryImage)
+            .map((image) => ({ src: image.imgurl })),
+    ];
+
     const handleLoadMore = () => {
         setOffset((prev) => prev + limit);
     }
@@ -149,24 +170,29 @@ const Explore: React.FC = () => {
             </div>
 
             {/* Image grid */}
-            {filteredItems?.length === 0 ? (
+            {isLoading && products.length === 0 ? (
+                <ExploreSkeletonLoader count={6} />
+            ) : filteredItems?.length === 0 ? (
                 <EmptyPage message="No items found in explore."/>
             ) : (
                 <>
                     <div className="row">
-                        {filteredItems?.map((item, i) => (
-                            <div className="explore-container col-md-4 col-xl-4 col-xs-6 col-lg-4 col-sm-6">
+                        {filteredItems?.map((item) => (
+                            <div key={item.id} className="explore-container col-md-4 col-xl-4 col-xs-6 col-lg-4 col-sm-6">
                                 <div
                                     className="img-container"
-                                    key={i}
                                 >
                                     <img
                                         src={item.image}
                                         alt={item.name}
                                         className="clickable-image"
                                         onClick={() => {
-                                            setSlides(filteredItems.map(img => ({ src: img.image })));
-                                            setIndex(i);
+                                            clickMutation.mutate({ id: item.id });
+                                            setSlides(getDesignSlides(
+                                                item.image,
+                                                item.designImages || item.prodimages
+                                            ));
+                                            setIndex(0);
                                             setOpen(true);
                                         }}
                                     />
@@ -177,8 +203,11 @@ const Explore: React.FC = () => {
                                     <div>{item.name}</div>
                                     <div>
                                         <div className="d-flex justify-content-start gap-1 align-items-center">
-                                            <Heart size={14} />
-                                            <p style={{ margin: 0, fontSize: "small" }}>{item.meta.likes}</p>
+                                            <LikeButton
+                                                designId={item.id}
+                                                likes={item.meta.likes}
+                                                queryKeys={[["explore"]]}
+                                            />
                                             <EyeIcon size={14} fill="gray" />
                                             <p style={{ margin: 0, fontSize: "small" }}>{item.meta.views}</p>
                                         </div>
@@ -191,7 +220,9 @@ const Explore: React.FC = () => {
 
                     <div className="mt-5">
                         <div className="d-flex justify-content-center">
-                            <button className="btn btn-primary">Load More</button>
+                            {data && products.length < data.total && !isLoading && (
+                                <button className="btn btn-primary" onClick={handleLoadMore}>Load More</button>
+                            )}
                         </div>
                     </div>
                 </>

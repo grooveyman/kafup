@@ -300,22 +300,34 @@ const ProductDetails: React.FC = () => {
                 <div className="d-flex mt-2">
                   {product.designvariations && ""}
                   {product.designvariations?.map((color) => (
-                    <div
-                      key={color.color}
-                      className={`color-swatch me-2 ${color.color === selectedColor ? "border border-dark" : ""
-                        }`}
-                      style={{
-                        width: "20px",
-                        height: "20px",
-                        borderRadius: "50%",
-                        backgroundColor: color.color,
-                        cursor: "pointer",
-                      }}
-                      onClick={() => {
-                        setSelectedColor(color.color);
-                        setSelectedImage(0);
-                      }}
-                    ></div>
+                    (() => {
+                      const isMultiColor = color.color.trim().toLowerCase() === "multi";
+
+                      return (
+                        <div
+                          key={color.color}
+                          className={`color-swatch me-2 ${color.color === selectedColor ? "border border-dark" : ""
+                            }`}
+                          style={{
+                            width: isMultiColor ? "auto" : "20px",
+                            minWidth: "20px",
+                            height: "20px",
+                            padding: isMultiColor ? "0 6px" : undefined,
+                            borderRadius: isMultiColor ? "4px" : "50%",
+                            backgroundColor: isMultiColor ? "white" : color.color,
+                            cursor: "pointer",
+                            fontSize: "11px",
+                            lineHeight: "18px",
+                          }}
+                          onClick={() => {
+                            setSelectedColor(color.color);
+                            setSelectedImage(0);
+                          }}
+                        >
+                          {isMultiColor ? "Multi" : null}
+                        </div>
+                      );
+                    })()
                   ))}
                 </div>
               </div>

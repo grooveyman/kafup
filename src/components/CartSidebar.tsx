@@ -102,7 +102,15 @@ const CartSidebar: React.FC<CartSidebarProps> = ({
             <strong>Total</strong>
             <strong>GHS {Number(total.toFixed(2))}</strong>
           </div>
-          <button className="btn btn-complement w-100 mt-3" onClick={() => navigate("/cart")}>View Cart</button>
+          <button
+            className="btn btn-complement w-100 mt-3"
+            onClick={() => {
+              onClose();
+              navigate("/cart");
+            }}
+          >
+            View Cart
+          </button>
           <button className="btn btn-primary w-100 mt-3" onClick={handleCheckout}>Checkout</button>
         </div>
       </div>

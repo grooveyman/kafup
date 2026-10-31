@@ -32,6 +32,7 @@ export interface Product {
   previewimg_height?: number;
   previewimg_width?: number;
   previewimg_public_id?: string;
+  meta?: { likes: number; views: number };
   designer: DesignerType;
   categories?: Category;
   collections?: CollectionType;

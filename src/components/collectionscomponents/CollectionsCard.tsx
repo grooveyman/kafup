@@ -19,14 +19,28 @@ interface CollectinsProps {
 
 const CollectionsCard: React.FC<CollectinsProps> = ({ name, description, designer, collection_id, collection_img }) => {
     const navigate = useNavigate();
-    // const 
+    const fallbackImage = `${import.meta.env.BASE_URL}assets/images/software%20dev.png`;
+
     return (
         <>
             <div className="w-100" key={collection_id} onClick={() => navigate(`/profile/${designer.brand_name}?collection=${collection_id}`)}>
                 <div className="">
                     <div className="designers-card">
-                        <div className="designers-img">
-                            <img src={collection_img === '' || collection_img == null ? `${import.meta.env.BASE_URL}assets/images/software%20dev.png` : collection_img} />
+                        <div className="designers-img" style={{ overflow: "hidden" }}>
+                            <img
+                                src={collection_img?.trim() || fallbackImage}
+                                alt={name}
+                                onError={(event) => {
+                                    event.currentTarget.onerror = null;
+                                    event.currentTarget.src = fallbackImage;
+                                }}
+                                style={{
+                                    display: "block",
+                                    width: "100%",
+                                    height: "30vh",
+                                    objectFit: "cover",
+                                }}
+                            />
                         </div>
                         <div className="designers-text">
                             <div>

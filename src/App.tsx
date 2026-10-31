@@ -4,16 +4,13 @@ import { RouterProvider } from 'react-router-dom'
 import { router } from './routes';
 import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
-import { BuyNowProvider } from './context/BuyNowContext';
 
 const queryClient = new QueryClient();
 const App: React.FC = () => {
   return (
     <QueryClientProvider client={queryClient}>
-      <BuyNowProvider>
-        <RouterProvider router={router} />
-        <ToastContainer position='top-right' autoClose={3000} hideProgressBar={false}/>
-      </BuyNowProvider>
+      <RouterProvider router={router} />
+      <ToastContainer position='top-right' autoClose={3000} hideProgressBar={false}/>
     </QueryClientProvider>
   );
 }

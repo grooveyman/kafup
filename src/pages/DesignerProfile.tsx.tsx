@@ -1,6 +1,6 @@
 import { Search } from "lucide-react";
-import { useMemo, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { useParams, useSearchParams } from "react-router-dom";
 import { useDebounce } from "../hooks/useDebounce";
 import Lightbox from "yet-another-react-lightbox";
 
@@ -11,7 +11,7 @@ import EmptyPage from "../components/EmptyPage";
 import ProfileCard from "../components/brandscomponents/ProfileCard";
 import BrandList from "../components/brandscomponents/BrandList";
 
-import { useApiQuery } from "../hooks/useApi";
+import { useApiMutation, useApiQuery } from "../hooks/useApi";
 import { ProductResponse } from "./Shop";
 
 const DesignerProfile: React.FC = () => {

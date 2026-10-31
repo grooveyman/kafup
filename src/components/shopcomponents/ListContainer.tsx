@@ -1,6 +1,6 @@
-import { HeartIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Product } from "../../pages/Home";
+import LikeButton from "../LikeButton";
 
 
 
@@ -23,7 +23,12 @@ const ListContainer: React.FC<ListProps> = ({ list }) => {
                 >
                     <div className="product" >
                         <img src={product.previewimg} width={"100%"} height={"100%"} onClick={() => navigate("/details/" + product.id)} />
-                        <div className="like-btn"><HeartIcon /></div>
+                        <LikeButton
+                            designId={product.id}
+                            likes={product.meta?.likes}
+                            queryKeys={[["products"], ["popularproducts"]]}
+                            overlay
+                        />
                     </div>
                     <div className="shop-prod-desc mt-2">
                         <h6>{product.name}</h6>

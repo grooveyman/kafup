@@ -72,7 +72,7 @@ const Collections: React.FC = () => {
     const debouncedSearchKey = useDebounce(searchKey, 300);
 
         // Filter collections
-    const filteredItems = (data ?? []).filter((item) => item.name.toLowerCase().includes(debouncedSearchKey.toLowerCase()));
+    const filteredItems = collections.filter((item) => item.name.toLowerCase().includes(debouncedSearchKey.toLowerCase()));
 
 
     // Toggle filters
