@@ -1,36 +1,30 @@
 import { Link, useNavigate } from "react-router-dom";
+import { Skeleton } from "@mui/material";
+import { useApiQuery } from "../../hooks/useApi";
 import PrimaryButton from "../PrimaryButton";
 
+interface Collection {
+    id: string;
+    name: string;
+    views: number;
+    likes: number;
+    designer: {
+        name: string;
+    };
+    thumbnail: string;
+}
+
+interface CollectionResponse {
+    results: Collection[];
+}
 
 const HomeCollection: React.FC = () => {
-
-    const topCollections = [
-        {
-            name: "Collection Name",
-            meta: { views: 100, likes: 50, items: 10, designs: 45 },
-            description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit",
-            designer: { name: "Designer Name", dp_img: "assets/images/carousel 10.png" },
-            collection_id: "1",
-            thumbnail: "assets/images/carousel 7.png"
-
-        },
-        {
-            name: "Collection Name",
-            meta: { views: 100, likes: 50, items: 10, designs: 4 },
-            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat..",
-            designer: { name: "Designer Name", dp_img: "assets/images/designer.jpg" },
-            collection_id: "2"
-        },
-        {
-            name: "Collection Name",
-            meta: { views: 100, likes: 50, items: 10, designs: 90 },
-            description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-            designer: { name: "Designer Name", dp_img: "assets/images/designer.jpg" },
-            collection_id: "3"
-        }
-    ];
-
     const navigate = useNavigate();
+    const { data, isLoading } = useApiQuery<CollectionResponse>(
+        ["home-collections"],
+        "/collections?limit=3&offset=0"
+    );
+    const topCollections = data?.results ?? [];
 
     return (
         <>
@@ -48,34 +42,55 @@ const HomeCollection: React.FC = () => {
                 </div>
 
                 <div className="row best-col">
-                    <div className="col-md-12 col-lg-8 mb-3">
-                        <div className="best-col-large">
-                            <Link style={{ textDecoration: "none" }} to={`/profile/${topCollections[0].designer.name}`}>
-                                <img src="assets/images/carousel 11.png" />
-                                <div className="best-col-text mt-2">
-                                    <p>{topCollections[0].designer.name}</p>
-                                    <p>{topCollections[0].name}</p>
-                                    <span>{topCollections[0].meta.likes} likes {topCollections[0].meta.views} views</span>
-                                </div>
-                            </Link>
-
-                        </div>
-                    </div>
-                    <div className="col-md-12 col-lg-4">
-                        {topCollections.slice(1).map((collection) => (
-                            <Link style={{ textDecoration: "none" }} to={`/profile/${collection.designer.name}`}>
-                                <div className="best-col-small">
-                                    <img src="assets/images/carousel 10.png" alt="" className="" />
-                                    <div className="best-col-text mt-2">
-                                        <p>{collection.designer.name}</p>
-                                        <p>{collection.name}</p>
-                                        <span>{collection.meta.likes} likes {collection.meta.views} views</span>
+                    {isLoading ? (
+                        <>
+                            <div className="col-md-12 col-lg-8 mb-3">
+                                <Skeleton variant="rounded" width="100%" height={360} />
+                                <Skeleton width="45%" height={20} sx={{ mt: 1 }} />
+                                <Skeleton width="65%" height={20} />
+                                <Skeleton width="35%" height={16} />
+                            </div>
+                            <div className="col-md-12 col-lg-4">
+                                {[1, 2].map((item) => (
+                                    <div className="mb-3" key={item}>
+                                        <Skeleton variant="rounded" width="100%" height={160} />
+                                        <Skeleton width="45%" height={20} sx={{ mt: 1 }} />
+                                        <Skeleton width="65%" height={20} />
+                                        <Skeleton width="35%" height={16} />
                                     </div>
+                                ))}
+                            </div>
+                        </>
+                    ) : topCollections.length > 0 ? (
+                        <>
+                            <div className="col-md-12 col-lg-8 mb-3">
+                                <div className="best-col-large">
+                                    <Link style={{ textDecoration: "none" }} to={`/profile/${topCollections[0].designer.name}`}>
+                                        <img src={topCollections[0].thumbnail} alt={topCollections[0].name} />
+                                        <div className="best-col-text mt-2">
+                                            <p>{topCollections[0].designer.name}</p>
+                                            <p>{topCollections[0].name}</p>
+                                            <span>{topCollections[0].likes} likes {topCollections[0].views} views</span>
+                                        </div>
+                                    </Link>
                                 </div>
-                            </Link>
-                        ))}
-
-                    </div>
+                            </div>
+                            <div className="col-md-12 col-lg-4">
+                                {topCollections.slice(1).map((collection) => (
+                                    <Link style={{ textDecoration: "none" }} to={`/profile/${collection.designer.name}`} key={collection.id}>
+                                        <div className="best-col-small">
+                                            <img src={collection.thumbnail} alt={collection.name} />
+                                            <div className="best-col-text mt-2">
+                                                <p>{collection.designer.name}</p>
+                                                <p>{collection.name}</p>
+                                                <span>{collection.likes} likes {collection.views} views</span>
+                                            </div>
+                                        </div>
+                                    </Link>
+                                ))}
+                            </div>
+                        </>
+                    ) : null}
                 </div>
 
             </div>

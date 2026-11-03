@@ -19,7 +19,14 @@ export interface Variation {
   color: string;
   price: number;
   quantity: number;
-  dimension: any;
+  dimension: Dimension;
+}
+
+interface Dimension {
+  type?: string;
+  gender?: string;
+  dimensions?: Record<string, unknown>;
+  [key: string]: unknown;
 }
 
 export interface Designer {
@@ -98,6 +105,7 @@ const ProductDetails: React.FC = () => {
   );
   const [selectedImage, setSelectedImage] = useState(0);
   const [fullscreen, setFullscreen] = useState(false);
+  const [customDimension, setCustomDimension] = useState<Variation["dimension"] | null>(null);
 
 
   const images: Image[] = product
@@ -205,9 +213,22 @@ const ProductDetails: React.FC = () => {
     navigate("/checkout");
   };
 
-  const handleSizeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const size = e.target.value;
-    setSelectedSize(size);
+  const handleSizeChange = (variation: Variation) => {
+    setSelectedSize(variation.size);
+
+    if (variation.dimension?.type?.toLowerCase() === "custom") {
+      setCustomDimension(variation.dimension);
+    }
+  };
+
+  const getCustomDimensionEntries = (dimension: Variation["dimension"]) => {
+    const values = dimension?.dimensions && typeof dimension.dimensions === "object"
+      ? dimension.dimensions
+      : dimension;
+
+    return Object.entries(values || {}).filter(
+      ([key, value]) => !["id", "type", "gender", "dimensions", "createdAt", "updatedAt"].includes(key) && value !== null && value !== undefined && value !== ""
+    );
   };
 
   if (isLoading) {
@@ -350,9 +371,13 @@ const ProductDetails: React.FC = () => {
                           autoComplete="off"
                           name="size"
                           value={variation.size}
-                          onChange={handleSizeChange}
+                          onChange={() => handleSizeChange(variation)}
                         />
-                        <label className="btn" htmlFor={`btn-check-xl-${index}`}>
+                        <label
+                          className="btn"
+                          htmlFor={`btn-check-xl-${index}`}
+                          onClick={() => handleSizeChange(variation)}
+                        >
                           {variation.size} ({variation.dimension ? variation.dimension.type : ""})
                         </label>
                         <div>
@@ -460,6 +485,46 @@ const ProductDetails: React.FC = () => {
           >
             ›
           </button>
+        </div>
+      )}
+
+      {customDimension && (
+        <div
+          className="modal fade show d-block"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="customSizeModalLabel"
+          tabIndex={-1}
+          onClick={() => setCustomDimension(null)}
+          style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
+        >
+          <div className="modal-dialog modal-dialog-centered" onClick={(event) => event.stopPropagation()}>
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title" id="customSizeModalLabel">Custom size dimensions</h5>
+                <button
+                  type="button"
+                  className="btn-close"
+                  aria-label="Close"
+                  onClick={() => setCustomDimension(null)}
+                />
+              </div>
+              <div className="modal-body">
+                {getCustomDimensionEntries(customDimension).length > 0 ? (
+                  <dl className="row mb-0">
+                    {getCustomDimensionEntries(customDimension).map(([key, value]) => (
+                      <React.Fragment key={key}>
+                        <dt className="col-6 text-capitalize">{key.replace(/([A-Z])/g, " $1")}</dt>
+                        <dd className="col-6">{String(value)}</dd>
+                      </React.Fragment>
+                    ))}
+                  </dl>
+                ) : (
+                  <p className="mb-0">No custom dimensions available.</p>
+                )}
+              </div>
+            </div>
+          </div>
         </div>
       )}
       <SizeGuideModal />
