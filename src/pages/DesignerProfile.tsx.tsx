@@ -1,6 +1,6 @@
 import { Search } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { useDebounce } from "../hooks/useDebounce";
 import Lightbox from "yet-another-react-lightbox";
 

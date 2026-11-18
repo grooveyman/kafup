@@ -1,7 +1,7 @@
 import { DesignerType } from "../pages/Home";
 
 
-export const DesignerCardMin: React.FC<DesignerType> = ({name, image}) => {
+export const DesignerCardMin: React.FC<DesignerType> = ({brand_name, image}) => {
     return (
         <>
             
@@ -14,7 +14,7 @@ export const DesignerCardMin: React.FC<DesignerType> = ({name, image}) => {
                     />
                 </div>
                 <div className="d-flex align-items-center">
-                    <h6>{name}</h6>
+                    <h6>{brand_name}</h6>
                 </div>
             </div>
         </>

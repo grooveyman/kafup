@@ -74,7 +74,7 @@ const Success: React.FC = () => {
           <h2 className="mt-4">Payment Failed</h2>
           <p className="text-center p-3">We are sorry, payment was unsuccessful. Try again.</p>
           <div className="d-flex justify-content-center">
-            <button className="btn btn-primary" onClick={() => navigate("/categories/shop")}>Back</button>
+            <button className="btn btn-primary" onClick={() => navigate("/shop")}>Back</button>
           </div>
 
         </div>

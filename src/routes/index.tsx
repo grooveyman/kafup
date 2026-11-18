@@ -1,7 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
 import Home from "../pages/Home";
-import Dashboard from "../pages/admin/Dashboard";
+import Dashboard from "../pages/portal/Dashboard.tsx";
+import OrderDetails from "../pages/portal/OrderDetails.tsx";
 import Details from "../pages/Details";
 import Cart from "../pages/Cart";
 import Shop from "../pages/Shop";
@@ -12,6 +13,7 @@ import Collections from "../pages/Collections";
 import Profile from "../pages/Profile";
 import Collection from "../pages/DesignerProfile.tsx";
 import Brands from "../pages/Brands";
+import PortalLayout from "../layouts/PortalLayouts.tsx";
 
 export const router = createBrowserRouter([
   {
@@ -31,6 +33,14 @@ export const router = createBrowserRouter([
       {path: "/collections", element: <Collections/>},
       {path: "/brands/:username", element: <Profile />},
       {path: "/profile/:username", element: <Collection/>},
+    ]
+  },
+  {
+    path: "/portal",
+    element: <PortalLayout />,
+    children: [
+      {index: true, element: <Dashboard/>},
+      {path: "orders/:orderId", element: <OrderDetails />},
     ]
   },
 ], {basename:"/kafup/"});

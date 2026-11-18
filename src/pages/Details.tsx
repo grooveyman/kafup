@@ -198,7 +198,7 @@ const ProductDetails: React.FC = () => {
       name: product.name,
       quantity,
       price: product.price,
-      // previmg: product.previewimg,
+      previmg: product.previewimg,
       variations: cartVariations,
       total: product.price * quantity,
       designer: product.designer.id,

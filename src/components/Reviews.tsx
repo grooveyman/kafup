@@ -7,7 +7,6 @@ import { toast } from "react-toastify";
 import { useApiMutation, useApiQuery } from "../hooks/useApi";
 import { Designer } from "../pages/Details";
 import { useQueryClient } from "@tanstack/react-query";
-import { relativeTime } from "../hooks/relativeTime";
 import Loading from "./Loading";
 
 
@@ -195,7 +194,19 @@ const Reviews: React.FC<ReviewProps> = ({ designer, design_id, onSendRateOvervie
                                     <div className="comment-head">
                                         <div className="d-flex justify-content-start gap-2 reviewer">
                                             <h6>Name of customer</h6>
-                                            <p> | {relativeTime(item.createdAt)}</p>
+                                            <p>
+                                                |{" "}
+                                                <time dateTime={item.createdAt}>
+                                                    {new Date(item.createdAt).toLocaleString("en-GH", {
+                                                        day: "numeric",
+                                                        month: "short",
+                                                        year: "numeric",
+                                                        hour: "numeric",
+                                                        minute: "2-digit",
+                                                        hour12: true,
+                                                    })}
+                                                </time>
+                                            </p>
                                         </div>
                                         <div className="stars d-flex justify-content-start">
 

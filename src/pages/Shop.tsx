@@ -10,6 +10,7 @@ import SearchField from "../components/SearchField";
 import { useEffect, useState } from "react";
 import PriceRangeFilter from "../components/shopcomponents/PriceRangeFilter";
 import PrimaryButton from "../components/PrimaryButton";
+import { Skeleton } from "@mui/material";
 
 export interface Category {
   id: string;
@@ -53,6 +54,7 @@ const Shop: React.FC = () => {
     endpoint
   );
 
+  const showInitialSkeletons = isLoading && offset === 0;
 
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 1000]);
 
@@ -132,7 +134,27 @@ const Shop: React.FC = () => {
         <div className="row">
           {<div className="row">
 
-            {filteredData.length === 0 && !isLoading ? (
+            {showInitialSkeletons ? (
+              Array.from({ length: limit }).map((_, index) => (
+                <div
+                  className="mb-5 col-md-6 col-sm-12 col-lg-4 col-xs-12 col-xxl-3 col-xl-3"
+                  key={index}
+                  aria-hidden="true"
+                >
+                  <div className="product">
+                    <Skeleton animation="wave" variant="rounded" width="100%" height="100%" />
+                  </div>
+                  <div className="shop-prod-desc mt-2">
+                    <Skeleton animation="wave" width="55%" />
+                    <Skeleton animation="wave" width="25%" />
+                  </div>
+                  <div className="shop-desc-cat mt-2">
+                    <Skeleton animation="wave" width="40%" />
+                    <Skeleton animation="wave" width="30%" />
+                  </div>
+                </div>
+              ))
+            ) : filteredData.length === 0 ? (
               <EmptyPage />
             ) : (
               <ListContainer list={filteredData} />

@@ -24,7 +24,7 @@ export interface CartItemType {
   price: number;
   quantity: number;
   total: number;
-  previmg?: string;
+  previmg: string;
   variations?: CartVariation;
   designer: string;
 }
