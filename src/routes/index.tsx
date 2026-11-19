@@ -13,6 +13,7 @@ import Collections from "../pages/Collections";
 import Profile from "../pages/Profile";
 import Collection from "../pages/DesignerProfile.tsx";
 import Brands from "../pages/Brands";
+import Register from "../pages/Register";
 import PortalLayout from "../layouts/PortalLayouts.tsx";
 
 export const router = createBrowserRouter([
@@ -33,6 +34,7 @@ export const router = createBrowserRouter([
       {path: "/collections", element: <Collections/>},
       {path: "/brands/:username", element: <Profile />},
       {path: "/profile/:username", element: <Collection/>},
+      {path: "/register", element: <Register />},
     ]
   },
   {

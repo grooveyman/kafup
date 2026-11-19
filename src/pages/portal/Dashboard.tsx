@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { CircleCheck, Clock3, UserRound } from "lucide-react";
 import { Link } from "react-router-dom";
-import { recentOrders } from "./orderData";
+import { DataTable } from "../../components/DataTable";
+import { recentOrders, type RecentOrder } from "./orderData";
 import "./Dashboard.css";
 
 type OrderFilter = "all" | "pending" | "completed";
@@ -126,20 +127,11 @@ const Dashboard: React.FC = () => {
             </div>
           </div>
 
-          <div className="portal-orders-table-wrap table-responsive">
-            <table className="portal-orders-table table table-sm align-middle mb-0">
-              <thead>
-                <tr>
-                  <th scope="col">Order</th>
-                  <th scope="col">Date</th>
-                  <th scope="col">Items</th>
-                  <th scope="col">Status</th>
-                  <th scope="col">Total</th>
-                  <th scope="col">Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {visibleOrders.map((order) => (
+          <DataTable<RecentOrder>
+            headings={["Order", "Date", "Items", "Status", "Total", "Action"]}
+            data={visibleOrders}
+            className="portal-orders-table table-sm mb-0"
+            renderRow={(order) => (
                   <tr key={order.id}>
                     <th scope="row">{order.id}</th>
                     <td>{order.date}</td>
@@ -163,10 +155,8 @@ const Dashboard: React.FC = () => {
                       </Link>
                     </td>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+            )}
+          />
 
           <footer className="portal-orders-pagination">
             <span>

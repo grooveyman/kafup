@@ -5,7 +5,6 @@ import App from "./App.tsx";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import { LoginModalProvider } from "./context/LoginModalContext.tsx";
-import LoginModal from "./components/LoginModal.tsx";
 import { CartProvider } from "./context/CartContext";
 import { BuyNowProvider } from "./context/BuyNowContext";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -22,7 +21,6 @@ createRoot(document.getElementById("root")!).render(
           <BuyNowProvider>
             <App />
           </BuyNowProvider>
-          <LoginModal />
         </CartProvider>
       </LoginModalProvider>
     </QueryClientProvider>

@@ -3,6 +3,7 @@ import { Outlet } from 'react-router-dom';
 // import NavBar from './NavBar';
 import Footer from './Footer';
 import NewNavBar from './NewNavBar';
+import LoginModal from '../components/LoginModal';
 // import NavBar from './NavBar';
 // import Footer from './Footer';
 
@@ -15,6 +16,7 @@ const MainLayout: React.FC = () => {
                 <Outlet />
             </section>
                <Footer/>
+            <LoginModal />
         </div>
     );
 };

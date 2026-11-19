@@ -4,7 +4,7 @@ const BASE_URL = import.meta.env.VITE_APP_BASE_URL || "localhost";
 
 //generic fetch function
 async function fetcher<T>(url: string, options?: RequestInit): Promise<T> {
-    console.log(`${BASE_URL}${url}`);
+    console.log(`${BASE_URL}${url.split("?")[0]}`);
   const res = await fetch(`${BASE_URL}${url}`, {
     ...options,
   });
@@ -13,7 +13,12 @@ async function fetcher<T>(url: string, options?: RequestInit): Promise<T> {
     throw new Error((await res.text()) || "API request failed");
   }
 
-  return res.json();
+  const body = await res.text();
+  if (!body.trim()) {
+    return null as T;
+  }
+
+  return JSON.parse(body) as T;
 }
 
 export function useApiQuery<T>(

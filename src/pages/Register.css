@@ -1,0 +1,41 @@
+.register-form-slides {
+  position: relative;
+  overflow: hidden;
+  transition: height 350ms ease;
+}
+
+.register-form-step {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  transition:
+    transform 350ms ease,
+    opacity 250ms ease,
+    visibility 350ms;
+}
+
+.register-form-step.is-active {
+  transform: translateX(0);
+  opacity: 1;
+  visibility: visible;
+}
+
+.register-form-step.is-next {
+  transform: translateX(110%);
+  opacity: 0;
+  visibility: hidden;
+}
+
+.register-form-step.is-previous {
+  transform: translateX(-110%);
+  opacity: 0;
+  visibility: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .register-form-slides,
+  .register-form-step {
+    transition: none;
+  }
+}

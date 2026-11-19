@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import "../assets/css/newnav.css";
 import CartSidebar from "../components/CartSidebar";
+import LoginModal from "../components/LoginModal";
 import { useCartContext } from "../context/CartContext";
 import { useLoginModal } from "../context/LoginModalContext";
 
@@ -227,6 +228,7 @@ const PortalLayout: React.FC = () => {
       <main style={{ marginTop: "70px" }}>
         <Outlet />
       </main>
+      <LoginModal />
     </>
   );
 };
