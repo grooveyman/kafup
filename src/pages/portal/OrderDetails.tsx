@@ -27,7 +27,7 @@ const OrderDetails: React.FC = () => {
             <div className="alert alert-warning" role="alert">
               This order could not be found.
             </div>
-            <Link to="/portal" className="btn btn-outline-dark">
+            <Link to="/portal/orders" className="btn btn-outline-dark">
               <ArrowLeft size={16} className="me-2" />
               Back to orders
             </Link>
@@ -240,7 +240,7 @@ const OrderDetails: React.FC = () => {
         </div>
         <footer className="portal-summary-footer d-flex flex-wrap align-items-center justify-content-between gap-3">
           <span>{order.total} <small>({order.items} {order.items === 1 ? "item" : "items"})</small></span>
-          <Link to="/portal" className="btn btn-dark">Back to orders</Link>
+          <Link to="/portal/orders" className="btn btn-dark">Back to orders</Link>
         </footer>
       </section>
     </main>

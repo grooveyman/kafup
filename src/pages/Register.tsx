@@ -132,7 +132,7 @@ const Register: React.FC = () => {
     "POST",
     {
     onSuccess: () => {
-      navigate("/portal");
+      navigate("/portal/orders");
       },
       onError: (error) => {
         setMessage(error.message || "Unable to save your account. Please try again.");

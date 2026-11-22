@@ -1,8 +1,17 @@
 import { useState } from "react";
+import {
+  ArrowUpRight,
+  Check,
+  CircleCheck,
+  Clock3,
+  Search,
+  ShoppingBag,
+} from "lucide-react";
 import { Link } from "react-router-dom";
 import { DataTable } from "../../../components/DataTable";
 import { recentOrders, type RecentOrder } from "../orderData";
-import "../Dashboard.css";
+import "../OrderDetails.css";
+import "./OrderList.css";
 
 type OrderFilter = "all" | "pending" | "completed";
 
@@ -47,83 +56,127 @@ const OrderList: React.FC = () => {
   };
 
   return (
-    <div className="container">
-      <div className="portal-dashboard">
-        <section className="portal-orders-card" aria-labelledby="orders-title">
-          <header className="portal-orders-heading">
-            <div>
-              <div className="portal-orders-title-row">
-                <h1 id="orders-title">Orders</h1>
-                <span className="portal-total-badge">
-                  {recentOrders.length} total
-                </span>
-              </div>
-              <p>Review your order activity and status.</p>
-            </div>
-          </header>
+    <main className="container portal-order-page portal-order-list-page py-4 py-lg-5">
+      <header className="portal-order-list-page-header">
+        <div>
+          <span className="portal-detail-eyebrow">ACCOUNT ACTIVITY</span>
+          <h1 className="portal-order-page-title">Your orders</h1>
+          <p>Review your purchases and keep track of each order.</p>
+        </div>
+        <span className="portal-order-list-total">
+          <ShoppingBag size={16} aria-hidden="true" />
+          {recentOrders.length} orders
+        </span>
+      </header>
 
-          <div className="portal-orders-controls">
-            <div
-              className="portal-order-filter-row"
+      <section className="portal-order-list-summary" aria-label="Order summary">
+        <article className="portal-order-list-stat">
+          <span className="portal-detail-icon" aria-hidden="true">
+            <ShoppingBag size={18} />
+          </span>
+          <div>
+            <strong>{recentOrders.length}</strong>
+            <span>Total orders</span>
+          </div>
+        </article>
+        <article className="portal-order-list-stat">
+          <span className="portal-detail-icon is-complete" aria-hidden="true">
+            <CircleCheck size={18} />
+          </span>
+          <div>
+            <strong>{completedCount}</strong>
+            <span>Completed</span>
+          </div>
+        </article>
+        <article className="portal-order-list-stat">
+          <span className="portal-detail-icon is-pending" aria-hidden="true">
+            <Clock3 size={18} />
+          </span>
+          <div>
+            <strong>{pendingCount}</strong>
+            <span>In progress</span>
+          </div>
+        </article>
+      </section>
+
+      <section
+        className="portal-detail-panel portal-order-list-panel"
+        aria-labelledby="order-history-title"
+      >
+        <header className="portal-section-heading">
+          <div>
+            <span className="portal-detail-eyebrow">PURCHASES</span>
+            <h2 id="order-history-title">Order history</h2>
+            <p>Search your orders or filter them by status.</p>
+          </div>
+          <span className="portal-order-list-count">
+            {filteredOrders.length} shown
+          </span>
+        </header>
+
+        <div className="portal-order-list-controls">
+          <div
+            className="portal-order-list-tabs"
+            role="tablist"
+            aria-label="Filter orders"
+          >
+            <button
+              type="button"
+              role="tab"
+              aria-selected={filter === "all"}
+              className={filter === "all" ? "is-active" : ""}
+              onClick={() => selectFilter("all")}
             >
-              <div
-                className="portal-order-tabs"
-                role="tablist"
-                aria-label="Filter orders"
-              >
-                <button
-                  type="button"
-                  role="tab"
-                  aria-selected={filter === "all"}
-                  className={filter === "all" ? "is-active" : ""}
-                  onClick={() => selectFilter("all")}
-                >
-                  All orders
-                </button>
-                <button
-                  type="button"
-                  role="tab"
-                  aria-selected={filter === "pending"}
-                  className={filter === "pending" ? "is-active" : ""}
-                  onClick={() => selectFilter("pending")}
-                >
-                  Pending <span>{pendingCount}</span>
-                </button>
-                <button
-                  type="button"
-                  role="tab"
-                  aria-selected={filter === "completed"}
-                  className={filter === "completed" ? "is-active" : ""}
-                  onClick={() => selectFilter("completed")}
-                >
-                  Completed <span>{completedCount}</span>
-                </button>
-              </div>
-              <div>
-                <input
-                type="search"
-                className="form-control"
-                aria-label="Search orders"
-                placeholder="Search orders"
-                value={search}
-                onChange={(event) => {
-                  setSearch(event.target.value);
-                  setPage(1);
-                }}
-              />
-              </div>
-            </div>
-            <div className="portal-order-meta">
-              <span>Latest first</span>
-              <span>Example order data</span>
-            </div>
+              All orders
+            </button>
+            <button
+              type="button"
+              role="tab"
+              aria-selected={filter === "pending"}
+              className={filter === "pending" ? "is-active" : ""}
+              onClick={() => selectFilter("pending")}
+            >
+              Pending <span>{pendingCount}</span>
+            </button>
+            <button
+              type="button"
+              role="tab"
+              aria-selected={filter === "completed"}
+              className={filter === "completed" ? "is-active" : ""}
+              onClick={() => selectFilter("completed")}
+            >
+              Completed <span>{completedCount}</span>
+            </button>
           </div>
 
-          {filteredOrders.length > 0 ? (
+          <label className="portal-order-list-search">
+            <Search size={16} aria-hidden="true" />
+            <input
+              type="search"
+              aria-label="Search orders"
+              placeholder="Search orders"
+              value={search}
+              onChange={(event) => {
+                setSearch(event.target.value);
+                setPage(1);
+              }}
+            />
+          </label>
+        </div>
+
+        {filteredOrders.length > 0 ? (
+          <div className="portal-order-list-table-wrap">
             <DataTable<RecentOrder>
-              headings={["Order", "Date", "Items", "Status", "Total", "Action"]}
+              headings={[
+                "Order",
+                "Date",
+                "Items",
+                "Status",
+                "Total",
+                "Action",
+              ]}
               data={visibleOrders}
-              className="portal-orders-table table-sm mb-0"
+              className="portal-order-list-table mb-0"
               renderRow={(order) => (
                 <tr key={order.id}>
                   <th scope="row">{order.id}</th>
@@ -131,61 +184,73 @@ const OrderList: React.FC = () => {
                   <td>{order.items}</td>
                   <td>
                     <span
-                      className={`portal-status-badge ${
+                      className={`portal-detail-status ${
                         order.status === "Pending"
                           ? "is-pending"
-                          : "is-completed"
+                          : "is-complete"
                       }`}
                     >
+                      {order.status === "Pending" ? (
+                        <Clock3 size={14} />
+                      ) : (
+                        <Check size={14} />
+                      )}
                       {order.status}
                     </span>
                   </td>
-                  <td>{order.total}</td>
-                  <td>
+                  <td className="portal-order-list-price">{order.total}</td>
+                  <td className="portal-order-list-action">
                     <Link
-                      className="btn btn-sm btn-outline-dark portal-view-order-button"
+                      className="portal-order-list-view"
                       to={`/portal/orders/${order.id.slice(1)}`}
                       aria-label={`View order ${order.id}`}
                     >
-                      View
+                      Details
+                      <ArrowUpRight size={15} aria-hidden="true" />
                     </Link>
                   </td>
                 </tr>
               )}
             />
-          ) : (
-            <p className="portal-orders-empty" role="status">
-              No orders match your filters.
-            </p>
-          )}
-
-          <footer className="portal-orders-pagination">
-            <span>
-              Showing {firstVisibleOrder}&ndash;{lastVisibleOrder} of{" "}
-              {filteredOrders.length} orders
+          </div>
+        ) : (
+          <div className="portal-order-list-empty" role="status">
+            <span className="portal-detail-icon" aria-hidden="true">
+              <Search size={18} />
             </span>
-            <div className="portal-pagination-actions">
-              <button
-                type="button"
-                onClick={() => setPage((currentPage) => currentPage - 1)}
-                disabled={page === 1}
-              >
-                Previous
-              </button>
-              <button
-                type="button"
-                className="portal-next-page"
-                onClick={() => setPage((currentPage) => currentPage + 1)}
-                disabled={page === pageCount}
-                aria-label="Next page of orders"
-              >
-                Next
-              </button>
-            </div>
-          </footer>
-        </section>
-      </div>
-    </div>
+            <strong>No matching orders</strong>
+            <span>Try another search or choose a different status.</span>
+          </div>
+        )}
+
+        <footer className="portal-order-list-pagination">
+          <span>
+            Showing {firstVisibleOrder}&ndash;{lastVisibleOrder} of{" "}
+            {filteredOrders.length} orders
+          </span>
+          <div className="portal-order-list-pagination-actions">
+            <button
+              type="button"
+              onClick={() => setPage((currentPage) => currentPage - 1)}
+              disabled={page === 1}
+            >
+              Previous
+            </button>
+            <span>
+              {page} / {pageCount}
+            </span>
+            <button
+              type="button"
+              onClick={() => setPage((currentPage) => currentPage + 1)}
+              disabled={page === pageCount}
+              aria-label="Next page of orders"
+            >
+              Next
+            </button>
+          </div>
+        </footer>
+      </section>
+    </main>
   );
 };
 

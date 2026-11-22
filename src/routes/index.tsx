@@ -1,10 +1,10 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
 import Home from "../pages/Home";
-import Dashboard from "../pages/portal/Dashboard.tsx";
 import OrderDetails from "../pages/portal/OrderDetails.tsx";
 import OrderList from "../pages/portal/products/OrderList.tsx";
 import PortalProfile from "../pages/portal/Profile.tsx";
+import Vouchers from "../pages/portal/Vouchers.tsx";
 import Details from "../pages/Details";
 import Cart from "../pages/Cart";
 import Shop from "../pages/Shop";
@@ -25,7 +25,6 @@ export const router = createBrowserRouter([
     children: [
       {index: true, element: <Home/>},
       // {path: "/addproducts", element: <AddProducts/>},
-      {path: "/dashboard", element: <Dashboard/>},
       {path: "/details/:id", element: <Details/>},
       {path: "/cart", element: <Cart/>},
       {path: "/shop", element: <Shop/>},
@@ -40,10 +39,11 @@ export const router = createBrowserRouter([
       {
         element: <ProtectedRoute />,
         children: [
-          { path: "/portal", element: <Dashboard /> },
+          { path: "/portal", element: <Navigate to="/portal/orders" replace /> },
           { path: "/portal/orders", element: <OrderList /> },
           { path: "/portal/orders/:orderId", element: <OrderDetails />           },
           { path: "/portal/profile", element: <PortalProfile /> },
+          { path: "/profile/vouchers", element: <Vouchers /> },
         ],
       },
     ],

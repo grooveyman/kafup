@@ -1,0 +1,377 @@
+.portal-order-list-page {
+  color: #242222;
+}
+
+.portal-order-list-page-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.portal-order-list-page-header h1 {
+  margin: 0;
+  font-size: clamp(1.6rem, 3vw, 2rem);
+  font-weight: 700;
+}
+
+.portal-order-list-page-header p {
+  margin: 0.45rem 0 0;
+  color: #817a7c;
+  font-size: 0.9rem;
+}
+
+.portal-order-list-total,
+.portal-order-list-count {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.7rem;
+  border: 1px solid #ece8e8;
+  border-radius: 2rem;
+  background: #fff;
+  color: #70696b;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.portal-order-list-summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+.portal-order-list-stat {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 1rem;
+  border: 1px solid #ece8e8;
+  border-radius: 0.85rem;
+  background: #fff;
+  box-shadow: 0 3px 16px rgb(34 24 24 / 3%);
+}
+
+.portal-order-list-stat .portal-detail-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  flex-basis: 2.5rem;
+  background: #f5f2f1;
+  color: #554849;
+}
+
+.portal-order-list-stat .portal-detail-icon.is-complete {
+  background: #eaf5ec;
+  color: #287044;
+}
+
+.portal-order-list-stat .portal-detail-icon.is-pending {
+  background: #fbf1df;
+  color: #805a20;
+}
+
+.portal-order-list-stat > div {
+  display: grid;
+  gap: 0.15rem;
+}
+
+.portal-order-list-stat strong {
+  color: #292627;
+  font-size: 1.25rem;
+  line-height: 1.1;
+}
+
+.portal-order-list-stat > div span {
+  color: #817a7c;
+  font-size: 0.78rem;
+}
+
+.portal-order-list-panel .portal-section-heading {
+  align-items: center;
+}
+
+.portal-order-list-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem 1.25rem;
+  border-top: 1px solid #efebeb;
+  border-bottom: 1px solid #efebeb;
+  background: #fdfcfc;
+}
+
+.portal-order-list-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.portal-order-list-tabs button {
+  display: inline-flex;
+  min-height: 2.2rem;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0.75rem;
+  border: 1px solid transparent;
+  border-radius: 0.55rem;
+  background: transparent;
+  color: #70696b;
+  font-size: 0.78rem;
+  font-weight: 550;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.portal-order-list-tabs button:hover:not(.is-active) {
+  background: #f2eeee;
+  color: #292627;
+}
+
+.portal-order-list-tabs button.is-active {
+  background: #292324;
+  color: #fff;
+}
+
+.portal-order-list-tabs button span {
+  color: inherit;
+  opacity: 0.75;
+}
+
+.portal-order-list-search {
+  position: relative;
+  display: block;
+  width: min(100%, 250px);
+  flex: 0 1 250px;
+}
+
+.portal-order-list-search svg {
+  position: absolute;
+  top: 50%;
+  left: 0.8rem;
+  color: #898183;
+  pointer-events: none;
+  transform: translateY(-50%);
+}
+
+.portal-order-list-search input {
+  width: 100%;
+  min-height: 2.45rem;
+  padding: 0.5rem 0.75rem 0.5rem 2.35rem;
+  border: 1px solid #e8e0e1;
+  border-radius: 0.55rem;
+  background: #fff;
+  color: #292627;
+  font-size: 0.8rem;
+}
+
+.portal-order-list-search input:focus {
+  border-color: #c7a69a;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgb(198 90 49 / 12%);
+}
+
+.portal-order-list-table-wrap {
+  padding: 0 1.25rem;
+}
+
+.portal-order-list-table.modern-table {
+  width: 100%;
+  min-width: 680px;
+  border-collapse: collapse;
+}
+
+.portal-order-list-table.modern-table th,
+.portal-order-list-table.modern-table td {
+  padding: 0.95rem 0.75rem;
+  border-bottom: 1px solid #efebeb;
+  vertical-align: middle;
+}
+
+.portal-order-list-table.modern-table thead th {
+  background: #fff;
+  color: #898183;
+  font-size: 0.68rem;
+  font-weight: 650;
+  letter-spacing: 0.07em;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.portal-order-list-table.modern-table tbody tr:last-child th,
+.portal-order-list-table.modern-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.portal-order-list-table.modern-table tbody tr:hover {
+  background: #fdfbfa;
+}
+
+.portal-order-list-table.modern-table tbody th {
+  color: #292627;
+  font-size: 0.85rem;
+  font-weight: 650;
+  white-space: nowrap;
+}
+
+.portal-order-list-table.modern-table tbody td {
+  color: #70696b;
+  font-size: 0.82rem;
+}
+
+.portal-order-list-table .portal-detail-status {
+  padding: 0.38rem 0.6rem;
+  font-size: 0.7rem;
+}
+
+.portal-order-list-price {
+  color: #292627 !important;
+  font-weight: 650;
+  white-space: nowrap;
+}
+
+.portal-order-list-view {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.4rem 0.55rem;
+  border-radius: 0.45rem;
+  color: #574746;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.portal-order-list-view:hover {
+  background: #f5eeeb;
+  color: #292627;
+}
+
+.portal-order-list-empty {
+  display: flex;
+  min-height: 210px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 2rem 1.25rem;
+  text-align: center;
+}
+
+.portal-order-list-empty .portal-detail-icon {
+  margin-bottom: 0.35rem;
+  background: #f5eeeb;
+  color: #8d5b49;
+}
+
+.portal-order-list-empty strong {
+  font-size: 0.95rem;
+}
+
+.portal-order-list-empty > span:last-child {
+  color: #817a7c;
+  font-size: 0.8rem;
+}
+
+.portal-order-list-pagination {
+  display: flex;
+  min-height: 4rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 1.25rem;
+  border-top: 1px solid #efebeb;
+  color: #817a7c;
+  font-size: 0.75rem;
+}
+
+.portal-order-list-pagination-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.portal-order-list-pagination-actions button {
+  min-width: 5rem;
+  padding: 0.4rem 0.65rem;
+  border: 1px solid #e8e0e1;
+  border-radius: 0.5rem;
+  background: #fff;
+  color: #292627;
+  font-size: 0.75rem;
+}
+
+.portal-order-list-pagination-actions button:disabled {
+  background: #f8f6f6;
+  color: #aaa3a5;
+  cursor: default;
+}
+
+.portal-order-list-pagination-actions > span {
+  min-width: 2.5rem;
+  text-align: center;
+}
+
+@media (max-width: 767.98px) {
+  .portal-order-list-summary {
+    gap: 0.6rem;
+  }
+
+  .portal-order-list-stat {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.6rem;
+    padding: 0.8rem;
+  }
+
+  .portal-order-list-controls {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .portal-order-list-search {
+    width: 100%;
+    flex-basis: auto;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .portal-order-list-page-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .portal-order-list-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .portal-order-list-stat {
+    align-items: center;
+    flex-direction: row;
+  }
+
+  .portal-order-list-panel .portal-section-heading,
+  .portal-order-list-controls {
+    padding-right: 1rem;
+    padding-left: 1rem;
+  }
+
+  .portal-order-list-table-wrap {
+    padding: 0 0.5rem;
+  }
+
+  .portal-order-list-pagination {
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 0.85rem 1rem;
+  }
+
+  .portal-order-list-pagination-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+}

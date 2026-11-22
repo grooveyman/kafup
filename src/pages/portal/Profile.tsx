@@ -66,13 +66,6 @@ const Profile: React.FC = () => {
   return (
     <main className="container portal-order-page portal-profile-page py-4 py-lg-5">
       <div className="mb-4">
-        <Link
-          to="/portal"
-          className="portal-order-back-link d-inline-flex align-items-center mb-3"
-        >
-          <ArrowLeft size={16} className="me-2" />
-          Back to dashboard
-        </Link>
         <h1 className="portal-order-page-title mb-2">Your profile</h1>
         <p className="portal-profile-intro mb-0">
           Your account details and shopping shortcuts in one place.

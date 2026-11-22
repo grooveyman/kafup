@@ -1,0 +1,159 @@
+.portal-vouchers-page {
+  color: #242222;
+}
+
+.portal-vouchers-intro {
+  color: #817a7c;
+  font-size: 0.9rem;
+}
+
+.portal-vouchers-hero {
+  position: relative;
+  display: flex;
+  min-height: 210px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  overflow: hidden;
+  padding: clamp(1.5rem, 5vw, 2.5rem);
+  border: 1px solid #342a2b;
+  border-radius: 0.9rem;
+  background:
+    radial-gradient(ellipse at 86% 20%, rgb(200 118 77 / 35%), transparent 34%),
+    linear-gradient(120deg, #211d1e, #403233);
+  color: #fff;
+}
+
+.portal-vouchers-hero-copy {
+  position: relative;
+  z-index: 1;
+  max-width: 470px;
+}
+
+.portal-vouchers-eyebrow {
+  display: block;
+  margin-bottom: 0.65rem;
+  color: #e5b99f;
+  font-size: 0.7rem;
+  font-weight: 650;
+  letter-spacing: 0.14em;
+}
+
+.portal-vouchers-hero h2 {
+  max-width: 420px;
+  margin: 0;
+  font-size: clamp(1.4rem, 3.5vw, 2rem);
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.portal-vouchers-hero p {
+  max-width: 390px;
+  margin: 0.75rem 0 0;
+  color: #e3d9d6;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.portal-voucher-stamp {
+  position: relative;
+  display: grid;
+  width: 126px;
+  height: 126px;
+  flex: 0 0 126px;
+  align-content: center;
+  justify-items: center;
+  gap: 0.5rem;
+  border: 1px dashed rgb(255 255 255 / 55%);
+  border-radius: 1rem;
+  background: rgb(255 255 255 / 8%);
+  color: #f5ded2;
+  transform: rotate(6deg);
+}
+
+.portal-voucher-stamp::before,
+.portal-voucher-stamp::after {
+  position: absolute;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #352a2b;
+  content: "";
+  transform: translateY(-50%);
+}
+
+.portal-voucher-stamp::before {
+  left: -8px;
+}
+
+.portal-voucher-stamp::after {
+  right: -8px;
+}
+
+.portal-voucher-stamp span {
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.portal-voucher-count {
+  padding: 0.4rem 0.65rem;
+  border-radius: 2rem;
+  background: #f5f2f1;
+  color: #70696b;
+  font-size: 0.72rem;
+  white-space: nowrap;
+}
+
+.portal-vouchers-empty {
+  display: flex;
+  min-height: 270px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.25rem;
+  text-align: center;
+}
+
+.portal-vouchers-empty-icon {
+  display: grid;
+  width: 54px;
+  height: 54px;
+  margin-bottom: 1rem;
+  place-items: center;
+  border-radius: 50%;
+  background: #f5eeeb;
+  color: #8d5b49;
+}
+
+.portal-vouchers-empty h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.portal-vouchers-empty p {
+  max-width: 420px;
+  margin: 0.5rem 0 1.1rem;
+  color: #817a7c;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 575.98px) {
+  .portal-vouchers-hero {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .portal-voucher-stamp {
+    width: 100px;
+    height: 100px;
+    flex-basis: 100px;
+  }
+
+  .portal-vouchers-empty {
+    min-height: 240px;
+  }
+}

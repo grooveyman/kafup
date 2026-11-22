@@ -60,7 +60,7 @@ const NavBar: React.FC = () => {
                     <div className="d-flex w-100 justify-content-between">
                         <ul className="navbar-nav mb-2 mb-lg-0 d-flex justify-content-start">
                             <li className="nav-item">
-                                <Link to="/dashboard" className='nav-link active' aria-current="page">Dashboard</Link>
+                                <Link to="/portal/orders" className='nav-link active' aria-current="page">Orders</Link>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link" onClick={()=>navigate("/admin/products")} href="#"> Products</a>
