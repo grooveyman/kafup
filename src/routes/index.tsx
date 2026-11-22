@@ -4,6 +4,7 @@ import Home from "../pages/Home";
 import OrderDetails from "../pages/portal/OrderDetails.tsx";
 import OrderList from "../pages/portal/products/OrderList.tsx";
 import PortalProfile from "../pages/portal/Profile.tsx";
+import VerifyEmail from "../pages/portal/VerifyEmail.tsx";
 import Vouchers from "../pages/portal/Vouchers.tsx";
 import Details from "../pages/Details";
 import Cart from "../pages/Cart";
@@ -36,12 +37,13 @@ export const router = createBrowserRouter([
       {path: "/brands/:username", element: <Profile />},
       {path: "/profile/:username", element: <Collection/>},
       {path: "/register", element: <Register />},
+      { path: "/portal/verify-email", element: <VerifyEmail /> },
       {
         element: <ProtectedRoute />,
         children: [
           { path: "/portal", element: <Navigate to="/portal/orders" replace /> },
           { path: "/portal/orders", element: <OrderList /> },
-          { path: "/portal/orders/:orderId", element: <OrderDetails />           },
+          { path: "/portal/orders/:orderId", element: <OrderDetails />},
           { path: "/portal/profile", element: <PortalProfile /> },
           { path: "/profile/vouchers", element: <Vouchers /> },
         ],

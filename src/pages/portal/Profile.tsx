@@ -131,6 +131,13 @@ const Profile: React.FC = () => {
                 value={profile.email}
                 onChange={(event) => updateField("email", event.target.value)}
               />
+              <Link
+                className="portal-profile-verify-link"
+                to="/portal/verify-email"
+                state={{ email: profile.email }}
+              >
+                Verify this email
+              </Link>
             </div>
             <div className="portal-profile-form-field">
               <label htmlFor="profile-city">City</label>

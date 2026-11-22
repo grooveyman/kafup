@@ -114,6 +114,18 @@
   box-shadow: 0 0 0 0.2rem rgb(198 90 49 / 12%);
 }
 
+.portal-profile-verify-link {
+  justify-self: start;
+  color: #76594f;
+  font-size: 0.75rem;
+  text-decoration: none;
+}
+
+.portal-profile-verify-link:hover {
+  color: #292627;
+  text-decoration: underline;
+}
+
 .portal-profile-form-footer {
   display: flex;
   align-items: center;

@@ -1,0 +1,96 @@
+.portal-verify-email-page {
+  color: #242222;
+}
+
+.portal-verify-email-intro {
+  color: #817a7c;
+  font-size: 0.9rem;
+}
+
+.portal-verify-email-card {
+  display: grid;
+  grid-template-columns: minmax(200px, 0.8fr) minmax(0, 1.2fr);
+  min-height: 390px;
+}
+
+.portal-verify-email-art {
+  display: grid;
+  min-height: 100%;
+  place-items: center;
+  background:
+    radial-gradient(ellipse at 75% 20%, rgb(200 118 77 / 35%), transparent 34%),
+    linear-gradient(145deg, #211d1e, #403233);
+}
+
+.portal-verify-email-art span {
+  display: grid;
+  width: 86px;
+  height: 86px;
+  place-items: center;
+  border: 1px solid rgb(255 255 255 / 28%);
+  border-radius: 50%;
+  background: rgb(255 255 255 / 9%);
+  color: #f5ded2;
+}
+
+.portal-verify-email-content {
+  align-self: center;
+  max-width: 560px;
+  padding: clamp(1.5rem, 5vw, 3rem);
+}
+
+.portal-verify-email-content h2 {
+  margin: 0;
+  font-size: clamp(1.35rem, 3vw, 1.75rem);
+  font-weight: 700;
+}
+
+.portal-verify-email-content > p {
+  margin: 0.6rem 0 1.5rem;
+  color: #817a7c;
+  font-size: 0.875rem;
+  line-height: 1.55;
+}
+
+.portal-verify-email-form .form-label {
+  color: #6f686a;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.portal-verify-email-form .form-control {
+  min-height: 2.8rem;
+  border-color: #e8e0e1;
+  border-radius: 0.55rem;
+}
+
+.portal-verify-email-form .form-control:focus {
+  border-color: #c7a69a;
+  box-shadow: 0 0 0 0.2rem rgb(198 90 49 / 12%);
+}
+
+.portal-verify-email-token {
+  letter-spacing: 0.08em;
+}
+
+.portal-verify-email-form .alert {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+}
+
+@media (max-width: 767.98px) {
+  .portal-verify-email-card {
+    grid-template-columns: 1fr;
+  }
+
+  .portal-verify-email-art {
+    min-height: 140px;
+  }
+
+  .portal-verify-email-art span {
+    width: 64px;
+    height: 64px;
+  }
+}

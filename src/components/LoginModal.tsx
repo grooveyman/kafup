@@ -2,21 +2,54 @@ import { useState } from "react";
 import { useLoginModal } from "../context/LoginModalContext";
 import GoogleLogo from "./GoogleLogo";
 import { Link } from "react-router-dom";
+import { useApiMutation } from "../hooks/useApi";
 
+const getErrorMessage = (errorMessage: string): string => {
+  try {
+    const response: unknown = JSON.parse(errorMessage);
+    if (
+      typeof response === "object" &&
+      response !== null &&
+      "message" in response &&
+      typeof response.message === "string"
+    ) {
+      return response.message;
+    }
+  } catch {
+    return errorMessage;
+  }
+  return errorMessage;
+};
 
 const LoginModal: React.FC = () => {
   const { loginUser, closeLogin, isLoginOpen } = useLoginModal();
 
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loginError, setLoginError] = useState("");
+
+  const handleClose = () => {
+    setLoginError("");
+    closeLogin();
+  };
+
+  const mutation = useApiMutation<{ message?: string } | null>("/auth/customer-login", "POST", {
+      onSuccess: (response) => {
+        console.log("Login successful:", response?.message);
+        loginUser(email);
+        handleClose();
+      },
+      onError: (error) => {
+        setLoginError(
+          getErrorMessage(error.message) || "Unable to log in. Please try again.",
+        );
+      },
+    });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    //login logic here
-    if (username == 'admin' && password == 'admin') {
-      loginUser("admin");
-      closeLogin();
-    }
+    setLoginError("");
+    mutation.mutate({ email, password });
   };
 
   return (
@@ -30,18 +63,25 @@ const LoginModal: React.FC = () => {
             <form onSubmit={handleSubmit}>
               <div className="modal-header">
                 <h5 className="modal-title">Login</h5>
-                <button type="button" className="btn-close" onClick={closeLogin}></button>
+                <button type="button" className="btn-close" onClick={handleClose}></button>
               </div>
               <div className="modal-body">
+                {loginError && (
+                  <div id="login-error" className="alert alert-danger" role="alert">
+                    {loginError}
+                  </div>
+                )}
                 <div className="mb-3">
-                  <label htmlFor="username" className="form-label">Username</label>
-                  <input type="text" className="form-control" id="username"
-                    value={username} onChange={(e) => setUsername(e.target.value)} required />
+                  <label htmlFor="email" className="form-label">Email</label>
+                  <input type="email" className="form-control" id="email" name="email" placeholder="Enter your email"
+                    value={email} onChange={(e) => { setEmail(e.target.value); setLoginError(""); }} required
+                    aria-describedby={loginError ? "login-error" : undefined} />
                 </div>
                 <div className="mb-3">
                   <label htmlFor="password" className="form-label">Password</label>
                   <input type="password" className="form-control" id="password"
-                    value={password} onChange={(e) => setPassword(e.target.value)} required />
+                    value={password} onChange={(e) => { setPassword(e.target.value); setLoginError(""); }} required
+                    aria-describedby={loginError ? "login-error" : undefined} />
                 </div>
                 {/* login with google button */}
                 <div className="mb-3">
@@ -53,17 +93,13 @@ const LoginModal: React.FC = () => {
                     Login with Google
                   </button>
                 </div>
-                <Link
-                  to="/register"
-                  className="btn btn-primary w-100"
-                  onClick={closeLogin}
-                >
-                  Create account
-                </Link>
+                <p>Already have an account? <Link to="/register" onClick={handleClose}>Register here</Link></p>
               </div>
               <div className="modal-footer">
-                <button type="button" className="btn btn-secondary" onClick={closeLogin}>Close</button>
-                <button type="submit" className="btn btn-primary" onClick={handleSubmit}>Login</button>
+                <button type="button" className="btn btn-secondary" onClick={handleClose}>Close</button>
+                <button type="submit" className="btn btn-primary" disabled={mutation.isPending}>
+                  {mutation.isPending ? "Signing in..." : "Login"}
+                </button>
               </div>
             </form>
           </div>

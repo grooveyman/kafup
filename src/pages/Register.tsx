@@ -132,7 +132,7 @@ const Register: React.FC = () => {
     "POST",
     {
     onSuccess: () => {
-      navigate("/portal/orders");
+      navigate("/portal/verify-email", { state: { email: email.trim() } });
       },
       onError: (error) => {
         setMessage(error.message || "Unable to save your account. Please try again.");
@@ -159,7 +159,7 @@ const Register: React.FC = () => {
     },
   );
 
-  console.log(isLoading? "Loading..." : emailCheckData);
+  // console.log(isLoading? "Loading..." : emailCheckData);
 
   useEffect(() => {
     if (!emailToCheck || isLoading) return;
