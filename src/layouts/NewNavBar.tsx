@@ -1,4 +1,12 @@
-import { ShoppingBagIcon, User } from "lucide-react";
+import {
+  ChevronDown,
+  ClipboardList,
+  LogOut,
+  ShoppingBagIcon,
+  Ticket,
+  User,
+  UserRound,
+} from "lucide-react";
 import { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import "../assets/css/newnav.css";
@@ -8,7 +16,7 @@ import { useLoginModal } from "../context/LoginModalContext";
 
 const NewNavBar: React.FC = () => {
   const [scrolled, setScrolled] = useState<boolean>(false);
-  const { openLogin } = useLoginModal();
+  const { openLogin, isLoggedIn, authUser, logoutUser } = useLoginModal();
   const [showCart, setShowCart] = useState(false);
   const { cartItems, removeCart } = useCartContext();
   const navigate = useNavigate();
@@ -147,34 +155,100 @@ const NewNavBar: React.FC = () => {
                   isMobile ? "flex-column align-items-start" : ""
                 }`}
               >
-                <li className="nav-item me-2">
-                  <button
-                    type="button"
-                    className="nav-link btn btn-link p-0"
-                    onClick={() => {}}
-                    aria-label="Open account"
-                  >
-                  </button>
-                </li>
-
-                <li className="nav-item me-2">
-                  <button
-                    type="button"
-                    className="nav-link btn btn-link p-0"
-                    onClick={() => {
-                      closeMobileNav();
-                      openLogin();
-                    }}
-                    aria-label="Open account"
-                  >
-                    <div className="d-flex justify-content-between gap-2">
-                      <User />
-                      {isMobile && (
-                        <span className="d-block mt-2">Account</span>
-                      )}
-                    </div>
-                  </button>
-                </li>
+                {isLoggedIn ? (
+                  <li className="nav-item dropdown me-2">
+                    <button
+                      type="button"
+                      className="nav-link btn btn-link p-0"
+                      id="accountDropdown"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                      aria-label="Open account menu"
+                    >
+                      <div className="d-flex align-items-center gap-2">
+                        <User />
+                        {isMobile && (
+                          <span>Account</span>
+                        )}
+                        <ChevronDown size={16} aria-hidden="true" />
+                      </div>
+                    </button>
+                    <ul
+                      className="dropdown-menu dropdown-menu-end account-dropdown-menu"
+                      aria-labelledby="accountDropdown"
+                    >
+                      <li>
+                        <NavLink
+                          className={({ isActive }) =>
+                            `dropdown-item d-flex align-items-center gap-2${isActive ? " active" : ""}`
+                          }
+                          to="/portal/profile"
+                          onClick={closeMobileNav}
+                        >
+                          <UserRound size={16} aria-hidden="true" />
+                          Profile
+                        </NavLink>
+                      </li>
+                      <li>
+                        <NavLink
+                          className={({ isActive }) =>
+                            `dropdown-item d-flex align-items-center gap-2${isActive ? " active" : ""}`
+                          }
+                          to="/portal/orders"
+                          onClick={closeMobileNav}
+                        >
+                          <ClipboardList size={16} aria-hidden="true" />
+                          Orders
+                        </NavLink>
+                      </li>
+                      <li>
+                        <NavLink
+                          className={({ isActive }) =>
+                            `dropdown-item d-flex align-items-center gap-2${isActive ? " active" : ""}`
+                          }
+                          to="/profile/vouchers"
+                          onClick={closeMobileNav}
+                        >
+                          <Ticket size={16} aria-hidden="true" />
+                          Vouchers
+                        </NavLink>
+                      </li>
+                      <li>
+                        <button
+                          type="button"
+                          className="dropdown-item d-flex align-items-center gap-2"
+                          onClick={() => {
+                            logoutUser(authUser);
+                            closeMobileNav();
+                            navigate("/");
+                          }}
+                        >
+                          <LogOut size={16} aria-hidden="true" />
+                          Logout
+                        </button>
+                      </li>
+                    </ul>
+                  </li>
+                ) : (
+                  <li className="nav-item me-2">
+                    <button
+                      type="button"
+                      className="nav-link btn btn-link p-0"
+                      onClick={() => {
+                        closeMobileNav();
+                        openLogin();
+                      }}
+                      aria-label="Open account"
+                    >
+                      <div className="d-flex justify-content-between gap-2">
+                        <User />
+                        {isMobile && (
+                          <span className="d-block mt-2">Account</span>
+                        )}
+                      </div>
+                    </button>
+                  </li>
+                )}
 
                 <li className="nav-item">
                   <button

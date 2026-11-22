@@ -1,0 +1,216 @@
+.portal-profile-page {
+  color: #242222;
+}
+
+.portal-profile-intro {
+  color: #817a7c;
+  font-size: 0.9rem;
+}
+
+.portal-profile-hero {
+  display: flex;
+  min-height: 170px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  padding: clamp(1.25rem, 4vw, 2rem);
+  overflow: hidden;
+  border: 1px solid #342a2b;
+  border-radius: 0.9rem;
+  background:
+    radial-gradient(ellipse at 85% 15%, rgb(200 118 77 / 35%), transparent 35%),
+    linear-gradient(120deg, #211d1e, #403233);
+  color: #fff;
+}
+
+.portal-profile-identity {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 1rem;
+}
+
+.portal-profile-avatar {
+  display: grid;
+  width: 4.25rem;
+  height: 4.25rem;
+  flex: 0 0 4.25rem;
+  place-items: center;
+  border: 2px solid rgb(255 255 255 / 65%);
+  border-radius: 50%;
+  background: #f1e7e2;
+  color: #443536;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.portal-profile-eyebrow {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: #d7c6c1;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+}
+
+.portal-profile-identity h2 {
+  overflow-wrap: anywhere;
+  margin: 0;
+  font-size: clamp(1.2rem, 3vw, 1.6rem);
+  font-weight: 700;
+}
+
+.portal-profile-identity p {
+  margin: 0.35rem 0 0;
+  color: #e3d9d6;
+  font-size: 0.85rem;
+}
+
+.portal-profile-active {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.7rem;
+  border: 1px solid rgb(255 255 255 / 20%);
+  border-radius: 2rem;
+  background: rgb(255 255 255 / 10%);
+  font-size: 0.75rem;
+}
+
+.portal-profile-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  padding: 0 1.25rem 1.25rem;
+}
+
+.portal-profile-form-field {
+  display: grid;
+  min-width: 0;
+  gap: 0.4rem;
+}
+
+.portal-profile-form-field.is-wide {
+  grid-column: 1 / -1;
+}
+
+.portal-profile-form-field label {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: #6f686a;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.portal-profile-form-field .form-control {
+  border-color: #e8e0e1;
+  border-radius: 0.55rem;
+  font-size: 0.875rem;
+}
+
+.portal-profile-form-field .form-control:focus {
+  border-color: #c7a69a;
+  box-shadow: 0 0 0 0.2rem rgb(198 90 49 / 12%);
+}
+
+.portal-profile-form-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem 1.25rem;
+  border-top: 1px solid #efebeb;
+}
+
+.portal-profile-save-note {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0;
+  color: #817a7c;
+  font-size: 0.75rem;
+}
+
+.portal-profile-shortcuts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  padding: 0 1.25rem 1.25rem;
+}
+
+.portal-profile-shortcut {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.85rem;
+  border: 1px solid #eeeaea;
+  border-radius: 0.75rem;
+  color: #292627;
+  text-decoration: none;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.portal-profile-shortcut:hover {
+  border-color: #dac9c4;
+  background: #faf7f6;
+  color: #292627;
+}
+
+.portal-profile-shortcut > span:nth-child(2) {
+  display: grid;
+  min-width: 0;
+  gap: 0.2rem;
+}
+
+.portal-profile-shortcut strong {
+  font-size: 0.85rem;
+}
+
+.portal-profile-shortcut small {
+  color: #817a7c;
+  font-size: 0.75rem;
+}
+
+.portal-profile-shortcut-arrow {
+  flex: 0 0 auto;
+  margin-left: auto;
+  transform: rotate(180deg);
+}
+
+@media (max-width: 767.98px) {
+  .portal-profile-form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .portal-profile-hero {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .portal-profile-avatar {
+    width: 3.5rem;
+    height: 3.5rem;
+    flex-basis: 3.5rem;
+  }
+
+  .portal-profile-form-grid,
+  .portal-profile-shortcuts {
+    padding-right: 1rem;
+    padding-left: 1rem;
+  }
+
+  .portal-profile-form-footer {
+    align-items: stretch;
+    flex-direction: column;
+    padding-right: 1rem;
+    padding-left: 1rem;
+  }
+
+  .portal-profile-shortcuts {
+    grid-template-columns: 1fr;
+  }
+}

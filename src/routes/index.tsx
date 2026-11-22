@@ -3,6 +3,8 @@ import MainLayout from "../layouts/MainLayout";
 import Home from "../pages/Home";
 import Dashboard from "../pages/portal/Dashboard.tsx";
 import OrderDetails from "../pages/portal/OrderDetails.tsx";
+import OrderList from "../pages/portal/products/OrderList.tsx";
+import PortalProfile from "../pages/portal/Profile.tsx";
 import Details from "../pages/Details";
 import Cart from "../pages/Cart";
 import Shop from "../pages/Shop";
@@ -14,7 +16,7 @@ import Profile from "../pages/Profile";
 import Collection from "../pages/DesignerProfile.tsx";
 import Brands from "../pages/Brands";
 import Register from "../pages/Register";
-import PortalLayout from "../layouts/PortalLayouts.tsx";
+import ProtectedRoute from "../components/ProtectedRoute";
 
 export const router = createBrowserRouter([
   {
@@ -35,14 +37,15 @@ export const router = createBrowserRouter([
       {path: "/brands/:username", element: <Profile />},
       {path: "/profile/:username", element: <Collection/>},
       {path: "/register", element: <Register />},
-    ]
-  },
-  {
-    path: "/portal",
-    element: <PortalLayout />,
-    children: [
-      {index: true, element: <Dashboard/>},
-      {path: "orders/:orderId", element: <OrderDetails />},
-    ]
+      {
+        element: <ProtectedRoute />,
+        children: [
+          { path: "/portal", element: <Dashboard /> },
+          { path: "/portal/orders", element: <OrderList /> },
+          { path: "/portal/orders/:orderId", element: <OrderDetails />           },
+          { path: "/portal/profile", element: <PortalProfile /> },
+        ],
+      },
+    ],
   },
 ], {basename:"/kafup/"});

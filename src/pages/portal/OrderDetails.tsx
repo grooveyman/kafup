@@ -45,7 +45,7 @@ const OrderDetails: React.FC = () => {
     <main className="container portal-order-page py-4 py-lg-5">
       <div className="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
         <div>
-          <Link to="/portal" className="portal-order-back-link d-inline-flex align-items-center mb-3">
+          <Link to="/portal/orders" className="portal-order-back-link d-inline-flex align-items-center mb-3">
             <ArrowLeft size={16} className="me-2" />
             Back to orders
           </Link>

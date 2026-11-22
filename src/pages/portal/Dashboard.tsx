@@ -82,13 +82,9 @@ const Dashboard: React.FC = () => {
               </div>
               <p>A clear view of your latest order activity.</p>
             </div>
-            <button
-              type="button"
-              className="portal-view-all"
-              onClick={() => selectFilter("all")}
-            >
+            <Link className="portal-view-all" to="/portal/orders">
               View all
-            </button>
+            </Link>
           </header>
 
           <div className="portal-orders-controls">

@@ -104,6 +104,7 @@
   background: transparent;
   color: #171515;
   font-size: 10px;
+  text-decoration: none;
 }
 
 .portal-orders-controls {
@@ -114,6 +115,33 @@
 .portal-order-tabs {
   display: flex;
   gap: 6px;
+}
+
+.portal-order-filter-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.portal-order-search {
+  width: 120px;
+  max-width: 120px;
+  flex: 0 0 120px;
+  align-self: flex-start;
+  min-height: 30px;
+  padding: 5px 9px;
+  border-color: #e8e0e1;
+  border-radius: 5px;
+  font-size: 10px;
+}
+
+.portal-orders-empty {
+  margin: 0;
+  padding: 24px 14px;
+  color: #817a7c;
+  font-size: 12px;
+  text-align: center;
 }
 
 .portal-order-tabs button {
@@ -343,6 +371,11 @@
   .portal-stat-card {
     gap: 6px;
     padding: 8px;
+  }
+
+  .portal-order-filter-row {
+    align-items: stretch;
+    flex-direction: column;
   }
 
   .portal-stat-icon {
